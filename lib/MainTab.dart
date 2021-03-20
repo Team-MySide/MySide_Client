@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_side_client/FoodRankingContainer.dart';
 
+import 'Constants.dart';
 import 'DiseaseCategoryContainer.dart';
 import 'DiseaseRankingContainer.dart';
 import 'LoginRequestBar.dart';
@@ -14,7 +15,7 @@ class Main extends StatelessWidget {
     return MaterialApp(
         title: "이웃집닥터 메인",
         theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primaryColor: Color(Constants.primaryColorInt),
             visualDensity: VisualDensity.adaptivePlatformDensity),
         home: MainTab());
   }
