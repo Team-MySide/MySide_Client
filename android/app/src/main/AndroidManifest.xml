@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.my_side_client">
    <application
-        android:label="my_side_client"
+        android:label="이웃집닥터"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
