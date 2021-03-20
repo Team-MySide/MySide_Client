@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_side_client/FoodRankingContainer.dart';
+
+import 'DiseaseCategoryContainer.dart';
+import 'DiseaseRankingContainer.dart';
+import 'LoginRequestBar.dart';
+import 'SearchBar.dart';
 
 class Main extends StatelessWidget {
   Main({Key key}) : super(key: key);
@@ -19,60 +25,25 @@ class MainTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      children: [
-        Row(children: [SearchBar()]),
-        Row(children: [LoginRequestBar()]),
-        Flex(children: [DiseaseCategory()]),
-        Flex(children: [DiseaseRanking()]),
-        Flex(children: [FoodRanking()])
-      ],
-    ));
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  // const SearchBar({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class LoginRequestBar extends StatelessWidget {
-  const LoginRequestBar({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class DiseaseCategory extends StatelessWidget {
-  const DiseaseCategory({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class DiseaseRanking extends StatelessWidget {
-  const DiseaseRanking({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class FoodRanking extends StatelessWidget {
-  const FoodRanking({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text("매인 메뉴"),
+        ),
+        body: Container(
+            child: Column(
+          children: [
+            Row(children: [SearchBar()]),
+            Row(children: [LoginRequestBar()]),
+            Flex(
+                direction: Axis.horizontal,
+                children: [DiseaseCategoryContainer()]),
+            Flex(
+                direction: Axis.horizontal,
+                children: [DiseaseRankingContainer()]),
+            Flex(direction: Axis.horizontal, children: [FoodRankingContainer()])
+          ],
+        )));
   }
 }
