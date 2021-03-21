@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_side_client/FoodRankingContainer.dart';
+import 'TabHome/TabHome.dart';
 
 import 'Constants.dart';
-import 'DiseaseCategoryContainer.dart';
-import 'DiseaseRankingContainer.dart';
-import 'LoginRequestBar.dart';
-import 'SearchBar.dart';
+import 'TabCommunity/TabCommunity.dart';
+import 'TabMyPage/TabMyPage.dart';
+import 'TabSearch/TabSearch.dart';
 
 class Main extends StatelessWidget {
   Main({Key key}) : super(key: key);
@@ -26,25 +25,21 @@ class MainTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text("매인 메뉴"),
-        ),
-        body: Container(
-            child: Column(
-          children: [
-            Row(children: [SearchBar()]),
-            Row(children: [LoginRequestBar()]),
-            Flex(
-                direction: Axis.horizontal,
-                children: [DiseaseCategoryContainer()]),
-            Flex(
-                direction: Axis.horizontal,
-                children: [DiseaseRankingContainer()]),
-            Flex(direction: Axis.horizontal, children: [FoodRankingContainer()])
-          ],
-        )));
+    return DefaultTabController(
+        length: 4,
+        child: Scaffold(
+            appBar: AppBar(),
+            body: TabBarView(children: [
+              TabHome(),
+              TabSearch(),
+              TabCommunity(),
+              TabMyPage()
+            ]),
+            bottomNavigationBar: TabBar(tabs: [
+              Tab(icon: Icon(Icons.directions_car)),
+              Tab(icon: Icon(Icons.directions_transit)),
+              Tab(icon: Icon(Icons.directions_boat_sharp)),
+              Tab(icon: Icon(Icons.directions_bike))
+            ])));
   }
 }
