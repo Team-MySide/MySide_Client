@@ -12,11 +12,11 @@ class TabHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Row(children: [SearchBar()]),
-      Row(children: [LoginRequestBar()]),
-      Flex(direction: Axis.horizontal, children: [DiseaseCategoryContainer()]),
-      Flex(direction: Axis.horizontal, children: [DiseaseRankingContainer()]),
-      Flex(direction: Axis.horizontal, children: [FoodRankingContainer()])
+      SearchBar(),
+      LoginRequestBar(),
+      DiseaseCategoryContainer(),
+      DiseaseRankingContainer(),
+      FoodRankingContainer(),
     ]);
   }
 }

@@ -25,21 +25,24 @@ class MainTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 4,
-        child: Scaffold(
-            appBar: AppBar(),
-            body: TabBarView(children: [
-              TabHome(),
-              TabSearch(),
-              TabCommunity(),
-              TabMyPage()
-            ]),
-            bottomNavigationBar: TabBar(tabs: [
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_boat_sharp)),
-              Tab(icon: Icon(Icons.directions_bike))
-            ])));
+    return SafeArea(
+        child: DefaultTabController(
+            length: 4,
+            child: Scaffold(
+                // appBar: AppBar(
+                //   title: Text("이웃집닥터"),
+                // ),
+                body: TabBarView(children: [
+                  TabHome(),
+                  TabSearch(),
+                  TabCommunity(),
+                  TabMyPage()
+                ]),
+                bottomNavigationBar: TabBar(tabs: [
+                  Tab(icon: Icon(Icons.directions_car)),
+                  Tab(icon: Icon(Icons.directions_transit)),
+                  Tab(icon: Icon(Icons.directions_boat_sharp)),
+                  Tab(icon: Icon(Icons.directions_bike))
+                ]))));
   }
 }
