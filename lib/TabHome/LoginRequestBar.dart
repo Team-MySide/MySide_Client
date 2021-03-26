@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/common/CommonComponent.dart';
 
 class LoginRequestBar extends StatelessWidget {
   const LoginRequestBar({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Text("고객님, 안녕하세요. \n 로그인을 하시면 \n 음식 추천을 받을 수 있어요!"),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text("로그인하러 가기"),
-          IconButton(
-              onPressed: _goToLogin(), icon: Icon(Icons.arrow_right_outlined))
-        ],
-      )
-    ]);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          HeaderRow("푸른숲님", isViewMore: false),
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+              width: 208, child: Text("더 자세하게 음식을 추천받고 싶다면 2단계 정보를 입력해주세요!")),
+          SizedBox(
+            height: 47,
+          )
+        ]),
+        SizedBox(
+          width: 48,
+          height: 48,
+          child: IconButton(
+              onPressed: _goToLogin(),
+              icon: Image.asset("images/gotologin.png")),
+        )
+      ],
+    );
   }
 
   _goToLogin() {}

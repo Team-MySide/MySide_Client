@@ -49,6 +49,13 @@ flutter:
   assets:
     - images/logo.png
     - images/iconlogo.png
+    - images/icondiseasesearch.png
+    - images/gotologin.png
+    - images/food4.png
+    - images/food3.png
+    - images/food2.png
+    - images/food1.png
+    - images/ingredient.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

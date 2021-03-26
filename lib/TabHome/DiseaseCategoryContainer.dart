@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_side_client/Constants.dart';
 
 class DiseaseCategoryContainer extends StatelessWidget {
   const DiseaseCategoryContainer({Key key}) : super(key: key);
@@ -7,7 +8,9 @@ class DiseaseCategoryContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: Constants.paddingBetweenMainComponent),
         Text("질병 카테고리", style: TextStyle(fontSize: 28)),
+        SizedBox(height: Constants.paddingBetweenDiseaseCategoryAndDiseaseList),
         Wrap(
           direction: Axis.horizontal,
           alignment: WrapAlignment.start,
