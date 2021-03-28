@@ -55,25 +55,27 @@ class LikeBestTile extends StatelessWidget {
                     child: Container(color: Color(0xFFF9F1DF)),
                     clipper: OctagonClipper(),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, top: 2.6),
-                    child: SizedBox(
-                        width: 39,
-                        height: 39,
-                        child: CircleAvatar(
-                            backgroundColor: Color(0xFFE9BF4D),
-                            child: Text("${index + 1}위",
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.white)))),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(top: 41),
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                              width: 171.15,
-                              height: 141.93,
-                              child: Image.asset(item["path"])))),
+                  // Padding(
+                  //   padding: EdgeInsets.only(left: 20, top: 2.6),
+                  // child: SizedBox(
+                  //     width: 39,
+                  //     height: 39,
+                  //     child: CircleAvatar(
+                  //         backgroundColor: Color(0xFFE9BF4D),
+                  //         child: Text("${index + 1}위",
+                  //             style: TextStyle(
+                  //                 fontSize: 14, color: Colors.white)))),
+                  // ),
+                  // Padding(
+                  // padding: EdgeInsets.only(top: 41),
+                  // child:
+                  Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                          width: 171.15,
+                          height: 141.93,
+                          child: Image.asset(item["path"])))
+                  // ),
                 ],
               )),
           Text(item["name"],
@@ -88,12 +90,12 @@ class OctagonClipper extends CustomClipper<Path> {
   @override
   getClip(Size size) {
     return new Path()
-      ..moveTo(99.4, 0)
-      ..lineTo(198.8, 65)
-      ..lineTo(198.8, 179.81)
-      ..lineTo(0, 179.81)
-      ..lineTo(0, 65)
-      ..lineTo(99.4, 0);
+      ..moveTo(0, 42)
+      ..lineTo(0, 180)
+      ..lineTo(200, 180)
+      ..lineTo(200, 42)
+      ..lineTo(100, 0)
+      ..lineTo(0, 42);
   }
 
   @override

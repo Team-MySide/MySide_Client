@@ -8,15 +8,21 @@ class HeaderRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isViewMore
-        ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            _header(title),
-            TextButton(
-              child: Text("더보기 +",
-                  style: TextStyle(fontSize: 21, color: Color(0xFF666666))),
-              onPressed: () {},
-            ),
-          ])
-        : _header(title);
+        ? Padding(
+            padding: EdgeInsets.symmetric(vertical: 15),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _header(title),
+                  TextButton(
+                    child: Text("더보기 +",
+                        style:
+                            TextStyle(fontSize: 21, color: Color(0xFF666666))),
+                    onPressed: () {},
+                  ),
+                ]))
+        : Padding(
+            padding: EdgeInsets.symmetric(vertical: 20), child: _header(title));
   }
 
   Widget _header(String title) {
