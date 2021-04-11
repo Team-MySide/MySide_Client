@@ -23,10 +23,12 @@ class Tags extends StatelessWidget {
 
         tagColorMap.putIfAbsent(tag, () => colorLst[0]);
         SizedBox tb = SizedBox(
-            height: 24,
+            height: 22,
             child: TextButton(
                 onPressed: () {},
-                child: Text(tag, style: TextStyle(fontSize: 12)),
+                child: Text(tag,
+                    style: TextStyle(
+                        fontSize: 12, textBaseline: TextBaseline.ideographic)),
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
@@ -40,6 +42,6 @@ class Tags extends StatelessWidget {
       }
     }
     List<Widget> ret = lst.map((element) => tagCache[element]).toList();
-    return Wrap(spacing: 4, direction: Axis.horizontal, children: ret);
+    return Wrap(spacing: 6, direction: Axis.horizontal, children: ret);
   }
 }

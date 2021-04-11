@@ -6,8 +6,12 @@ class LoginRequestBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    final PageController controller = PageController(initialPage: 0);
+    return
+        // PageView(
+        //   controller: controller,
+        //   children: [
+        Row(
       children: [
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           HeaderRow("푸른숲님", isViewMore: false),
@@ -15,10 +19,7 @@ class LoginRequestBar extends StatelessWidget {
             height: 10,
           ),
           SizedBox(
-              width: 208, child: Text("더 자세하게 음식을 추천받고 싶다면 2단계 정보를 입력해주세요!")),
-          SizedBox(
-            height: 47,
-          )
+              width: 204, child: Text("더 자세하게 음식을 추천받고 싶다면 2단계 정보를 입력해주세요!")),
         ]),
         SizedBox(
           width: 48,
@@ -28,7 +29,10 @@ class LoginRequestBar extends StatelessWidget {
               icon: Image.asset("images/gotologin.png")),
         )
       ],
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
     );
+    //   ],
+    // );
   }
 
   _goToLogin() {}

@@ -8,27 +8,46 @@ class HeaderRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isViewMore
-        ? Padding(
-            padding: EdgeInsets.symmetric(vertical: 15),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _header(title),
-                  TextButton(
-                    child: Text("더보기 +",
-                        style:
-                            TextStyle(fontSize: 21, color: Color(0xFF666666))),
-                    onPressed: () {},
-                  ),
-                ]))
-        : Padding(
-            padding: EdgeInsets.symmetric(vertical: 20), child: _header(title));
+        ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            _header(title),
+            TextButton(
+              child: Text("더보기 +",
+                  style: TextStyle(fontSize: 14, color: Color(0xFF666666))),
+              onPressed: () {},
+            ),
+          ])
+        : _header(title);
   }
 
   Widget _header(String title) {
     return Text(
       title,
-      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+class LikeBookmark extends StatelessWidget {
+  final Map item;
+  final String bookmark;
+  final String like;
+  const LikeBookmark({Key key, this.item, this.bookmark, this.like})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 14,
+      child: Row(children: [
+        Padding(
+            padding: EdgeInsets.only(right: 5),
+            child: Image.asset("images/like.png")),
+        Text(like, style: TextStyle(fontSize: 14)),
+        Padding(
+            padding: EdgeInsets.only(left: 10, right: 5),
+            child: Image.asset("images/bookmark.png")),
+        Text(bookmark, style: TextStyle(fontSize: 14)),
+      ]),
     );
   }
 }

@@ -47,16 +47,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   # cannot read special character in file name
   assets:
-    - images/logo.png
-    - images/iconlogo.png
-    - images/icondiseasesearch.png
-    - images/gotologin.png
-    - images/food4.png
-    - images/food3.png
-    - images/food2.png
-    - images/food1.png
-    - images/ingredient.png
-    - images/ad1.png
+    - images/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

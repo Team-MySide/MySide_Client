@@ -13,8 +13,11 @@ class SearchBar extends StatelessWidget {
         // BoxConstraints(minHeight: 80),
         Container(
             child: Column(children: [
+      SizedBox(
+        height: 16,
+      ),
       Container(
-          height: 64,
+          height: 42,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +52,7 @@ class SearchBar extends StatelessWidget {
             ],
           )),
       Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
+          padding: EdgeInsets.symmetric(vertical: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -67,7 +70,7 @@ class SearchBar extends StatelessWidget {
                   child: _button("음식검색", "images/icondiseasesearch.png"))
             ],
           )),
-      SizedBox(height: 45)
+      SizedBox(height: 21)
     ]));
   }
 

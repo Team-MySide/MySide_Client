@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabHome/AdContainer.dart';
-import 'BestLikeContainer.dart';
+import 'FoodRecommendContainer.dart';
 import 'FoodRankingContainer.dart';
 
 import 'SearchBar.dart';
@@ -12,18 +12,18 @@ class TabHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: Constants.paddingMainContainerVertical),
+    return Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: Constants.paddingMainContainerVertical),
+        child: SingleChildScrollView(
             child: Column(children: [
-              SearchBar(),
-              LoginRequestBar(),
-              BestLikeContainer(),
-              AdContainer(),
-              FoodRankingContainer(),
-              // DiseaseCategoryContainer(),
-              // AdContainer()
-            ])));
+          SearchBar(),
+          LoginRequestBar(),
+          FoodRecommendContainer(),
+          AdContainer(),
+          FoodRankingContainer(),
+          // DiseaseCategoryContainer(),
+          // AdContainer()
+        ])));
   }
 }
