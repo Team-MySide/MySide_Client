@@ -11,26 +11,29 @@ class LoginRequestBar extends StatelessWidget {
         // PageView(
         //   controller: controller,
         //   children: [
-        Row(
-      children: [
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          HeaderRow("푸른숲님", isViewMore: false),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-              width: 204, child: Text("더 자세하게 음식을 추천받고 싶다면 2단계 정보를 입력해주세요!")),
-        ]),
-        SizedBox(
-          width: 48,
-          height: 48,
-          child: IconButton(
-              onPressed: _goToLogin(),
-              icon: Image.asset("images/gotologin.png")),
-        )
-      ],
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    );
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  HeaderRow("푸른숲님", isViewMore: false),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                      width: 204,
+                      child: Text("더 자세하게 음식을 추천받고 싶다면 2단계 정보를 입력해주세요!")),
+                ]),
+                SizedBox(
+                  width: 48,
+                  height: 48,
+                  child: IconButton(
+                      onPressed: _goToLogin(),
+                      icon: Image.asset("images/gotologin.png")),
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ));
     //   ],
     // );
   }

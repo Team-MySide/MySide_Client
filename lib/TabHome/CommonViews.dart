@@ -28,8 +28,12 @@ class Tags extends StatelessWidget {
                 onPressed: () {},
                 child: Text(tag,
                     style: TextStyle(
-                        fontSize: 12, textBaseline: TextBaseline.ideographic)),
+                        fontSize: 12,
+                        // height: 0.5,
+                        // decoration: TextDecoration.none)),
+                        textBaseline: TextBaseline.ideographic)),
                 style: ButtonStyle(
+                    padding: MaterialStateProperty.all(EdgeInsets.zero),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(

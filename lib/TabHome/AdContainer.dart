@@ -15,15 +15,16 @@ class AdContainer extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 50),
         child: Container(
-            height: 152,
+            // height: 152,
             // width: double.infinity,
-            child: Expanded(
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: items.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return AdTile(items[index]);
-                    }))));
+            child: AdTile(items[0])
+            // child: ListView.builder(
+            //     scrollDirection: Axis.horizontal,
+            //     itemCount: items.length,
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return AdTile(items[index]);
+            //     })
+            ));
   }
 }
 
@@ -34,7 +35,8 @@ class AdTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      FittedBox(child: Image.asset(item['path'], fit: BoxFit.fill)),
+      Container(
+          height: 152, child: Image.asset(item['path'], fit: BoxFit.fill)),
       Padding(
         padding: EdgeInsets.only(left: 24, top: 32),
         child: SizedBox(

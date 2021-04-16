@@ -37,6 +37,7 @@ class LikeBookmark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: 90,
       height: 14,
       child: Row(children: [
         Padding(

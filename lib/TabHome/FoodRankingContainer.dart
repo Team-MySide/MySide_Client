@@ -11,10 +11,13 @@ class FoodRankingContainer extends StatelessWidget {
     return Container(
         width: double.infinity,
         height: 634,
-        decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
+        decoration: BoxDecoration(
+          color: Color(0xFFF4F4F4),
+        ),
         child: Column(children: [
           Padding(
-              padding: EdgeInsets.only(top: 40, bottom: 20),
+              padding:
+                  EdgeInsets.only(top: 40, bottom: 20, left: 16, right: 16),
               child: HeaderRow("좋아요가 많은 음식", isViewMore: true)),
           Wrap(
             children: _getTop4FoodRankingList(),
@@ -86,46 +89,53 @@ class FoodTile extends StatelessWidget {
         height: 246,
         child: Stack(
           children: [
-            Padding(
+            Container(
+                height: 240,
+                decoration: BoxDecoration(
+                    borderRadius: new BorderRadius.all(
+                  const Radius.circular(150.0),
+                )),
                 padding: EdgeInsets.only(top: 6),
-                child:
-                    Container(height: 240, child: Card(color: Colors.white))),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: RankingBanner(ranking)),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(top: 1),
-                    child: Container(
-                        width: 128, height: 114, child: Image.asset(path))),
-                // SizedBox(height: 13.5),
-                SizedBox(
-                    height: 24,
-                    child: Text(
-                      title,
-                      style: TextStyle(fontSize: 16),
-                    )),
-                SizedBox(
-                  height: 5, //11인데 한글 일 때 높이가 약간 안맞음
-                ),
-                Align(alignment: Alignment.center, child: Tags()),
-                SizedBox(
-                  height: 16,
-                ),
-                LikeBookmark(
-                  like: like,
-                  bookmark: bookmark,
-                ),
-                // SizedBox(
-                //   height: 20,
-                // )
-              ],
-            )
+                child: Card(
+                    color: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.only(top: 1),
+                            child: Container(
+                                width: 128,
+                                height: 114,
+                                child: Image.asset(path))),
+                        // SizedBox(height: 13.5),
+                        SizedBox(
+                            height: 24,
+                            child: Text(
+                              title,
+                              style: TextStyle(fontSize: 16),
+                            )),
+                        SizedBox(
+                          height: 5, //11인데 한글 일 때 높이가 약간 안맞음
+                        ),
+                        Align(alignment: Alignment.center, child: Tags()),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        FittedBox(
+                            child: LikeBookmark(
+                          like: like,
+                          bookmark: bookmark,
+                        )),
+                        // SizedBox(
+                        //   height: 20,
+                        // )
+                      ],
+                    ))),
+            Padding(
+              padding: EdgeInsets.only(left: 10, top: 6),
+              child: Align(
+                  alignment: Alignment.topLeft, child: RankingBanner(ranking)),
+            ),
           ],
         ));
   }
