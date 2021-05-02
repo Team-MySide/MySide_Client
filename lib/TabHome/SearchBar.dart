@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../Constants.dart';
 
@@ -20,26 +21,48 @@ class SearchBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                      width: 60, //1.5배 why???
-                      height: 51,
-                      child: IconButton(
-                        icon: Image.asset(
-                          "images/iconlogo.png",
-                        ),
-                        onPressed: () => {},
-                      )),
-                  SizedBox(width: 25),
+                    width: 40, //1.5배 why???
+                    height: 34.05,
+                    // child: IconButton(
+                    //   icon:
+                    child: Image.asset(
+                      "images/searchbar_logo.png",
+                    ),
+                    // icon: SvgPicture.asset("images/svg/home_selected.svg"),
+                    // onPressed: () => {},
+                    // )
+                  ),
+                  SizedBox(width: 16),
                   Expanded(
                       child: TextField(
-                    controller: _textEditingController,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                              const Radius.circular(30.0))),
-                    ),
-                  )),
-                  SizedBox(width: 25),
+                          // textAlignVertical: TextAlignVertical.center,
+                          controller: _textEditingController,
+                          decoration: InputDecoration(
+                            hintText: "사과",
+                            hintStyle: TextStyle(color: Color(0xFF999999)),
+                            contentPadding: EdgeInsets.only(left: 16.0),
+                            suffixIcon: Container(
+                                padding: EdgeInsets.all(13),
+                                child: SvgPicture.asset(
+                                    "images/svg/searchbar_search.svg")),
+                            enabledBorder: const OutlineInputBorder(
+                              // width: 0.0 produces a thin "hairline" border
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 0.0),
+                              borderRadius: const BorderRadius.all(
+                                  const Radius.circular(30.0)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color(Constants.primaryColorInt),
+                                    width: 0),
+                                borderRadius: const BorderRadius.all(
+                                    const Radius.circular(30.0))),
+                          ),
+                          style: TextStyle(
+                              fontSize: 18,
+                              textBaseline: TextBaseline.alphabetic))),
+                  SizedBox(width: 16),
                   SizedBox(
                       width: 24,
                       height: 24,
@@ -47,8 +70,8 @@ class SearchBar extends StatelessWidget {
                           // IconButton(
                           //     onPressed: _callNotification,
                           // icon:
-                          Image.asset(
-                        "images/notice.png",
+                          SvgPicture.asset(
+                        "images/svg/searchbar_notice.svg",
                       )
                       // )
                       )
@@ -62,16 +85,18 @@ class SearchBar extends StatelessWidget {
                   SizedBox(
                       width: 104,
                       height: 40,
-                      child: _button("병명검색", "images/disease.png", 0xFFE4F7FB)),
+                      child: _button("병명검색", "images/svg/searchbar_disease.svg",
+                          0xFFE4F7FB)),
                   SizedBox(
                       width: 104,
                       height: 40,
-                      child:
-                          _button("성분검색", "images/ingredient.png", 0xFFFFF6D6)),
+                      child: _button("성분검색",
+                          "images/svg/searchbar_ingredient.svg", 0xFFFFF6D6)),
                   SizedBox(
                       width: 104,
                       height: 40,
-                      child: _button("음식검색", "images/food.png", 0xFFEDF5E9))
+                      child: _button(
+                          "음식검색", "images/svg/searchbar_food.svg", 0xFFEDF5E9))
                 ],
               )),
           SizedBox(height: 21)
@@ -85,7 +110,7 @@ class SearchBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(width: 16, height: 14, child: Image.asset(iconPath)),
+            SizedBox(width: 16, height: 14, child: SvgPicture.asset(iconPath)),
             SizedBox(
               width: 5,
             ),

@@ -58,7 +58,7 @@ class _FoodRecommendContainer extends State<FoodRecommendContainer> {
                   )),
               PageView.builder(
                 itemCount: lst.length,
-                controller: PageController(viewportFraction: 1),
+                controller: PageController(viewportFraction: 0.5),
                 // onPageChanged: (int index) => setState(()=> _index = index),
                 itemBuilder: (_, i) {
                   return LikeBestTile(lst[i]);

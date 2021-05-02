@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HeaderRow extends StatelessWidget {
   final String title;
@@ -42,11 +43,11 @@ class LikeBookmark extends StatelessWidget {
       child: Row(children: [
         Padding(
             padding: EdgeInsets.only(right: 5),
-            child: Image.asset("images/like.png")),
+            child: SvgPicture.asset("images/svg/like.svg")),
         Text(like, style: TextStyle(fontSize: 14)),
         Padding(
             padding: EdgeInsets.only(left: 10, right: 5),
-            child: Image.asset("images/bookmark.png")),
+            child: SvgPicture.asset("images/svg/bookmark.svg")),
         Text(bookmark, style: TextStyle(fontSize: 14)),
       ]),
     );

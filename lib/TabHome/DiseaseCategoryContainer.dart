@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
@@ -10,12 +11,11 @@ class DiseaseCategoryContainer extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(color: Colors.white),
         child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.only(left: 16, right: 16, bottom: 50),
             child: Column(
               children: [
                 Padding(
-                    padding: EdgeInsets.only(
-                        top: 40, bottom: 20, left: 16, right: 16),
+                    padding: EdgeInsets.only(top: 40, bottom: 20),
                     child: Align(
                         alignment: Alignment.centerLeft,
                         child: HeaderRow("질병 카테고리", isViewMore: false))),
@@ -26,6 +26,8 @@ class DiseaseCategoryContainer extends StatelessWidget {
                   direction: Axis.horizontal,
                   crossAxisAlignment: WrapCrossAlignment.start,
                   alignment: WrapAlignment.start,
+                  spacing: 7.5,
+                  runSpacing: 7.5,
                   children: _getCategories(),
                 )
               ],
@@ -34,33 +36,31 @@ class DiseaseCategoryContainer extends StatelessWidget {
 
   _getCategories() {
     List<Map> diseases = [
-      {"disease": "위암", "path": "images/disease01.png"},
-      {"disease": "간암", "path": "images/disease02.png"},
-      {"disease": "대장암", "path": "images/disease03.png"},
-      {"disease": "폐암", "path": "images/disease04.png"},
-      {"disease": "유방암", "path": "images/disease05.png"},
-      {"disease": "갑상선암", "path": "images/disease06.png"},
+      {"disease": "위암", "path": "images/svg/disease_1.svg"},
+      {"disease": "간암", "path": "images/svg/disease_2.svg"},
+      {"disease": "대장암", "path": "images/svg/disease_3.svg"},
+      {"disease": "폐암", "path": "images/svg/disease_4.svg"},
+      {"disease": "유방암", "path": "images/svg/disease_5.svg"},
+      {"disease": "갑상선암", "path": "images/svg/disease_6.svg"},
     ];
     List<Widget> ret = [];
     for (var d in diseases) {
-      ret.add(Padding(
-          padding: EdgeInsets.all(8),
-          child: Container(
-              width: 104,
-              height: 95,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFDDDDDD)),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: 18),
-                  SizedBox(
-                      width: 30, height: 32, child: Image.asset(d['path'])),
-                  SizedBox(height: 5),
-                  Text(d['disease'])
-                ],
-              ))));
+      ret.add(Container(
+          width: 104,
+          height: 95,
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFDDDDDD)),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              SizedBox(height: 18),
+              SizedBox(
+                  width: 32, height: 32, child: SvgPicture.asset(d['path'])),
+              SizedBox(height: 9.87),
+              Text(d['disease'])
+            ],
+          )));
     }
     return ret;
   }

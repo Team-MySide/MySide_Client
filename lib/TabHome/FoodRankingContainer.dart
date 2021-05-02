@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
 import 'CommonViews.dart';
@@ -19,9 +20,13 @@ class FoodRankingContainer extends StatelessWidget {
               padding:
                   EdgeInsets.only(top: 40, bottom: 20, left: 16, right: 16),
               child: HeaderRow("좋아요가 많은 음식", isViewMore: true)),
-          Wrap(
-            children: _getTop4FoodRankingList(),
-          ),
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.5),
+              child: Wrap(
+                spacing: 7.5,
+                runSpacing: 5,
+                children: _getTop4FoodRankingList(),
+              )),
           // SizedBox(height: 40)
         ]));
   }
@@ -32,35 +37,31 @@ class FoodRankingContainer extends StatelessWidget {
       {
         "name": "볶은 땅콩",
         "path": "images/food4.png",
-        "ranking": "images/ranking1.png",
         "like": "123",
         "bookmark": "22"
       },
       {
         "name": "마늘",
         "path": "images/food3.png",
-        "ranking": "images/ranking2.png",
         "like": "123",
         "bookmark": "22"
       },
       {
         "name": "브로콜리",
         "path": "images/food2.png",
-        "ranking": "images/ranking3.png",
         "like": "123",
         "bookmark": "22"
       },
       {
         "name": "미역",
         "path": "images/food1.png",
-        "ranking": "images/ranking4.png",
         "like": "123",
         "bookmark": "22"
       }
     ];
 
-    lst.forEach((e) => ret.add(FoodTile(
-        e["name"], e["path"], e["ranking"], e["like"], e["bookmark"])));
+    lst.asMap().forEach((index, e) => ret
+        .add(FoodTile(e["name"], e["path"], index, e["like"], e["bookmark"])));
 
     return ret;
   }
@@ -69,7 +70,7 @@ class FoodRankingContainer extends StatelessWidget {
 class FoodTile extends StatelessWidget {
   final String title;
   final String path;
-  final String ranking;
+  final int ranking;
   final String like;
   final String bookmark;
   const FoodTile(
@@ -84,7 +85,7 @@ class FoodTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(0),
         width: 164,
         height: 246,
         child: Stack(
@@ -142,11 +143,22 @@ class FoodTile extends StatelessWidget {
 }
 
 class RankingBanner extends StatelessWidget {
-  final String ranking;
+  final int ranking;
   const RankingBanner(this.ranking, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(ranking);
+    String path;
+    if (ranking == 0) {
+      path = 'images/svg/foodranking_1.svg';
+    } else if (ranking == 1) {
+      path = 'images/svg/foodranking_2.svg';
+    } else if (ranking == 2) {
+      path = 'images/svg/foodranking_3.svg';
+    } else {
+      //ranking ==3
+      path = 'images/svg/foodranking_4.svg';
+    }
+    return SvgPicture.asset(path);
   }
 }

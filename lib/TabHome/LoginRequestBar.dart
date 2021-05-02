@@ -25,11 +25,11 @@ class LoginRequestBar extends StatelessWidget {
                       child: Text("더 자세하게 음식을 추천받고 싶다면 2단계 정보를 입력해주세요!")),
                 ]),
                 SizedBox(
-                  width: 48,
-                  height: 48,
+                  width: 96,
+                  height: 96,
                   child: IconButton(
                       onPressed: _goToLogin(),
-                      icon: Image.asset("images/gotologin.png")),
+                      icon: Image.asset("images/loginrequest_arrow.png")),
                 )
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
