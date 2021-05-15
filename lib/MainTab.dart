@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'TabBookmark/TabBookmark.dart';
 import 'TabHome/TabHome.dart';
 
 import 'Constants.dart';
-import 'TabCommunity/TabCommunity.dart';
 import 'TabMyPage/TabMyPage.dart';
 import 'TabSearch/TabSearch.dart';
 
@@ -12,7 +13,7 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
         title: "이웃집닥터 메인",
         theme: ThemeData(
             primaryColor: Color(Constants.primaryColorInt),
@@ -34,7 +35,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = new TabController(length: 4, initialIndex: 3, vsync: this);
-    // _controller.addListener(_handleTabSelection);
+    _controller.addListener(_handleTabSelection);
   }
 
   void _handleTabSelection() {
@@ -50,11 +51,11 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                 // appBar: AppBar(
                 //   title: Text("이웃집닥터"),
                 // ),
-                body: TabBarView(children: [
-                  TabMyPage(),
+                body: TabBarView(controller: _controller, children: [
                   TabHome(),
+                  TabBookmark(),
                   TabSearch(),
-                  TabCommunity(),
+                  TabMyPage(),
                 ]),
                 bottomNavigationBar: TabBar(
                     onTap: (index) {

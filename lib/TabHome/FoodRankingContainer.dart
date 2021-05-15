@@ -38,30 +38,34 @@ class FoodRankingContainer extends StatelessWidget {
         "name": "볶은 땅콩",
         "path": "images/food4.png",
         "like": "123",
-        "bookmark": "22"
+        "bookmark": "22",
+        "tags": ["위암", "비타민e"]
       },
       {
         "name": "마늘",
         "path": "images/food3.png",
         "like": "123",
-        "bookmark": "22"
+        "bookmark": "22",
+        "tags": ["위암", "비타민e"]
       },
       {
         "name": "브로콜리",
         "path": "images/food2.png",
         "like": "123",
-        "bookmark": "22"
+        "bookmark": "22",
+        "tags": ["위암", "비타민e"]
       },
       {
         "name": "미역",
         "path": "images/food1.png",
         "like": "123",
-        "bookmark": "22"
+        "bookmark": "22",
+        "tags": ["위암", "비타민e"]
       }
     ];
 
-    lst.asMap().forEach((index, e) => ret
-        .add(FoodTile(e["name"], e["path"], index, e["like"], e["bookmark"])));
+    lst.asMap().forEach((index, e) => ret.add(FoodTile(
+        e["name"], e["path"], index, e["like"], e["bookmark"], e['tags'])));
 
     return ret;
   }
@@ -73,12 +77,14 @@ class FoodTile extends StatelessWidget {
   final int ranking;
   final String like;
   final String bookmark;
+  final List<String> tags;
   const FoodTile(
     this.title,
     this.path,
     this.ranking,
     this.like,
-    this.bookmark, {
+    this.bookmark,
+    this.tags, {
     Key key,
   }) : super(key: key);
 
@@ -118,7 +124,7 @@ class FoodTile extends StatelessWidget {
                         SizedBox(
                           height: 5, //11인데 한글 일 때 높이가 약간 안맞음
                         ),
-                        Align(alignment: Alignment.center, child: Tags()),
+                        Align(alignment: Alignment.center, child: Tags(tags)),
                         SizedBox(
                           height: 16,
                         ),
@@ -132,11 +138,14 @@ class FoodTile extends StatelessWidget {
                         // )
                       ],
                     ))),
+            // ranking != 0
+            //     ?
             Padding(
               padding: EdgeInsets.only(left: 10, top: 6),
               child: Align(
-                  alignment: Alignment.topLeft, child: RankingBanner(ranking)),
-            ),
+                  alignment: Alignment.topLeft,
+                  child: ranking != 0 ? RankingBanner(ranking) : null),
+            )
           ],
         ));
   }

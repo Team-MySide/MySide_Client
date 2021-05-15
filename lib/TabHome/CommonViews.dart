@@ -5,10 +5,18 @@ import '../Constants.dart';
 class Tags extends StatelessWidget {
   // final List<String> lst;
   // const Tags({this.lst, Key key}) : super(key: key);
-  Tags({Key key}) : super(key: key);
+  Tags(this.lst, {Key key}) : super(key: key);
   // List<String> lst = ["위암", "비타민E", "곡류"];
-  List<String> lst = ["위암", "비타민E"];
-  List<int> colorLst = [0xFFFFE4E4, 0xFFFFF2C5, 0xFFF1E3E3];
+  final List<String> lst;
+  List<int> colorLst = [
+    0xFFFFE4E4,
+    0xFFFFF2C5,
+    0xFFF1E3E3,
+    0xFFF1E3E4,
+    0xFFF1E3E5,
+    0xFFF1E3E7,
+    0xFFF1E3E8
+  ];
   Map<String, int> tagColorMap = Map();
   Map<String, SizedBox> tagCache = Map();
   @override

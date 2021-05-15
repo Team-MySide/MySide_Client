@@ -9,4 +9,6 @@ class Constants {
   static double paddingMainContainerVertical = 16;
   static double scale = 8;
   static double tagButtonRadius = 18;
+
+  static String BASE_URL = "http://54.180.67.217:3000/";
 }

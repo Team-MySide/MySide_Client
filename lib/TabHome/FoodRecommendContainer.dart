@@ -99,7 +99,7 @@ class LikeBestTile extends StatelessWidget {
           SizedBox(height: 4),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Align(alignment: Alignment.center, child: Tags())),
+              child: Align(alignment: Alignment.center, child: Tags([]))),
           SizedBox(height: 11),
           LikeBookmark(
             like: item["like"],

@@ -8,7 +8,7 @@ class TabMyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: BarChartSample1(),
+      child: Text(""),
     );
   }
 }

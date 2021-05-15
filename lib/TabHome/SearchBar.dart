@@ -85,49 +85,59 @@ class SearchBar extends StatelessWidget {
                   SizedBox(
                       width: 104,
                       height: 40,
-                      child: _button("병명검색", "images/svg/searchbar_disease.svg",
-                          0xFFE4F7FB)),
+                      child: SearchButton(
+                          "병명검색",
+                          "images/svg/searchbar_disease.svg",
+                          0xFFE4F7FB,
+                          0xFF317BBF)),
                   SizedBox(
                       width: 104,
                       height: 40,
-                      child: _button("성분검색",
-                          "images/svg/searchbar_ingredient.svg", 0xFFFFF6D6)),
+                      child: SearchButton(
+                          "성분검색",
+                          "images/svg/searchbar_ingredient.svg",
+                          0xFFFFF6D6,
+                          0xFFFD8F2A)),
                   SizedBox(
                       width: 104,
                       height: 40,
-                      child: _button(
-                          "음식검색", "images/svg/searchbar_food.svg", 0xFFEDF5E9))
+                      child: SearchButton(
+                          "음식검색",
+                          "images/svg/searchbar_food.svg",
+                          0xFFEDF5E9,
+                          0xFF528A36))
                 ],
               )),
           SizedBox(height: 21)
         ]));
   }
 
-  TextButton _button(String title, String iconPath, int backgroundColor) {
-    return TextButton(
-        onPressed: () {},
-        style: _buttonRoundShape(backgroundColor),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(width: 16, height: 14, child: SvgPicture.asset(iconPath)),
-            SizedBox(
-              width: 5,
-            ),
-            Text(title, style: TextStyle(fontSize: 14))
-          ],
-        ));
-  }
-
-  ButtonStyle _buttonRoundShape(int backgroundColor) {
-    return ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Color(backgroundColor)),
-        foregroundColor: MaterialStateProperty.all(Color(0xFF666666)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Constants.tagButtonRadius),
-        )));
-  }
-
   _callNotification() {}
+}
+
+TextButton SearchButton(
+    String title, String iconPath, int backgroundColor, int textColor) {
+  return TextButton(
+      // onPressed: () {},
+      style: _buttonRoundShape(backgroundColor),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(width: 16, height: 14, child: SvgPicture.asset(iconPath)),
+          SizedBox(
+            width: 5,
+          ),
+          Text(title, style: TextStyle(fontSize: 14, color: Color(textColor)))
+        ],
+      ));
+}
+
+ButtonStyle _buttonRoundShape(int backgroundColor) {
+  return ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(Color(backgroundColor)),
+      foregroundColor: MaterialStateProperty.all(Color(0xFF666666)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Constants.tagButtonRadius),
+      )));
 }
