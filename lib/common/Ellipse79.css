@@ -1,0 +1,16 @@
+.Ellipse_79 {
+	animation: 0.8s linear 0s 1 normal forwards running Ellipse_79;
+	transform-box: fill-box;
+	transform-origin: 50% 50%
+}
+@keyframes Ellipse_79 {
+	0% {
+		transform: translateY(0px);
+	}
+	25% {
+		transform: translateY(10px);
+	}
+	100% {
+		transform: translateY(-10px);
+	}
+}

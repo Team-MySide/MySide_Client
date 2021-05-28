@@ -30,8 +30,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^1.1.4+1
   flutter_svg: ^0.21.0+1
-  fl_chart: ^0.35.0
   get: ^4.1.4
+  http: ^0.13.3
+  fl_chart: ^0.36.1
+  dropdown_search: ^0.6.1
+  intl: ^0.17.0
+  email_validator: ^2.0.1
+  flutter_typeahead: ^3.1.3
+  
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -52,6 +60,7 @@ flutter:
   assets:
     - images/
     - images/svg/
+    - asset/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

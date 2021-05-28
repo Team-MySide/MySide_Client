@@ -21,6 +21,7 @@ class TabHome extends StatelessWidget {
         SingleChildScrollView(
             child: Column(children: [
       SearchBar(),
+
       LoginRequestBar(),
       FoodRecommendContainer(),
       AdContainer(),

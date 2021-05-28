@@ -26,8 +26,13 @@ class TabBookmark extends StatelessWidget {
                 Wrap(
                     children: _bookmarkController.data
                         .map(
-                          (item) => FoodTile(item.name, item.path, 0, item.like,
-                              item.bookmark, item.tags),
+                          (item) => FoodTile(
+                              item.name,
+                              item.path,
+                              0,
+                              int.parse(item.like),
+                              int.parse(item.bookmark),
+                              item.tags),
                         )
                         .toList()))),
         appBar: AppBar(

@@ -31,8 +31,8 @@ class HeaderRow extends StatelessWidget {
 
 class LikeBookmark extends StatelessWidget {
   final Map item;
-  final String bookmark;
-  final String like;
+  final int bookmark;
+  final int like;
   const LikeBookmark({Key key, this.item, this.bookmark, this.like})
       : super(key: key);
 
@@ -45,11 +45,11 @@ class LikeBookmark extends StatelessWidget {
         Padding(
             padding: EdgeInsets.only(right: 5),
             child: SvgPicture.asset("images/svg/like.svg")),
-        Text(like, style: TextStyle(fontSize: 14)),
+        Text(like.toString(), style: TextStyle(fontSize: 14)),
         Padding(
             padding: EdgeInsets.only(left: 10, right: 5),
             child: SvgPicture.asset("images/svg/bookmark.svg")),
-        Text(bookmark, style: TextStyle(fontSize: 14)),
+        Text(bookmark.toString(), style: TextStyle(fontSize: 14)),
       ]),
     );
   }
@@ -57,7 +57,11 @@ class LikeBookmark extends StatelessWidget {
 
 class SearchContainer extends StatelessWidget {
   final TextEditingController _textEditingController;
-  const SearchContainer(this._textEditingController, {Key key})
+  final Function onChanged;
+  // final Future<dynamic> onSubmitted;
+  final Function onSubmitted;
+  const SearchContainer(this._textEditingController,
+      {this.onChanged, this.onSubmitted, Key key})
       : super(key: key);
 
   @override
@@ -70,6 +74,11 @@ class SearchContainer extends StatelessWidget {
                   // textAlignVertical: TextAlignVertical.center,
                   controller: _textEditingController,
                   textInputAction: TextInputAction.search,
+                  onSubmitted: (String value) {
+                    print("submitted run");
+                    onSubmitted(context);
+                  },
+                  onChanged: onChanged,
                   decoration: InputDecoration(
                     hintText: "사과",
                     hintStyle: TextStyle(color: Color(0xFF999999)),

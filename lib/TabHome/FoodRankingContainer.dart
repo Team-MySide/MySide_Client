@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:my_side_client/TabHome/FoodRanking/FoodRankingController.dart';
+import 'package:my_side_client/TabHome/FoodRanking/FoodRankingItem.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
 import 'CommonViews.dart';
 
 class FoodRankingContainer extends StatelessWidget {
-  const FoodRankingContainer({Key key}) : super(key: key);
-
+  FoodRankingContainer({Key key}) : super(key: key);
+  final FoodRankingController controller = Get.put(FoodRankingController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,50 +25,38 @@ class FoodRankingContainer extends StatelessWidget {
               child: HeaderRow("좋아요가 많은 음식", isViewMore: true)),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.5),
-              child: Wrap(
-                spacing: 7.5,
-                runSpacing: 5,
-                children: _getTop4FoodRankingList(),
-              )),
+              child: Obx(() {
+                if (controller.lst.length == 0) {
+                  return CircularProgressIndicator();
+                }
+                return Wrap(
+                  spacing: 7.5,
+                  runSpacing: 5,
+                  children: _getTop4FoodRankingList(controller.lst),
+                );
+              })),
           // SizedBox(height: 40)
         ]));
   }
 
-  List<Widget> _getTop4FoodRankingList() {
+  List<Widget> _getTop4FoodRankingList(RxList<FoodRankingItem> lst) {
     List<FoodTile> ret = [];
-    List<Map> lst = [
-      {
-        "name": "볶은 땅콩",
-        "path": "images/food4.png",
-        "like": "123",
-        "bookmark": "22",
-        "tags": ["위암", "비타민e"]
-      },
-      {
-        "name": "마늘",
-        "path": "images/food3.png",
-        "like": "123",
-        "bookmark": "22",
-        "tags": ["위암", "비타민e"]
-      },
-      {
-        "name": "브로콜리",
-        "path": "images/food2.png",
-        "like": "123",
-        "bookmark": "22",
-        "tags": ["위암", "비타민e"]
-      },
-      {
-        "name": "미역",
-        "path": "images/food1.png",
-        "like": "123",
-        "bookmark": "22",
-        "tags": ["위암", "비타민e"]
-      }
-    ];
 
-    lst.asMap().forEach((index, e) => ret.add(FoodTile(
-        e["name"], e["path"], index, e["like"], e["bookmark"], e['tags'])));
+    List<FoodRankingItem> lst2 = lst.sublist(0, 4);
+
+    lst2.asMap().forEach((index, e) {
+      print(index.toString());
+      print(e.name.toString());
+      print(e.img.toString());
+      return ret.add(FoodTile(
+          // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
+          e.name,
+          e.img,
+          index,
+          e.likes,
+          e.wishes,
+          [e.cancerNm, e.nutrition1 ?? ""]));
+    });
 
     return ret;
   }
@@ -75,8 +66,8 @@ class FoodTile extends StatelessWidget {
   final String title;
   final String path;
   final int ranking;
-  final String like;
-  final String bookmark;
+  final int like;
+  final int bookmark;
   final List<String> tags;
   const FoodTile(
     this.title,
@@ -113,7 +104,17 @@ class FoodTile extends StatelessWidget {
                             child: Container(
                                 width: 128,
                                 height: 114,
-                                child: Image.asset(path))),
+                                // child: Image.asset(path))),
+                                child: path.isNotEmpty
+                                    ? Image.network(
+                                        path,
+                                        errorBuilder: (_, __, ___) {
+                                          return Image.asset(
+                                              "images/searchbar_logo.png");
+                                        },
+                                      )
+                                    : Image.asset(
+                                        "images/searchbar_logo.png"))),
                         // SizedBox(height: 13.5),
                         SizedBox(
                             height: 24,
@@ -141,11 +142,12 @@ class FoodTile extends StatelessWidget {
             // ranking != 0
             //     ?
             Padding(
-              padding: EdgeInsets.only(left: 10, top: 6),
-              child: Align(
+                padding: EdgeInsets.only(left: 10, top: 6),
+                child: Align(
                   alignment: Alignment.topLeft,
-                  child: ranking != 0 ? RankingBanner(ranking) : null),
-            )
+                  // child: ranking != 0 ? RankingBanner(ranking) : null),
+                  child: RankingBanner(ranking),
+                ))
           ],
         ));
   }
@@ -158,13 +160,16 @@ class RankingBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String path;
+    if (ranking == -1) {
+      return Container();
+    }
     if (ranking == 0) {
       path = 'images/svg/foodranking_1.svg';
     } else if (ranking == 1) {
       path = 'images/svg/foodranking_2.svg';
     } else if (ranking == 2) {
       path = 'images/svg/foodranking_3.svg';
-    } else {
+    } else if (ranking == 3) {
       //ranking ==3
       path = 'images/svg/foodranking_4.svg';
     }

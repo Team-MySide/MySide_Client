@@ -1,79 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
+import 'package:my_side_client/TabHome/FoodRecommend/FoodRecommendController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
-class FoodRecommendContainer extends StatefulWidget {
-  const FoodRecommendContainer({Key key}) : super(key: key);
+import 'FoodRecommend/FoodRecommendation.dart';
 
-  @override
-  _FoodRecommendContainer createState() => _FoodRecommendContainer();
-}
+class FoodRecommendContainer extends StatelessWidget {
+  FoodRecommendContainer({Key key}) : super(key: key);
+  FoodRecommendController _controller = Get.put(FoodRecommendController());
 
-class _FoodRecommendContainer extends State<FoodRecommendContainer> {
-  List<Map> lst = [
-    {"name": "땅콩", "path": "images/food4.png", "like": "123", "bookmark": "22"},
-    {"name": "마늘", "path": "images/food1.png", "like": "23", "bookmark": "122"},
-    {"name": "마늘", "path": "images/food1.png", "like": "23", "bookmark": "122"},
-    {"name": "마늘", "path": "images/food1.png", "like": "23", "bookmark": "122"}
-  ];
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-            padding: EdgeInsets.only(top: 40, bottom: 30, left: 16, right: 16),
-            child: HeaderRow("위암에 좋은 추천음식", isViewMore: true)),
-        Container(
-            // color: Colors.amber,
-            height: 296, //원래 283 ㄱ
-            // child: ListView.separated(
-            //   padding:
-            //       EdgeInsets.only(top: Constants.paddingBetweenMainComponent),
-            //   itemCount: 2,
-            //   scrollDirection: Axis.horizontal,
-            //   itemBuilder: (BuildContext context, int index) {
-            //     return LikeBestTile(lst[index], index);
-            //   },
-            //   separatorBuilder: (BuildContext context, int index) =>
-            //       SizedBox(width: 20),
-            // ))
-            child:
-                // Align(
-                //     alignment: Alignment.center,
-                //     child:
-                Stack(alignment: AlignmentDirectional.topCenter, children: [
-              // Positioned.fill(
-              //     child: Align(
-              //         alignment: AlignmentDirectional.center,
-              //         child:
+    return Obx(() => _controller.isLoading.value
+        ? CircularProgressIndicator()
+        : Column(
+            children: [
+              Padding(
+                  padding:
+                      EdgeInsets.only(top: 40, bottom: 30, left: 16, right: 16),
+                  child: HeaderRow("${_controller.lst.first.cancerNm}에 좋은 추천음식",
+                      isViewMore: true)),
               Container(
-                  width: 200,
-                  height: 180,
-                  child: ClipPath(
-                    child: Container(color: Color(0xFFF9F1DF)),
-                    clipper: OctagonClipper(),
-                    // )
-                    // )
-                  )),
-              PageView.builder(
-                itemCount: lst.length,
-                controller: PageController(viewportFraction: 0.5),
-                // onPageChanged: (int index) => setState(()=> _index = index),
-                itemBuilder: (_, i) {
-                  return LikeBestTile(lst[i]);
-                },
-              )
-            ])
-            // )
-            )
-      ],
-    );
+                  // color: Colors.amber,
+                  height: 296, //원래 283 ㄱ
+
+                  child: Stack(
+                      alignment: AlignmentDirectional.topCenter,
+                      children: [
+                        Container(
+                            width: 200,
+                            height: 180,
+                            child: ClipPath(
+                              child: Container(color: Color(0xFFF9F1DF)),
+                              clipper: OctagonClipper(),
+                              // )
+                              // )
+                            )),
+                        PageView.builder(
+                          itemCount: _controller.lst.length,
+                          controller: PageController(viewportFraction: 0.5),
+                          // onPageChanged: (int index) => setState(()=> _index = index),
+                          itemBuilder: (_, i) {
+                            return LikeBestTile(_controller.lst[i]);
+                          },
+                        )
+                      ])
+                  // )
+                  )
+            ],
+          ));
   }
 }
 
 class LikeBestTile extends StatelessWidget {
-  final Map item;
+  final FoodRecommendItem item;
 
   const LikeBestTile(this.item, {Key key}) : super(key: key);
 
@@ -88,23 +70,21 @@ class LikeBestTile extends StatelessWidget {
                   // color: Colors.yellow,
                   width: 184,
                   height: 144,
-                  child: Image.asset(item["path"]))
-              // ),
-
-              ),
+                  child: FadeInImage.assetNetwork(
+                      image: item.img,
+                      placeholder: Constants.IMG_PLACE_HOLDER))),
           SizedBox(
               height: 28,
-              child: Text(item["name"],
+              child: Text(item.name,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
           SizedBox(height: 4),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Align(alignment: Alignment.center, child: Tags([]))),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Tags([item.cancerNm, item.nutrition1]))),
           SizedBox(height: 11),
-          LikeBookmark(
-            like: item["like"],
-            bookmark: item["bookmark"],
-          ),
+          LikeBookmark(like: item.likes, bookmark: item.wishes),
         ]));
   }
 }

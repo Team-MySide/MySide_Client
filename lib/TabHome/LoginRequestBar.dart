@@ -20,9 +20,7 @@ class LoginRequestBar extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
-                      width: 204,
-                      child: Text("더 자세하게 음식을 추천받고 싶다면 2단계 정보를 입력해주세요!")),
+                  SizedBox(width: 204, child: Text("푸른숲님을 좀 더 자세히 알려주세요")),
                 ]),
                 SizedBox(
                   width: 96,

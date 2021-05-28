@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+
+import 'ReasonForFood.dart';
 
 class AdContainer extends StatelessWidget {
   List<Map> items = [
@@ -17,7 +20,11 @@ class AdContainer extends StatelessWidget {
     return Container(
         // height: 152,
         // width: double.infinity,
-        child: AdTile(items[0])
+        child: GestureDetector(
+            child: AdTile(items[0]),
+            onTap: () => Get.to(
+                  () => ReasonForFood(),
+                ))
         // child: ListView.builder(
         //     scrollDirection: Axis.horizontal,
         //     itemCount: items.length,

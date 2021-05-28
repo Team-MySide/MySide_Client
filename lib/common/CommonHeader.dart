@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 
 class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const CommonAppbar(this.title, {Key key}) : super(key: key);
+  Color backgroundColor;
+  CommonAppbar(this.title, {this.backgroundColor, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
         title: Text(title),
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor ?? Colors.white,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(

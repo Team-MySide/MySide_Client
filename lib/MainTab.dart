@@ -34,7 +34,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = new TabController(length: 4, initialIndex: 3, vsync: this);
+    _controller = new TabController(length: 4, initialIndex: 0, vsync: this);
     _controller.addListener(_handleTabSelection);
   }
 
