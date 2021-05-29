@@ -1,13 +1,15 @@
-import 'package:finalproject/controllers/physicalInfoController.dart';
-import 'package:finalproject/widget/halfWidthTextField.dart';
-import 'package:finalproject/widget/myTextFieldWidget.dart';
-import 'package:finalproject/widget/recSubmitButton.dart';
-import 'package:finalproject/widget/secondStagePageNumber.dart';
-import 'package:finalproject/widget/selectBetweenTwo.dart';
-import 'package:finalproject/widget/titleAndSubtitleWidget.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/controllers/physicalInfoController.dart';
+import 'package:my_side_client/Login/page/signInPage/secondStagePage/selectDiseasePage.dart';
+import 'package:my_side_client/Login/widget/halfWidthTextField.dart';
+import 'package:my_side_client/Login/widget/myTextFieldWidget.dart';
+import 'package:my_side_client/Login/widget/recSubmitButton.dart';
+import 'package:my_side_client/Login/widget/secondStagePageNumber.dart';
+import 'package:my_side_client/Login/widget/selectBetweenTwo.dart';
+import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
 
 class PhysicalInfoPage extends StatelessWidget {
   final PhysicalInfoController piCtrl = Get.put(PhysicalInfoController());
@@ -249,6 +251,7 @@ class PhysicalInfoPage extends StatelessWidget {
                   ctrl.validateNumber(ctrl.ageTEC.text, 0);
                   ctrl.validateNumber(ctrl.heightTEC.text, 1);
                   ctrl.validateNumber(ctrl.weightTEC.text, 2);
+                  Get.to(()=>SelectDiseasePage());
                 },
               ),
             ],

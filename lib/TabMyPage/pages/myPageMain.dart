@@ -64,8 +64,9 @@ class MyPageMain extends StatelessWidget {
                     SizedBox(
                       height: 0.0197 * scrHeight,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
+                      
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         WhiteRountTextWidget(
                           textInside: '#위암',

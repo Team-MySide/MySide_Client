@@ -20,8 +20,8 @@ class StageSelectPage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    UserInfo previousInfo = UserInfo();
-    previousInfo = Get.arguments;
+    //UserInfo previousInfo = UserInfo();
+    //previousInfo = Get.arguments;
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +47,7 @@ class StageSelectPage extends StatelessWidget {
               child: Column(
                 children: [
                   TitleAndSubtitleWidget(
-                    title: '${previousInfo.nickname}님의\n현재 상태를 알려주세요.',
+                    title: '님의\n현재 상태를 알려주세요.',
                     subTitle: '정보 입력에 맞는 음식을 추천해드립니다.',
                     scrHeight: scrHeight,
                   ),
@@ -104,8 +104,8 @@ class StageSelectPage extends StatelessWidget {
               activated: sctrl.stageNm > 0,
               validateFunc: () {
                 if (sctrl.stageNm > 0) {
-                  previousInfo.stageNm = stageType[sctrl.stageNm - 1];
-                  Get.to(() => ProgressSelectPage(), arguments: previousInfo);
+                  //previousInfo.stageNm = stageType[sctrl.stageNm - 1];
+                  Get.to(() => ProgressSelectPage());
                 }
               },
             ),

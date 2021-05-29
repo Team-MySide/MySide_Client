@@ -13,8 +13,8 @@ class UserTypeSelectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
-    UserInfo previousInfo = UserInfo();
-    previousInfo = Get.arguments;
+    //UserInfo previousInfo = UserInfo();
+    //previousInfo = Get.arguments;
     // print(previousInfo.email);
     // print(previousInfo.name);
     // print(previousInfo.password);
@@ -87,8 +87,8 @@ class UserTypeSelectPage extends StatelessWidget {
               activated: ctrl.userType > 0,
               validateFunc: () {
                 if (ctrl.userType > 0) {
-                  previousInfo.relationNm = ctrl.userType == 1 ? '환우' : '보호자';
-                  Get.to(() => UserNicknamePage(), arguments: previousInfo);
+                  //previousInfo.relationNm = ctrl.userType == 1 ? '환우' : '보호자';
+                  Get.to(() => UserNicknamePage());
                 }
               },
             )

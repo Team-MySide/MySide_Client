@@ -23,8 +23,8 @@ class SelectCancerPage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    UserInfo previousInfo = UserInfo();
-    previousInfo = Get.arguments;
+    //UserInfo previousInfo = UserInfo();
+    //previousInfo = Get.arguments;
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +52,7 @@ class SelectCancerPage extends StatelessWidget {
                   child: Column(
                     children: [
                       TitleAndSubtitleWidget(
-                        title: '${previousInfo.nickname}님에게 해당되는\n암 종류를 알려주세요.',
+                        title: '이웃집닥터님에게 해당되는\n암 종류를 알려주세요.',
                         subTitle: '정보 입력에 맞는 음식을 추천해드립니다.',
                         scrHeight: scrHeight,
                       ),
@@ -127,12 +127,12 @@ class SelectCancerPage extends StatelessWidget {
                   validateFunc: () {
                     csCtrl.validateCancer();
                     if (csCtrl.cancerNum > 0 && csCtrl.cancerNum < 7) {
-                      previousInfo.cancerNm = cancerType[csCtrl.cancerNum - 1];
-                      Get.to(() => StageSelectPage(), arguments: previousInfo);
+                      //previousInfo.cancerNm = cancerType[csCtrl.cancerNum - 1];
+                      Get.to(() => StageSelectPage());
                     }
                     if (csCtrl.cancerNum == 7) {
-                      previousInfo.cancerNm = csCtrl.tec.text;
-                      Get.to(() => StageSelectPage(), arguments: previousInfo);
+                      //previousInfo.cancerNm = csCtrl.tec.text;
+                      Get.to(() => StageSelectPage());
                     }
                   },
                 ),

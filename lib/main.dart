@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import 'Constants.dart';
 import 'Login.dart';
+import 'Login/page/loginPage/loginMainPage.dart';
 import 'MainTab.dart';
 
 void main() {
-  // runApp(Login());
-  runApp(Main());
+  runApp(
+  GetMaterialApp(
+        title: "이웃집닥터 메인",
+        theme: ThemeData(
+            primaryColor: Color(Constants.primaryColorInt),
+            visualDensity: VisualDensity.adaptivePlatformDensity),
+            home: LoginMainPage()));
+        // home: MainTab()));
+  // runApp(Main());
 }

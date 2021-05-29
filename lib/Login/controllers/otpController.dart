@@ -1,6 +1,7 @@
-import 'package:finalproject/functions/isOTPValidate.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/functions/isOTPValidate.dart';
 
 class OTPcontroller extends GetxController {
   TextEditingController tec = TextEditingController();

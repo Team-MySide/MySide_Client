@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'myTextFieldWidget.dart';
+
 class HalfWidthTextField extends StatelessWidget {
   final double scrHeight;
   final String tailText;

@@ -5,10 +5,12 @@ import 'package:my_side_client/Login/controllers/checkController.dart';
 import 'package:my_side_client/Login/controllers/emailController.dart';
 import 'package:my_side_client/Login/controllers/passwordController.dart';
 import 'package:my_side_client/Login/page/loginPage/signInPage.dart';
+import 'package:my_side_client/Login/page/signInPage/userTypeSelectPage.dart';
 import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
+import 'package:my_side_client/MainTab.dart';
 
 import 'findEmailPage.dart';
 import 'findPswdPage.dart';
@@ -95,6 +97,7 @@ class LoginMainPage extends StatelessWidget {
                         validateFunc: () {
                           ectrl.validateEmail();
                           pctrl.validatePassword();
+                          Get.to(() => MainTab());
                           if (ectrl.errorText || pctrl.errorText) {
                             Get.dialog(
                               Dialog(
@@ -121,7 +124,7 @@ class LoginMainPage extends StatelessWidget {
                           Get.to(() => FindPswdPage());
                         },
                         () {
-                          Get.to(() => SignInPage());
+                          Get.to(() => UserTypeSelectPage());
                         },
                         scrHeight,
                       ),

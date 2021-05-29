@@ -33,7 +33,6 @@ class PhoneController extends GetxController {
     }
     update();
   }
-
   void validatePhone() {
     if (isPhoneNumberValidate(tec.text)) {
       errorMsg = '';

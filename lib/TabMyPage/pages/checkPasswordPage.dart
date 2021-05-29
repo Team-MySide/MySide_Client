@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:my_side_client/Login/controllers/passwordController.dart';
-import 'package:my_side_client/Login/widget/longRoundButton.dart';
+import 'package:my_side_client/TabMyPage/controller/passwordController.dart';
+import 'package:my_side_client/TabMyPage/widget/longRoundButton.dart';
+
 import 'package:my_side_client/TabMyPage/widget/textFieldwithErrorMessage.dart';
 
 import 'changePhoneNumbePage.dart';

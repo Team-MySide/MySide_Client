@@ -22,8 +22,8 @@ class ProgressSelectPage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    UserInfo previousInfo = UserInfo();
-    previousInfo = Get.arguments;
+    //UserInfo previousInfo = UserInfo();
+    //previousInfo = Get.arguments;
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -108,8 +108,8 @@ class ProgressSelectPage extends StatelessWidget {
                     scrHeight: scrHeight,
                     activated: pctrl.progressNum > 0,
                     validateFunc: () {
-                      previousInfo.progressNm =
-                          stageType[pctrl.progressNum - 1];
+                      //previousInfo.progressNm =
+                      //    stageType[pctrl.progressNum - 1];
                       //서버에 신규회원정보보냄
                       Get.offAll(() => LoginMainPage());
                     },
@@ -123,10 +123,9 @@ class ProgressSelectPage extends StatelessWidget {
                     activated: pctrl.progressNum > 0,
                     validateFunc: () {
                       if (pctrl.progressNum > 0) {
-                        previousInfo.progressNm =
-                            stageType[pctrl.progressNum - 1];
-                        Get.to(() => PhysicalInfoPage(),
-                            arguments: previousInfo);
+                        //previousInfo.progressNm =
+                         //   stageType[pctrl.progressNum - 1];
+                        Get.to(() => PhysicalInfoPage());
                       }
                     },
                   ),

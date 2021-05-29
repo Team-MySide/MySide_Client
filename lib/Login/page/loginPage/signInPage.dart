@@ -42,7 +42,7 @@ class SignInPage extends StatelessWidget {
             builder: (ectrl) {
               return GetBuilder<NameController>(builder: (nctrl) {
                 return GetBuilder<PhoneController>(builder: (pctrl) {
-                  return GetBuilder<OTPcontroller>(builder: (octrl) {
+                  // return GetBuilder<OTPcontroller>(builder: (octrl) {
                     return GetBuilder<PasswordController>(builder: (psctrl) {
                       return GetBuilder<CheckPswdController>(builder: (rectrl) {
                         return GetBuilder<AgreeController>(builder: (actrl) {
@@ -119,12 +119,17 @@ class SignInPage extends StatelessWidget {
                                     ),
                                     TextFieldwithErrorMsg(
                                       scrHeight: scrHeight,
-                                      errorOcur: octrl.errorText,
-                                      canClear: octrl.canClear,
-                                      fn: octrl.fn,
-                                      tec: octrl.tec,
+                                      // errorOcur: octrl.errorText,
+                                      errorOcur: false,
+                                      // canClear: octrl.canClear,
+                                      canClear: true,
+                                      // fn: octrl.fn,
+                                      fn:FocusNode(),
+                                      // tec: octrl.tec,
+                                      tec: TextEditingController(),
                                       hintText: '인증번호',
-                                      errorMsg: octrl.errorMsg,
+                                      // errorMsg: octrl.errorMsg,
+                                      errorMsg: '',
                                       isPswd: false,
                                     ),
                                     SizedBox(
@@ -191,7 +196,7 @@ class SignInPage extends StatelessWidget {
                                 activated: ectrl.tec.text.isNotEmpty &&
                                     nctrl.tec.text.isNotEmpty &&
                                     pctrl.tec.text.isNotEmpty &&
-                                    octrl.tec.text.isNotEmpty &&
+                                    //octrl.tec.text.isNotEmpty &&
                                     psctrl.tec.text.isNotEmpty &&
                                     rectrl.tec.text.isNotEmpty &&
                                     actrl.secondSelected &&
@@ -200,13 +205,13 @@ class SignInPage extends StatelessWidget {
                                   ectrl.validateEmail();
                                   nctrl.validateName();
                                   pctrl.validatePhone();
-                                  octrl.validateOTP();
+                                  //octrl.validateOTP();
                                   psctrl.validatePassword();
                                   rectrl.validatePswdMatch(psctrl.tec.text);
                                   if (!ectrl.errorText &&
                                       !nctrl.errorText &&
                                       !pctrl.errorText &&
-                                      !octrl.errorText &&
+                                      //s!octrl.errorText &&
                                       !psctrl.errorText &&
                                       !rectrl.errorText) {
                                     newUser.email = ectrl.tec.text;
@@ -224,7 +229,7 @@ class SignInPage extends StatelessWidget {
                         });
                       });
                     });
-                  });
+                  // });
                 });
               });
             }),
