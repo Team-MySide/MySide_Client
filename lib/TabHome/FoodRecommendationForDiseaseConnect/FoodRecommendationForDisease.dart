@@ -50,52 +50,48 @@ class Datum {
   });
 
   List<Cancer> cancer1;
-  List<Cancer> cancer2;
-  List<Cancer> cancer3;
-  List<Cancer> cancer4;
+  List<dynamic> cancer2;
+  List<dynamic> cancer3;
+  List<dynamic> cancer4;
   List<Cancer> cancer5;
-  List<Cancer> cancer6;
+  List<dynamic> cancer6;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         cancer1: json["cancer1"] == null
-            ? <Cancer>[]
+            ? null
             : List<Cancer>.from(json["cancer1"].map((x) => Cancer.fromJson(x))),
         cancer2: json["cancer2"] == null
-            ? <Cancer>[]
-            : List<Cancer>.from(json["cancer2"].map((x) => Cancer.fromJson(x))),
+            ? null
+            : List<dynamic>.from(json["cancer2"].map((x) => x)),
         cancer3: json["cancer3"] == null
-            ? <Cancer>[]
-            : List<Cancer>.from(json["cancer3"].map((x) => Cancer.fromJson(x))),
+            ? null
+            : List<dynamic>.from(json["cancer3"].map((x) => x)),
         cancer4: json["cancer4"] == null
-            ? <Cancer>[]
-            : List<Cancer>.from(json["cancer4"].map((x) => Cancer.fromJson(x))),
+            ? null
+            : List<dynamic>.from(json["cancer4"].map((x) => x)),
         cancer5: json["cancer5"] == null
-            ? <Cancer>[]
+            ? null
             : List<Cancer>.from(json["cancer5"].map((x) => Cancer.fromJson(x))),
         cancer6: json["cancer6"] == null
-            ? <Cancer>[]
-            : List<Cancer>.from(json["cancer6"].map((x) => Cancer.fromJson(x))),
+            ? null
+            : List<dynamic>.from(json["cancer6"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "cancer1": cancer1 == null
             ? null
             : List<dynamic>.from(cancer1.map((x) => x.toJson())),
-        "cancer2": cancer2 == null
-            ? null
-            : List<dynamic>.from(cancer2.map((x) => x.toJson())),
-        "cancer3": cancer3 == null
-            ? null
-            : List<dynamic>.from(cancer3.map((x) => x.toJson())),
-        "cancer4": cancer4 == null
-            ? null
-            : List<dynamic>.from(cancer4.map((x) => x.toJson())),
+        "cancer2":
+            cancer2 == null ? null : List<dynamic>.from(cancer2.map((x) => x)),
+        "cancer3":
+            cancer3 == null ? null : List<dynamic>.from(cancer3.map((x) => x)),
+        "cancer4":
+            cancer4 == null ? null : List<dynamic>.from(cancer4.map((x) => x)),
         "cancer5": cancer5 == null
             ? null
             : List<dynamic>.from(cancer5.map((x) => x.toJson())),
-        "cancer6": cancer6 == null
-            ? null
-            : List<dynamic>.from(cancer6.map((x) => x.toJson())),
+        "cancer6":
+            cancer6 == null ? null : List<dynamic>.from(cancer6.map((x) => x)),
       };
 }
 

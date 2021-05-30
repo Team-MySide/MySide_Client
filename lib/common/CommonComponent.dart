@@ -39,19 +39,22 @@ class LikeBookmark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 90,
-      height: 14,
-      child: Row(children: [
-        Padding(
-            padding: EdgeInsets.only(right: 5),
-            child: SvgPicture.asset("images/svg/like.svg")),
-        Text(like.toString(), style: TextStyle(fontSize: 14)),
-        Padding(
-            padding: EdgeInsets.only(left: 10, right: 5),
-            child: SvgPicture.asset("images/svg/bookmark.svg")),
-        Text(bookmark.toString(), style: TextStyle(fontSize: 14)),
-      ]),
-    );
+        // width: 90,
+        height: 14,
+        // child: Center(
+        child: Row(
+          children: [
+            Padding(
+                padding: EdgeInsets.only(right: 5),
+                child: SvgPicture.asset("images/svg/like.svg")),
+            Text(like.toString(), style: TextStyle(fontSize: 14)),
+            Padding(
+                padding: EdgeInsets.only(left: 10, right: 5),
+                child: SvgPicture.asset("images/svg/bookmark.svg")),
+            Text(bookmark.toString(), style: TextStyle(fontSize: 14)),
+          ],
+          // ),
+        ));
   }
 }
 

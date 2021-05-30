@@ -4,7 +4,7 @@ import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabHome/FoodRecommend/FoodRecommendController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-
+import 'package:shimmer/shimmer.dart';
 import 'FoodRecommend/FoodRecommendation.dart';
 
 class FoodRecommendContainer extends StatelessWidget {
@@ -14,7 +14,21 @@ class FoodRecommendContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => _controller.isLoading.value
-        ? CircularProgressIndicator()
+        ? Container(
+            height: 296, child: Center(child: CircularProgressIndicator())
+            // child: Shimmer.fromColors(
+            //   baseColor: Colors.red,
+            //   highlightColor: Colors.yellow,
+            //   child: Text(
+            //     'Shimmer',
+            //     textAlign: TextAlign.center,
+            //     style: TextStyle(
+            //       fontSize: 40.0,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
+            )
         : Column(
             children: [
               Padding(

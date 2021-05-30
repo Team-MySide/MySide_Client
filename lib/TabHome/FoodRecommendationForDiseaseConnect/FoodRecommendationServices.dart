@@ -1,6 +1,7 @@
 // import 'package:http/http.dart' as http;
 
 import 'package:my_side_client/common/MySideConnect.dart';
+import 'package:my_side_client/common/UserProfile.dart';
 
 import '../../Constants.dart';
 import 'FoodRecommendationForDisease.dart';
@@ -18,7 +19,7 @@ class FoodRecommendationForDiseaseService extends MySideConnect
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
       request.headers['Content-Type'] = 'application/json';
-      request.headers['token'] = Constants.temp_token;
+      request.headers['token'] = UserProfile.temp_token;
       return request;
     });
     var resp = await get("/main/cancer/recommendation");

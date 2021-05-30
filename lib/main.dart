@@ -7,13 +7,12 @@ import 'Login/page/loginPage/loginMainPage.dart';
 import 'MainTab.dart';
 
 void main() {
-  runApp(
-  GetMaterialApp(
-        title: "이웃집닥터 메인",
-        theme: ThemeData(
-            primaryColor: Color(Constants.primaryColorInt),
-            visualDensity: VisualDensity.adaptivePlatformDensity),
-            home: LoginMainPage()));
-        // home: MainTab()));
+  runApp(GetMaterialApp(
+      title: "이웃집닥터 메인",
+      theme: ThemeData(
+          primaryColor: Color(Constants.primaryColorInt),
+          visualDensity: VisualDensity.adaptivePlatformDensity),
+      // home: LoginMainPage()));
+      home: MainTab()));
   // runApp(Main());
 }
