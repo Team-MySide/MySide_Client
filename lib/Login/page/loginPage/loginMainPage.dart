@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:my_side_client/Login/controllers/checkController.dart';
-import 'package:my_side_client/Login/controllers/emailController.dart';
-import 'package:my_side_client/Login/controllers/passwordController.dart';
+import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
+import 'package:my_side_client/Login/page/loginPage/findEmailPage.dart';
+import 'package:my_side_client/Login/page/loginPage/findPswdPage.dart';
 import 'package:my_side_client/Login/page/loginPage/signInPage.dart';
-import 'package:my_side_client/Login/page/signInPage/userTypeSelectPage.dart';
 import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
-import 'package:my_side_client/MainTab.dart';
-
-import 'findEmailPage.dart';
-import 'findPswdPage.dart';
 
 class LoginMainPage extends StatelessWidget {
-  final EmailController emailController =
-      Get.put(EmailController(), tag: 'mainPageEmail');
-  final PasswordController pswdController =
-      Get.put(PasswordController(), tag: 'loginMain');
-  final CheckController checkController = Get.put(CheckController());
+  final LoginMainPageController loginMainController =
+      Get.put(LoginMainPageController());
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
@@ -35,105 +27,94 @@ class LoginMainPage extends StatelessWidget {
             horizontal: 0.0197 * scrHeight,
             vertical: 0.0296 * scrHeight,
           ),
-          child: GetBuilder<EmailController>(
-            tag: 'mainPageEmail',
-            builder: (ectrl) {
-              return GetBuilder<PasswordController>(
-                tag: 'loginMain',
-                builder: (pctrl) {
-                  return Column(
-                    children: [
-                      TitleAndSubtitleWidget(
-                        title: '이웃집닥터가\n처음이신가요?',
-                        subTitle: '로그인하고 이웃집닥터 서비스를 이용해보세요.',
-                        scrHeight: scrHeight,
-                      ),
-                      SizedBox(
-                        height: 0.0394 * scrHeight,
-                      ),
-                      TextFieldwithErrorMsg(
-                        scrHeight: scrHeight,
-                        errorOcur: ectrl.errorText,
-                        canClear: ectrl.canClear,
-                        fn: ectrl.fn,
-                        tec: ectrl.tec,
-                        hintText: '이메일',
-                        errorMsg: ectrl.errorMsg,
-                        isPswd: false,
-                      ),
-                      SizedBox(
-                        height: 0.0099 * scrHeight,
-                      ),
-                      TextFieldwithErrorMsg(
-                        scrHeight: scrHeight,
-                        errorOcur: pctrl.errorText,
-                        canClear: pctrl.canClear,
-                        fn: pctrl.fn,
-                        tec: pctrl.tec,
-                        hintText: '비밀번호',
-                        errorMsg: pctrl.errorMsg,
-                        isPswd: true,
-                      ),
-                      SizedBox(
-                        height: 0.0197 * scrHeight,
-                      ),
-                      GetBuilder<CheckController>(builder: (cctrl) {
-                        return buildAutoLogin(
-                          cctrl.checked,
-                          scrHeight,
-                          () {
-                            cctrl.checkBoxClicked();
-                          },
-                        );
-                      }),
-                      SizedBox(
-                        height: 0.0394 * scrHeight,
-                      ),
-                      LongRoundButton(
-                        buttonText: '로그인',
-                        scrHeight: scrHeight,
-                        activated: ectrl.tec.text.isNotEmpty &&
-                            pctrl.tec.text.isNotEmpty,
-                        validateFunc: () {
-                          ectrl.validateEmail();
-                          pctrl.validatePassword();
-                          Get.to(() => MainTab());
-                          if (ectrl.errorText || pctrl.errorText) {
-                            Get.dialog(
-                              Dialog(
-                                child: TextButtonDialog(
-                                  scrHeight: scrHeight,
-                                  dialogText: '아이디나 비밀번호가 올바르지 않습니다.',
-                                  routeFunc: () {
-                                    Get.back();
-                                  },
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                      SizedBox(
-                        height: 0.0197 * scrHeight,
-                      ),
-                      buildTextButtons(
-                        () {
-                          Get.to(() => FindEmailPage());
-                        },
-                        () {
-                          Get.to(() => FindPswdPage());
-                        },
-                        () {
-                          Get.to(() => UserTypeSelectPage());
-                        },
-                        scrHeight,
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-          ),
+          child: GetBuilder<LoginMainPageController>(builder: (ctrl) {
+            return Column(
+              children: [
+                TitleAndSubtitleWidget(
+                  title: '이웃집닥터가\n처음이신가요?',
+                  subTitle: '로그인하고 이웃집닥터 서비스를 이용해보세요.',
+                  scrHeight: scrHeight,
+                ),
+                SizedBox(
+                  height: 0.0394 * scrHeight,
+                ),
+                TextFieldwithErrorMsg(
+                  scrHeight: scrHeight,
+                  errorOcur: ctrl.errorOcur[0],
+                  canClear: ctrl.canClear[0],
+                  fn: ctrl.fn[0],
+                  tec: ctrl.tec[0],
+                  hintText: '이메일',
+                  errorMsg: ctrl.errorMsg[0],
+                  isPswd: false,
+                ),
+                SizedBox(
+                  height: 0.0099 * scrHeight,
+                ),
+                TextFieldwithErrorMsg(
+                  scrHeight: scrHeight,
+                  errorOcur: ctrl.errorOcur[1],
+                  canClear: ctrl.canClear[1],
+                  fn: ctrl.fn[1],
+                  tec: ctrl.tec[1],
+                  hintText: '비밀번호',
+                  errorMsg: ctrl.errorMsg[1],
+                  isPswd: true,
+                ),
+                SizedBox(
+                  height: 0.0197 * scrHeight,
+                ),
+                buildAutoLogin(
+                  ctrl.checked,
+                  scrHeight,
+                  () {
+                    ctrl.checkBoxClicked();
+                  },
+                ),
+                SizedBox(
+                  height: 0.0394 * scrHeight,
+                ),
+                LongRoundButton(
+                  buttonText: '로그인',
+                  scrHeight: scrHeight,
+                  activated: ctrl.tec[0].text.isNotEmpty &&
+                      ctrl.tec[1].text.isNotEmpty,
+                  validateFunc: () {
+                    ctrl.validateEmail();
+                    ctrl.validatePassword();
+                    if (ctrl.errorOcur[0] || ctrl.errorOcur[1]) {
+                      Get.dialog(
+                        Dialog(
+                          child: TextButtonDialog(
+                            scrHeight: scrHeight,
+                            dialogText: '아이디나 비밀번호가 올바르지 않습니다.',
+                            routeFunc: () {
+                              Get.back();
+                            },
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 0.0197 * scrHeight,
+                ),
+                buildTextButtons(
+                  () {
+                    Get.to(() => FindEmailPage());
+                  },
+                  () {
+                    Get.to(() => FindPswdPage());
+                  },
+                  () {
+                    Get.to(() => SignInPage());
+                  },
+                  scrHeight,
+                ),
+              ],
+            );
+          }),
         ),
       ),
     );
@@ -146,12 +127,12 @@ class LoginMainPage extends StatelessWidget {
         if (checked)
           InkWell(
             onTap: checkClicked,
-            child: SvgPicture.asset('asset/checkedoff.svg'),
+            child: SvgPicture.asset('assets/checkedoff.svg'),
           )
         else
           InkWell(
             onTap: checkClicked,
-            child: SvgPicture.asset('asset/off.svg'),
+            child: SvgPicture.asset('assets/off.svg'),
           ),
         SizedBox(
           width: 0.0099 * scrHeight,

@@ -21,7 +21,7 @@ class MyPageMain extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 0.3399 * scrHeight,
+              //height: 0.3399 * scrHeight,
               width: scrWidth,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(34.5, 0, 34.5, 40),
@@ -65,8 +65,6 @@ class MyPageMain extends StatelessWidget {
                       height: 0.0197 * scrHeight,
                     ),
                     Wrap(
-                      
-                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         WhiteRountTextWidget(
                           textInside: '#위암',
