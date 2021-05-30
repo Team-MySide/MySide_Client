@@ -68,10 +68,11 @@ class FoodInformation extends StatelessWidget {
                                 ))),
                         Padding(
                             padding: EdgeInsets.symmetric(vertical: 32),
-                            child: Obx(() => LikeBookmark(
-                                like: _mainInfoController.item.value.likes,
-                                bookmark:
-                                    _mainInfoController.item.value.wishes)))
+                            child: Obx(() => FittedBox(
+                                child: LikeBookmark(
+                                    like: _mainInfoController.item.value.likes,
+                                    bookmark: _mainInfoController
+                                        .item.value.wishes))))
                       ]),
                     ]);
                   })))

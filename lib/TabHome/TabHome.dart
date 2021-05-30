@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabHome/AdContainer.dart';
+import 'package:my_side_client/common/UserProfile.dart';
 import 'DiseaseCategoryContainer.dart';
 import 'FoodRecommendContainer.dart';
 import 'FoodRankingContainer.dart';
@@ -19,17 +20,26 @@ class TabHome extends StatelessWidget {
         //     horizontal: Constants.paddingMainContainerVertical),
         // child:
         SingleChildScrollView(
-            child: Column(children: [
-      SearchBar(),
+            child: UserProfile.isLogin
+                ? Column(children: [
+                    SearchBar(),
+                    LoginRequestBar(),
+                    FoodRecommendContainer(),
+                    AdContainer(),
+                    FoodRankingContainer(),
+                    DiseaseCategoryContainer(),
+                    // AdContainer()
+                  ])
+                : Column(children: [
+                    SearchBar(),
+                    LoginRequestBar(),
+                    // FoodRecommendContainer(),
+                    FoodRankingContainer(),
 
-      LoginRequestBar(),
-      FoodRecommendContainer(),
-      AdContainer(),
-      FoodRankingContainer(),
-      DiseaseCategoryContainer(),
-      // AdContainer()
-    ])
-            // )
-            );
+                    DiseaseCategoryContainer(),
+                    AdContainer()
+                  ]
+                    // )
+                    ));
   }
 }
