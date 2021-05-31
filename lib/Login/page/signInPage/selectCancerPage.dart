@@ -23,8 +23,8 @@ class SelectCancerPage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    //UserInfo previousInfo = UserInfo();
-    //previousInfo = Get.arguments;
+    UserInfo previousInfo = UserInfo();
+    previousInfo = Get.arguments;
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(

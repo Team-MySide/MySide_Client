@@ -12,7 +12,7 @@ class FindPswdPageController extends GetxController {
   List<FocusNode> fn = [FocusNode(), FocusNode()];
 
   List<bool> errorOcur = [false, false];
-  List<bool> canClear = [false, false];
+  List<bool> canClear = [true, true];
 
   List<String> errorMsg = ['', ''];
 

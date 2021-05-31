@@ -293,7 +293,7 @@ class IngredientTable extends StatelessWidget {
     double rate = v / maxVal;
     return ClipRRect(
       child: LinearProgressIndicator(
-        color: Color(color),
+        //color: Color(color),
         backgroundColor: Color(0xFFE5E5E5),
         value: rate,
         minHeight: 6,

@@ -12,8 +12,8 @@ class UserNicknamePage extends StatelessWidget {
   final NicknameController nnController = Get.put(NicknameController());
   @override
   Widget build(BuildContext context) {
-    //UserInfo previousInfo = UserInfo();
-    //previousInfo = Get.arguments;
+    UserInfo previousInfo = UserInfo();
+    previousInfo = Get.arguments;
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -83,7 +83,7 @@ class UserNicknamePage extends StatelessWidget {
                 activated: nnctrl.tec.text.isNotEmpty,
                 validateFunc: () {
                   if (!nnctrl.errorText) {
-                    //previousInfo.nickname = nnctrl.tec.text;
+                    previousInfo.nickname = nnctrl.tec.text;
                     Get.to(() => SelectCancerPage());
                   }
                 },

@@ -57,7 +57,7 @@ class MyTextWidget extends StatelessWidget {
               : errorOcur && !canClear
                   ? Icon(Icons.error)
                   : IconButton(
-                      icon: SvgPicture.asset('asset/x.svg'),
+                      icon: SvgPicture.asset('assets/x.svg'),
                       onPressed: () {
                         tec.text = '';
                       },

@@ -13,12 +13,12 @@ class UserTypeSelectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
-    //UserInfo previousInfo = UserInfo();
-    //previousInfo = Get.arguments;
-    // print(previousInfo.email);
-    // print(previousInfo.name);
-    // print(previousInfo.password);
-    // print(previousInfo.phone);
+    UserInfo previousInfo = UserInfo();
+    previousInfo = Get.arguments;
+    print(previousInfo.getEmail);
+    print(previousInfo.name);
+    print(previousInfo.password);
+    print(previousInfo.phone);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -87,7 +87,7 @@ class UserTypeSelectPage extends StatelessWidget {
               activated: ctrl.userType > 0,
               validateFunc: () {
                 if (ctrl.userType > 0) {
-                  //previousInfo.relationNm = ctrl.userType == 1 ? '환우' : '보호자';
+                  previousInfo.relationNm = ctrl.userType == 1 ? '환우' : '보호자';
                   Get.to(() => UserNicknamePage());
                 }
               },
@@ -117,11 +117,11 @@ class UserTypeSelectPage extends StatelessWidget {
             children: [
               userType
                   ? isSelected
-                      ? SvgPicture.asset('asset/patientselected.svg')
-                      : SvgPicture.asset('asset/patientunselected.svg')
+                      ? SvgPicture.asset('assets/patientselected.svg')
+                      : SvgPicture.asset('assets/patientunselected.svg')
                   : isSelected
-                      ? SvgPicture.asset('asset/guardianselect.svg')
-                      : SvgPicture.asset('asset/guardianunselected.svg'),
+                      ? SvgPicture.asset('assets/guardianselect.svg')
+                      : SvgPicture.asset('assets/guardianunselected.svg'),
               SizedBox(
                 height: 0.0148 * scrHeight,
               ),

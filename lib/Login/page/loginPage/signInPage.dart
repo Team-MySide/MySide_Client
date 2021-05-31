@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:my_side_client/Login/controllers/agreeContoller.dart';
-import 'package:my_side_client/Login/controllers/checkPswdController.dart';
-import 'package:my_side_client/Login/controllers/emailController.dart';
-import 'package:my_side_client/Login/controllers/nameController.dart';
-import 'package:my_side_client/Login/controllers/otpController.dart';
-import 'package:my_side_client/Login/controllers/passwordController.dart';
-import 'package:my_side_client/Login/controllers/phoneController.dart';
+import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInMainPageController.dart';
 import 'package:my_side_client/Login/model/userInfo.dart';
 import 'package:my_side_client/Login/page/signInPage/userTypeSelectPage.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
@@ -16,15 +10,8 @@ import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/Login/widget/textfieldButtonError.dart';
 
 class SignInPage extends StatelessWidget {
-  final NameController nameController = Get.put(NameController());
-  final EmailController emailController =
-      Get.put(EmailController(), tag: 'SignIn');
-  final PhoneController phoneController = Get.put(PhoneController());
-  final OTPcontroller otpController = Get.put(OTPcontroller());
-  final PasswordController pswdController =
-      Get.put(PasswordController(), tag: 'SignIn');
-  final CheckPswdController rePswdController = Get.put(CheckPswdController());
-  final AgreeController agreeController = Get.put(AgreeController());
+  final SignInMainPageController simpController =
+      Get.put(SignInMainPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,202 +24,187 @@ class SignInPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: GetBuilder<EmailController>(
-            tag: 'SignIn',
-            builder: (ectrl) {
-              return GetBuilder<NameController>(builder: (nctrl) {
-                return GetBuilder<PhoneController>(builder: (pctrl) {
-                  // return GetBuilder<OTPcontroller>(builder: (octrl) {
-                    return GetBuilder<PasswordController>(builder: (psctrl) {
-                      return GetBuilder<CheckPswdController>(builder: (rectrl) {
-                        return GetBuilder<AgreeController>(builder: (actrl) {
-                          return Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.fromLTRB(
-                                  0.0197 * scrHeight,
-                                  0.0296 * scrHeight,
-                                  0.0197 * scrHeight,
-                                  0,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    RequiredTextWidget(
-                                      mainText: '이메일',
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    TextfieldButtonError(
-                                      scrHeight: scrHeight,
-                                      errorText: ectrl.errorText,
-                                      canClear: ectrl.canClear,
-                                      fn: ectrl.fn,
-                                      tec: ectrl.tec,
-                                      hintText: '이메일 주소',
-                                      buttonText: '중복확인',
-                                      errorMsg: ectrl.errorMsg,
-                                      getOPT: () {}, //중복확인하는 부분
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    RequiredTextWidget(
-                                      mainText: '이름',
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    TextFieldwithErrorMsg(
-                                      scrHeight: scrHeight,
-                                      errorOcur: nctrl.errorText,
-                                      canClear: nctrl.canClear,
-                                      fn: nctrl.fn,
-                                      tec: nctrl.tec,
-                                      hintText: '이름',
-                                      errorMsg: nctrl.errorMsg,
-                                      isPswd: false,
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    RequiredTextWidget(
-                                      mainText: '휴대폰',
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    TextfieldButtonError(
-                                      scrHeight: scrHeight,
-                                      errorText: pctrl.errorText,
-                                      canClear: pctrl.canClear,
-                                      fn: pctrl.fn,
-                                      tec: pctrl.tec,
-                                      hintText: '휴대폰 번호',
-                                      buttonText: '인증번호 받기',
-                                      errorMsg: pctrl.errorMsg,
-                                      getOPT: () {}, //중복확인하는 부분
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    TextFieldwithErrorMsg(
-                                      scrHeight: scrHeight,
-                                      // errorOcur: octrl.errorText,
-                                      errorOcur: false,
-                                      // canClear: octrl.canClear,
-                                      canClear: true,
-                                      // fn: octrl.fn,
-                                      fn:FocusNode(),
-                                      // tec: octrl.tec,
-                                      tec: TextEditingController(),
-                                      hintText: '인증번호',
-                                      // errorMsg: octrl.errorMsg,
-                                      errorMsg: '',
-                                      isPswd: false,
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    RequiredTextWidget(
-                                      mainText: '비밀번호',
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    TextFieldwithErrorMsg(
-                                      scrHeight: scrHeight,
-                                      errorOcur: psctrl.errorText,
-                                      canClear: psctrl.canClear,
-                                      fn: psctrl.fn,
-                                      tec: psctrl.tec,
-                                      hintText: '비밀번호',
-                                      errorMsg: psctrl.errorMsg,
-                                      isPswd: true,
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    RequiredTextWidget(
-                                      mainText: '비밀번호 재확인',
-                                    ),
-                                    SizedBox(
-                                      height: 0.0099 * scrHeight,
-                                    ),
-                                    TextFieldwithErrorMsg(
-                                      scrHeight: scrHeight,
-                                      errorOcur: rectrl.errorText,
-                                      canClear: rectrl.canClear,
-                                      fn: rectrl.fn,
-                                      tec: rectrl.tec,
-                                      hintText: '비밀번호 재확인',
-                                      errorMsg: rectrl.errorMsg,
-                                      isPswd: true,
-                                    ),
-                                    SizedBox(
-                                      height: 0.0493 * scrHeight,
-                                    ),
-                                    buildAgreement(
-                                      actrl.firstSelected,
-                                      actrl.secondSelected,
-                                      actrl.thirdSelected,
-                                      actrl.fourthSelected,
-                                      scrHeight,
-                                      actrl.firstClicked,
-                                      actrl.secondClicked,
-                                      actrl.thirdClicked,
-                                      actrl.fourthClicked,
-                                    ),
-                                    SizedBox(
-                                      height: 0.0493 * scrHeight,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              RecSubmitButton(
-                                buttonText: '회원가입',
-                                scrHeight: scrHeight,
-                                activated: ectrl.tec.text.isNotEmpty &&
-                                    nctrl.tec.text.isNotEmpty &&
-                                    pctrl.tec.text.isNotEmpty &&
-                                    //octrl.tec.text.isNotEmpty &&
-                                    psctrl.tec.text.isNotEmpty &&
-                                    rectrl.tec.text.isNotEmpty &&
-                                    actrl.secondSelected &&
-                                    actrl.thirdSelected,
-                                validateFunc: () {
-                                  ectrl.validateEmail();
-                                  nctrl.validateName();
-                                  pctrl.validatePhone();
-                                  //octrl.validateOTP();
-                                  psctrl.validatePassword();
-                                  rectrl.validatePswdMatch(psctrl.tec.text);
-                                  if (!ectrl.errorText &&
-                                      !nctrl.errorText &&
-                                      !pctrl.errorText &&
-                                      //s!octrl.errorText &&
-                                      !psctrl.errorText &&
-                                      !rectrl.errorText) {
-                                    newUser.email = ectrl.tec.text;
-                                    newUser.name = nctrl.tec.text;
-                                    newUser.phone = pctrl.tec.text;
-                                    newUser.password = psctrl.tec.text;
+        child: GetBuilder<SignInMainPageController>(builder: (ctrl) {
+          return Column(
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(
+                  0.0197 * scrHeight,
+                  0.0296 * scrHeight,
+                  0.0197 * scrHeight,
+                  0,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RequiredTextWidget(
+                      mainText: '이메일',
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    TextfieldButtonError(
+                      scrHeight: scrHeight,
+                      errorText: ctrl.errorOcur[0],
+                      canClear: ctrl.canClear[0],
+                      fn: ctrl.fn[0],
+                      tec: ctrl.tec[0],
+                      hintText: '이메일 주소',
+                      buttonText: '중복확인',
+                      errorMsg: ctrl.errorMsg[0],
+                      getOPT: () {}, //중복확인하는 부분
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    RequiredTextWidget(
+                      mainText: '이름',
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    TextFieldwithErrorMsg(
+                      scrHeight: scrHeight,
+                      errorOcur: ctrl.errorOcur[1],
+                      canClear: ctrl.canClear[1],
+                      fn: ctrl.fn[1],
+                      tec: ctrl.tec[1],
+                      hintText: '이름',
+                      errorMsg: ctrl.errorMsg[1],
+                      isPswd: false,
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    RequiredTextWidget(
+                      mainText: '휴대폰',
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    TextFieldwithErrorMsg(
+                      scrHeight: scrHeight,
+                      errorOcur: ctrl.errorOcur[2],
+                      canClear: ctrl.canClear[2],
+                      fn: ctrl.fn[2],
+                      tec: ctrl.tec[2],
+                      hintText: '휴대폰 번호',
+                      errorMsg: ctrl.errorMsg[2],
+                      isPswd: false,
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    RequiredTextWidget(
+                      mainText: '휴대폰 재확인',
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    TextFieldwithErrorMsg(
+                      scrHeight: scrHeight,
+                      errorOcur: ctrl.errorOcur[3],
+                      canClear: ctrl.canClear[3],
+                      fn: ctrl.fn[3],
+                      tec: ctrl.tec[3],
+                      hintText: '휴대폰 번호',
+                      errorMsg: ctrl.errorMsg[3],
+                      isPswd: false,
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    RequiredTextWidget(
+                      mainText: '비밀번호',
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    TextFieldwithErrorMsg(
+                      scrHeight: scrHeight,
+                      errorOcur: ctrl.errorOcur[4],
+                      canClear: ctrl.canClear[4],
+                      fn: ctrl.fn[4],
+                      tec: ctrl.tec[4],
+                      hintText: '비밀번호',
+                      errorMsg: ctrl.errorMsg[4],
+                      isPswd: true,
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    RequiredTextWidget(
+                      mainText: '비밀번호 재확인',
+                    ),
+                    SizedBox(
+                      height: 0.0099 * scrHeight,
+                    ),
+                    TextFieldwithErrorMsg(
+                      scrHeight: scrHeight,
+                      errorOcur: ctrl.errorOcur[5],
+                      canClear: ctrl.canClear[5],
+                      fn: ctrl.fn[5],
+                      tec: ctrl.tec[5],
+                      hintText: '비밀번호 재확인',
+                      errorMsg: ctrl.errorMsg[5],
+                      isPswd: true,
+                    ),
+                    SizedBox(
+                      height: 0.0493 * scrHeight,
+                    ),
+                    buildAgreement(
+                      ctrl.firstSelected,
+                      ctrl.secondSelected,
+                      ctrl.thirdSelected,
+                      ctrl.fourthSelected,
+                      scrHeight,
+                      ctrl.firstClicked,
+                      ctrl.secondClicked,
+                      ctrl.thirdClicked,
+                      ctrl.fourthClicked,
+                    ),
+                    SizedBox(
+                      height: 0.0493 * scrHeight,
+                    ),
+                  ],
+                ),
+              ),
+              RecSubmitButton(
+                buttonText: '회원가입',
+                scrHeight: scrHeight,
+                activated: ctrl.tec[0].text.isNotEmpty &&
+                    ctrl.tec[1].text.isNotEmpty &&
+                    ctrl.tec[2].text.isNotEmpty &&
+                    ctrl.tec[3].text.isNotEmpty &&
+                    ctrl.tec[4].text.isNotEmpty &&
+                    ctrl.tec[5].text.isNotEmpty &&
+                    ctrl.secondSelected &&
+                    ctrl.thirdSelected,
+                validateFunc: () {
+                  ctrl.validateEmail();
+                  ctrl.validateName();
+                  ctrl.validatePhone();
+                  ctrl.validatePhoneMatch();
+                  ctrl.validatePassword();
+                  ctrl.validatePswdMatch();
+                  if (!ctrl.errorOcur[0] &&
+                      !ctrl.errorOcur[1] &&
+                      !ctrl.errorOcur[2] &&
+                      !ctrl.errorOcur[3] &&
+                      !ctrl.errorOcur[4] &&
+                      !ctrl.errorOcur[5]) {
+                    newUser.email = ctrl.tec[0].text;
+                    newUser.name = ctrl.tec[1].text;
+                    newUser.phone = ctrl.tec[2].text;
+                    newUser.password = ctrl.tec[4].text;
 
-                                    Get.to(() => UserTypeSelectPage(),
-                                        arguments: newUser);
-                                  }
-                                },
-                              ),
-                            ],
-                          );
-                        });
-                      });
-                    });
-                  // });
-                });
-              });
-            }),
+                    Get.to(() => UserTypeSelectPage(), arguments: newUser);
+                  }
+                },
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -255,12 +227,12 @@ class SignInPage extends StatelessWidget {
             if (first)
               InkWell(
                 onTap: firstClicked,
-                child: SvgPicture.asset('asset/checkedoff.svg'),
+                child: SvgPicture.asset('assets/checkedoff.svg'),
               )
             else
               InkWell(
                 onTap: firstClicked,
-                child: SvgPicture.asset('asset/off.svg'),
+                child: SvgPicture.asset('assets/off.svg'),
               ),
             SizedBox(
               width: 0.0099 * scrHeight,
@@ -282,12 +254,12 @@ class SignInPage extends StatelessWidget {
             if (second)
               InkWell(
                 onTap: secondClicked,
-                child: SvgPicture.asset('asset/checkedoff.svg'),
+                child: SvgPicture.asset('assets/checkedoff.svg'),
               )
             else
               InkWell(
                 onTap: secondClicked,
-                child: SvgPicture.asset('asset/off.svg'),
+                child: SvgPicture.asset('assets/off.svg'),
               ),
             SizedBox(
               width: 0.0099 * scrHeight,
@@ -314,7 +286,7 @@ class SignInPage extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SvgPicture.asset(
-                'asset/arrowright.svg',
+                'assets/arrowright.svg',
               ),
             ),
           ],
@@ -327,12 +299,12 @@ class SignInPage extends StatelessWidget {
             if (third)
               InkWell(
                 onTap: thiredClicked,
-                child: SvgPicture.asset('asset/checkedoff.svg'),
+                child: SvgPicture.asset('assets/checkedoff.svg'),
               )
             else
               InkWell(
                 onTap: thiredClicked,
-                child: SvgPicture.asset('asset/off.svg'),
+                child: SvgPicture.asset('assets/off.svg'),
               ),
             SizedBox(
               width: 0.0099 * scrHeight,
@@ -359,7 +331,7 @@ class SignInPage extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SvgPicture.asset(
-                'asset/arrowright.svg',
+                'assets/arrowright.svg',
               ),
             ),
           ],
@@ -372,12 +344,12 @@ class SignInPage extends StatelessWidget {
             if (fourth)
               InkWell(
                 onTap: fourthClicked,
-                child: SvgPicture.asset('asset/checkedoff.svg'),
+                child: SvgPicture.asset('assets/checkedoff.svg'),
               )
             else
               InkWell(
                 onTap: fourthClicked,
-                child: SvgPicture.asset('asset/off.svg'),
+                child: SvgPicture.asset('assets/off.svg'),
               ),
             SizedBox(
               width: 0.0099 * scrHeight,
