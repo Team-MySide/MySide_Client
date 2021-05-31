@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:my_side_client/TabMyPage/controller/monthSelectController.dart';
-import 'package:my_side_client/TabMyPage/controller/moveYearController.dart';
+import 'package:my_side_client/TabMyPage/controller/healthDateListController.dart';
 import 'package:my_side_client/TabMyPage/widget/dataListWidget.dart';
 
 class HealthDateListPage extends StatelessWidget {
-  final moveYearController = Get.put(MoveYearController());
-  final monthSelectController = Get.put(MonthSelectController());
+  final HealthDataListController hdlCtrl = Get.put(HealthDataListController());
   final List<String> monthList = [
     '1월',
     '2월',
@@ -44,7 +42,8 @@ class HealthDateListPage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
+          child: GetBuilder<HealthDataListController>(builder: (ctrl) {
+        return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
@@ -68,28 +67,21 @@ class HealthDateListPage extends StatelessWidget {
                         'assets/arrowleft.svg',
                       ),
                       onPressed: () {
-                        moveYearController.leftMoveYear();
+                        ctrl.leftMoveYear();
                       },
                     ),
-                    GetBuilder<MoveYearController>(
-                        builder: (moveYearController) {
-                      return Text(
-                        moveYearController.showYear.toString(),
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFF111111),
-                            fontFamily: 'Metropolis'),
-                      );
-                    }),
+                    Text(
+                      ctrl.showYear.toString(),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF111111),
+                          fontFamily: 'Metropolis'),
+                    ),
                     IconButton(
-                      icon: GetBuilder<MoveYearController>(
-                        builder: (moveYearController) {
-                          return moveYearController.rightArrow;
-                        },
-                      ),
+                      icon: ctrl.rightArrow,
                       onPressed: () {
-                        moveYearController.rightMoveYear();
+                        ctrl.rightMoveYear();
                       },
                     ),
                   ],
@@ -99,58 +91,52 @@ class HealthDateListPage extends StatelessWidget {
             SizedBox(
               height: 0.0394 * scrHeight,
             ),
-            GetBuilder<MonthSelectController>(
-              builder: (monthSelectController) {
-                return Container(
-                  height: 0.08 * scrHeight,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: monthList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: 0.0419 * scrHeight,
-                        width: 0.0788 * scrHeight,
-                        child: Column(
-                          children: [
-                            TextButton(
-                              child: Text(
-                                monthList[index],
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: monthSelectController.month == index
-                                      ? Color(0xFF3BD7E2)
-                                      : Color(0xFFAAAAAA),
-                                ),
+            Container(
+                height: 0.08 * scrHeight,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: monthList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      height: 0.0419 * scrHeight,
+                      width: 0.0788 * scrHeight,
+                      child: Column(
+                        children: [
+                          TextButton(
+                            child: Text(
+                              monthList[index],
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                color: ctrl.month == index
+                                    ? Color(0xFF3BD7E2)
+                                    : Color(0xFFAAAAAA),
                               ),
-                              onPressed: () {
-                                monthSelectController.selectMonth(index);
-                              },
                             ),
-                            SizedBox(height: 0.005 * scrHeight),
-                            Container(
-                              color: monthSelectController.month == index
-                                  ? Color(0xFF3BD7E2)
-                                  : Color(0xFFDDDDDD),
-                              height:
-                                  monthSelectController.month == index ? 3 : 1,
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
+                            onPressed: () {
+                              ctrl.selectMonth(index);
+                            },
+                          ),
+                          SizedBox(height: 0.005 * scrHeight),
+                          Container(
+                            color: ctrl.month == index
+                                ? Color(0xFF3BD7E2)
+                                : Color(0xFFDDDDDD),
+                            height: ctrl.month == index ? 3 : 1,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                )),
             DataListWidget(
               dataNum: 2,
               scrHeight: scrHeight,
               isMain: false,
             ),
           ],
-        ),
-      ),
+        );
+      })),
     );
   }
 }

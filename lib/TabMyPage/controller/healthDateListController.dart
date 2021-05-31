@@ -1,10 +1,11 @@
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class MoveYearController extends GetxController {
+class HealthDataListController extends GetxController {
   int curYear = DateTime.now().year;
   int showYear = DateTime.now().year;
   SvgPicture rightArrow = SvgPicture.asset('assets/arrowrightend.svg');
+  int month = DateTime.now().month - 1;
 
   rightMoveYear() {
     if (curYear == showYear + 1) {
@@ -25,6 +26,11 @@ class MoveYearController extends GetxController {
       rightArrow = SvgPicture.asset('assets/arrowright.svg');
     }
     showYear--;
+    update();
+  }
+
+  selectMonth(int index) {
+    month = index;
     update();
   }
 }

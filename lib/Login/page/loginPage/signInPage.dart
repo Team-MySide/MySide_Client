@@ -16,7 +16,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
-    UserInfo newUser = UserInfo();
+    //UserInfo newUser = UserInfo();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -193,12 +193,17 @@ class SignInPage extends StatelessWidget {
                       !ctrl.errorOcur[3] &&
                       !ctrl.errorOcur[4] &&
                       !ctrl.errorOcur[5]) {
-                    newUser.email = ctrl.tec[0].text;
-                    newUser.name = ctrl.tec[1].text;
-                    newUser.phone = ctrl.tec[2].text;
-                    newUser.password = ctrl.tec[4].text;
+                    //newUser.email = ctrl.tec[0].text;
+                    //newUser.name = ctrl.tec[1].text;
+                    //newUser.phone = ctrl.tec[2].text;
+                    //newUser.password = ctrl.tec[4].text;
 
-                    Get.to(() => UserTypeSelectPage(), arguments: newUser);
+                    Get.to(() => UserTypeSelectPage(), arguments: [
+                      ctrl.tec[0].text,
+                      ctrl.tec[1].text,
+                      ctrl.tec[2].text,
+                      ctrl.tec[4].text
+                    ]);
                   }
                 },
               ),

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_side_client/TabMyPage/pages/healthDateListPage.dart';
+import 'package:my_side_client/TabMyPage/pages/profileChangePage.dart';
 import 'package:my_side_client/TabMyPage/widget/dataListWidget.dart';
 import 'package:my_side_client/TabMyPage/widget/myPageMainIconButton.dart';
 import 'package:my_side_client/TabMyPage/widget/whiteRoundTextWidget.dart';
+
+import 'appSettingPage.dart';
 
 class MyPageMain extends StatelessWidget {
   @override
@@ -14,14 +19,17 @@ class MyPageMain extends StatelessWidget {
         backgroundColor: Color(0xFF3BD7E2),
         elevation: 0,
         actions: [
-          IconButton(icon: Image.asset('assets/top.png'), onPressed: () {})
+          IconButton(
+              icon: Image.asset('assets/top.png'),
+              onPressed: () {
+                Get.to(() => AppSettingPage());
+              })
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              //height: 0.3399 * scrHeight,
               width: scrWidth,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(34.5, 0, 34.5, 40),
@@ -114,14 +122,18 @@ class MyPageMain extends StatelessWidget {
                           scrHeight: scrHeight,
                           iconImageNm: 'assets/list.svg',
                           iconText: '건강 데이터',
-                          onTap: () {},
+                          onTap: () {
+                            //Get.to(() => HealthDateListPage());
+                          },
                         ),
                         Spacer(),
                         MyPageMainIconButton(
                           scrHeight: scrHeight,
                           iconImageNm: 'assets/pen.svg',
                           iconText: '프로필 수정',
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => ProfileChangePage());
+                          },
                         ),
                         Spacer(),
                         MyPageMainIconButton(
@@ -151,7 +163,9 @@ class MyPageMain extends StatelessWidget {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Get.to(() => HealthDateListPage());
+                            },
                             child: Text(
                               '더보기 +',
                               style: TextStyle(

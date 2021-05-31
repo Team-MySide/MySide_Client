@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:my_side_client/TabMyPage/pages/dropOutPage.dart';
+import 'package:my_side_client/TabMyPage/pages/faqPage.dart';
 import 'package:my_side_client/TabMyPage/widget/smallRoundButton.dart';
 
 class AppSettingPage extends StatelessWidget {
@@ -30,10 +33,13 @@ class AppSettingPage extends StatelessWidget {
               thickness: 1,
               color: Color(0xFFDDDDDD),
             ),
-            buildSettingTile('assets/faq.svg', 'FAQ', scrHeight),
-            buildSettingTile('assets/paper.svg', '이용약관', scrHeight),
-            buildSettingTile('assets/handshake.svg', '광고/제휴문의', scrHeight),
-            buildSettingTile('assets/logout.svg', '로그아웃', scrHeight),
+            buildSettingTile('assets/faq.svg', 'FAQ', scrHeight, () {
+              Get.to(() => FAQPage());
+            }),
+            buildSettingTile('assets/paper.svg', '이용약관', scrHeight, () {}),
+            buildSettingTile(
+                'assets/handshake.svg', '광고/제휴문의', scrHeight, () {}),
+            buildSettingTile('assets/logout.svg', '로그아웃', scrHeight, () {}),
             SizedBox(
               height: 16,
             ),
@@ -45,7 +51,9 @@ class AppSettingPage extends StatelessWidget {
                 ),
                 SmallRoundButton(
                   buttonText: '탈퇴하기',
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => DropOutPage());
+                  },
                   buttonWidth: 60,
                 ),
               ],
@@ -56,7 +64,8 @@ class AppSettingPage extends StatelessWidget {
     );
   }
 
-  Widget buildSettingTile(String svgPath, String tileText, double scrHeight) {
+  Widget buildSettingTile(
+      String svgPath, String tileText, double scrHeight, VoidCallback onTap) {
     return Column(
       children: [
         Container(
@@ -83,7 +92,7 @@ class AppSettingPage extends StatelessWidget {
                 Spacer(),
                 InkWell(
                   child: SvgPicture.asset('assets/arrowright.svg'),
-                  onTap: () {},
+                  onTap: onTap,
                 ),
               ],
             ),

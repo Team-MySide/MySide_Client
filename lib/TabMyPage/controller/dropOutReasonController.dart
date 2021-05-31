@@ -15,7 +15,6 @@ class DropOutReasonController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    reasonTEC.dispose();
     reasonTEC.removeListener(onListen);
   }
 

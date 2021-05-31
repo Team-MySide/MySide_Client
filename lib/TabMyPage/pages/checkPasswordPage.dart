@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/TabMyPage/controller/passwordController.dart';
 import 'package:my_side_client/TabMyPage/widget/longRoundButton.dart';
 
-import 'package:my_side_client/TabMyPage/widget/textFieldwithErrorMessage.dart';
-
+import 'appSettingPage.dart';
 import 'changePhoneNumbePage.dart';
 
 class CheckPasswordPage extends StatelessWidget {
@@ -28,7 +28,9 @@ class CheckPasswordPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: SvgPicture.asset('assets/Setting.svg'),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => AppSettingPage());
+            },
           )
         ],
       ),
@@ -39,23 +41,18 @@ class CheckPasswordPage extends StatelessWidget {
             vertical: 0.0308 * scrHeight,
           ),
           child: GetBuilder<PasswordController>(
-            builder: (ctrler) {
+            builder: (ctrl) {
               return Column(
                 children: [
-                  TextWidgetWithErrorMessage(
+                  TextFieldwithErrorMsg(
                     scrHeight: scrHeight,
-                    errorOccur: ctrler.wrongPswd,
-                    canClear: ctrler.canClear,
-                    focusNode: ctrler.focus,
-                    textEC: ctrler.pswdController,
-                    changeErrorFunc: ctrler.setErrorToFalse,
-                    changeClearFunc: ctrler.changeCanClear,
-                    isPswd: true,
+                    errorOcur: ctrl.errorOcur,
+                    canClear: ctrl.canClear,
+                    fn: ctrl.fn,
+                    tec: ctrl.tec,
                     hintText: '비밀번호',
-                    errorMsg: ctrler.errorMsg,
-                    errorColor: Color(0xFFEE1100),
-                    deactiveColor: Color(0XFFAAAAAA),
-                    activeColor: Color(0xFF3BD7E2),
+                    errorMsg: ctrl.errorMsg,
+                    isPswd: true,
                   ),
                   SizedBox(
                     height: 0.5062 * scrHeight,
@@ -80,9 +77,9 @@ class CheckPasswordPage extends StatelessWidget {
                   LongRoundButton(
                     buttonText: '다음',
                     scrHeight: scrHeight,
-                    activated: ctrler.pswdController.text.isNotEmpty,
+                    activated: ctrl.tec.text.isNotEmpty,
                     validateFunc: () {
-                      ctrler.validatePswd(ctrler.pswdController.text);
+                      ctrl.validatePassword();
                       Get.to(() => ChangePhoneNumberPage());
                     },
                   ),

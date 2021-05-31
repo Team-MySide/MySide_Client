@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
-import 'package:my_side_client/TabMyPage/controller/phoneOTPController.dart';
-import 'package:my_side_client/TabMyPage/widget/phoneReceiveOTP.dart';
+
+import 'appSettingPage.dart';
 
 class ChangePhoneNumberPage extends StatelessWidget {
-  final PhoneOTPController phoneOTPController = Get.put(PhoneOTPController());
-
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
@@ -26,7 +24,9 @@ class ChangePhoneNumberPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: SvgPicture.asset('assets/Setting.svg'),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => AppSettingPage());
+            },
           )
         ],
       ),
@@ -36,26 +36,12 @@ class ChangePhoneNumberPage extends StatelessWidget {
             horizontal: 0.0197 * scrHeight,
             vertical: 0.0308 * scrHeight,
           ),
-          child: GetBuilder<PhoneOTPController>(
-            builder: (ctrler) {
-              return Column(
-                children: [
-                  PhoneReceiveOTP(
-                    scrHeight: scrHeight,
-                    ctrler: ctrler,
-                  ),
-                  SizedBox(
-                    height: 0.5222 * scrHeight,
-                  ),
-                  LongRoundButton(
-                    buttonText: '저장하기',
-                    scrHeight: scrHeight,
-                    activated: ctrler.otpController.text.isNotEmpty,
-                    validateFunc: ctrler.checkOTPNumber,
-                  ),
-                ],
-              );
-            },
+          child: Column(
+            children: [
+              SizedBox(
+                height: 0.5222 * scrHeight,
+              ),
+            ],
           ),
         ),
       ),
