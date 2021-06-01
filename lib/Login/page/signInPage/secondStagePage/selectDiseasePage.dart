@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/selectDiseaseController.dart';
+import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
 import 'package:my_side_client/Login/widget/secondStagePageNumber.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
 
 class SelectDiseasePage extends StatelessWidget {
   final SelectDiseaseController sdctrl = Get.put(SelectDiseaseController());
-  final String email = Get.arguments[0];
-  final String name = Get.arguments[1];
-  final String phone = Get.arguments[2];
-  final String password = Get.arguments[3];
-  final String usrType = Get.arguments[4];
-  final String nickName = Get.arguments[5];
-  final String cancerNm = Get.arguments[6];
-  final String stageNm = Get.arguments[7];
-  final String progressNm = Get.arguments[8];
-  final String gender = Get.arguments[9];
-  final String age = Get.arguments[10];
-  final String height = Get.arguments[11];
-  final String weight = Get.arguments[12];
+  final SignInUserController signInUserController =
+      Get.put(SignInUserController());
   final List<String> diseaseList = [
     '고혈압',
     '당뇨',
@@ -72,7 +62,7 @@ class SelectDiseasePage extends StatelessWidget {
               child: Column(
                 children: [
                   TitleAndSubtitleWidget(
-                    title: '$nickName님의\n정보를 입력해주세요.',
+                    title: '${signInUserController.nickname}님의\n정보를 입력해주세요.',
                     subTitle: '정보 입력에 맞는 음식을 추천해드립니다.',
                     scrHeight: scrHeight,
                   ),
@@ -142,7 +132,9 @@ class SelectDiseasePage extends StatelessWidget {
               scrHeight: scrHeight,
               activated: ctrl.diseaseNum > 0,
               validateFunc: () {
-                print(Get.arguments);
+                signInUserController
+                    .setDieaseName(diseaseList[ctrl.diseaseNum - 1]);
+                signInUserController.signUpUser();
               },
             ),
           ],

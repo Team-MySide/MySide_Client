@@ -13,7 +13,7 @@ void main() {
       theme: ThemeData(
           primaryColor: Color(Constants.primaryColorInt),
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: MyPageMain()));
+      home: LoginMainPage()));
   // home: MainTab()));
   // runApp(Main());
 }

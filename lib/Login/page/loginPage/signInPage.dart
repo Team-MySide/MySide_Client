@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInMainPageController.dart';
-import 'package:my_side_client/Login/model/userInfo.dart';
+import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/page/signInPage/userTypeSelectPage.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
 import 'package:my_side_client/Login/widget/requiredTextWidget.dart';
@@ -12,11 +12,12 @@ import 'package:my_side_client/Login/widget/textfieldButtonError.dart';
 class SignInPage extends StatelessWidget {
   final SignInMainPageController simpController =
       Get.put(SignInMainPageController());
+  final SignInUserController signInUserController =
+      Get.put(SignInUserController());
 
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
-    //UserInfo newUser = UserInfo();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -193,17 +194,9 @@ class SignInPage extends StatelessWidget {
                       !ctrl.errorOcur[3] &&
                       !ctrl.errorOcur[4] &&
                       !ctrl.errorOcur[5]) {
-                    //newUser.email = ctrl.tec[0].text;
-                    //newUser.name = ctrl.tec[1].text;
-                    //newUser.phone = ctrl.tec[2].text;
-                    //newUser.password = ctrl.tec[4].text;
-
-                    Get.to(() => UserTypeSelectPage(), arguments: [
-                      ctrl.tec[0].text,
-                      ctrl.tec[1].text,
-                      ctrl.tec[2].text,
-                      ctrl.tec[4].text
-                    ]);
+                    signInUserController.setMainInfo(ctrl.tec[0].text,
+                        ctrl.tec[1].text, ctrl.tec[2].text, ctrl.tec[4].text);
+                    Get.to(() => UserTypeSelectPage());
                   }
                 },
               ),

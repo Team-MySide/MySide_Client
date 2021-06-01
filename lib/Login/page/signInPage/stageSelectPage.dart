@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/stageController.dart';
 import 'package:my_side_client/Login/page/signInPage/progressSelectPage.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
@@ -8,14 +9,8 @@ import 'package:my_side_client/Login/widget/userInfoPageNumber.dart';
 
 class StageSelectPage extends StatelessWidget {
   final StageController stgController = Get.put(StageController());
-
-  final String email = Get.arguments[0];
-  final String name = Get.arguments[1];
-  final String phone = Get.arguments[2];
-  final String password = Get.arguments[3];
-  final String usrType = Get.arguments[4];
-  final String nickName = Get.arguments[5];
-  final String cancerNm = Get.arguments[6];
+  final SignInUserController signInUserController =
+      Get.put(SignInUserController());
 
   final List<String> stageType = [
     '1기',
@@ -52,7 +47,7 @@ class StageSelectPage extends StatelessWidget {
               child: Column(
                 children: [
                   TitleAndSubtitleWidget(
-                    title: '$nickName님의\n현재 상태를 알려주세요.',
+                    title: '${signInUserController.nickname}님의\n현재 상태를 알려주세요.',
                     subTitle: '정보 입력에 맞는 음식을 추천해드립니다.',
                     scrHeight: scrHeight,
                   ),
@@ -109,16 +104,9 @@ class StageSelectPage extends StatelessWidget {
               activated: sctrl.stageNm > 0,
               validateFunc: () {
                 if (sctrl.stageNm > 0) {
-                  Get.to(() => ProgressSelectPage(), arguments: [
-                    email,
-                    name,
-                    phone,
-                    password,
-                    usrType,
-                    nickName,
-                    cancerNm,
-                    stageType[sctrl.stageNm - 1],
-                  ]);
+                  String stageName = stageType[sctrl.stageNm - 1];
+                  signInUserController.setStageName(stageName);
+                  Get.to(() => ProgressSelectPage());
                 }
               },
             ),

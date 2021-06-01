@@ -6,11 +6,13 @@ class DataListWidget extends StatelessWidget {
   final int dataNum;
   final double scrHeight;
   final bool isMain;
+  final VoidCallback onTap;
 
   DataListWidget({
     @required this.dataNum,
     @required this.scrHeight,
     @required this.isMain,
+    @required this.onTap,
   });
 
   @override
@@ -27,7 +29,7 @@ class DataListWidget extends StatelessWidget {
                   height: 62,
                   width: 62,
                 ),
-                onTap: () {},
+                onTap: onTap,
               ),
               SizedBox(
                 height: 0.0493 * scrHeight,
@@ -89,7 +91,7 @@ class DataListWidget extends StatelessWidget {
                             height: 0.0493 * scrHeight,
                             width: 0.0493 * scrHeight,
                           ),
-                          onTap: () {},
+                          onTap: onTap,
                         ),
                         SizedBox(
                           height: 0.0493 * scrHeight,

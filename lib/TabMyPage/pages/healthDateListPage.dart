@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabMyPage/controller/healthDateListController.dart';
+import 'package:my_side_client/TabMyPage/pages/addHealthDataPage.dart';
+import 'package:my_side_client/TabMyPage/pages/appSettingPage.dart';
 import 'package:my_side_client/TabMyPage/widget/dataListWidget.dart';
 
 class HealthDateListPage extends StatelessWidget {
@@ -38,7 +40,10 @@ class HealthDateListPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              icon: SvgPicture.asset('assets/Setting.svg'), onPressed: () {}),
+              icon: SvgPicture.asset('assets/Setting.svg'),
+              onPressed: () {
+                Get.to(() => AppSettingPage());
+              }),
         ],
       ),
       body: SingleChildScrollView(
@@ -92,47 +97,51 @@ class HealthDateListPage extends StatelessWidget {
               height: 0.0394 * scrHeight,
             ),
             Container(
-                height: 0.08 * scrHeight,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: monthList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      height: 0.0419 * scrHeight,
-                      width: 0.0788 * scrHeight,
-                      child: Column(
-                        children: [
-                          TextButton(
-                            child: Text(
-                              monthList[index],
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500,
-                                color: ctrl.month == index
-                                    ? Color(0xFF3BD7E2)
-                                    : Color(0xFFAAAAAA),
-                              ),
+              height: 0.08 * scrHeight,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: monthList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 0.0419 * scrHeight,
+                    width: 0.0788 * scrHeight,
+                    child: Column(
+                      children: [
+                        TextButton(
+                          child: Text(
+                            monthList[index],
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                              color: ctrl.month == index
+                                  ? Color(0xFF3BD7E2)
+                                  : Color(0xFFAAAAAA),
                             ),
-                            onPressed: () {
-                              ctrl.selectMonth(index);
-                            },
                           ),
-                          SizedBox(height: 0.005 * scrHeight),
-                          Container(
-                            color: ctrl.month == index
-                                ? Color(0xFF3BD7E2)
-                                : Color(0xFFDDDDDD),
-                            height: ctrl.month == index ? 3 : 1,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                )),
+                          onPressed: () {
+                            ctrl.selectMonth(index);
+                          },
+                        ),
+                        SizedBox(height: 0.005 * scrHeight),
+                        Container(
+                          color: ctrl.month == index
+                              ? Color(0xFF3BD7E2)
+                              : Color(0xFFDDDDDD),
+                          height: ctrl.month == index ? 3 : 1,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
             DataListWidget(
               dataNum: 2,
               scrHeight: scrHeight,
               isMain: false,
+              onTap: () {
+                Get.to(() => AddHealthDataPage());
+              },
             ),
           ],
         );

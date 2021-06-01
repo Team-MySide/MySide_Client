@@ -1,21 +1,5 @@
 class UserInfo {
-  String email;
-  String password;
-  String name;
-  String phone;
-  String relationNm;
-  String nickname;
-  String cancerNm;
-  String stageNm;
-  String progressNm;
-  String gender;
-  String age;
-  String height;
-  String weight;
-  String diableFood;
-  String disease;
-
-  /*UserInfo(
+  UserInfo({
     this.email,
     this.password,
     this.name,
@@ -29,7 +13,23 @@ class UserInfo {
     this.age,
     this.height,
     this.weight,
-    this.diableFood,
+    this.disableFood,
     this.disease,
-  );*/
+  });
+
+  String email;
+  String password;
+  String name;
+  String phone;
+  String relationNm;
+  String nickname;
+  String cancerNm;
+  String stageNm;
+  String progressNm;
+  String gender;
+  String age;
+  String height;
+  String weight;
+  String disableFood;
+  String disease;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/progressController.dart';
+import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/Login/page/signInPage/secondStagePage/physicalInfoPage.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
@@ -9,14 +10,8 @@ import 'package:my_side_client/Login/widget/userInfoPageNumber.dart';
 
 class ProgressSelectPage extends StatelessWidget {
   final ProgressController prgressController = Get.put(ProgressController());
-  final String email = Get.arguments[0];
-  final String name = Get.arguments[1];
-  final String phone = Get.arguments[2];
-  final String password = Get.arguments[3];
-  final String usrType = Get.arguments[4];
-  final String nickName = Get.arguments[5];
-  final String cancerNm = Get.arguments[6];
-  final String stageNm = Get.arguments[7];
+  final SignInUserController signInUserController =
+      Get.put(SignInUserController());
   final List<String> stageType = [
     '치료 예정',
     '수술전',
@@ -28,8 +23,6 @@ class ProgressSelectPage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    //UserInfo previousInfo = UserInfo();
-    //previousInfo = Get.arguments;
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -55,7 +48,7 @@ class ProgressSelectPage extends StatelessWidget {
               child: Column(
                 children: [
                   TitleAndSubtitleWidget(
-                    title: '$nickName님의\n진행 단계를 알려주세요.',
+                    title: '${signInUserController.nickname}님의\n진행 단계를 알려주세요.',
                     subTitle: '정보 입력에 맞는 음식을 추천해드립니다.',
                     scrHeight: scrHeight,
                   ),
@@ -114,8 +107,8 @@ class ProgressSelectPage extends StatelessWidget {
                     scrHeight: scrHeight,
                     activated: pctrl.progressNum > 0,
                     validateFunc: () {
-                      //previousInfo.progressNm =
-                      //    stageType[pctrl.progressNum - 1];
+                      signInUserController
+                          .setProgressName(stageType[pctrl.progressNum - 1]);
                       //서버에 신규회원정보보냄
                       Get.offAll(() => LoginMainPage());
                     },
@@ -129,19 +122,9 @@ class ProgressSelectPage extends StatelessWidget {
                     activated: pctrl.progressNum > 0,
                     validateFunc: () {
                       if (pctrl.progressNum > 0) {
-                        //previousInfo.progressNm =
-                        //   stageType[pctrl.progressNum - 1];
-                        Get.to(() => PhysicalInfoPage(), arguments: [
-                          email,
-                          name,
-                          phone,
-                          password,
-                          usrType,
-                          nickName,
-                          cancerNm,
-                          stageNm,
-                          stageType[pctrl.progressNum - 1],
-                        ]);
+                        signInUserController
+                            .setProgressName(stageType[pctrl.progressNum - 1]);
+                        Get.to(() => PhysicalInfoPage());
                       }
                     },
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/userTypeController.dart';
 import 'package:my_side_client/Login/page/signInPage/userNicknamePage.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
@@ -9,10 +10,8 @@ import 'package:my_side_client/Login/widget/userInfoPageNumber.dart';
 
 class UserTypeSelectPage extends StatelessWidget {
   final UserTypeController utc = Get.put(UserTypeController());
-  final String email = Get.arguments[0];
-  final String name = Get.arguments[1];
-  final String phone = Get.arguments[2];
-  final String password = Get.arguments[3];
+  final SignInUserController signInUserController =
+      Get.put(SignInUserController());
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
@@ -85,8 +84,8 @@ class UserTypeSelectPage extends StatelessWidget {
               validateFunc: () {
                 if (ctrl.userType > 0) {
                   String usrType = ctrl.userType == 1 ? '환우' : '보호자';
-                  Get.to(() => UserNicknamePage(),
-                      arguments: [email, name, phone, password, usrType]);
+                  signInUserController.setUserType(usrType);
+                  Get.to(() => UserNicknamePage());
                 }
               },
             )

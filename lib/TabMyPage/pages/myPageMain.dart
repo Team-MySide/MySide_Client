@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/TabMyPage/pages/addHealthDataPage.dart';
 import 'package:my_side_client/TabMyPage/pages/healthDateListPage.dart';
 import 'package:my_side_client/TabMyPage/pages/profileChangePage.dart';
 import 'package:my_side_client/TabMyPage/widget/dataListWidget.dart';
@@ -123,7 +124,7 @@ class MyPageMain extends StatelessWidget {
                           iconImageNm: 'assets/list.svg',
                           iconText: '건강 데이터',
                           onTap: () {
-                            //Get.to(() => HealthDateListPage());
+                            Get.to(() => AddHealthDataPage());
                           },
                         ),
                         Spacer(),
@@ -182,6 +183,7 @@ class MyPageMain extends StatelessWidget {
                       dataNum: 2,
                       scrHeight: scrHeight,
                       isMain: true,
+                      onTap: () {},
                     ),
                   ],
                 ),

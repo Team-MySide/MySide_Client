@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/physicalInfoController.dart';
+import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/page/signInPage/secondStagePage/selectDiseasePage.dart';
 import 'package:my_side_client/Login/widget/halfWidthTextField.dart';
 import 'package:my_side_client/Login/widget/myTextFieldWidget.dart';
@@ -12,22 +13,11 @@ import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
 
 class PhysicalInfoPage extends StatelessWidget {
   final PhysicalInfoController piCtrl = Get.put(PhysicalInfoController());
-  final String email = Get.arguments[0];
-  final String name = Get.arguments[1];
-  final String phone = Get.arguments[2];
-  final String password = Get.arguments[3];
-  final String usrType = Get.arguments[4];
-  final String nickName = Get.arguments[5];
-  final String cancerNm = Get.arguments[6];
-  final String stageNm = Get.arguments[7];
-  final String progressNm = Get.arguments[8];
+  final SignInUserController signInUserController =
+      Get.put(SignInUserController());
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
-    String gender;
-    String age;
-    String height;
-    String weight;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -71,7 +61,7 @@ class PhysicalInfoPage extends StatelessWidget {
                 child: Column(
                   children: [
                     TitleAndSubtitleWidget(
-                      title: '$nickName님의\n정보를 입력해주세요.',
+                      title: '${signInUserController.nickname}님의\n정보를 입력해주세요.',
                       subTitle: '정보 입력에 맞는 음식을 추천해드립니다.',
                       scrHeight: scrHeight,
                     ),
@@ -260,6 +250,10 @@ class PhysicalInfoPage extends StatelessWidget {
                             ctrl.heightTEC.text.isNotEmpty) ||
                         ctrl.dontKnow),
                 validateFunc: () {
+                  String gender;
+                  String age;
+                  String height;
+                  String weight;
                   ctrl.validateNumber(ctrl.ageTEC.text, 0);
                   ctrl.validateNumber(ctrl.heightTEC.text, 1);
                   ctrl.validateNumber(ctrl.weightTEC.text, 2);
@@ -277,21 +271,9 @@ class PhysicalInfoPage extends StatelessWidget {
                       }
                     }
                   }
-                  Get.to(() => SelectDiseasePage(), arguments: [
-                    email,
-                    name,
-                    phone,
-                    password,
-                    usrType,
-                    nickName,
-                    cancerNm,
-                    stageNm,
-                    progressNm,
-                    gender,
-                    age,
-                    height,
-                    weight
-                  ]);
+                  signInUserController.setPhysicalInfo(
+                      gender, age, height, weight);
+                  Get.to(() => SelectDiseasePage());
                 },
               ),
             ],

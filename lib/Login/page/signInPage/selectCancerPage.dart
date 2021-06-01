@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/cancerAutoCompleteController.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/cancerSearchController.dart';
+import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/page/signInPage/stageSelectPage.dart';
 import 'package:my_side_client/Login/widget/cancerAutoCompleteWidget.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
@@ -12,12 +13,8 @@ class SelectCancerPage extends StatelessWidget {
   final CancerAutoCompleteController caController =
       Get.put(CancerAutoCompleteController());
   final CancerSearchController csController = Get.put(CancerSearchController());
-  final String email = Get.arguments[0];
-  final String name = Get.arguments[1];
-  final String phone = Get.arguments[2];
-  final String password = Get.arguments[3];
-  final String usrType = Get.arguments[4];
-  final String nickName = Get.arguments[5];
+  final SignInUserController signInUserController =
+      Get.put(SignInUserController());
   final List<String> cancerType = [
     '위암',
     '폐암',
@@ -55,7 +52,8 @@ class SelectCancerPage extends StatelessWidget {
                   child: Column(
                     children: [
                       TitleAndSubtitleWidget(
-                        title: '$nickName님해당되는\n암 종류를 알려주세요.',
+                        title:
+                            '${signInUserController.nickname}님해당되는\n암 종류를 알려주세요.',
                         subTitle: '정보 입력에 맞는 음식을 추천해드립니다.',
                         scrHeight: scrHeight,
                       ),
@@ -130,27 +128,14 @@ class SelectCancerPage extends StatelessWidget {
                   validateFunc: () {
                     csCtrl.validateCancer();
                     if (csCtrl.cancerNum > 0 && csCtrl.cancerNum < 7) {
-                      Get.to(() => StageSelectPage(), arguments: [
-                        email,
-                        name,
-                        phone,
-                        password,
-                        usrType,
-                        nickName,
-                        cancerType[csCtrl.cancerNum - 1],
-                      ]);
+                      String cancerName = cancerType[csCtrl.cancerNum - 1];
+                      signInUserController.setCancerName(cancerName);
                     }
                     if (csCtrl.cancerNum == 7) {
-                      Get.to(() => StageSelectPage(), arguments: [
-                        email,
-                        name,
-                        phone,
-                        password,
-                        usrType,
-                        nickName,
-                        csCtrl.tec.text,
-                      ]);
+                      String cancerName = csCtrl.tec.text;
+                      signInUserController.setCancerName(cancerName);
                     }
+                    Get.to(() => StageSelectPage());
                   },
                 ),
               ],

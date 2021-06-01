@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/nickNameConroller.dart';
+import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/page/signInPage/selectCancerPage.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
 import 'package:my_side_client/Login/widget/textfieldButtonError.dart';
@@ -9,11 +10,8 @@ import 'package:my_side_client/Login/widget/userInfoPageNumber.dart';
 
 class UserNicknamePage extends StatelessWidget {
   final NicknameController nnController = Get.put(NicknameController());
-  final String email = Get.arguments[0];
-  final String name = Get.arguments[1];
-  final String phone = Get.arguments[2];
-  final String password = Get.arguments[3];
-  final String usrType = Get.arguments[4];
+  final SignInUserController signInUserController =
+      Get.put(SignInUserController());
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
@@ -86,14 +84,8 @@ class UserNicknamePage extends StatelessWidget {
                 validateFunc: () {
                   if (!nnctrl.errorText) {
                     String nickName = nnctrl.tec.text;
-                    Get.to(() => SelectCancerPage(), arguments: [
-                      email,
-                      name,
-                      phone,
-                      password,
-                      usrType,
-                      nickName
-                    ]);
+                    signInUserController.setNickName(nickName);
+                    Get.to(() => SelectCancerPage());
                   }
                 },
               ),
