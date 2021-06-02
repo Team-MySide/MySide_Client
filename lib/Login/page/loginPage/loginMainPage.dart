@@ -9,8 +9,8 @@ import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
+import 'package:my_side_client/common/UserProfile.dart';
 
 class LoginMainPage extends StatelessWidget {
   final LoginMainPageController loginMainController =
@@ -82,23 +82,27 @@ class LoginMainPage extends StatelessWidget {
                   activated: ctrl.tec[0].text.isNotEmpty &&
                       ctrl.tec[1].text.isNotEmpty,
                   validateFunc: () async {
+                    //ctrl.logIn();
                     ctrl.validateEmail();
                     ctrl.validatePassword();
-                    if (!ctrl.errorOcur[0] || !ctrl.errorOcur[1]) {}
-
-                    // if (ctrl.errorOcur[0] || ctrl.errorOcur[1]) {
-                    //   Get.dialog(
-                    //     Dialog(
-                    //       child: TextButtonDialog(
-                    //         scrHeight: scrHeight,
-                    //         dialogText: '아이디나 비밀번호가 올바르지 않습니다.',
-                    //         routeFunc: () {
-                    //           Get.back();
-                    //         },
-                    //       ),
-                    //     ),
-                    //   );
-                    // }
+                    if (!ctrl.errorOcur[0] && !ctrl.errorOcur[1]) {
+                      await ctrl.logIn();
+                      if (UserProfile.isLogin) {
+                        Get.to(() => MyPageMain());
+                      } else {
+                        Get.dialog(
+                          Dialog(
+                            child: TextButtonDialog(
+                              scrHeight: scrHeight,
+                              dialogText: '아이디나 비밀번호가 올바르지 않습니다.',
+                              routeFunc: () {
+                                Get.back();
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                    }
                   },
                 ),
                 SizedBox(

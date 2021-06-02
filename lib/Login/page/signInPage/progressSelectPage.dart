@@ -106,10 +106,10 @@ class ProgressSelectPage extends StatelessWidget {
                     buttonText: '완료 할래요',
                     scrHeight: scrHeight,
                     activated: pctrl.progressNum > 0,
-                    validateFunc: () {
+                    validateFunc: () async {
                       signInUserController
                           .setProgressName(stageType[pctrl.progressNum - 1]);
-                      //서버에 신규회원정보보냄
+                      await signInUserController.signUpUser();
                       Get.offAll(() => LoginMainPage());
                     },
                     rectButtonColor: Color(0xFF666666),

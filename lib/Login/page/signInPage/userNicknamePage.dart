@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/nickNameConroller.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/page/signInPage/selectCancerPage.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
 import 'package:my_side_client/Login/widget/textfieldButtonError.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
@@ -56,19 +57,22 @@ class UserNicknamePage extends StatelessWidget {
                       hintText: '환우 닉네임',
                       buttonText: '중복 확인',
                       errorMsg: nnctrl.errorMsg,
-                      getOPT: () {
-                        // nnctrl.validateNickname();
-                        // if (!nnctrl.errorText) {
-                        //   Get.dialog(Dialog(
-                        //     child: TextButtonDialog(
-                        //       scrHeight: scrHeight,
-                        //       dialogText: '사용할 수 있는 닉네임입니다.',
-                        //       routeFunc: () {
-                        //         Get.back();
-                        //       },
-                        //     ),
-                        //   ));
-                        // }
+                      getOPT: () async {
+                        nnctrl.validateNickname();
+                        if (!nnctrl.errorText) {
+                          await nnctrl.isExistNickname();
+                          Get.dialog(Dialog(
+                            child: TextButtonDialog(
+                              scrHeight: scrHeight,
+                              dialogText: nnctrl.duplicated == 1
+                                  ? '사용할 수 있는 닉네임입니다.'
+                                  : '동일한 닉네임이 이미 등록되어 있습니다.',
+                              routeFunc: () {
+                                Get.back();
+                              },
+                            ),
+                          ));
+                        }
                       }, //중복확인
                     ),
                   ],
@@ -80,9 +84,9 @@ class UserNicknamePage extends StatelessWidget {
               RecSubmitButton(
                 buttonText: '다음 페이지',
                 scrHeight: scrHeight,
-                activated: nnctrl.tec.text.isNotEmpty,
+                activated: nnctrl.duplicated == 1,
                 validateFunc: () {
-                  if (!nnctrl.errorText) {
+                  if (nnctrl.duplicated == 1) {
                     String nickName = nnctrl.tec.text;
                     signInUserController.setNickName(nickName);
                     Get.to(() => SelectCancerPage());

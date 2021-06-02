@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/loginPageControllers.dart/findEmailPageController.dart';
+import 'package:my_side_client/Login/page/loginPage/signInPage.dart';
 import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textTextButtonDialog.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import 'loginMainPage.dart';
 
@@ -77,21 +81,41 @@ class FindEmailPage extends StatelessWidget {
                 scrHeight: scrHeight,
                 activated:
                     ctrl.tec[0].text.isNotEmpty && ctrl.tec[1].text.isNotEmpty,
-                validateFunc: () {
+                validateFunc: () async {
                   ctrl.validateName();
                   ctrl.validatePhone();
+                  await ctrl.findEmail();
+                  print(ctrl.success);
                   if (!ctrl.errorOcur[0] && !ctrl.errorOcur[1]) {
-                    Get.dialog(
-                      Dialog(
-                        child: TextButtonDialog(
-                          scrHeight: scrHeight,
-                          dialogText: '고객님의 이메일은\naaaa@bbbb.com\n입니다.',
-                          routeFunc: () {
-                            Get.offAll(() => LoginMainPage());
-                          },
+                    if (ctrl.success) {
+                      Get.dialog(
+                        Dialog(
+                          child: TextButtonDialog(
+                            scrHeight: scrHeight,
+                            dialogText: '고객님의 이메일은\n${ctrl.foundEmail}\n입니다.',
+                            routeFunc: () {
+                              Get.offAll(() => LoginMainPage());
+                            },
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    } else {
+                      Get.dialog(
+                        Dialog(
+                          child: TextTextButtonDialog(
+                            scrHeight: scrHeight,
+                            dialogText:
+                                '검색되는 이메일 주소가 없습니다.\n정보를 다시 한번 정확하게 입력해주세요.',
+                            routeFunc: () {
+                              Get.offAll(() => LoginMainPage());
+                            },
+                            textButtonFunc: () {
+                              Get.offAll(() => SignInPage());
+                            },
+                          ),
+                        ),
+                      );
+                    }
                   }
                 },
               )

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/physicalInfoController.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
+import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/Login/page/signInPage/secondStagePage/selectDiseasePage.dart';
 import 'package:my_side_client/Login/widget/halfWidthTextField.dart';
 import 'package:my_side_client/Login/widget/myTextFieldWidget.dart';
@@ -31,7 +32,10 @@ class PhysicalInfoPage extends StatelessWidget {
         backgroundColor: Color(0xFF31B6F7),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              await signInUserController.signUpUser();
+              Get.offAll(() => LoginMainPage());
+            },
             child: Center(
               child: Text(
                 '건너뛰기',

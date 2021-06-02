@@ -2,7 +2,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/functions/isNameValidate.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../../functions/isPasswordValidate.dart';
 import '../../functions/isPhoneNumberValidate.dart';
 
@@ -55,6 +56,8 @@ class SignInMainPageController extends GetxController {
   bool secondSelected = false;
   bool thirdSelected = false;
   bool fourthSelected = false;
+
+  int duplicated = 0;
 
   @override
   void onInit() {
@@ -221,6 +224,20 @@ class SignInMainPageController extends GetxController {
         firstSelected = true;
       }
       fourthSelected = true;
+    }
+    update();
+  }
+
+  void isExistEmail() async {
+    final response = await http.get(
+      Uri.http('54.180.67.217:3000', '/auth/duplicated/email/${tec[0].text}'),
+      headers: {"Accept": "applications.json"},
+    );
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      duplicated = jsondata["data"];
+    } else {
+      duplicated = 0;
     }
     update();
   }

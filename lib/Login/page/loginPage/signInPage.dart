@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInMainPageController.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
 import 'package:my_side_client/Login/page/signInPage/userTypeSelectPage.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
 import 'package:my_side_client/Login/widget/requiredTextWidget.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
@@ -53,7 +54,25 @@ class SignInPage extends StatelessWidget {
                       hintText: '이메일 주소',
                       buttonText: '중복확인',
                       errorMsg: ctrl.errorMsg[0],
-                      getOPT: () {}, //중복확인하는 부분
+                      getOPT: () async {
+                        ctrl.validateEmail();
+                        if (!ctrl.errorOcur[0]) {
+                          await ctrl.isExistEmail();
+                          Get.dialog(
+                            Dialog(
+                              child: TextButtonDialog(
+                                scrHeight: scrHeight,
+                                dialogText: ctrl.duplicated == 1
+                                    ? '사용하실 수 있는 이메일입니다.'
+                                    : '동일한 이메일이 등록되어 있습니다.',
+                                routeFunc: () {
+                                  Get.back();
+                                },
+                              ),
+                            ),
+                          );
+                        }
+                      }, //중복확인하는 부분
                     ),
                     SizedBox(
                       height: 0.0099 * scrHeight,
@@ -173,7 +192,7 @@ class SignInPage extends StatelessWidget {
               RecSubmitButton(
                 buttonText: '회원가입',
                 scrHeight: scrHeight,
-                activated: ctrl.tec[0].text.isNotEmpty &&
+                activated: ctrl.duplicated == 1 &&
                     ctrl.tec[1].text.isNotEmpty &&
                     ctrl.tec[2].text.isNotEmpty &&
                     ctrl.tec[3].text.isNotEmpty &&
@@ -182,7 +201,6 @@ class SignInPage extends StatelessWidget {
                     ctrl.secondSelected &&
                     ctrl.thirdSelected,
                 validateFunc: () {
-                  ctrl.validateEmail();
                   ctrl.validateName();
                   ctrl.validatePhone();
                   ctrl.validatePhoneMatch();

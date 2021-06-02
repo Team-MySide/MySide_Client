@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/pages/addHealthDataPage.dart';
 import 'package:my_side_client/TabMyPage/pages/healthDateListPage.dart';
 import 'package:my_side_client/TabMyPage/pages/profileChangePage.dart';
@@ -10,6 +11,9 @@ import 'package:my_side_client/TabMyPage/widget/whiteRoundTextWidget.dart';
 import 'appSettingPage.dart';
 
 class MyPageMain extends StatelessWidget {
+  final MyPageMainController myPageMainController =
+      Get.put(MyPageMainController());
+
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
@@ -50,7 +54,7 @@ class MyPageMain extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '푸른숲님',
+                          '${myPageMainController.userData.nickname}님',
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w700,
@@ -61,7 +65,7 @@ class MyPageMain extends StatelessWidget {
                           width: 0.006 * scrWidth,
                         ),
                         Text(
-                          '(홍길동 환우)',
+                          '(${myPageMainController.userData.name} 환우)',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -74,27 +78,32 @@ class MyPageMain extends StatelessWidget {
                       height: 0.0197 * scrHeight,
                     ),
                     Wrap(
+                      runSpacing: 0.0099 * scrHeight,
                       children: [
                         WhiteRountTextWidget(
-                          textInside: '#위암',
+                          textInside:
+                              '#${myPageMainController.userData.cancerNm}',
                         ),
                         SizedBox(
                           width: 8,
                         ),
                         WhiteRountTextWidget(
-                          textInside: '#2기',
+                          textInside:
+                              '#${myPageMainController.userData.stageNm}',
                         ),
                         SizedBox(
                           width: 8,
                         ),
                         WhiteRountTextWidget(
-                          textInside: '#수술전',
+                          textInside:
+                              '#${myPageMainController.userData.progressNm}',
                         ),
                         SizedBox(
                           width: 8,
                         ),
                         WhiteRountTextWidget(
-                          textInside: '#고혈압',
+                          textInside:
+                              '#${myPageMainController.userData.disease}',
                         ),
                       ],
                     ),

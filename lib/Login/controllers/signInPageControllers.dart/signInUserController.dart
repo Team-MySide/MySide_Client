@@ -3,21 +3,21 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class SignInUserController extends GetxController {
-  String email;
-  String password;
-  String name;
-  String phone;
-  String relationNm;
-  String nickname;
-  String cancerNm;
-  String stageNm;
-  String progressNm;
-  String gender;
-  String age;
-  String height;
-  String weight;
+  String email = '';
+  String password = '';
+  String name = '';
+  String phone = '';
+  String relationNm = '';
+  String nickname = '';
+  String cancerNm = '';
+  String stageNm = '';
+  String progressNm = '';
+  String gender = '';
+  String age = '';
+  String height = '';
+  String weight = '';
   String disableFood = '';
-  String disease;
+  String disease = '';
 
   void setMainInfo(
       String inEmail, String inName, String inPhone, String inPswd) {

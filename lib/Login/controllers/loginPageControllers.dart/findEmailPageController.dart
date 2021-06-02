@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/functions/isNameValidate.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../../functions/isPhoneNumberValidate.dart';
 
 class FindEmailPageController extends GetxController {
@@ -16,6 +17,9 @@ class FindEmailPageController extends GetxController {
   List<bool> canClear = [true, true];
 
   List<String> errorMsg = ['', ''];
+
+  String foundEmail = '';
+  bool success = false;
 
   @override
   void onInit() {
@@ -73,6 +77,22 @@ class FindEmailPageController extends GetxController {
       errorOcur[1] = true;
       canClear[1] = false;
     }
+    update();
+  }
+
+  void findEmail() async {
+    final response = await http.get(
+      Uri.http(
+          '54.180.67.217:3000', '/auth/find/id/${tec[0].text}/${tec[1].text}'),
+      headers: {"Accept": "applications.json"},
+    );
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      foundEmail = jsondata['data']['email'];
+      success = jsondata['success'];
+    }
+
     update();
   }
 }

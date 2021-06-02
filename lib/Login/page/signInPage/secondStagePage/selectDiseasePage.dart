@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/selectDiseaseController.dart';
 import 'package:my_side_client/Login/controllers/signInPageControllers.dart/signInUserController.dart';
+import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
 import 'package:my_side_client/Login/widget/secondStagePageNumber.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
@@ -33,7 +34,10 @@ class SelectDiseasePage extends StatelessWidget {
         backgroundColor: Color(0xFF31B6F7),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              await signInUserController.signUpUser();
+              Get.offAll(() => LoginMainPage());
+            },
             child: Center(
               child: Text(
                 '건너뛰기',

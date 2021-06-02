@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../longRoundButton.dart';
 
-class TextButtonDialog extends StatelessWidget {
+class TextTextButtonDialog extends StatelessWidget {
   final double scrHeight;
   final String dialogText;
   final VoidCallback routeFunc;
+  final VoidCallback textButtonFunc;
 
-  TextButtonDialog({
+  TextTextButtonDialog({
     @required this.scrHeight,
     @required this.dialogText,
     @required this.routeFunc,
+    @required this.textButtonFunc,
   });
 
   @override
@@ -27,7 +29,7 @@ class TextButtonDialog extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Spacer(),
+          //Spacer(),
           Container(
             child: Text(
               dialogText,
@@ -39,9 +41,19 @@ class TextButtonDialog extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(
-            flex: 2,
+          Spacer(),
+          InkWell(
+            onTap: textButtonFunc,
+            child: Text(
+              '회원가입하러 가기',
+              style: TextStyle(
+                color: Color(0xFF3BD7E2),
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
+          Spacer(),
           LongRoundButton(
             buttonText: '확인',
             scrHeight: scrHeight,
