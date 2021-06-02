@@ -63,16 +63,30 @@ class ProfileChangePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                     horizontal: 0.0197 * scrHeight,
                   ),
-                  child: TextFieldwithErrorMsg(
-                    scrHeight: scrHeight,
-                    errorOcur: ctrl.errorOcur[0],
-                    canClear: ctrl.canClear[0],
-                    fn: ctrl.fn[0],
-                    tec: ctrl.tec[0],
-                    hintText: '환우 닉네임',
-                    errorMsg: ctrl.errorMsg[0],
-                    isPswd: false,
-                  ),
+                  child: ctrl.hasData[0]
+                      ? TextFieldwithErrorMsg(
+                          scrHeight: scrHeight,
+                          errorOcur: ctrl.errorOcur[0],
+                          canClear: ctrl.canClear[0],
+                          fn: ctrl.fn[0],
+                          tec: ctrl.tec[0],
+                          hintText: '환우 닉네임',
+                          errorMsg: '',
+                          isPswd: false,
+                        )
+                      : TextfieldButtonError(
+                          scrHeight: scrHeight,
+                          errorText: ctrl.errorOcur[0],
+                          canClear: ctrl.canClear[0],
+                          fn: ctrl.fn[0],
+                          tec: ctrl.tec[0],
+                          hintText: '환우 닉네임',
+                          buttonText: '중복확인',
+                          errorMsg: ctrl.errorMsg[0],
+                          getOPT: () {
+                            ctrl.validateNickname(0);
+                          }, //중복확인하는 부분
+                        ),
                 ),
                 SizedBox(
                   height: 0.0197 * scrHeight,
@@ -81,17 +95,28 @@ class ProfileChangePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                     horizontal: 0.0197 * scrHeight,
                   ),
-                  child: TextfieldButtonError(
-                    scrHeight: scrHeight,
-                    errorText: ctrl.errorOcur[1],
-                    canClear: ctrl.canClear[1],
-                    fn: ctrl.fn[1],
-                    tec: ctrl.tec[1],
-                    hintText: '보호자 닉네임',
-                    buttonText: '중복확인',
-                    errorMsg: ctrl.errorMsg[1],
-                    getOPT: () {}, //중복확인하는 부분
-                  ),
+                  child: ctrl.hasData[1]
+                      ? TextFieldwithErrorMsg(
+                          scrHeight: scrHeight,
+                          errorOcur: ctrl.errorOcur[1],
+                          canClear: ctrl.canClear[1],
+                          fn: ctrl.fn[1],
+                          tec: ctrl.tec[1],
+                          hintText: '보호자 닉네임',
+                          errorMsg: '',
+                          isPswd: false,
+                        )
+                      : TextfieldButtonError(
+                          scrHeight: scrHeight,
+                          errorText: ctrl.errorOcur[1],
+                          canClear: ctrl.canClear[1],
+                          fn: ctrl.fn[1],
+                          tec: ctrl.tec[1],
+                          hintText: '보호자 닉네임',
+                          buttonText: '중복확인',
+                          errorMsg: ctrl.errorMsg[1],
+                          getOPT: () {}, //중복확인하는 부분
+                        ),
                 ),
                 SizedBox(
                   height: 0.0296 * scrHeight,
@@ -103,10 +128,7 @@ class ProfileChangePage extends StatelessWidget {
                     scrHeight: scrHeight,
                     activated: ctrl.tec[0].text.isNotEmpty &&
                         ctrl.tec[1].text.isNotEmpty,
-                    validateFunc: () {
-                      ctrl.validateGuardianNickname();
-                      ctrl.validatePatientNickname();
-                    },
+                    validateFunc: () {},
                   ),
                 ),
                 SizedBox(
@@ -133,7 +155,7 @@ class ProfileChangePage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'myside@myside.com',
+                        '${ctrl.profile.email}',
                         style: TextStyle(
                           fontSize: 15,
                           color: Color(0xFF3BD7E2),
@@ -166,7 +188,7 @@ class ProfileChangePage extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            '+82 10-1234-5678',
+                            '${ctrl.profile.phone}',
                             style: TextStyle(
                               fontSize: 15,
                               color: Color(0xFF3BD7E2),
