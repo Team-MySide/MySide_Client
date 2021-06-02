@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
+import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
 import 'package:my_side_client/TabSearch/SearchNutritionFactsRepository/SearchNutritionFactsController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
 import 'package:my_side_client/common/CommonHeader.dart';
 
+import '../Constants.dart';
 import 'SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageController.dart';
 import 'SearchDetailMainInfo/SearchDetailMainInfoController.dart';
 
@@ -81,6 +83,9 @@ class FoodInformation extends StatelessWidget {
               body: Column(children: [
                 TabBar(
                   tabs: [Tab(text: "성분표"), Tab(text: "세부설명")],
+                  indicatorColor: Color(Constants.primaryColorInt),
+                  labelColor: Color(Constants.primaryColorInt),
+                  unselectedLabelColor: Color(0xFF666666),
                 ),
                 Expanded(
                     child: TabBarView(
@@ -247,11 +252,17 @@ class IngredientTable extends StatelessWidget {
           Card(
               child: Column(
             children: [
-              Row(children: [
-                Text("성분퍼센트"),
+              SizedBox(height: 32),
+              Stack(children: [
+                Align(
+                  child: DetailInfo().mainHeader("퍼센트", 101),
+                  alignment: Alignment.center,
+                ),
                 SvgPicture.asset("images/arrow_right.svg")
               ]),
+              SizedBox(height: 6),
               Text("단위 : g\(12kcal=80g\)"),
+              SizedBox(height: 24),
               Obx(() => _foodNutritionPercentageController.isLoading.value
                   ? CircularProgressIndicator()
                   : AspectRatio(
@@ -281,7 +292,8 @@ class IngredientTable extends StatelessWidget {
                     //   children: showingSectionColor(
                     //       _foodNutritionPercentageController.lst),
                     // )
-                  ))
+                  )),
+              SizedBox(height: 32)
             ],
           ))
         ],
@@ -357,8 +369,9 @@ class IngredientTable extends StatelessWidget {
 }
 
 class DetailInfo extends StatelessWidget {
-  const DetailInfo({Key key}) : super(key: key);
-
+  DetailInfo({Key key}) : super(key: key);
+  SearchDetailFoodDetailController _controller =
+      Get.put(SearchDetailFoodDetailController(Get.arguments[0]));
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -366,10 +379,12 @@ class DetailInfo extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-                child: mainHeader("title"),
+                child: mainHeader("효능 및 영양성분", 158),
                 padding: EdgeInsets.only(top: 32, bottom: 24)),
-            content(
-                "바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소"),
+            Obx(() => content(_controller.isLoading.value
+                ? ""
+                : _controller.item.value.efficacy)),
+            SizedBox(height: 32)
           ],
         ),
       ),
@@ -377,32 +392,35 @@ class DetailInfo extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-                child: mainHeader("title"),
+                child: mainHeader("섭취 가이드", 110),
                 padding: EdgeInsets.only(top: 32, bottom: 24)),
-            subHeader("r궁합"),
+            subHeader("궁합"),
             SizedBox(
               height: 8,
             ),
-            content(
-                "바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소"),
+            Obx(() => content(_controller.isLoading.value
+                ? ""
+                : _controller.item.value.combination)),
             SizedBox(
               height: 16,
             ),
-            subHeader("r궁합"),
+            subHeader("고르는 법"),
             SizedBox(
               height: 8,
             ),
-            content(
-                "바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소"),
+            Obx(() => content(_controller.isLoading.value
+                ? ""
+                : _controller.item.value.selectTip)),
             SizedBox(
               height: 16,
             ),
-            subHeader("r궁합"),
+            subHeader("손질법"),
             SizedBox(
               height: 8,
             ),
-            content(
-                "바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소바다의채소"),
+            Obx(() => content(_controller.isLoading.value
+                ? ""
+                : _controller.item.value.care)),
             SizedBox(
               height: 16,
             ),
@@ -412,18 +430,38 @@ class DetailInfo extends StatelessWidget {
     ]);
   }
 
-  mainHeader(String title) {
-    return Text(title,
-        style: TextStyle(fontSize: 22, color: Color(0xFF111111)));
+  mainHeader(String title, double width) {
+    return Container(
+        height: 32,
+        width: width,
+        child: Stack(children: [
+          Align(
+              alignment: Alignment.center,
+              child: Text(title,
+                  style: TextStyle(fontSize: 22, color: Color(0xFF111111)))),
+          Column(children: [
+            SizedBox(height: 15),
+            Container(
+              height: 12,
+              decoration: BoxDecoration(color: Color(0x483BD7E2)),
+            ),
+          ])
+        ]));
   }
 
   subHeader(String title) {
-    return Text(title,
-        style: TextStyle(fontSize: 16, color: Color(0xFF111111)));
+    return Padding(
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(title,
+                style: TextStyle(fontSize: 16, color: Color(0xFF111111)))),
+        padding: EdgeInsets.symmetric(horizontal: 14));
   }
 
   content(String content) {
-    return Text(content,
-        style: TextStyle(fontSize: 14, color: Color(0xFF666666)));
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 14),
+        child: Text(content,
+            style: TextStyle(fontSize: 14, color: Color(0xFF666666))));
   }
 }

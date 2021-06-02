@@ -35,45 +35,7 @@ class SearchBar2 extends StatelessWidget {
                   )),
               SizedBox(height: 24),
               // SearchContainer(_textEditingController),
-              Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        child: SizedBox(
-                            width: 104,
-                            height: 40,
-                            child: SearchButton(
-                                "병명검색",
-                                "images/svg/searchbar_disease.svg",
-                                0xFFE4F7FB,
-                                0xFF317BBF)),
-                        onTap: () => Get.to(SearchDisease()),
-                      ),
-                      GestureDetector(
-                        child: SizedBox(
-                            width: 104,
-                            height: 40,
-                            child: SearchButton(
-                                "성분검색",
-                                "images/svg/searchbar_ingredient.svg",
-                                0xFFFFF6D6,
-                                0xFFFD8F2A)),
-                        onTap: () => Get.to(SearchIngredient()),
-                      ),
-                      GestureDetector(
-                          child: SizedBox(
-                              width: 104,
-                              height: 40,
-                              child: SearchButton(
-                                  "음식검색",
-                                  "images/svg/searchbar_food.svg",
-                                  0xFFEDF5E9,
-                                  0xFF528A36)),
-                          onTap: () => Get.to(SearchFood()))
-                    ],
-                  )),
+              SearchButtonsContainer(),
               SizedBox(height: 21)
             ])));
   }

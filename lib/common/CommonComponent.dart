@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/TabHome/SearchBar.dart';
+import 'package:my_side_client/TabSearch/SearchDisease.dart';
+import 'package:my_side_client/TabSearch/SearchFood.dart';
+import 'package:my_side_client/TabSearch/SearchIngredient.dart';
 
 class HeaderRow extends StatelessWidget {
   final String title;
@@ -146,4 +151,79 @@ _getCategories(var diseases) {
         )));
   }
   return ret;
+}
+
+class SearchButtonsContainer extends StatelessWidget {
+  const SearchButtonsContainer({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              child: SizedBox(
+                  width: 104,
+                  height: 40,
+                  child: SearchButton(
+                      "병명검색",
+                      "images/svg/searchbar_disease.svg",
+                      0xFFE4F7FB,
+                      0xFF317BBF)),
+              onTap: () => Get.to(SearchDisease()),
+            ),
+            GestureDetector(
+              child: SizedBox(
+                  width: 104,
+                  height: 40,
+                  child: SearchButton(
+                      "성분검색",
+                      "images/svg/searchbar_ingredient.svg",
+                      0xFFFFF6D6,
+                      0xFFFD8F2A)),
+              onTap: () => Get.to(SearchIngredient()),
+            ),
+            GestureDetector(
+                child: SizedBox(
+                    width: 104,
+                    height: 40,
+                    child: SearchButton("음식검색", "images/svg/searchbar_food.svg",
+                        0xFFEDF5E9, 0xFF528A36)),
+                onTap: () => Get.to(SearchFood()))
+          ],
+        ));
+  }
+}
+
+class SearchAutoCompleteContainer extends StatefulWidget {
+  SearchAutoCompleteContainer(searchResult, {Key key}) : super(key: key);
+
+  @override
+  _SearchAutoCompleteContainerState createState() =>
+      _SearchAutoCompleteContainerState();
+}
+
+class _SearchAutoCompleteContainerState
+    extends State<SearchAutoCompleteContainer> {
+  List<String> _searchResult = [];
+
+  @override
+  Widget build(BuildContext context) {
+    print(_searchResult.length);
+    return ListView.builder(
+        itemCount: _searchResult.length,
+        // shrinkWrap: true,
+        itemBuilder: (context, i) {
+          return GestureDetector(
+            child: Card(
+                child: ListTile(
+                    title: Text(
+              _searchResult[i],
+            ))),
+            // onTap: () => Get.to()
+          );
+        });
+  }
 }

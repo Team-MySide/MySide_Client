@@ -35,12 +35,14 @@ class SearchFood extends StatelessWidget {
   //어떻게 submit 동작을 외부에서 넘겨? get.to는 불가능한가?
   void onSubmitted(BuildContext context) {
     print(_textEditingController.text);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                FoodInformation(_textEditingController.text)));
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) =>
+    //             FoodInformation(_textEditingController.text)));
     // return () => Get.to(FoodDetailInfoContainer(_textEditingController.text));
+    Get.to(FoodInformation(_textEditingController.text),
+        arguments: [_textEditingController.text]);
   }
 
   final List<Map> diseases = [
