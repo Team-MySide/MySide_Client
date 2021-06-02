@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
 import 'package:my_side_client/TabMyPage/model/UserInfo.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'package:my_side_client/common/UserProfile.dart';
 
 class MyPageMainController extends GetxController {
-  UserData userData;
+  UserData userData = UserData();
 
   @override
   void onInit() {
