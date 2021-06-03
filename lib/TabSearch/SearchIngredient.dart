@@ -56,8 +56,11 @@ class _SearchIngredientState extends State<SearchIngredient> {
                           ],
                         ))
                       : Expanded(
-                          child: ListView.builder(
+                          child: ListView.separated(
                               itemCount: _searchResult.length,
+                              separatorBuilder: (_, __) {
+                                return SizedBox(height: 3);
+                              },
                               itemBuilder: (context, i) {
                                 return GestureDetector(
                                   child: Card(

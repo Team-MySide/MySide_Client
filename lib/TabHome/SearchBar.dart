@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:my_side_client/TabSearch/SearchDisease.dart';
-import 'package:my_side_client/TabSearch/SearchFood.dart';
-import 'package:my_side_client/TabSearch/SearchIngredient.dart';
+import 'package:my_side_client/TabHome/TotalSearch/TotalSearchController.dart';
+import 'package:my_side_client/common/CommonComponent.dart';
 
 import '../Constants.dart';
 
 // ignore: must_be_immutable
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
+  @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
   TextEditingController _textEditingController = new TextEditingController();
+
+  TotalSearchController _searchController = Get.put(TotalSearchController());
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,34 +45,8 @@ class SearchBar extends StatelessWidget {
                   ),
                   SizedBox(width: 16),
                   Expanded(
-                      child: TextField(
-                          // textAlignVertical: TextAlignVertical.center,
-                          controller: _textEditingController,
-                          decoration: InputDecoration(
-                            hintText: "사과",
-                            hintStyle: TextStyle(color: Color(0xFF999999)),
-                            contentPadding: EdgeInsets.only(left: 16.0),
-                            suffixIcon: Container(
-                                padding: EdgeInsets.all(13),
-                                child: SvgPicture.asset(
-                                    "images/svg/searchbar_search.svg")),
-                            enabledBorder: const OutlineInputBorder(
-                              // width: 0.0 produces a thin "hairline" border
-                              borderSide: const BorderSide(
-                                  color: Colors.grey, width: 0.0),
-                              borderRadius: const BorderRadius.all(
-                                  const Radius.circular(30.0)),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color(Constants.primaryColorInt),
-                                    width: 0),
-                                borderRadius: const BorderRadius.all(
-                                    const Radius.circular(30.0))),
-                          ),
-                          style: TextStyle(
-                              fontSize: 18,
-                              textBaseline: TextBaseline.alphabetic))),
+                      child: SearchContainer(_textEditingController,
+                          onChanged: onSearchTextChanged)),
                   SizedBox(width: 16),
                   SizedBox(
                       width: 24,
@@ -81,47 +62,50 @@ class SearchBar extends StatelessWidget {
                       )
                 ],
               )),
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    child: SizedBox(
-                        width: 104,
-                        height: 40,
-                        child: SearchButton(
-                            "병명검색",
-                            "images/svg/searchbar_disease.svg",
-                            0xFFE4F7FB,
-                            0xFF317BBF)),
-                    onTap: () => Get.to(SearchDisease()),
-                  ),
-                  GestureDetector(
-                    child: SizedBox(
-                        width: 104,
-                        height: 40,
-                        child: SearchButton(
-                            "성분검색",
-                            "images/svg/searchbar_ingredient.svg",
-                            0xFFFFF6D6,
-                            0xFFFD8F2A)),
-                    onTap: () => Get.to(SearchIngredient()),
-                  ),
-                  GestureDetector(
-                      child: SizedBox(
-                          width: 104,
-                          height: 40,
-                          child: SearchButton(
-                              "음식검색",
-                              "images/svg/searchbar_food.svg",
-                              0xFFEDF5E9,
-                              0xFF528A36)),
-                      onTap: () => Get.to(SearchFood()))
-                ],
-              )),
+          _searchResult.length == 0
+              ? SearchButtonsContainer()
+              : Container(
+                  height: 120,
+                  child: Column(children: [
+                    Expanded(
+                        child:
+                            // SearchAutoCompleteContainer(_searchResult)
+
+                            ListView.separated(
+                                itemCount: _searchResult.length,
+                                separatorBuilder: (_, __) {
+                                  return SizedBox(height: 0);
+                                },
+                                itemBuilder: (context, i) {
+                                  return GestureDetector(
+                                    child: Card(
+                                        child: Padding(
+                                            padding: EdgeInsets.all(4),
+                                            child: Text(_searchResult[i],
+                                                style:
+                                                    TextStyle(fontSize: 14)))),
+                                    // onTap: () => Get.to()
+                                  );
+                                }))
+                  ])),
           SizedBox(height: 21)
         ]));
+  }
+
+  List<String> _searchResult = [];
+
+  onSearchTextChanged(String text) async {
+    _searchResult.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    _searchController.lst.forEach((item) {
+      if (item.contains(text)) {
+        _searchResult.add(item);
+      }
+    });
+    setState(() {});
   }
 
   _callNotification() {}
