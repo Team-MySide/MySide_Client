@@ -8,14 +8,20 @@ import 'package:my_side_client/Login/widget/requiredTextWidget.dart';
 import 'package:my_side_client/Login/widget/selectBetweenTwo.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
 import 'package:my_side_client/TabMyPage/controller/addHealthDataPageController.dart';
+import 'package:my_side_client/TabMyPage/controller/healthDateListController.dart';
+import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 
 import 'package:my_side_client/TabMyPage/pages/appSettingPage.dart';
+import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 import 'package:my_side_client/TabMyPage/widget/decorationForInput.dart';
 import 'package:my_side_client/TabMyPage/widget/longRoundButton.dart';
 
 class AddHealthDataPage extends StatelessWidget {
   final AddHealthDataPageController ahctrl =
       Get.put(AddHealthDataPageController());
+  final MyPageMainController myPageMainController =
+      Get.put(MyPageMainController());
+  final HealthDataListController hdlCtrl = Get.put(HealthDataListController());
   final List<String> cancerType = [
     '위암',
     '폐암',
@@ -111,7 +117,7 @@ class AddHealthDataPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          '${DateFormat.y().format(ctrl.date)}.${DateFormat.M().format(ctrl.date)}.${DateFormat.d().format(ctrl.date)}',
+                          '${DateFormat("yyyy-MM-dd").format(ctrl.date)}',
                           style: TextStyle(
                             color: Color(0xFFAAAAAA),
                             fontSize: 16,
@@ -495,8 +501,39 @@ class AddHealthDataPage extends StatelessWidget {
                 LongRoundButton(
                   buttonText: '저장하기',
                   scrHeight: scrHeight,
-                  activated: false,
-                  validateFunc: () {},
+                  activated: ctrl.userType > 0 &&
+                      ctrl.gender > 0 &&
+                      ctrl.tec[0].text.isNotEmpty &&
+                      ctrl.tec[1].text.isNotEmpty &&
+                      ctrl.tec[2].text.isNotEmpty &&
+                      ((ctrl.cancerNm == 7 && ctrl.tec[3].text.isNotEmpty) ||
+                          (ctrl.cancerNm > 0 && ctrl.cancerNm < 7)) &&
+                      ctrl.stageNm > 0 &&
+                      ctrl.progressNum > 0 &&
+                      ctrl.diseaseNum > 0 &&
+                      ctrl.tec[4].text.isNotEmpty,
+                  validateFunc: () async {
+                    if (ctrl.cancerNm == 7) {
+                      ctrl.validateCancer();
+                    }
+                    ctrl.validateNumber(0);
+                    ctrl.validateNumber(1);
+                    ctrl.validateNumber(2);
+                    if (!ctrl.errorOcur[0] &&
+                        !ctrl.errorOcur[1] &&
+                        !ctrl.errorOcur[2] &&
+                        !ctrl.errorOcur[3]) {
+                      await ctrl.postHealthData(
+                        cancerType[ctrl.cancerNm - 1],
+                        stageType[ctrl.stageNm - 1],
+                        progressType[ctrl.progressNum - 1],
+                        diseaseList[ctrl.diseaseNum - 1],
+                      );
+                      await myPageMainController.getHealthDataList();
+                      await hdlCtrl.getMonthYearDatList();
+                      Get.back();
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 0.0493 * scrHeight,

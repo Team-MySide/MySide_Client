@@ -115,7 +115,9 @@ class ProfileChangePage extends StatelessWidget {
                           hintText: '보호자 닉네임',
                           buttonText: '중복확인',
                           errorMsg: ctrl.errorMsg[1],
-                          getOPT: () {}, //중복확인하는 부분
+                          getOPT: () {
+                            ctrl.validateNickname(1);
+                          }, //중복확인하는 부분
                         ),
                 ),
                 SizedBox(

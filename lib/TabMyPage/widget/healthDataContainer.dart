@@ -15,6 +15,8 @@ class HealthDataContainer extends StatelessWidget {
   final String memoText;
   final int modifiedNum;
   final double scrHeight;
+  final VoidCallback onDelete;
+  final VoidCallback onUpdated;
 
   HealthDataContainer({
     @required this.dateText,
@@ -27,6 +29,8 @@ class HealthDataContainer extends StatelessWidget {
     @required this.memoText,
     @required this.modifiedNum,
     @required this.scrHeight,
+    @required this.onDelete,
+    @required this.onUpdated,
   });
 
   @override
@@ -71,14 +75,14 @@ class HealthDataContainer extends StatelessWidget {
                       ),
                       SmallRoundButton(
                         buttonText: '삭제',
-                        onTap: () {},
+                        onTap: onDelete,
                       ),
                       SizedBox(
                         width: 8,
                       ),
                       SmallRoundButton(
                         buttonText: '편집',
-                        onTap: () {},
+                        onTap: onUpdated,
                       ),
                     ],
                   ),

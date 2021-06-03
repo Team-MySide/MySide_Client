@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
+import 'package:my_side_client/TabMyPage/model/HealthDataListModel.dart';
 
 import 'healthDataContainer.dart';
 
 class DataListWidget extends StatelessWidget {
-  final int dataNum;
   final double scrHeight;
   final bool isMain;
   final VoidCallback onTap;
+  final List<HealthData> healthDataList;
+  final Function deleteFunc;
+  final Function callMainDataList;
 
   DataListWidget({
-    @required this.dataNum,
     @required this.scrHeight,
     @required this.isMain,
     @required this.onTap,
+    @required this.healthDataList,
+    @required this.deleteFunc,
+    this.callMainDataList,
   });
 
   @override
   Widget build(BuildContext context) {
-    return dataNum < 1
+    return healthDataList.length < 1
         ? Column(
             children: [
               SizedBox(
@@ -98,42 +105,42 @@ class DataListWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-              HealthDataContainer(
-                dateText: '21.06.14',
-                cancerNm: '위암',
-                stageNm: '3기',
-                statusNm: '항암중',
-                diseaseNm: '고혈압',
-                weight: 76,
-                height: 180,
-                memoText:
-                    '텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트',
-                modifiedNum: 3,
-                scrHeight: scrHeight,
-              ),
-              HealthDataContainer(
-                dateText: '21.06.14',
-                cancerNm: '위암',
-                stageNm: '3기',
-                statusNm: '항암중',
-                diseaseNm: '고혈압',
-                weight: 76,
-                height: 180,
-                memoText: '텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 ',
-                modifiedNum: 3,
-                scrHeight: scrHeight,
-              ),
-              HealthDataContainer(
-                dateText: '21.06.14',
-                cancerNm: '위암',
-                stageNm: '3기',
-                statusNm: '항암중',
-                diseaseNm: '고혈압',
-                weight: 76,
-                height: 180,
-                memoText: '텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트',
-                modifiedNum: 3,
-                scrHeight: scrHeight,
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: healthDataList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return HealthDataContainer(
+                    dateText: healthDataList[index].regiDate,
+                    cancerNm: healthDataList[index].cancerNm,
+                    stageNm: healthDataList[index].stageNm,
+                    statusNm: healthDataList[index].progressNm,
+                    diseaseNm: healthDataList[index].disease,
+                    weight: healthDataList[index].weight,
+                    height: healthDataList[index].height,
+                    memoText: healthDataList[index].memo,
+                    modifiedNum: 3,
+                    scrHeight: scrHeight,
+                    onDelete: () {
+                      Get.dialog(
+                        Dialog(
+                          child: TextButtonDialog(
+                            scrHeight: scrHeight,
+                            dialogText: '삭제하시겠습니까?',
+                            routeFunc: () async {
+                              await deleteFunc(healthDataList[index].healthId);
+                              if (callMainDataList != null) {
+                                await callMainDataList();
+                              }
+                              Get.back();
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                    onUpdated: () {},
+                  );
+                },
               ),
             ],
           );

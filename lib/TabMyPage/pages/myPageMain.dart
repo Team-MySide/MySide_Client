@@ -186,10 +186,13 @@ class MyPageMain extends StatelessWidget {
                         ],
                       ),
                       DataListWidget(
-                        dataNum: 2,
                         scrHeight: scrHeight,
                         isMain: true,
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => AddHealthDataPage());
+                        },
+                        healthDataList: ctrl.healthdataList,
+                        deleteFunc: ctrl.deleteData,
                       ),
                     ],
                   ),

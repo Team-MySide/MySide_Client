@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabMyPage/controller/healthDateListController.dart';
+import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/pages/addHealthDataPage.dart';
 import 'package:my_side_client/TabMyPage/pages/appSettingPage.dart';
 import 'package:my_side_client/TabMyPage/widget/dataListWidget.dart';
 
 class HealthDateListPage extends StatelessWidget {
   final HealthDataListController hdlCtrl = Get.put(HealthDataListController());
+  final MyPageMainController myPageMainController =
+      Get.put(MyPageMainController());
   final List<String> monthList = [
     '1월',
     '2월',
@@ -136,12 +139,14 @@ class HealthDateListPage extends StatelessWidget {
               ),
             ),
             DataListWidget(
-              dataNum: 2,
               scrHeight: scrHeight,
               isMain: false,
               onTap: () {
                 Get.to(() => AddHealthDataPage());
               },
+              healthDataList: ctrl.curMonthHealthData,
+              deleteFunc: ctrl.deleteData,
+              callMainDataList: myPageMainController.getHealthDataList,
             ),
           ],
         );

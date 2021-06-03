@@ -85,7 +85,6 @@ class FindEmailPage extends StatelessWidget {
                   ctrl.validateName();
                   ctrl.validatePhone();
                   await ctrl.findEmail();
-                  print(ctrl.success);
                   if (!ctrl.errorOcur[0] && !ctrl.errorOcur[1]) {
                     if (ctrl.success) {
                       Get.dialog(
@@ -107,10 +106,10 @@ class FindEmailPage extends StatelessWidget {
                             dialogText:
                                 '검색되는 이메일 주소가 없습니다.\n정보를 다시 한번 정확하게 입력해주세요.',
                             routeFunc: () {
-                              Get.offAll(() => LoginMainPage());
+                              Get.back();
                             },
                             textButtonFunc: () {
-                              Get.offAll(() => SignInPage());
+                              Get.to(() => SignInPage());
                             },
                           ),
                         ),
