@@ -9,6 +9,7 @@ import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
+import 'package:my_side_client/MainTab.dart';
 import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 
@@ -88,7 +89,7 @@ class LoginMainPage extends StatelessWidget {
                     if (!ctrl.errorOcur[0] && !ctrl.errorOcur[1]) {
                       await ctrl.logIn();
                       if (UserProfile.isLogin) {
-                        Get.to(() => MyPageMain());
+                        Get.to(() => MainTab());
                       } else {
                         Get.dialog(
                           Dialog(

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabMyPage/pages/dropOutPage.dart';
 import 'package:my_side_client/TabMyPage/pages/faqPage.dart';
+import 'package:my_side_client/TabMyPage/pages/termsOfServicePage.dart';
 import 'package:my_side_client/TabMyPage/widget/smallRoundButton.dart';
 
 class AppSettingPage extends StatelessWidget {
@@ -21,10 +22,10 @@ class AppSettingPage extends StatelessWidget {
             color: Color(0xFF111111),
           ),
         ),
-        actions: [
-          IconButton(
-              icon: SvgPicture.asset('assets/Setting.svg'), onPressed: () {}),
-        ],
+        // actions: [
+        //   IconButton(
+        //       icon: SvgPicture.asset('assets/Setting.svg'), onPressed: () {}),
+        // ],
       ),
       body: Container(
         child: Column(
@@ -36,7 +37,9 @@ class AppSettingPage extends StatelessWidget {
             buildSettingTile('assets/faq.svg', 'FAQ', scrHeight, () {
               Get.to(() => FAQPage());
             }),
-            buildSettingTile('assets/paper.svg', '이용약관', scrHeight, () {}),
+            buildSettingTile('assets/paper.svg', '이용약관', scrHeight, () {
+              Get.to(() => TermsOfServicePage());
+            }),
             buildSettingTile(
                 'assets/handshake.svg', '광고/제휴문의', scrHeight, () {}),
             buildSettingTile('assets/logout.svg', '로그아웃', scrHeight, () {}),
@@ -47,7 +50,7 @@ class AppSettingPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 16,
+                  width: scrHeight * 0.0197,
                 ),
                 SmallRoundButton(
                   buttonText: '탈퇴하기',
@@ -55,6 +58,18 @@ class AppSettingPage extends StatelessWidget {
                     Get.to(() => DropOutPage());
                   },
                   buttonWidth: 60,
+                ),
+                Spacer(),
+                Text(
+                  '현재 버전 1.0',
+                  style: TextStyle(
+                    color: Color(0xFFAAAAAA),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                SizedBox(
+                  width: scrHeight * 0.0197,
                 ),
               ],
             ),
