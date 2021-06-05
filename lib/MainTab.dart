@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'TabBookmark/TabBookmark.dart';
@@ -13,12 +14,16 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-        title: "이웃집닥터 메인",
-        theme: ThemeData(
-            primaryColor: Color(Constants.primaryColorInt),
-            visualDensity: VisualDensity.adaptivePlatformDensity),
-        home: MainTab());
+    return
+        // GetMaterialApp(
+        //     title: "이웃집닥터 메인",
+        //     theme: ThemeData(
+        //         canvasColor: Colors.white,
+        //         primaryColor: Color(Constants.primaryColorInt),
+        //         visualDensity: VisualDensity.adaptivePlatformDensity),
+        // home:
+        MainTab();
+    //  );
   }
 }
 
@@ -29,17 +34,41 @@ class MainTab extends StatefulWidget {
   _MainTabState createState() => _MainTabState();
 }
 
-class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
+class _MainTabState extends State<MainTab>
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   TabController _controller;
   @override
   void initState() {
     super.initState();
     _controller = new TabController(length: 4, initialIndex: 0, vsync: this);
     _controller.addListener(_handleTabSelection);
+    WidgetsBinding.instance.addObserver(this);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      // systemNavigationBarColor: Colors.blue, // navigation bar color
+      statusBarColor: Colors.white, // status bar color
+    ));
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   void _handleTabSelection() {
     setState(() {});
+  }
+
+  @override
+  void didChangeAppLifecycleState(final AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setState(() {
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          // systemNavigationBarColor: Colors.blue, // navigation bar color
+          statusBarColor: Colors.white, // status bar color
+        ));
+      });
+    }
   }
 
   @override

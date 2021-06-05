@@ -13,46 +13,53 @@ class FoodRecommendContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => _controller.isLoading.value
-        ? Container(
-            height: 296, child: Center(child: CircularProgressIndicator())
-            // child: Shimmer.fromColors(
-            //   baseColor: Colors.red,
-            //   highlightColor: Colors.yellow,
-            //   child: Text(
-            //     'Shimmer',
-            //     textAlign: TextAlign.center,
-            //     style: TextStyle(
-            //       fontSize: 40.0,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
-            )
-        : Column(
-            children: [
-              Padding(
-                  padding:
-                      EdgeInsets.only(top: 40, bottom: 30, left: 16, right: 16),
-                  child: HeaderRow("${_controller.lst.first.cancerNm}에 좋은 추천음식",
-                      isViewMore: true)),
-              Container(
-                  // color: Colors.amber,
-                  height: 296, //원래 283 ㄱ
+    return Obx(() => Column(
+          children: [
+            Padding(
+                padding:
+                    EdgeInsets.only(top: 40, bottom: 30, left: 16, right: 16),
+                child: _controller.isLoading.value
+                    ? ShimmerLoadingContainer(204, 31)
+                    : HeaderRow("${_controller.lst.first.cancerNm}에 좋은 추천음식",
+                        isViewMore: true)),
+            Container(
+                // color: Colors.amber,
+                height: 296, //원래 283 ㄱ
 
-                  child: Stack(
-                      alignment: AlignmentDirectional.topCenter,
-                      children: [
-                        Container(
-                            width: 200,
-                            height: 180,
-                            child: ClipPath(
-                              child: Container(color: Color(0xFFF9F1DF)),
-                              clipper: OctagonClipper(),
-                              // )
-                              // )
-                            )),
-                        PageView.builder(
+                child:
+                    Stack(alignment: AlignmentDirectional.topCenter, children: [
+                  _controller.isLoading.value
+                      ? Container()
+                      : Container(
+                          width: 200,
+                          height: 180,
+                          child: ClipPath(
+                            child: Container(color: Color(0xFFF9F1DF)),
+                            clipper: OctagonClipper(),
+                            // )
+                            // )
+                          )),
+                  _controller.isLoading.value
+                      ? Column(children: [
+                          Row(
+                            children: [
+                              ShimmerLoadingContainer(20, 180),
+                              ShimmerLoadingContainer(200, 180),
+                              ShimmerLoadingContainer(20, 180)
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          ),
+                          SizedBox(height: 16),
+                          Row(
+                            children: [
+                              ShimmerLoadingContainer(20, 86),
+                              ShimmerLoadingContainer(200, 86),
+                              ShimmerLoadingContainer(20, 86)
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          )
+                        ])
+                      : PageView.builder(
                           itemCount: _controller.lst.length,
                           controller: PageController(viewportFraction: 0.5),
                           // onPageChanged: (int index) => setState(()=> _index = index),
@@ -60,11 +67,11 @@ class FoodRecommendContainer extends StatelessWidget {
                             return LikeBestTile(_controller.lst[i]);
                           },
                         )
-                      ])
-                  // )
-                  )
-            ],
-          ));
+                ])
+                // )
+                )
+          ],
+        ));
   }
 }
 

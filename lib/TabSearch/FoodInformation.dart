@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
-import 'package:my_side_client/TabSearch/SearchNutritionFactsRepository/SearchNutritionFactsController.dart';
+
 import 'package:my_side_client/common/CommonComponent.dart';
 
 import 'package:my_side_client/common/CommonHeader.dart';
@@ -13,17 +13,21 @@ import 'package:my_side_client/common/CommonHeader.dart';
 import '../Constants.dart';
 import 'SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageController.dart';
 import 'SearchDetailMainInfo/SearchDetailMainInfoController.dart';
+import 'SearchDetailNutritionFactsRepository/SearchDetailNutritionFactsController.dart';
 
 class FoodInformation extends StatelessWidget {
-  FoodInformation(this.category, {Key key}) : super(key: key);
-  final String category;
+  FoodInformation({Key key}) : super(key: key);
+  final String category = Get.arguments;
   SearchDetailMainInfoController _mainInfoController =
-      Get.put(SearchDetailMainInfoController());
+      Get.put(SearchDetailMainInfoController(Get.arguments));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CommonAppbar("음식 정보"),
+        appBar: CommonAppbar(
+          "음식 정보",
+          backgroundColor: Color(0xFFFFEFE7),
+        ),
         body: DefaultTabController(
             length: 2,
             child: NestedScrollView(
@@ -33,48 +37,91 @@ class FoodInformation extends StatelessWidget {
                       delegate:
                           SliverChildListDelegate(List.generate(1, (index) {
                     return Stack(children: [
+                      Container(
+                          color: Color(0xFFFFEFE7),
+                          child: Column(children: [
+                            Container(height: 160, color: Colors.transparent),
+                            Container(
+                              height: 221,
+                              width: double.infinity,
+                              // color: Colors.transparent,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20))),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 16),
+                                  Text(category,
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          color: Color(0xFF111111))),
+                                  SizedBox(height: 8),
+                                  Obx(() => _mainInfoController.isLoading.value
+                                      ? ShimmerLoadingContainer(334, 37)
+                                      : Text(
+                                          _mainInfoController.item.value.title,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Color(0xFF666666)))),
+                                  SizedBox(height: 24),
+                                  Obx(() => _mainInfoController.isLoading.value
+                                      ? ShimmerLoadingContainer(334, 33)
+                                      : Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: Wrap(
+                                            spacing: 8,
+                                            runSpacing: 8,
+                                            alignment: WrapAlignment.center,
+                                            children: [
+                                              ..._getCancerTagList(
+                                                  _mainInfoController
+                                                      .item.value.cancer),
+                                              ..._getNutritionTagList(
+                                                  _mainInfoController
+                                                      .item.value.nutrition),
+                                              ..._getEtcTagList(
+                                                  _mainInfoController
+                                                      .item.value.etc),
+                                            ],
+                                          ))),
+                                  SizedBox(height: 32),
+                                  Obx(() => _mainInfoController.isLoading.value
+                                      ? ShimmerLoadingContainer(180, 14)
+                                      : FittedBox(
+                                          child: LikeBookmark(
+                                              like: _mainInfoController
+                                                  .item.value.likes,
+                                              bookmark: _mainInfoController
+                                                  .item.value.wishes))),
+                                  SizedBox(height: 32),
+                                ],
+                              ),
+                            ),
+                          ])),
                       Column(children: [
-                        Padding(
-                            padding: EdgeInsets.only(top: 40),
-                            child: Container()),
-                        SizedBox(
-                            width: 224,
-                            height: 200,
+                        Container(
+                            height: 132,
                             child: Obx(() => _mainInfoController.isLoading.value
-                                ? Image.asset("images/food1.png")
-                                : Image.network(
-                                    _mainInfoController.item.value.img))),
-                        SizedBox(height: 16),
-                        Text(category,
-                            style: TextStyle(
-                                fontSize: 24, color: Color(0xFF111111))),
-                        SizedBox(height: 8),
-                        Obx(() => Text(_mainInfoController.item.value.title,
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF666666)))),
-                        SizedBox(height: 24),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Obx(() => Wrap(
-                                  spacing: 8,
-                                  runSpacing: 8,
-                                  alignment: WrapAlignment.center,
-                                  children: [
-                                    ..._getCancerTagList(
-                                        _mainInfoController.item.value.cancer),
-                                    ..._getNutritionTagList(_mainInfoController
-                                        .item.value.nutrition),
-                                    ..._getEtcTagList(
-                                        _mainInfoController.item.value.etc),
-                                  ],
-                                ))),
-                        Padding(
-                            padding: EdgeInsets.symmetric(vertical: 32),
-                            child: Obx(() => FittedBox(
-                                child: LikeBookmark(
-                                    like: _mainInfoController.item.value.likes,
-                                    bookmark: _mainInfoController
-                                        .item.value.wishes))))
+                                ? Center(
+                                    child: SizedBox(
+                                        width: 60,
+                                        height: 60,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        )))
+                                : Center(
+                                    child: _mainInfoController
+                                            .item.value.img.isNotEmpty
+                                        ? Image.network(
+                                            _mainInfoController.item.value.img,
+                                            errorBuilder: (_, __, ___) {
+                                              return ImageLoadFailed();
+                                            },
+                                          )
+                                        : ImageLoadFailed()))),
                       ]),
                     ]);
                   })))
@@ -116,8 +163,8 @@ class IngredientTable extends StatelessWidget {
       _foodNutritionPercentageController =
       Get.put(SearchDetailFoodNutritionPercentageController());
 
-  SearchNutritionFactsController _nutritionfactsController =
-      Get.put(SearchNutritionFactsController("당근"));
+  SearchDetailNutritionFactsController _nutritionfactsController =
+      Get.put(SearchDetailNutritionFactsController("당근"));
 
   @override
   Widget build(BuildContext context) {
@@ -190,56 +237,71 @@ class IngredientTable extends StatelessWidget {
                                     ))
                               ],
                             )),
-                        _nutritionfactsController.isLoading.value
-                            ? CircularProgressIndicator()
-                            : Expanded(
-                                child: Column(
-                                children: [
-                                  SizedBox(height: 4),
-                                  getChart(
-                                      _nutritionfactsController.item.value.good,
-                                      _nutritionfactsController
-                                          .item.value.goodMax,
-                                      0xFF31B6F7),
-                                  SizedBox(height: 23),
-                                  getChart(
-                                      _nutritionfactsController.item.value.bad,
-                                      _nutritionfactsController
-                                          .item.value.badMax,
-                                      0xFFFA665B),
-                                  SizedBox(height: 23),
-                                  getChart(
-                                      _nutritionfactsController
-                                          .item.value.function,
-                                      _nutritionfactsController
-                                          .item.value.functionMax,
-                                      0xFF31B6F7),
-                                  SizedBox(height: 23),
-                                  getChart(
-                                      _nutritionfactsController.item.value.etc,
-                                      _nutritionfactsController
-                                          .item.value.etcMax,
-                                      0xFFAAAAAA),
-                                ],
-                              )
-                                // child: BarChartSample1(
-                                //     _nutritionfactsController.item.value)
-                                ),
+                        Expanded(
+                            child: Column(
+                          children: [
+                            SizedBox(height: 4),
+                            _nutritionfactsController.isLoading.value
+                                ? ShimmerLoadingContainer(117, 8)
+                                : getChart(
+                                    _nutritionfactsController.item.value.good,
+                                    _nutritionfactsController
+                                        .item.value.goodMax,
+                                    0xFF31B6F7),
+                            SizedBox(height: 23),
+                            _nutritionfactsController.isLoading.value
+                                ? ShimmerLoadingContainer(117, 8)
+                                : getChart(
+                                    _nutritionfactsController.item.value.bad,
+                                    _nutritionfactsController.item.value.badMax,
+                                    0xFFFA665B),
+                            SizedBox(height: 23),
+                            _nutritionfactsController.isLoading.value
+                                ? ShimmerLoadingContainer(117, 8)
+                                : getChart(
+                                    _nutritionfactsController
+                                        .item.value.function,
+                                    _nutritionfactsController
+                                        .item.value.functionMax,
+                                    0xFF31B6F7),
+                            SizedBox(height: 23),
+                            _nutritionfactsController.isLoading.value
+                                ? ShimmerLoadingContainer(117, 8)
+                                : getChart(
+                                    _nutritionfactsController.item.value.etc,
+                                    _nutritionfactsController.item.value.etcMax,
+                                    0xFFAAAAAA),
+                          ],
+                        )
+                            // child: BarChartSample1(
+                            //     _nutritionfactsController.item.value)
+                            ),
                         Padding(
                             child: Column(
                               children: [
-                                Text(_nutritionfactsController.item.value.good
-                                    .toString()),
+                                _nutritionfactsController.isLoading.value
+                                    ? ShimmerLoadingContainer(10, 15)
+                                    : Text(_nutritionfactsController
+                                        .item.value.good
+                                        .toString()),
                                 SizedBox(height: 13),
-                                Text(_nutritionfactsController.item.value.bad
-                                    .toString()),
+                                _nutritionfactsController.isLoading.value
+                                    ? ShimmerLoadingContainer(10, 15)
+                                    : Text(_nutritionfactsController
+                                        .item.value.bad
+                                        .toString()),
                                 SizedBox(height: 13),
-                                Text(_nutritionfactsController
-                                    .item.value.function
-                                    .toString()),
+                                _nutritionfactsController.isLoading.value
+                                    ? ShimmerLoadingContainer(10, 15)
+                                    : Text(_nutritionfactsController
+                                        .item.value.function
+                                        .toString()),
                                 SizedBox(height: 13),
-                                Text(_nutritionfactsController.item.value.etc
-                                    .toString()),
+                                _nutritionfactsController.isLoading.value
+                                    ? ShimmerLoadingContainer(10, 15)
+                                    : Text(_nutritionfactsController
+                                        .item.value.etc
+                                        .toString()),
                               ],
                             ),
                             padding: EdgeInsets.only(left: 11))
@@ -264,7 +326,11 @@ class IngredientTable extends StatelessWidget {
               Text("단위 : g\(12kcal=80g\)"),
               SizedBox(height: 24),
               Obx(() => _foodNutritionPercentageController.isLoading.value
-                  ? CircularProgressIndicator()
+                  ? ShimmerLoadingContainer(
+                      220,
+                      220,
+                      isRound: true,
+                    )
                   : AspectRatio(
                       aspectRatio: 1.5,
                       child: PieChart(
@@ -276,16 +342,23 @@ class IngredientTable extends StatelessWidget {
                         ),
                         swapAnimationDuration: Duration(milliseconds: 500),
                       ))),
+              SizedBox(height: 24),
               Obx(() => Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: 2,
-                      scrollDirection: Axis.vertical,
-                      childAspectRatio: 5, //그리드뷰의 높이를 줄이기 위해 사용. why/????
-                      children: showingSectionColor(
-                          _foodNutritionPercentageController.lst),
-                    ),
+                    child: _foodNutritionPercentageController.isLoading.value
+                        ? ShimmerLoadingContainer(
+                            279,
+                            50,
+                            isRound: true,
+                          )
+                        : GridView.count(
+                            shrinkWrap: true,
+                            crossAxisCount: 2,
+                            scrollDirection: Axis.vertical,
+                            childAspectRatio: 5, //그리드뷰의 높이를 줄이기 위해 사용. why/????
+                            children: showingSectionColor(
+                                _foodNutritionPercentageController.lst),
+                          ),
                     // Wrap(
                     //   alignment: WrapAlignment.start,
                     //   runSpacing: 8,
@@ -371,7 +444,7 @@ class IngredientTable extends StatelessWidget {
 class DetailInfo extends StatelessWidget {
   DetailInfo({Key key}) : super(key: key);
   SearchDetailFoodDetailController _controller =
-      Get.put(SearchDetailFoodDetailController(Get.arguments[0]));
+      Get.put(SearchDetailFoodDetailController(Get.arguments));
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -381,9 +454,9 @@ class DetailInfo extends StatelessWidget {
             Padding(
                 child: mainHeader("효능 및 영양성분", 158),
                 padding: EdgeInsets.only(top: 32, bottom: 24)),
-            Obx(() => content(_controller.isLoading.value
-                ? ""
-                : _controller.item.value.efficacy)),
+            Obx(() => _controller.isLoading.value
+                ? ShimmerLoadingContainer(311, 150)
+                : content(_controller.item.value.efficacy)),
             SizedBox(height: 32)
           ],
         ),
@@ -398,9 +471,9 @@ class DetailInfo extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            Obx(() => content(_controller.isLoading.value
-                ? ""
-                : _controller.item.value.combination)),
+            Obx(() => _controller.isLoading.value
+                ? ShimmerLoadingContainer(311, 22)
+                : content(_controller.item.value.combination)),
             SizedBox(
               height: 16,
             ),
@@ -408,9 +481,9 @@ class DetailInfo extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            Obx(() => content(_controller.isLoading.value
-                ? ""
-                : _controller.item.value.selectTip)),
+            Obx(() => _controller.isLoading.value
+                ? ShimmerLoadingContainer(311, 22)
+                : content(_controller.item.value.selectTip)),
             SizedBox(
               height: 16,
             ),
@@ -418,9 +491,9 @@ class DetailInfo extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            Obx(() => content(_controller.isLoading.value
-                ? ""
-                : _controller.item.value.care)),
+            Obx(() => _controller.isLoading.value
+                ? ShimmerLoadingContainer(311, 22)
+                : content(_controller.item.value.care)),
             SizedBox(
               height: 16,
             ),

@@ -9,6 +9,7 @@ class Constants {
   static double paddingMainContainerVertical = 16;
   static double scale = 8;
   static double tagButtonRadius = 18;
+  static int loadingColor = 0x77EAEAEA;
 
   static const String BASE_URL = "http://54.180.67.217:3000/";
   static const String IMG_PLACE_HOLDER = "images/searchbar_logo.png";

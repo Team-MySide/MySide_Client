@@ -7,14 +7,26 @@ import 'Constants.dart';
 import 'Login.dart';
 import 'Login/page/loginPage/loginMainPage.dart';
 import 'MainTab.dart';
+import 'TabSearch/FoodInformation.dart';
+import 'TabSearch/IngredientGridList.dart';
 
 void main() {
   runApp(GetMaterialApp(
-      title: "이웃집닥터 메인",
-      theme: ThemeData(
-          primaryColor: Color(Constants.primaryColorInt),
-          visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: FirstOnboardingPage()));
-  //home: MainTab()));
-  // runApp(Main());
+    title: "이웃집닥터 메인",
+    theme: ThemeData(
+        primaryColor: Color(Constants.primaryColorInt),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        canvasColor: Colors.white),
+    home: FirstOnboardingPage(),
+
+    // home: LoginMainPage()));
+    // home: MainTab(),
+    initialRoute: "/",
+    getPages: [
+      GetPage(
+          name: "/SearchIngredientCategoryResultList",
+          page: () => SearchIngredientCategoryResultList()),
+      GetPage(name: "/FoodInformation", page: () => FoodInformation())
+    ],
+  ));
 }

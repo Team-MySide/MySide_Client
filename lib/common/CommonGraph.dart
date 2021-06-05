@@ -1,12 +1,9 @@
-import 'dart:async';
-import 'dart:math';
-import 'package:flutter/gestures.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:my_side_client/TabSearch/SearchNutritionFactsRepository/SearchNutritionFactsBody.dart';
+import 'package:my_side_client/TabSearch/SearchDetailNutritionFactsRepository/SearchDetailNutritionFactsBody.dart';
 
 class BarChartSample1 extends StatelessWidget {
-  final SearchNutritionFactsItem item;
+  final SearchDetailNutritionFactsItem item;
   final List<Color> availableColors = [
     Colors.purpleAccent,
     Colors.yellow,

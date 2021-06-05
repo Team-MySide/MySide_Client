@@ -6,6 +6,8 @@ import 'package:my_side_client/TabHome/SearchBar.dart';
 import 'package:my_side_client/TabSearch/SearchDisease.dart';
 import 'package:my_side_client/TabSearch/SearchFood.dart';
 import 'package:my_side_client/TabSearch/SearchIngredient.dart';
+import 'package:my_side_client/TabSearch/SerachDiseaseResult.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HeaderRow extends StatelessWidget {
   final String title;
@@ -134,21 +136,25 @@ class CategoryContainer extends StatelessWidget {
 _getCategories(var diseases) {
   List<Widget> ret = [];
   for (var d in diseases) {
-    ret.add(Container(
-        width: 104,
-        height: 95,
-        decoration: BoxDecoration(
-          border: Border.all(color: Color(0xFFDDDDDD)),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            SizedBox(height: 18),
-            SizedBox(width: 32, height: 32, child: SvgPicture.asset(d['path'])),
-            SizedBox(height: 9.87),
-            Text(d['disease'])
-          ],
-        )));
+    ret.add(GestureDetector(
+        child: Container(
+            width: 104,
+            height: 95,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFDDDDDD)),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: 18),
+                SizedBox(
+                    width: 32, height: 32, child: SvgPicture.asset(d['path'])),
+                SizedBox(height: 9.87),
+                Text(d['disease'])
+              ],
+            )),
+        onTap: () =>
+            Get.to(() => SearchDiseaseResult(), arguments: [d['disease']])));
   }
   return ret;
 }
@@ -225,5 +231,63 @@ class _SearchAutoCompleteContainerState
             // onTap: () => Get.to()
           );
         });
+  }
+}
+
+class AutoCompleteListView extends StatelessWidget {
+  final List<String> _searchResult;
+  AutoCompleteListView(this._searchResult, this.page, {Key key})
+      : super(key: key);
+  final String page;
+  // final Widget page;
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+        itemCount: _searchResult.length,
+        separatorBuilder: (_, __) {
+          return SizedBox(height: 0);
+        },
+        itemBuilder: (context, i) {
+          return GestureDetector(
+              child: Card(child: ListTile(title: Text(_searchResult[i]))),
+              onTap: () => Get.toNamed(page, arguments: _searchResult[i]));
+          // onTap: () => Get.to(page, arguments: _searchResult[i]));
+        });
+  }
+}
+
+class ImageLoadFailed extends StatelessWidget {
+  const ImageLoadFailed({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset('images/svg/image_load_failed.svg');
+  }
+}
+
+class ShimmerLoadingContainer extends StatelessWidget {
+  ShimmerLoadingContainer(this.width, this.height, {isRound, Key key})
+      : super(key: key);
+  final double width;
+  final double height;
+  bool isRound = false;
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+        baseColor: Colors.transparent,
+        highlightColor: Color(Constants.loadingColor),
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: isRound
+                ? Container(
+                    color: Color(0xFFEAEAEA),
+                    width: width,
+                    height: height,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(width / 2)),
+                    ))
+                : Container(
+                    width: width, height: height, color: Color(0xFFEAEAEA))));
   }
 }

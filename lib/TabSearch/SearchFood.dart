@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/TabSearch/DownloadFoodListRepository/DownloadFoodListController.dart';
 
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
@@ -8,9 +9,18 @@ import 'package:my_side_client/common/CommonHeader.dart';
 import 'FoodGridList.dart';
 import 'FoodInformation.dart';
 
-class SearchFood extends StatelessWidget {
+class SearchFood extends StatefulWidget {
   SearchFood({Key key}) : super(key: key);
+
+  @override
+  _SearchFoodState createState() => _SearchFoodState();
+}
+
+class _SearchFoodState extends State<SearchFood> {
   TextEditingController _textEditingController = TextEditingController();
+  DownloadFoodListController _controller =
+      Get.put(DownloadFoodListController());
+  List<String> _searchResult = [];
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +34,37 @@ class SearchFood extends StatelessWidget {
                 SearchContainer(
                   _textEditingController,
                   onSubmitted: onSubmitted,
+                  onChanged: onSearchTextChanged,
                 ),
-                SizedBox(height: 40),
-                HeaderRow("음식 카테고리", isViewMore: false),
-                FoodCategoryContainer(diseases)
+                _textEditingController.text.isEmpty
+                    ? Column(children: [
+                        SizedBox(height: 40),
+                        HeaderRow("음식 카테고리", isViewMore: false),
+                        FoodCategoryContainer(diseases)
+                      ])
+                    : Expanded(
+                        child: AutoCompleteListView(
+                        _searchResult,
+                        "/FoodInformation",
+                      ))
               ],
             )));
   }
 
-  //어떻게 submit 동작을 외부에서 넘겨? get.to는 불가능한가?
+  onSearchTextChanged(String text) async {
+    _searchResult.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    _controller.lst.forEach((item) {
+      if (item.contains(text)) {
+        _searchResult.add(item);
+      }
+    });
+    setState(() {});
+  }
+
   void onSubmitted(BuildContext context) {
     print(_textEditingController.text);
     // Navigator.push(
@@ -41,8 +73,7 @@ class SearchFood extends StatelessWidget {
     //         builder: (context) =>
     //             FoodInformation(_textEditingController.text)));
     // return () => Get.to(FoodDetailInfoContainer(_textEditingController.text));
-    Get.to(FoodInformation(_textEditingController.text),
-        arguments: [_textEditingController.text]);
+    Get.to(FoodInformation(), arguments: [_textEditingController.text]);
   }
 
   final List<Map> diseases = [

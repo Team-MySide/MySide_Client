@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-SearchNutritionFactsBody searchNutritionFactsBodyFromJson(String str) =>
+SearchNutritionFactsBody searchDetailNutritionFactsBodyFromJson(String str) =>
     SearchNutritionFactsBody.fromJson(json.decode(str));
 
 String searchNutritionFactsBodyToJson(SearchNutritionFactsBody data) =>
@@ -21,14 +21,14 @@ class SearchNutritionFactsBody {
   int status;
   bool success;
   String message;
-  SearchNutritionFactsItem data;
+  SearchDetailNutritionFactsItem data;
 
   factory SearchNutritionFactsBody.fromJson(Map<String, dynamic> json) =>
       SearchNutritionFactsBody(
         status: json["status"],
         success: json["success"],
         message: json["message"],
-        data: SearchNutritionFactsItem.fromJson(json["data"]),
+        data: SearchDetailNutritionFactsItem.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,8 +39,8 @@ class SearchNutritionFactsBody {
       };
 }
 
-class SearchNutritionFactsItem {
-  SearchNutritionFactsItem({
+class SearchDetailNutritionFactsItem {
+  SearchDetailNutritionFactsItem({
     this.good,
     this.goodMax,
     this.bad,
@@ -60,8 +60,8 @@ class SearchNutritionFactsItem {
   int etc;
   int etcMax;
 
-  factory SearchNutritionFactsItem.fromJson(Map<String, dynamic> json) =>
-      SearchNutritionFactsItem(
+  factory SearchDetailNutritionFactsItem.fromJson(Map<String, dynamic> json) =>
+      SearchDetailNutritionFactsItem(
         good: json["good"],
         goodMax: json["goodMax"],
         bad: json["bad"],

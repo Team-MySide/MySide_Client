@@ -5,14 +5,14 @@ import '../../Constants.dart';
 import 'SearchDetailMainInfoBody.dart';
 
 abstract class IFetch {
-  Future<SearchDetailMainInfoItem> fetch();
+  Future<SearchDetailMainInfoItem> fetch(String food);
 }
 
 class SearchIngredientService extends MySideConnect implements IFetch {
   // static var client = http.Client();
 
   @override
-  Future<SearchDetailMainInfoItem> fetch() async {
+  Future<SearchDetailMainInfoItem> fetch(String food) async {
     //
     httpClient.baseUrl = "http://54.180.67.217:3000";
 
@@ -22,7 +22,7 @@ class SearchIngredientService extends MySideConnect implements IFetch {
       request.headers['token'] = UserProfile.temp_token;
       return request;
     });
-    var resp = await get("/search/info/header/당근");
+    var resp = await get("/search/info/header/$food");
     if (resp.statusCode == 200) {
       return searchDetailMainInfoBodyFromJson(resp.bodyString).data;
     }

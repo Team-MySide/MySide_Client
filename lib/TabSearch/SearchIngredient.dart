@@ -9,6 +9,7 @@ import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 
 import 'FoodInformation.dart';
+import 'IngredientGridList.dart';
 
 class SearchIngredient extends StatefulWidget {
   SearchIngredient({Key key}) : super(key: key);
@@ -30,7 +31,8 @@ class _SearchIngredientState extends State<SearchIngredient> {
           if (controller.isLoading.value) {
             return CircularProgressIndicator();
           } else {
-            return Container(
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   SizedBox(
@@ -49,26 +51,36 @@ class _SearchIngredientState extends State<SearchIngredient> {
                       ? Container(
                           child: Column(
                           children: [
-                            Text("추천 검색어"),
+                            Align(
+                                child: Text("추천 검색어",
+                                    style: TextStyle(color: Color(0xFF666666))),
+                                alignment: Alignment.centerLeft),
                             SizedBox(height: 16),
                             getTags(),
                             Container()
                           ],
                         ))
                       : Expanded(
-                          child: ListView.separated(
-                              itemCount: _searchResult.length,
-                              separatorBuilder: (_, __) {
-                                return SizedBox(height: 3);
-                              },
-                              itemBuilder: (context, i) {
-                                return GestureDetector(
-                                  child: Card(
-                                      child: ListTile(
-                                          title: Text(_searchResult[i]))),
-                                  // onTap: () => Get.to()
-                                );
-                              })),
+                          child: AutoCompleteListView(
+                          _searchResult,
+                          "/SearchIngredientCategoryResultList",
+                        )
+
+                          // child: ListView.separated(
+                          //     itemCount: _searchResult.length,
+                          //     separatorBuilder: (_, __) {
+                          //       return SizedBox(height: 0);
+                          //     },
+                          //     itemBuilder: (context, i) {
+                          //       return GestureDetector(
+                          //           child: Card(
+                          //               child: ListTile(
+                          //                   title: Text(_searchResult[i]))),
+                          //           onTap: () => Get.to(
+                          //               SearchIngredientCategoryResultList(),
+                          //               arguments: _searchResult[i]));
+                          //     })),
+                          )
                 ],
               ),
             );
@@ -95,18 +107,38 @@ class _SearchIngredientState extends State<SearchIngredient> {
 
   getTags() {
     List<Widget> ret = tags
-        .map((e) => ChoiceChip(
-              label: Text("#$e",
-                  style: TextStyle(
-                      color: Color(0xFFFF9635),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300)),
-              selected: true,
-              selectedColor: Color(0xFFFFF6D6),
-            ))
+        .map(
+          (e) =>
+              // GestureDetector(
+              //     child:
+              InputChip(
+            label: Text("#$e",
+                style: TextStyle(
+                    color: Color(0xFFFF9635),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300)),
+            // selected: true,
+            padding: EdgeInsets.all(0),
+            backgroundColor: Color(0xFFFFF6D6),
+            onPressed: () {
+              Get.to(() => SearchIngredientCategoryResultList(),
+                  arguments: [e]);
+            },
+            // selectedColor: Color(0xFFFFF6D6),
+            // onSelected: (value) {
+            //   print(value);
+            // }
+          ),
+          // onTap: () {
+          //   print(e);
+
+          // }),
+        )
         .toList();
     return Wrap(
       children: ret,
+      spacing: 4,
+      // runSpacing: 8,
     );
   }
 }
