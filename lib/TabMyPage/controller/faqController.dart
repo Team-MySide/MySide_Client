@@ -1,23 +1,19 @@
 import 'package:get/get.dart';
 
-import 'package:my_side_client/TabMyPage/model/FAQtitle.dart';
+import 'package:my_side_client/TabMyPage/model/faqModel.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_side_client/TabMyPage/models/faqComponent.dart';
 import 'dart:convert';
 
 class FaqController extends GetxController {
-  List<FaqComponent> faqList = [];
-  List<FAQdata> faqTitle = [];
-  List<bool> clicked;
-  List<String> answers;
+  List<FAQItem> faqs = [];
+  List<bool> clicked = [];
 
   @override
   void onInit() async {
     // 데이터 가져옴 지금은 dummy data로 초기화
     super.onInit();
     await getFAQTitle();
-    clicked = List<bool>.filled(faqTitle.length, false);
-    answers = List<String>.filled(faqTitle.length, '');
+    clicked = List<bool>.filled(faqs.length, false);
   }
 
   void showAnswer(int index) {
@@ -27,22 +23,11 @@ class FaqController extends GetxController {
 
   void getFAQTitle() async {
     final response = await http.get(
-      Uri.http('54.180.67.217:3000', '/mypage/faq/title'),
+      Uri.http('54.180.67.217:3000', '/mypage/faq'),
     );
     if (response.statusCode == 200) {
-      faqTitle = faQtitleFromJson(response.body).data;
+      faqs = faQmodelFromJson(response.body).data;
     }
     update();
-  }
-
-  void getAnswer(int index) async {
-    final response = await http.get(
-      Uri.http('54.180.67.217:3000', '/mypage/faq/title/1'),
-    );
-    if (response.statusCode == 200) {
-      var jsondata = json.decode(response.body);
-      print(jsondata['data'][0]['content']);
-      answers[index] = jsondata['data'][0]['content'];
-    }
   }
 }

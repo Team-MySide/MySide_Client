@@ -29,17 +29,16 @@ class FAQPage extends StatelessWidget {
               padding: EdgeInsets.only(top: 0.0296 * scrHeight),
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: ctrler.faqTitle.length,
+                itemCount: ctrler.faqs.length,
                 itemBuilder: (BuildContext context, int index) {
                   return FAQContainer(
                     scrHeight: scrHeight,
-                    headTitle: ctrler.faqTitle[index].category,
-                    question: ctrler.faqTitle[index].title,
-                    answer: ctrler.answers[index],
+                    headTitle: ctrler.faqs[index].category,
+                    question: ctrler.faqs[index].title,
+                    answer: ctrler.faqs[index].content,
                     selected: ctrler.clicked[index],
                     toggleFunc: () async {
                       ctrler.showAnswer(index);
-                      await ctrler.getAnswer(index);
                     },
                   );
                 },

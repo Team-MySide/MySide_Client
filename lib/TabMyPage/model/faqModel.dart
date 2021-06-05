@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final faQtitle = faQtitleFromJson(jsonString);
+//     final faQmodel = faQmodelFromJson(jsonString);
 
 import 'dart:convert';
 
-FaQtitle faQtitleFromJson(String str) => FaQtitle.fromJson(json.decode(str));
+FaQmodel faQmodelFromJson(String str) => FaQmodel.fromJson(json.decode(str));
 
-String faQtitleToJson(FaQtitle data) => json.encode(data.toJson());
+String faQmodelToJson(FaQmodel data) => json.encode(data.toJson());
 
-class FaQtitle {
-  FaQtitle({
+class FaQmodel {
+  FaQmodel({
     this.status,
     this.success,
     this.message,
@@ -19,13 +19,13 @@ class FaQtitle {
   int status;
   bool success;
   String message;
-  List<FAQdata> data;
+  List<FAQItem> data;
 
-  factory FaQtitle.fromJson(Map<String, dynamic> json) => FaQtitle(
+  factory FaQmodel.fromJson(Map<String, dynamic> json) => FaQmodel(
         status: json["status"],
         success: json["success"],
         message: json["message"],
-        data: List<FAQdata>.from(json["data"].map((x) => FAQdata.fromJson(x))),
+        data: List<FAQItem>.from(json["data"].map((x) => FAQItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,26 +36,34 @@ class FaQtitle {
       };
 }
 
-class FAQdata {
-  FAQdata({
+class FAQItem {
+  FAQItem({
     this.faqId,
     this.category,
     this.title,
+    this.content,
+    this.regiDate,
   });
 
   int faqId;
   String category;
   String title;
+  String content;
+  DateTime regiDate;
 
-  factory FAQdata.fromJson(Map<String, dynamic> json) => FAQdata(
+  factory FAQItem.fromJson(Map<String, dynamic> json) => FAQItem(
         faqId: json["faq_id"],
         category: json["category"],
         title: json["title"],
+        content: json["content"],
+        regiDate: DateTime.parse(json["regiDate"]),
       );
 
   Map<String, dynamic> toJson() => {
         "faq_id": faqId,
         "category": category,
         "title": title,
+        "content": content,
+        "regiDate": regiDate.toIso8601String(),
       };
 }
