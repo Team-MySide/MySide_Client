@@ -139,6 +139,7 @@ class SelectDiseasePage extends StatelessWidget {
                 signInUserController
                     .setDieaseName(diseaseList[ctrl.diseaseNum - 1]);
                 signInUserController.signUpUser();
+                Get.offAll(() => LoginMainPage());
               },
             ),
           ],

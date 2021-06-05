@@ -5,6 +5,7 @@ import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/richTextWithQuotes.dart';
 import 'package:my_side_client/Login/widget/richTextWithoutQuotes.dart';
+import 'package:my_side_client/MainTab.dart';
 import 'package:page_indicator/page_indicator.dart';
 
 class FirstOnboardingPage extends StatelessWidget {
@@ -116,7 +117,9 @@ class FirstOnboardingPage extends StatelessWidget {
                     height: 0.01 * scrHeight,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(() => MainTab());
+                    },
                     child: Text(
                       '둘러보기',
                       style: TextStyle(
