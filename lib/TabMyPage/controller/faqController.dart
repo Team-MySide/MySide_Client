@@ -26,7 +26,7 @@ class FaqController extends GetxController {
       Uri.http('54.180.67.217:3000', '/mypage/faq'),
     );
     if (response.statusCode == 200) {
-      faqs = faqListFromJson(response.body).data;
+      faqs = faQmodelFromJson(response.body).data;
     }
     update();
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/page/onboardingPage/onboardingPage.dart';
 import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 
 import 'Constants.dart';
@@ -13,7 +14,7 @@ void main() {
       theme: ThemeData(
           primaryColor: Color(Constants.primaryColorInt),
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: LoginMainPage()));
+      home: FirstOnboardingPage()));
   //home: MainTab()));
   // runApp(Main());
 }

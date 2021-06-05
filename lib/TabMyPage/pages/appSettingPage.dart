@@ -22,10 +22,6 @@ class AppSettingPage extends StatelessWidget {
             color: Color(0xFF111111),
           ),
         ),
-        // actions: [
-        //   IconButton(
-        //       icon: SvgPicture.asset('assets/Setting.svg'), onPressed: () {}),
-        // ],
       ),
       body: Container(
         child: Column(
