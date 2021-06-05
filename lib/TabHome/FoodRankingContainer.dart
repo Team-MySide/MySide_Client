@@ -22,7 +22,7 @@ class FoodRankingContainer extends StatelessWidget {
           Padding(
               padding:
                   EdgeInsets.only(top: 40, bottom: 20, left: 16, right: 16),
-              child: HeaderRow("좋아요가 많은 음식", isViewMore: true)),
+              child: HeaderRow("좋아요가 많은 음식", isViewMore: false)),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.5),
               child: Obx(() {

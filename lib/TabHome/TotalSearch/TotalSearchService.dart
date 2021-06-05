@@ -9,7 +9,7 @@ abstract class IFetch {
   Future<List<String>> fetch();
 }
 
-class TotalSearchService extends MySideConnect implements IFetch {
+class DownloadTotalSearchListService extends MySideConnect implements IFetch {
   // static var client = http.Client();
 
   @override

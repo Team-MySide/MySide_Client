@@ -2,17 +2,17 @@ import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 
 import '../../Constants.dart';
-import 'SearchDetailMainInfoBody.dart';
+import 'SearchDetailNutritionFactsBody.dart';
 
 abstract class IFetch {
-  Future<SearchDetailMainInfoItem> fetch(String food);
+  Future<SearchDetailNutritionFactsItem> fetch(String food);
 }
 
-class SearchIngredientService extends MySideConnect implements IFetch {
+class SearchDetailNutritionService extends MySideConnect implements IFetch {
   // static var client = http.Client();
 
   @override
-  Future<SearchDetailMainInfoItem> fetch(String food) async {
+  Future<SearchDetailNutritionFactsItem> fetch(String food) async {
     //
     httpClient.baseUrl = "http://54.180.67.217:3000";
 
@@ -22,10 +22,10 @@ class SearchIngredientService extends MySideConnect implements IFetch {
       request.headers['token'] = UserProfile.temp_token;
       return request;
     });
-    var resp = await get("/search/info/header/$food");
+    var resp = await get("/search/info/Configuration/$food");
     if (resp.statusCode == 200) {
-      return searchDetailMainInfoBodyFromJson(resp.bodyString).data;
+      return searchDetailNutritionFactsBodyFromJson(resp.bodyString).data;
     }
-    return SearchDetailMainInfoItem();
+    return SearchDetailNutritionFactsItem();
   }
 }

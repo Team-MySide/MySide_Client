@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/TabSearch/SerachDiseaseResult.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
 class DiseaseCategoryContainer extends StatelessWidget {
@@ -44,13 +46,16 @@ class LabelTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-        constraints: BoxConstraints(minWidth: 80),
-        child: Wrap(
-          children: [
-            Icon(icon),
-            Text(_dissease),
-          ],
-        ));
+    return GestureDetector(
+        child: ConstrainedBox(
+            constraints: BoxConstraints(minWidth: 80),
+            child: Wrap(
+              children: [
+                Icon(icon),
+                Text(_dissease),
+              ],
+            )),
+        onTap: () =>
+            Get.to(() => SearchDiseaseResult(), arguments: [_dissease]));
   }
 }

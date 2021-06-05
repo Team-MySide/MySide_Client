@@ -13,11 +13,13 @@ class SearchDetailMainInfoController extends GetxController {
     fetch();
   }
 
+  final String food;
+  SearchDetailMainInfoController(this.food);
   void fetch() async {
     isLoading(true);
     try {
       SearchDetailMainInfoItem products =
-          await SearchIngredientService().fetch();
+          await SearchIngredientService().fetch(food);
       if (products != null) {
         item.value = products;
       }

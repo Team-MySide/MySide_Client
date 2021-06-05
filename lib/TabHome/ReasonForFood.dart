@@ -20,9 +20,7 @@ class ReasonForFood extends StatelessWidget {
         body: SingleChildScrollView(
             child: Column(
           children: [
-            Container(
-              height: 200,
-            ),
+            Container(child: Image.asset("images/not_try_any_food.jpg")),
             Padding(
                 padding:
                     EdgeInsets.only(top: 16, bottom: 40, left: 16, right: 16),

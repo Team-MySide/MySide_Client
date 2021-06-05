@@ -15,7 +15,8 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   TextEditingController _textEditingController = new TextEditingController();
 
-  TotalSearchController _searchController = Get.put(TotalSearchController());
+  DownloadTotalSearchListController _searchController =
+      Get.put(DownloadTotalSearchListController());
 
   @override
   Widget build(BuildContext context) {
@@ -64,30 +65,24 @@ class _SearchBarState extends State<SearchBar> {
               )),
           _searchResult.length == 0
               ? SearchButtonsContainer()
-              : Container(
-                  height: 120,
-                  child: Column(children: [
-                    Expanded(
-                        child:
-                            // SearchAutoCompleteContainer(_searchResult)
-
-                            ListView.separated(
-                                itemCount: _searchResult.length,
-                                separatorBuilder: (_, __) {
-                                  return SizedBox(height: 0);
-                                },
-                                itemBuilder: (context, i) {
-                                  return GestureDetector(
-                                    child: Card(
-                                        child: Padding(
-                                            padding: EdgeInsets.all(4),
-                                            child: Text(_searchResult[i],
-                                                style:
-                                                    TextStyle(fontSize: 14)))),
-                                    // onTap: () => Get.to()
-                                  );
-                                }))
-                  ])),
+              : ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 250, minHeight: 10),
+                  child: ListView.separated(
+                      itemCount: _searchResult.length,
+                      shrinkWrap: true,
+                      separatorBuilder: (_, __) {
+                        return SizedBox(height: 0);
+                      },
+                      itemBuilder: (context, i) {
+                        return GestureDetector(
+                          child: Card(
+                              child: Padding(
+                                  padding: EdgeInsets.all(4),
+                                  child: Text(_searchResult[i],
+                                      style: TextStyle(fontSize: 14)))),
+                          // onTap: () => Get.to()
+                        );
+                      })),
           SizedBox(height: 21)
         ]));
   }

@@ -2,17 +2,17 @@ import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 
 import '../../Constants.dart';
-import 'SearchNutritionFactsBody.dart';
+import 'DownloadFoodItem.dart';
 
 abstract class IFetch {
-  Future<SearchNutritionFactsItem> fetch(String food);
+  Future<List<String>> fetchFoodCategoryList();
 }
 
-class SearchIngredientService extends MySideConnect implements IFetch {
+class DownloadFoodListService extends MySideConnect implements IFetch {
   // static var client = http.Client();
 
   @override
-  Future<SearchNutritionFactsItem> fetch(String food) async {
+  Future<List<String>> fetchFoodCategoryList() async {
     //
     httpClient.baseUrl = "http://54.180.67.217:3000";
 
@@ -22,10 +22,10 @@ class SearchIngredientService extends MySideConnect implements IFetch {
       request.headers['token'] = UserProfile.temp_token;
       return request;
     });
-    var resp = await get("/search/info/Configuration/$food");
+    var resp = await get("common/auto/food");
     if (resp.statusCode == 200) {
-      return searchNutritionFactsBodyFromJson(resp.bodyString).data;
+      return downloadFoodListFromJson(resp.bodyString).data;
     }
-    return SearchNutritionFactsItem();
+    return [];
   }
 }
