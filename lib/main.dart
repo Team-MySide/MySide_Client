@@ -12,8 +12,8 @@ import 'TabSearch/FoodInformation.dart';
 import 'TabSearch/IngredientGridList.dart';
 import 'TabSearch/SerachDiseaseResult.dart';
 
-void main() {
-  GetStorage.init();
+void main() async {
+  await GetStorage.init();
   GetStorage box = GetStorage();
 
   runApp(GetMaterialApp(

@@ -95,7 +95,10 @@ class LoginMainPage extends StatelessWidget {
                     if (!ctrl.errorOcur[0] && !ctrl.errorOcur[1]) {
                       await ctrl.logIn();
                       if (UserProfile.isLogin) {
-                        Get.to(() => MainTab());
+                        // Get.to(() => MainTab());
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => MainTab()),
+                            (Route<dynamic> route) => false);
                       } else {
                         Get.dialog(
                           Dialog(

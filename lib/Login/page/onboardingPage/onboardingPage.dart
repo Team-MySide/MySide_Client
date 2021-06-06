@@ -119,7 +119,10 @@ class FirstOnboardingPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(() => MainTab());
+                      // Get.to(() => MainTab());
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => MainTab()),
+                          (Route<dynamic> route) => false);
                     },
                     child: Text(
                       '둘러보기',

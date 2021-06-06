@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/TabHome/SearchBar.dart';
 import 'package:my_side_client/TabSearch/SearchDisease.dart';
 import 'package:my_side_client/TabSearch/SearchFood.dart';
@@ -294,5 +297,31 @@ class ShimmerLoadingContainer extends StatelessWidget {
                     ))
                 : Container(
                     width: width, height: height, color: Color(0xFFEAEAEA))));
+  }
+}
+
+class RequestLoginPage extends StatelessWidget {
+  const RequestLoginPage({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Expanded(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("로그인이 필요한 서비스입니다.", style: TextStyle(fontSize: 16)),
+          SizedBox(height: 8),
+          GestureDetector(
+              onTap: () => Get.to(() => LoginMainPage()),
+              child: Text("로그인",
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Color(0xFF3BD7E2),
+                      decoration: TextDecoration.underline)))
+        ],
+      )),
+    );
   }
 }
