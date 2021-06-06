@@ -85,6 +85,7 @@ class ProfileChangePageController extends GetxController {
     );
     if (response.statusCode == 200) {
       profile = profileSearchFromJson(response.body).data;
+      print(profile.phone);
     }
 
     update();

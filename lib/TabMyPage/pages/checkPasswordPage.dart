@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/page/loginPage/findPswdPage.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/TabMyPage/controller/passwordController.dart';
 import 'package:my_side_client/TabMyPage/widget/longRoundButton.dart';
@@ -58,7 +60,9 @@ class CheckPasswordPage extends StatelessWidget {
                     height: 0.5062 * scrHeight,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.offAll(() => FindPswdPage());
+                    },
                     child: Container(
                       child: Text(
                         '비밀번호 찾기',
@@ -81,7 +85,23 @@ class CheckPasswordPage extends StatelessWidget {
                     validateFunc: () {
                       ctrl.validatePassword();
                       ctrl.checkPswd();
-                      //Get.to(() => ChangePhoneNumberPage());
+                      if (!ctrl.errorOcur) {
+                        if (ctrl.success) {
+                          Get.to(() => ChangePhoneNumberPage());
+                        } else {
+                          Get.dialog(
+                            Dialog(
+                              child: TextButtonDialog(
+                                scrHeight: scrHeight,
+                                dialogText: '비밀번호가 일치하지 않습니다.',
+                                routeFunc: () {
+                                  Get.back();
+                                },
+                              ),
+                            ),
+                          );
+                        }
+                      }
                     },
                   ),
                 ],

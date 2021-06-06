@@ -11,6 +11,7 @@ class PasswordController extends GetxController {
   bool canClear = true;
   FocusNode fn = FocusNode();
   String errorMsg = '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요';
+  bool success = false;
 
   @override
   void onInit() {
@@ -46,14 +47,18 @@ class PasswordController extends GetxController {
   }
 
   void checkPswd() async {
-    final response = await http.get(
-      Uri.http('54.180.67.217:3000', '/mypage/profile/checkpw'),
-      headers: {"Accept": "applications.json", "token": UserProfile.token},
-    );
-    print(response.statusCode);
+    final response = await http.post(
+        Uri.http('54.180.67.217:3000', '/mypage/profile/checkpw'),
+        headers: {
+          "Accept": "applications.json",
+          "token": UserProfile.token
+        },
+        body: {
+          "password": tec.text,
+        });
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
-      print(jsondata);
+      success = jsondata['success'];
     }
 
     update();
