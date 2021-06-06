@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/TabMyPage/controller/changePswdPageController.dart';
 import 'package:my_side_client/TabMyPage/pages/appSettingPage.dart';
@@ -128,8 +129,41 @@ class ChangePswdpage extends StatelessWidget {
                   activated: ctrl.tec[0].text.isNotEmpty &&
                       ctrl.tec[1].text.isNotEmpty &&
                       ctrl.tec[2].text.isNotEmpty,
-                  validateFunc: () {
-                    Get.back();
+                  validateFunc: () async {
+                    ctrl.validateCurPassword();
+                    ctrl.validateNewPassword();
+                    ctrl.validatePswdMatch();
+                    if (!ctrl.errorOcur[0] &&
+                        !ctrl.errorOcur[1] &&
+                        !ctrl.errorOcur[2]) {
+                      await ctrl.changePswd();
+                      if (ctrl.success) {
+                        Get.dialog(
+                          Dialog(
+                            child: TextButtonDialog(
+                              scrHeight: scrHeight,
+                              dialogText: '비밀번호가 변경되었습니다.',
+                              routeFunc: () {
+                                Get.back();
+                              },
+                            ),
+                          ),
+                        );
+                      } else {
+                        Get.dialog(
+                          Dialog(
+                            child: TextButtonDialog(
+                              scrHeight: scrHeight,
+                              dialogText: '현재 비밀번호가 올바르지 않습니다.',
+                              routeFunc: () {
+                                Get.back();
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                    }
+                    //Get.back();
                   },
                 ),
               ],

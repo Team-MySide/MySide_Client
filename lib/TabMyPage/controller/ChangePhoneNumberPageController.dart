@@ -79,14 +79,12 @@ class ChangePhoneNumberPageController extends GetxController {
 
   void changePhone() async {
     final response = await http.put(
-        Uri.http('54.180.67.217:3000', '/mypage/profile/changepb'),
-        headers: {
-          "Accept": "applications.json",
-          "token": UserProfile.token
-        },
-        body: {
-          "phone": tec[0].text,
-        });
+      Uri.http('54.180.67.217:3000', '/mypage/profile/changepb'),
+      headers: {"Accept": "applications.json", "token": UserProfile.token},
+      body: {
+        "phone": tec[0].text,
+      },
+    );
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
       print(jsondata);

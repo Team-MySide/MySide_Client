@@ -4,6 +4,7 @@ import 'package:my_side_client/Login/functions/isNicknameValidate.dart';
 import 'package:my_side_client/TabMyPage/model/ProfileSearch.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_side_client/common/UserProfile.dart';
+import 'dart:convert';
 
 class ProfileChangePageController extends GetxController {
   // index 0 : 환우 닉네임, index 1 : 보호자 닉네임
@@ -21,7 +22,8 @@ class ProfileChangePageController extends GetxController {
 
   List<String> errorMsg = ['특수문자 제외', '특수문자 제외'];
 
-  bool checked = false;
+  bool success = false;
+  bool duplicateChecked = false;
 
   Profile profile = Profile();
 
@@ -85,7 +87,38 @@ class ProfileChangePageController extends GetxController {
     );
     if (response.statusCode == 200) {
       profile = profileSearchFromJson(response.body).data;
-      print(profile.phone);
+    }
+
+    update();
+  }
+
+  void isExistNickname() async {
+    final response = await http.get(
+      Uri.http(
+          '54.180.67.217:3000', '/auth/duplicated/nickname/${tec[0].text}'),
+      headers: {"Accept": "applications.json"},
+    );
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      duplicateChecked = jsondata["success"];
+    }
+    update();
+  }
+
+  void nickNameChange() async {
+    final response = await http.put(
+      Uri.http('54.180.67.217:3000', '/mypage/profile/nickname'),
+      headers: {"Accept": "applications.json", "token": UserProfile.token},
+      body: {
+        "nickname": tec[0].text,
+      },
+    );
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      success = jsondata['success'];
+      hasData[0] = true;
+      duplicateChecked = false;
+      await getUserProfile();
     }
 
     update();

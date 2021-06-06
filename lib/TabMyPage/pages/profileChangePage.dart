@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/Login/widget/textfieldButtonError.dart';
+import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/controller/profileChangePageController.dart';
 import 'package:my_side_client/TabMyPage/pages/appSettingPage.dart';
 import 'package:my_side_client/TabMyPage/pages/changePasswordPage.dart';
@@ -12,6 +14,8 @@ import 'package:my_side_client/TabMyPage/pages/checkPasswordPage.dart';
 class ProfileChangePage extends StatelessWidget {
   final ProfileChangePageController pcCtrler =
       Get.put(ProfileChangePageController());
+  final MyPageMainController myPageMainController =
+      Get.put(MyPageMainController());
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
@@ -83,8 +87,22 @@ class ProfileChangePage extends StatelessWidget {
                           hintText: '닉네임',
                           buttonText: '중복확인',
                           errorMsg: ctrl.errorMsg[0],
-                          getOPT: () {
+                          getOPT: () async {
                             ctrl.validateNickname(0);
+                            if (!ctrl.errorOcur[0]) {
+                              await ctrl.isExistNickname();
+                              Get.dialog(Dialog(
+                                child: TextButtonDialog(
+                                  scrHeight: scrHeight,
+                                  dialogText: ctrl.duplicateChecked == true
+                                      ? '사용할 수 있는 닉네임입니다.'
+                                      : '동일한 닉네임이 이미 등록되어 있습니다.',
+                                  routeFunc: () {
+                                    Get.back();
+                                  },
+                                ),
+                              ));
+                            }
                           }, //중복확인하는 부분
                         ),
                 ),
@@ -99,9 +117,25 @@ class ProfileChangePage extends StatelessWidget {
                   child: LongRoundButton(
                     buttonText: '저장하기',
                     scrHeight: scrHeight,
-                    activated: ctrl.tec[0].text.isNotEmpty &&
-                        ctrl.tec[1].text.isNotEmpty,
-                    validateFunc: () {},
+                    activated:
+                        ctrl.tec[0].text.isNotEmpty && ctrl.duplicateChecked,
+                    validateFunc: () async {
+                      if (ctrl.duplicateChecked) {
+                        await ctrl.nickNameChange();
+                        await myPageMainController.getUserInfo();
+                        Get.dialog(
+                          Dialog(
+                            child: TextButtonDialog(
+                              scrHeight: scrHeight,
+                              dialogText: '닉네임이 변경되었습니다.',
+                              routeFunc: () {
+                                Get.back();
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
                 SizedBox(
