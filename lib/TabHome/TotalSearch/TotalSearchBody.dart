@@ -1,16 +1,17 @@
 // To parse this JSON data, do
 //
-//     final searchIngredient = searchIngredientFromJson(jsonString);
+//     final totalSearchBody = totalSearchBodyFromJson(jsonString);
 
 import 'dart:convert';
 
-TotalSearch totalSearchFromJson(String str) =>
-    TotalSearch.fromJson(json.decode(str));
+TotalSearchBody totalSearchBodyFromJson(String str) =>
+    TotalSearchBody.fromJson(json.decode(str));
 
-String totalSearchToJson(TotalSearch data) => json.encode(data.toJson());
+String totalSearchBodyToJson(TotalSearchBody data) =>
+    json.encode(data.toJson());
 
-class TotalSearch {
-  TotalSearch({
+class TotalSearchBody {
+  TotalSearchBody({
     this.status,
     this.success,
     this.message,
@@ -20,19 +21,44 @@ class TotalSearch {
   int status;
   bool success;
   String message;
-  List<String> data;
+  Data data;
 
-  factory TotalSearch.fromJson(Map<String, dynamic> json) => TotalSearch(
+  factory TotalSearchBody.fromJson(Map<String, dynamic> json) =>
+      TotalSearchBody(
         status: json["status"],
         success: json["success"],
         message: json["message"],
-        data: List<String>.from(json["data"].map((x) => x)),
+        data: Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "success": success,
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x)),
+        "data": data.toJson(),
+      };
+}
+
+class Data {
+  Data({
+    this.nutrition,
+    this.food,
+    this.cancer,
+  });
+
+  List<String> nutrition;
+  List<String> food;
+  List<String> cancer;
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        nutrition: List<String>.from(json["nutrition"].map((x) => x)),
+        food: List<String>.from(json["food"].map((x) => x)),
+        cancer: List<String>.from(json["cancer"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "nutrition": List<dynamic>.from(nutrition.map((x) => x)),
+        "food": List<dynamic>.from(food.map((x) => x)),
+        "cancer": List<dynamic>.from(cancer.map((x) => x)),
       };
 }

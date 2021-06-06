@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/TabHome/SearchBar.dart';
 import 'package:my_side_client/TabSearch/SearchDisease.dart';
 import 'package:my_side_client/TabSearch/SearchFood.dart';
@@ -45,23 +48,19 @@ class LikeBookmark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        // width: 90,
-        height: 14,
-        // child: Center(
-        child: Row(
-          children: [
-            Padding(
-                padding: EdgeInsets.only(right: 5),
-                child: SvgPicture.asset("images/svg/like.svg")),
-            Text(like.toString(), style: TextStyle(fontSize: 14)),
-            Padding(
-                padding: EdgeInsets.only(left: 10, right: 5),
-                child: SvgPicture.asset("images/svg/bookmark.svg")),
-            Text(bookmark.toString(), style: TextStyle(fontSize: 14)),
-          ],
-          // ),
-        ));
+    return Wrap(
+      children: [
+        Padding(
+            padding: EdgeInsets.only(right: 5),
+            child: SvgPicture.asset("images/svg/like.svg")),
+        Text(like.toString(), style: TextStyle(fontSize: 14)),
+        Padding(
+            padding: EdgeInsets.only(left: 10, right: 5),
+            child: SvgPicture.asset("images/svg/bookmark.svg")),
+        Text(bookmark.toString(), style: TextStyle(fontSize: 14)),
+      ],
+      // ),
+    );
   }
 }
 
@@ -261,7 +260,16 @@ class ImageLoadFailed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset('images/svg/image_load_failed.svg');
+    return SvgPicture.asset('images/svg/loading_failed_white.svg');
+  }
+}
+
+class ImageLoadFailedGrey extends StatelessWidget {
+  const ImageLoadFailedGrey({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset('images/svg/loading_failed_grey.svg');
   }
 }
 
@@ -289,5 +297,31 @@ class ShimmerLoadingContainer extends StatelessWidget {
                     ))
                 : Container(
                     width: width, height: height, color: Color(0xFFEAEAEA))));
+  }
+}
+
+class RequestLoginPage extends StatelessWidget {
+  const RequestLoginPage({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Expanded(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("로그인이 필요한 서비스입니다.", style: TextStyle(fontSize: 16)),
+          SizedBox(height: 8),
+          GestureDetector(
+              onTap: () => Get.to(() => LoginMainPage()),
+              child: Text("로그인",
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Color(0xFF3BD7E2),
+                      decoration: TextDecoration.underline)))
+        ],
+      )),
+    );
   }
 }

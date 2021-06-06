@@ -12,5 +12,8 @@ class Constants {
   static int loadingColor = 0x77EAEAEA;
 
   static const String BASE_URL = "http://54.180.67.217:3000/";
-  static const String IMG_PLACE_HOLDER = "images/searchbar_logo.png";
+  static const String IMG_PLACE_HOLDER = "images/loading_failed_white_png.png";
+
+  //use in getx_storage
+  static String isFirstRunApp = "isFirstRunApp";
 }

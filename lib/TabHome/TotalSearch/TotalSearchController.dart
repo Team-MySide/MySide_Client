@@ -4,7 +4,9 @@ import 'TotalSearchBody.dart';
 import 'TotalSearchService.dart';
 
 class DownloadTotalSearchListController extends GetxController {
-  var lst = <String>[].obs;
+  var cancerLst = <String>[].obs;
+  var foodLst = <String>[].obs;
+  var nutritionLst = <String>[].obs;
   var isLoading = true.obs;
   @override
   void onInit() {
@@ -15,9 +17,11 @@ class DownloadTotalSearchListController extends GetxController {
   void fetch() async {
     isLoading(true);
     try {
-      List<String> products = await DownloadTotalSearchListService().fetch();
+      TotalSearchBody products = await DownloadTotalSearchListService().fetch();
       if (products != null) {
-        lst.value = products;
+        cancerLst.value = products.data.cancer;
+        foodLst.value = products.data.food;
+        nutritionLst.value = products.data.nutrition;
       }
     } finally {
       isLoading(false);

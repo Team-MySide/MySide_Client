@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/Login/page/loginPage/findEmailPage.dart';
 import 'package:my_side_client/Login/page/loginPage/findPswdPage.dart';
@@ -13,12 +14,17 @@ import 'package:my_side_client/MainTab.dart';
 import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 
+import '../../../Constants.dart';
+
 class LoginMainPage extends StatelessWidget {
   final LoginMainPageController loginMainController =
       Get.put(LoginMainPageController());
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
+    GetStorage box = GetStorage();
+    box.write(Constants.isFirstRunApp, false);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -89,7 +95,10 @@ class LoginMainPage extends StatelessWidget {
                     if (!ctrl.errorOcur[0] && !ctrl.errorOcur[1]) {
                       await ctrl.logIn();
                       if (UserProfile.isLogin) {
-                        Get.to(() => MainTab());
+                        // Get.to(() => MainTab());
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => MainTab()),
+                            (Route<dynamic> route) => false);
                       } else {
                         Get.dialog(
                           Dialog(
