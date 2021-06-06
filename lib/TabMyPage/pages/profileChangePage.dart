@@ -48,7 +48,7 @@ class ProfileChangePage extends StatelessWidget {
                     horizontal: 0.0197 * scrHeight,
                   ),
                   child: Text(
-                    '환우 닉네임',
+                    '닉네임',
                     style: TextStyle(
                       color: Color(0xFF666666),
                       fontSize: 14,
@@ -70,7 +70,7 @@ class ProfileChangePage extends StatelessWidget {
                           canClear: ctrl.canClear[0],
                           fn: ctrl.fn[0],
                           tec: ctrl.tec[0],
-                          hintText: '환우 닉네임',
+                          hintText: '닉네임',
                           errorMsg: '',
                           isPswd: false,
                         )
@@ -80,7 +80,7 @@ class ProfileChangePage extends StatelessWidget {
                           canClear: ctrl.canClear[0],
                           fn: ctrl.fn[0],
                           tec: ctrl.tec[0],
-                          hintText: '환우 닉네임',
+                          hintText: '닉네임',
                           buttonText: '중복확인',
                           errorMsg: ctrl.errorMsg[0],
                           getOPT: () {
@@ -90,35 +90,6 @@ class ProfileChangePage extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 0.0197 * scrHeight,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 0.0197 * scrHeight,
-                  ),
-                  child: ctrl.hasData[1]
-                      ? TextFieldwithErrorMsg(
-                          scrHeight: scrHeight,
-                          errorOcur: ctrl.errorOcur[1],
-                          canClear: ctrl.canClear[1],
-                          fn: ctrl.fn[1],
-                          tec: ctrl.tec[1],
-                          hintText: '보호자 닉네임',
-                          errorMsg: '',
-                          isPswd: false,
-                        )
-                      : TextfieldButtonError(
-                          scrHeight: scrHeight,
-                          errorText: ctrl.errorOcur[1],
-                          canClear: ctrl.canClear[1],
-                          fn: ctrl.fn[1],
-                          tec: ctrl.tec[1],
-                          hintText: '보호자 닉네임',
-                          buttonText: '중복확인',
-                          errorMsg: ctrl.errorMsg[1],
-                          getOPT: () {
-                            ctrl.validateNickname(1);
-                          }, //중복확인하는 부분
-                        ),
                 ),
                 SizedBox(
                   height: 0.0296 * scrHeight,

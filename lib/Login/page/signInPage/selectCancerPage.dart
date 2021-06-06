@@ -52,8 +52,9 @@ class SelectCancerPage extends StatelessWidget {
                   child: Column(
                     children: [
                       TitleAndSubtitleWidget(
-                        title:
-                            '${signInUserController.nickname}님해당되는\n암 종류를 알려주세요.',
+                        title: signInUserController.relationNm == '환우'
+                            ? '${signInUserController.nickname}님해당되는\n암 종류를 알려주세요.'
+                            : '${signInUserController.nickname}님이 보호하시는 분의 \n암 종류를 알려주세요.',
                         subTitle: '정보 입력에 맞는 음식을 추천해드립니다.',
                         scrHeight: scrHeight,
                       ),

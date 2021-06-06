@@ -110,8 +110,8 @@ class FoodInformation extends StatelessWidget {
                                         width: 60,
                                         height: 60,
                                         child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                        )))
+                                            //color: Colors.white,
+                                            )))
                                 : Center(
                                     child: _mainInfoController
                                             .item.value.img.isNotEmpty

@@ -54,7 +54,7 @@ class UserNicknamePage extends StatelessWidget {
                       canClear: nnctrl.canClear,
                       fn: nnctrl.fn,
                       tec: nnctrl.tec,
-                      hintText: '환우 닉네임',
+                      hintText: '닉네임',
                       buttonText: '중복 확인',
                       errorMsg: nnctrl.errorMsg,
                       getOPT: () async {

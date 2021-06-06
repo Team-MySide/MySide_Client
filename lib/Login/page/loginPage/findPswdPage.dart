@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/loginPageControllers.dart/findPswdPageController.dart';
 import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
+import 'package:my_side_client/Login/page/loginPage/signInPage.dart';
 import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textTextButtonDialog.dart';
 import 'package:my_side_client/Login/widget/recSubmitButton.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 
@@ -77,22 +79,41 @@ class FindPswdPage extends StatelessWidget {
                 scrHeight: scrHeight,
                 activated:
                     ctrl.tec[0].text.isNotEmpty && ctrl.tec[1].text.isNotEmpty,
-                validateFunc: () {
+                validateFunc: () async {
                   ctrl.validateName();
                   ctrl.validateEmail();
+                  await ctrl.findPswd();
                   if (!ctrl.errorOcur[0] && !ctrl.errorOcur[1]) {
-                    Get.dialog(
-                      Dialog(
-                        child: TextButtonDialog(
-                          scrHeight: scrHeight,
-                          dialogText:
-                              'myside@myside.com\n변경된 비밀번호가 이메일로 발송되었습니다.',
-                          routeFunc: () {
-                            Get.offAll(() => LoginMainPage());
-                          },
+                    if (ctrl.success) {
+                      Get.dialog(
+                        Dialog(
+                          child: TextButtonDialog(
+                            scrHeight: scrHeight,
+                            dialogText:
+                                '${ctrl.tec[1].text}\n변경된 비밀번호가 이메일로 발송되었습니다.',
+                            routeFunc: () {
+                              Get.offAll(() => LoginMainPage());
+                            },
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    } else {
+                      Get.dialog(
+                        Dialog(
+                          child: TextTextButtonDialog(
+                            scrHeight: scrHeight,
+                            dialogText:
+                                '검색되는 이메일 주소가 없습니다.\n정보를 다시 한번 정확하게 입력해주세요.',
+                            routeFunc: () {
+                              Get.back();
+                            },
+                            textButtonFunc: () {
+                              Get.to(() => SignInPage());
+                            },
+                          ),
+                        ),
+                      );
+                    }
                   }
                 },
               ),

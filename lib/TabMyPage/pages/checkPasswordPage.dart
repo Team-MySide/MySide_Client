@@ -80,7 +80,8 @@ class CheckPasswordPage extends StatelessWidget {
                     activated: ctrl.tec.text.isNotEmpty,
                     validateFunc: () {
                       ctrl.validatePassword();
-                      Get.to(() => ChangePhoneNumberPage());
+                      ctrl.checkPswd();
+                      //Get.to(() => ChangePhoneNumberPage());
                     },
                   ),
                 ],

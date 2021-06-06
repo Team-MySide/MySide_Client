@@ -2,6 +2,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/functions/isNameValidate.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class FindPswdPageController extends GetxController {
   // index 0 : name, index 1 : 이메일
@@ -15,6 +17,7 @@ class FindPswdPageController extends GetxController {
   List<bool> canClear = [true, true];
 
   List<String> errorMsg = ['', ''];
+  bool success = false;
 
   @override
   void onInit() {
@@ -72,6 +75,22 @@ class FindPswdPageController extends GetxController {
       errorOcur[1] = true;
       canClear[1] = false;
     }
+    update();
+  }
+
+  void findPswd() async {
+    final response = await http.get(
+      Uri.http(
+          '54.180.67.217:3000', '/auth/password/${tec[1].text}/${tec[0].text}'),
+      headers: {"Accept": "applications.json"},
+    );
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      print(jsondata);
+      success = jsondata['success'];
+    }
+
     update();
   }
 }
