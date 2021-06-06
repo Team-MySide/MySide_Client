@@ -45,23 +45,19 @@ class LikeBookmark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        // width: 90,
-        height: 14,
-        // child: Center(
-        child: Row(
-          children: [
-            Padding(
-                padding: EdgeInsets.only(right: 5),
-                child: SvgPicture.asset("images/svg/like.svg")),
-            Text(like.toString(), style: TextStyle(fontSize: 14)),
-            Padding(
-                padding: EdgeInsets.only(left: 10, right: 5),
-                child: SvgPicture.asset("images/svg/bookmark.svg")),
-            Text(bookmark.toString(), style: TextStyle(fontSize: 14)),
-          ],
-          // ),
-        ));
+    return Wrap(
+      children: [
+        Padding(
+            padding: EdgeInsets.only(right: 5),
+            child: SvgPicture.asset("images/svg/like.svg")),
+        Text(like.toString(), style: TextStyle(fontSize: 14)),
+        Padding(
+            padding: EdgeInsets.only(left: 10, right: 5),
+            child: SvgPicture.asset("images/svg/bookmark.svg")),
+        Text(bookmark.toString(), style: TextStyle(fontSize: 14)),
+      ],
+      // ),
+    );
   }
 }
 
@@ -261,7 +257,16 @@ class ImageLoadFailed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset('images/svg/image_load_failed.svg');
+    return SvgPicture.asset('images/svg/loading_failed_white.svg');
+  }
+}
+
+class ImageLoadFailedGrey extends StatelessWidget {
+  const ImageLoadFailedGrey({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset('images/svg/loading_failed_grey.svg');
   }
 }
 

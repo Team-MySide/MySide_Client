@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
 import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/richTextWithQuotes.dart';
@@ -13,6 +13,7 @@ class FirstOnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: PageIndicatorContainer(
         child: PageView(

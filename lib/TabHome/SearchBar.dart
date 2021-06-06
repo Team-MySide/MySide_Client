@@ -67,22 +67,27 @@ class _SearchBarState extends State<SearchBar> {
               ? SearchButtonsContainer()
               : ConstrainedBox(
                   constraints: BoxConstraints(maxHeight: 250, minHeight: 10),
-                  child: ListView.separated(
-                      itemCount: _searchResult.length,
-                      shrinkWrap: true,
-                      separatorBuilder: (_, __) {
-                        return SizedBox(height: 0);
-                      },
-                      itemBuilder: (context, i) {
-                        return GestureDetector(
-                          child: Card(
-                              child: Padding(
-                                  padding: EdgeInsets.all(4),
-                                  child: Text(_searchResult[i],
-                                      style: TextStyle(fontSize: 14)))),
-                          // onTap: () => Get.to()
-                        );
-                      })),
+                  // child: ListView.separated(
+                  //     itemCount: _searchResult.length,
+                  //     shrinkWrap: true,
+                  //     separatorBuilder: (_, __) {
+                  //       return SizedBox(height: 0);
+                  //     },
+                  //     itemBuilder: (context, i) {
+                  //       return GestureDetector(
+                  //         child: Card(
+                  //             child: Padding(
+                  //                 padding: EdgeInsets.all(4),
+                  //                 child: Text(_searchResult[i],
+                  //                     style: TextStyle(fontSize: 14)))),
+                  //         // onTap: () => Get.to()
+                  //       );
+                  //     })
+                  child: AutoCompleteListView2(
+                      _searchResult,
+                      _searchController.foodLst,
+                      _searchController.cancerLst,
+                      _searchController.nutritionLst)),
           SizedBox(height: 21)
         ]));
   }
@@ -95,11 +100,22 @@ class _SearchBarState extends State<SearchBar> {
       setState(() {});
       return;
     }
-    _searchController.lst.forEach((item) {
+    _searchController.cancerLst.forEach((item) {
       if (item.contains(text)) {
         _searchResult.add(item);
       }
     });
+    _searchController.nutritionLst.forEach((item) {
+      if (item.contains(text)) {
+        _searchResult.add(item);
+      }
+    });
+    _searchController.foodLst.forEach((item) {
+      if (item.contains(text)) {
+        _searchResult.add(item);
+      }
+    });
+    _searchResult.sort();
     setState(() {});
   }
 
@@ -131,4 +147,45 @@ ButtonStyle _buttonRoundShape(int backgroundColor) {
           RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Constants.tagButtonRadius),
       )));
+}
+
+//from CommonComponent.AutoCompleteListView
+class AutoCompleteListView2 extends StatelessWidget {
+  final List<String> _searchResult;
+  final List<String> foodLst;
+  final List<String> cancerLst;
+  final List<String> nutritionLst;
+
+  AutoCompleteListView2(
+      this._searchResult, this.foodLst, this.cancerLst, this.nutritionLst,
+      {Key key, this.page})
+      : super(key: key);
+  final String page;
+  // final Widget page;
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+        itemCount: _searchResult.length,
+        separatorBuilder: (_, __) {
+          return SizedBox(height: 0);
+        },
+        itemBuilder: (context, i) {
+          return GestureDetector(
+              child: Card(child: ListTile(title: Text(_searchResult[i]))),
+              onTap: () {
+                if (foodLst.contains(_searchResult[i])) {
+                  Get.toNamed("/FoodInformation", arguments: _searchResult[i]);
+                } else if (cancerLst.contains(_searchResult[i])) {
+                  Get.toNamed("/SearchDiseaseResult",
+                      arguments: _searchResult[i]);
+                } else if (nutritionLst.contains(_searchResult[i])) {
+                  Get.toNamed("/SearchIngredientCategoryResultList",
+                      arguments: _searchResult[i]);
+                } else {
+                  print("error to choose");
+                }
+              });
+          // onTap: () => Get.to(page, arguments: _searchResult[i]));
+        });
+  }
 }

@@ -105,16 +105,29 @@ class FoodTile extends StatelessWidget {
                                 width: 128,
                                 height: 114,
                                 // child: Image.asset(path))),
-                                child: path.isNotEmpty
-                                    ? Image.network(
-                                        path,
-                                        errorBuilder: (_, __, ___) {
-                                          return Image.asset(
-                                              "images/searchbar_logo.png");
-                                        },
-                                      )
-                                    : Image.asset(
-                                        "images/searchbar_logo.png"))),
+                                child: path != null
+                                    ? path.isNotEmpty
+                                        ? Image.network(
+                                            path,
+                                            errorBuilder: (_, __, ___) {
+                                              return Center(
+                                                  child: SizedBox(
+                                                      child:
+                                                          ImageLoadFailedGrey(),
+                                                      width: 52,
+                                                      height: 44));
+                                            },
+                                          )
+                                        : Center(
+                                            child: SizedBox(
+                                                child: ImageLoadFailedGrey(),
+                                                width: 52,
+                                                height: 44))
+                                    : Center(
+                                        child: SizedBox(
+                                            child: ImageLoadFailedGrey(),
+                                            width: 52,
+                                            height: 44)))),
                         // SizedBox(height: 13.5),
                         SizedBox(
                             height: 24,
@@ -134,13 +147,8 @@ class FoodTile extends StatelessWidget {
                           like: like,
                           bookmark: bookmark,
                         )),
-                        // SizedBox(
-                        //   height: 20,
-                        // )
                       ],
                     ))),
-            // ranking != 0
-            //     ?
             Padding(
                 padding: EdgeInsets.only(left: 10, top: 6),
                 child: Align(

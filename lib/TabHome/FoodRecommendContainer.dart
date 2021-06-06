@@ -18,17 +18,17 @@ class FoodRecommendContainer extends StatelessWidget {
             Padding(
                 padding:
                     EdgeInsets.only(top: 40, bottom: 30, left: 16, right: 16),
-                child: _controller.isLoading.value
-                    ? ShimmerLoadingContainer(204, 31)
+                child: _controller.isLoading.value || _controller.lst == null
+                    ? HeaderRow("병에 좋은 추천음식", isViewMore: false)
                     : HeaderRow("${_controller.lst.first.cancerNm}에 좋은 추천음식",
-                        isViewMore: true)),
+                        isViewMore: false)),
             Container(
                 // color: Colors.amber,
                 height: 296, //원래 283 ㄱ
 
                 child:
                     Stack(alignment: AlignmentDirectional.topCenter, children: [
-                  _controller.isLoading.value
+                  _controller.isLoading.value || _controller.lst == null
                       ? Container()
                       : Container(
                           width: 200,
@@ -36,10 +36,8 @@ class FoodRecommendContainer extends StatelessWidget {
                           child: ClipPath(
                             child: Container(color: Color(0xFFF9F1DF)),
                             clipper: OctagonClipper(),
-                            // )
-                            // )
                           )),
-                  _controller.isLoading.value
+                  _controller.isLoading.value || _controller.lst == null
                       ? Column(children: [
                           Row(
                             children: [
@@ -84,29 +82,37 @@ class LikeBestTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
         alignment: Alignment.center,
-        child: Column(children: [
-          Padding(
-              padding: EdgeInsets.only(top: 64, left: 6, right: 6),
-              child: Container(
-                  // color: Colors.yellow,
-                  width: 184,
-                  height: 144,
-                  child: FadeInImage.assetNetwork(
-                      image: item.img,
-                      placeholder: Constants.IMG_PLACE_HOLDER))),
-          SizedBox(
-              height: 28,
-              child: Text(item.name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
-          SizedBox(height: 4),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Align(
-                  alignment: Alignment.center,
-                  child: Tags([item.cancerNm, item.nutrition1]))),
-          SizedBox(height: 11),
-          LikeBookmark(like: item.likes, bookmark: item.wishes),
-        ]));
+        child: Column(
+          children: [
+            Padding(
+                padding: EdgeInsets.only(top: 64, left: 6, right: 6),
+                child: Container(
+                    // color: Colors.yellow,
+                    width: 184,
+                    height: 144,
+                    child: FadeInImage.assetNetwork(
+                        image: item.img,
+                        placeholder: Constants.IMG_PLACE_HOLDER,
+                        imageErrorBuilder: (context, _, __) {
+                          return Image.asset(Constants.IMG_PLACE_HOLDER);
+                        }))),
+            SizedBox(
+                height: 28,
+                child: Text(item.name,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
+            SizedBox(height: 4),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Tags([item.cancerNm, item.nutrition1]))),
+            SizedBox(height: 11),
+            LikeBookmark(like: item.likes, bookmark: item.wishes),
+          ],
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center
+        ));
   }
 }
 

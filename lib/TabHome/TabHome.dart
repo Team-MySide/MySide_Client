@@ -55,7 +55,7 @@ class _TabHomeState extends State<TabHome> with WidgetsBindingObserver {
         //     horizontal: Constants.paddingMainContainerVertical),
         // child:
         SingleChildScrollView(
-            child: !UserProfile.isLogin
+            child: UserProfile.isLogin
                 ? Column(children: [
                     SearchBar(),
                     LoginRequestBar(),
@@ -70,7 +70,6 @@ class _TabHomeState extends State<TabHome> with WidgetsBindingObserver {
                     LoginRequestBar(),
                     // FoodRecommendContainer(),
                     FoodRankingContainer(),
-
                     DiseaseCategoryContainer(),
                     AdContainer()
                   ]

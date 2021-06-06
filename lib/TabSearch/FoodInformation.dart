@@ -24,10 +24,10 @@ class FoodInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CommonAppbar(
-          "음식 정보",
-          backgroundColor: Color(0xFFFFEFE7),
-        ),
+        // appBar: CommonAppbar(
+        //   "음식 정보",
+        //   backgroundColor: Color(0xFFFFEFE7),
+        // ),
         body: DefaultTabController(
             length: 2,
             child: NestedScrollView(
@@ -37,6 +37,7 @@ class FoodInformation extends StatelessWidget {
                       delegate:
                           SliverChildListDelegate(List.generate(1, (index) {
                     return Stack(children: [
+                      CustomAppBar("음식 정보", 0xFFFFEFE7),
                       Container(
                           color: Color(0xFFFFEFE7),
                           child: Column(children: [
@@ -154,6 +155,30 @@ class FoodInformation extends StatelessWidget {
 
   List<Widget> _getEtcTagList(List<String> etcs) {
     return etcs.map((etc) => ColorTag(etc, 0xFF306C13, 0xFFE1F0DB)).toList();
+  }
+}
+
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final String title;
+  final int backgroundColor;
+  CustomAppBar(this.title, this.backgroundColor, {Key key})
+      : preferredSize = Size.fromHeight(kToolbarHeight),
+        super(key: key);
+
+  @override
+  final Size preferredSize; // default is 56.0
+
+  @override
+  _CustomAppBarState createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(widget.title),
+      backgroundColor: Color(widget.backgroundColor),
+    );
   }
 }
 

@@ -22,7 +22,9 @@ class FoodRecommendController extends GetxController {
         lst = RxList(products);
       }
     } finally {
-      isLoading(false);
+      if (lst != null) {
+        isLoading(false);
+      }
     }
   }
 }
