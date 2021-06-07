@@ -93,7 +93,7 @@ class EditHealthDataPage extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   child: Text(
-                    '2021.06.07',
+                    ctrl.regiStr,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -112,10 +112,14 @@ class EditHealthDataPage extends StatelessWidget {
                   scrHeight: scrHeight,
                   firstText: '환우',
                   secondText: '보호자',
-                  firstSelected: false,
-                  secondSelected: false,
-                  firstClicked: () {},
-                  secondClicked: () {},
+                  firstSelected: ctrl.userType == 1,
+                  secondSelected: ctrl.userType == 2,
+                  firstClicked: () {
+                    ctrl.setUserType(1);
+                  },
+                  secondClicked: () {
+                    ctrl.setUserType(2);
+                  },
                 ),
                 SizedBox(
                   height: 0.0394 * scrHeight,
@@ -128,10 +132,14 @@ class EditHealthDataPage extends StatelessWidget {
                   scrHeight: scrHeight,
                   firstText: '남',
                   secondText: '여',
-                  firstSelected: false,
-                  secondSelected: false,
-                  firstClicked: () {},
-                  secondClicked: () {},
+                  firstSelected: ctrl.gender == 1,
+                  secondSelected: ctrl.gender == 2,
+                  firstClicked: () {
+                    ctrl.setGender(1);
+                  },
+                  secondClicked: () {
+                    ctrl.setGender(2);
+                  },
                 ),
                 SizedBox(
                   height: 0.0394 * scrHeight,
@@ -150,11 +158,11 @@ class EditHealthDataPage extends StatelessWidget {
                 HalfWidthTextField(
                   scrHeight: scrHeight,
                   tailText: '세',
-                  tec: TextEditingController(),
-                  fn: FocusNode(),
-                  canClear: true,
-                  errorOcur: false,
-                  errorMsg: '',
+                  tec: ctrl.tec[0],
+                  fn: ctrl.fn[0],
+                  canClear: ctrl.canClear[0],
+                  errorOcur: ctrl.errorOcur[0],
+                  errorMsg: ctrl.errorMsg[0],
                 ),
                 Text(
                   '키',
@@ -170,11 +178,11 @@ class EditHealthDataPage extends StatelessWidget {
                 HalfWidthTextField(
                   scrHeight: scrHeight,
                   tailText: 'cm',
-                  tec: TextEditingController(),
-                  fn: FocusNode(),
-                  canClear: true,
-                  errorOcur: false,
-                  errorMsg: '',
+                  tec: ctrl.tec[1],
+                  fn: ctrl.fn[1],
+                  canClear: ctrl.canClear[1],
+                  errorOcur: ctrl.errorOcur[1],
+                  errorMsg: ctrl.errorMsg[1],
                 ),
                 Text(
                   '몸무게',
@@ -190,11 +198,11 @@ class EditHealthDataPage extends StatelessWidget {
                 HalfWidthTextField(
                   scrHeight: scrHeight,
                   tailText: 'kg',
-                  tec: TextEditingController(),
-                  fn: FocusNode(),
-                  canClear: true,
-                  errorOcur: false,
-                  errorMsg: '',
+                  tec: ctrl.tec[2],
+                  fn: ctrl.fn[2],
+                  canClear: ctrl.canClear[2],
+                  errorOcur: ctrl.errorOcur[2],
+                  errorMsg: ctrl.errorMsg[2],
                 ),
                 RequiredTextWidget(mainText: '암 종류'),
                 SizedBox(

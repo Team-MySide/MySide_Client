@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/TabMyPage/controller/editHealthDataController.dart';
 import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/pages/addHealthDataPage.dart';
@@ -16,6 +17,8 @@ class MyPageMain extends StatelessWidget {
       Get.put(MyPageMainController());
   final EditHealthDataController editHealthDataController =
       Get.put(EditHealthDataController());
+  final LoginMainPageController loginMainPageController =
+      Get.put(LoginMainPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class MyPageMain extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '${ctrl.userData.nickname}님',
+                            '${loginMainPageController.userData.nickname}님',
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w700,
@@ -69,7 +72,7 @@ class MyPageMain extends StatelessWidget {
                             width: 0.006 * scrWidth,
                           ),
                           Text(
-                            '(${ctrl.userData.name} 환우)',
+                            '(${loginMainPageController.userData.name} 환우)',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
@@ -85,25 +88,29 @@ class MyPageMain extends StatelessWidget {
                         runSpacing: 0.0099 * scrHeight,
                         children: [
                           WhiteRountTextWidget(
-                            textInside: '#${ctrl.userData.cancerNm}',
+                            textInside:
+                                '#${loginMainPageController.userData.cancerNm}',
                           ),
                           SizedBox(
                             width: 8,
                           ),
                           WhiteRountTextWidget(
-                            textInside: '#${ctrl.userData.stageNm}',
+                            textInside:
+                                '#${loginMainPageController.userData.stageNm}',
                           ),
                           SizedBox(
                             width: 8,
                           ),
                           WhiteRountTextWidget(
-                            textInside: '#${ctrl.userData.progressNm}',
+                            textInside:
+                                '#${loginMainPageController.userData.progressNm}',
                           ),
                           SizedBox(
                             width: 8,
                           ),
                           WhiteRountTextWidget(
-                            textInside: '#${ctrl.userData.disease}',
+                            textInside:
+                                '#${loginMainPageController.userData.disease}',
                           ),
                         ],
                       ),

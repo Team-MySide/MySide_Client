@@ -47,27 +47,29 @@ class EditHealthDataController extends GetxController {
   int stageNm = 0;
   int progressNum = 0;
   int diseaseNum = 0;
-
-  String userTypeStr = '';
-  int healthID = 0;
-  String cancerNmStr = '';
-  String stageNmStr = '';
-  String progressNmStr = '';
-  String diseaseStr = '';
-  int height = 0;
-  int weight = 0;
-  String memoStr = '';
-  String regiStr = '';
+  int id = 0;
+  String regiStr;
 
   void findDefaultParam(int id) async {
     final response = await http.get(
-      Uri.http('54.180.67.217:3000', '/mypage/health/${id.toString()}'),
+      Uri.http('54.180.67.217:3000', '/mypage/health/list/${id.toString()}'),
       headers: {"Accept": "applications.json", "token": UserProfile.token},
     );
     if (response.statusCode == 200) {
-      //var jsondata = json.decode(response.body);
-      //print(jsondata);
-      Data detailData = healthDataDetailFromJson(response.body).data;
+      var jsondata = json.decode(response.body);
+      print(jsondata['data'][0]);
+      regiStr = jsondata['data'][0]['RegiDate'];
+      userType = jsondata['data'][0]['relationNm'] == '환우' ? 1 : 2;
+      gender = jsondata['data'][0]['gender'] == '남' ? 1 : 2;
+      tec[0].text = jsondata['data'][0]['age'].toString();
+      tec[1].text = jsondata['data'][0]['height'].toString();
+      tec[2].text = jsondata['data'][0]['weight'].toString();
+      cancerNm = cancerType.indexOf(jsondata['data'][0]['cancerNm']) + 1;
+      stageNm = stageType.indexOf(jsondata['data'][0]['stageNm']) + 1;
+      progressNum = progressType.indexOf(jsondata['data'][0]['progressNm']) + 1;
+      diseaseNum = diseaseList.indexOf(jsondata['data'][0]['disease']) + 1;
+      tec[4].text = jsondata['data'][0]['memo'];
+      id = id;
     }
     update();
   }

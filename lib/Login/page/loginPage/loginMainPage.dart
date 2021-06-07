@@ -11,6 +11,7 @@ import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
 import 'package:my_side_client/MainTab.dart';
+import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 

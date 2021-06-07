@@ -1,10 +1,12 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/Login/functions/isPasswordValidate.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_side_client/MainTab.dart';
+import 'package:my_side_client/TabMyPage/model/UserInfo.dart';
 import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 import 'dart:convert';
 
@@ -28,6 +30,8 @@ class LoginMainPageController extends GetxController {
   String loginMessage = '';
   final loginStorage = GetStorage();
 
+  UserData userData = UserData();
+
   @override
   void onInit() async {
     super.onInit();
@@ -42,7 +46,7 @@ class LoginMainPageController extends GetxController {
       tec[1].text = loginStorage.read('password');
       checked = true;
       await logIn();
-      Get.to(() => MyPageMain());
+      Get.offAll(() => MainTab());
     }
   }
 
@@ -99,6 +103,17 @@ class LoginMainPageController extends GetxController {
     update();
   }
 
+  void getUserInfo() async {
+    final response = await http.get(
+      Uri.http('54.180.67.217:3000', '/mypage'),
+      headers: {"Accept": "applications.json", "token": UserProfile.token},
+    );
+    if (response.statusCode == 200) {
+      userData = userInfoFromJson(response.body).data;
+    }
+    update();
+  }
+
   void logIn() async {
     final response = await http
         .post(Uri.http('54.180.67.217:3000', '/auth/signin'), headers: {
@@ -123,6 +138,8 @@ class LoginMainPageController extends GetxController {
         loginStorage.write('password', '');
         loginStorage.write('autologin', checked);
       }
+
+      await getUserInfo();
     }
 
     update();

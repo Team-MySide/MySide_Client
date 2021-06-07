@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/textFieldwithErrorMsg.dart';
@@ -14,8 +15,8 @@ import 'package:my_side_client/TabMyPage/pages/checkPasswordPage.dart';
 class ProfileChangePage extends StatelessWidget {
   final ProfileChangePageController pcCtrler =
       Get.put(ProfileChangePageController());
-  final MyPageMainController myPageMainController =
-      Get.put(MyPageMainController());
+  final LoginMainPageController loginMainController =
+      Get.put(LoginMainPageController());
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
@@ -122,7 +123,7 @@ class ProfileChangePage extends StatelessWidget {
                     validateFunc: () async {
                       if (ctrl.duplicateChecked) {
                         await ctrl.nickNameChange();
-                        await myPageMainController.getUserInfo();
+                        await loginMainController.getUserInfo();
                         Get.dialog(
                           Dialog(
                             child: TextButtonDialog(

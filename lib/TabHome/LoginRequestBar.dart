@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/Login/page/loginPage/signInPage.dart';
 import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/pages/addHealthDataPage.dart';
@@ -12,7 +13,7 @@ class LoginRequestBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PageController controller = PageController(initialPage: 0);
-    MyPageMainController userController = Get.put(MyPageMainController());
+    LoginMainPageController userController = Get.put(LoginMainPageController());
     return
         // PageView(
         //   controller: controller,
