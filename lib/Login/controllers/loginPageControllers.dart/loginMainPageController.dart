@@ -1,8 +1,11 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/Login/functions/isPasswordValidate.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_side_client/MainTab.dart';
+import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 import 'dart:convert';
 
 import 'package:my_side_client/common/UserProfile.dart';
@@ -23,9 +26,10 @@ class LoginMainPageController extends GetxController {
   bool checked = false;
   bool success = false;
   String loginMessage = '';
+  final loginStorage = GetStorage();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     tec[0].addListener(() {
       onListen(0);
@@ -33,6 +37,13 @@ class LoginMainPageController extends GetxController {
     tec[1].addListener(() {
       onListen(1);
     });
+    if (loginStorage.read('autologin')) {
+      tec[0].text = loginStorage.read('email');
+      tec[1].text = loginStorage.read('password');
+      checked = true;
+      await logIn();
+      Get.to(() => MyPageMain());
+    }
   }
 
   @override
@@ -102,6 +113,15 @@ class LoginMainPageController extends GetxController {
       UserProfile.isLogin = jsondata['success'];
       if (jsondata['success']) {
         UserProfile.token = jsondata['data']['tokens']['token'];
+      }
+      if (checked) {
+        loginStorage.write('email', tec[0].text);
+        loginStorage.write('password', tec[1].text);
+        loginStorage.write('autologin', checked);
+      } else {
+        loginStorage.write('email', '');
+        loginStorage.write('password', '');
+        loginStorage.write('autologin', checked);
       }
     }
 

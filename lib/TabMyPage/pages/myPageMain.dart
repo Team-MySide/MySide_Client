@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/TabMyPage/controller/editHealthDataController.dart';
 import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/pages/addHealthDataPage.dart';
 import 'package:my_side_client/TabMyPage/pages/healthDateListPage.dart';
@@ -13,6 +14,8 @@ import 'appSettingPage.dart';
 class MyPageMain extends StatelessWidget {
   final MyPageMainController myPageMainController =
       Get.put(MyPageMainController());
+  final EditHealthDataController editHealthDataController =
+      Get.put(EditHealthDataController());
 
   @override
   Widget build(BuildContext context) {
@@ -193,6 +196,7 @@ class MyPageMain extends StatelessWidget {
                         },
                         healthDataList: ctrl.healthdataList,
                         deleteFunc: ctrl.deleteData,
+                        editFunc: editHealthDataController.findDefaultParam,
                       ),
                     ],
                   ),

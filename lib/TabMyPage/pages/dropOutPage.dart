@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/TabMyPage/controller/dropOutReasonController.dart';
 import 'package:my_side_client/TabMyPage/widget/decorationForInput.dart';
@@ -124,7 +125,10 @@ class DropOutPage extends StatelessWidget {
                         buttonText: '탈퇴하기',
                         scrHeight: scrHeight,
                         activated: ctrler.reasonTEC.text.isNotEmpty,
-                        validateFunc: () {},
+                        validateFunc: () async {
+                          await ctrler.dropOut();
+                          Get.to(() => LoginMainPage());
+                        },
                       ),
                     ],
                   );

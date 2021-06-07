@@ -17,6 +17,7 @@ import 'package:my_side_client/common/UserProfile.dart';
 import '../../../Constants.dart';
 
 class LoginMainPage extends StatelessWidget {
+  //final loginStorage = GetStorage();
   final LoginMainPageController loginMainController =
       Get.put(LoginMainPageController());
   @override

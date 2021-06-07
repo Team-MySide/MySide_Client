@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/twoButtonDialog.dart';
 import 'package:my_side_client/TabMyPage/model/HealthDataListModel.dart';
+import 'package:my_side_client/TabMyPage/pages/editHealthDataPage.dart';
 
 import 'healthDataContainer.dart';
 
@@ -12,6 +14,7 @@ class DataListWidget extends StatelessWidget {
   final List<HealthData> healthDataList;
   final Function deleteFunc;
   final Function callMainDataList;
+  final Function editFunc;
 
   DataListWidget({
     @required this.scrHeight,
@@ -20,6 +23,7 @@ class DataListWidget extends StatelessWidget {
     @required this.healthDataList,
     @required this.deleteFunc,
     this.callMainDataList,
+    this.editFunc,
   });
 
   @override
@@ -124,9 +128,9 @@ class DataListWidget extends StatelessWidget {
                     onDelete: () {
                       Get.dialog(
                         Dialog(
-                          child: TextButtonDialog(
+                          child: TwoButtonDialog(
                             scrHeight: scrHeight,
-                            dialogText: '삭제하시겠습니까?',
+                            dialogText: '헉.. 삭제하실 건가요?\n해당 데이터가 지워집니다.',
                             routeFunc: () async {
                               await deleteFunc(healthDataList[index].healthId);
                               if (callMainDataList != null) {
@@ -138,7 +142,12 @@ class DataListWidget extends StatelessWidget {
                         ),
                       );
                     },
-                    onUpdated: () {},
+                    onUpdated: () async {
+                      //edit page 초기값 설정 함수 call
+                      print(healthDataList[index].healthId);
+                      await editFunc(61);
+                      //Get.to(() => EditHealthDataPage());
+                    },
                   );
                 },
               ),

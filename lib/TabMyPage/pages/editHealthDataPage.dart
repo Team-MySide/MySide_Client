@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:my_side_client/Login/widget/cancerAutoCompleteWidget.dart';
 import 'package:my_side_client/Login/widget/halfWidthTextField.dart';
+import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/requiredTextWidget.dart';
 import 'package:my_side_client/Login/widget/selectBetweenTwo.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
-import 'package:my_side_client/TabMyPage/controller/addHealthDataPageController.dart';
-import 'package:my_side_client/TabMyPage/controller/healthDateListController.dart';
-import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
-
+import 'package:my_side_client/TabMyPage/controller/editHealthDataController.dart';
 import 'package:my_side_client/TabMyPage/pages/appSettingPage.dart';
-import 'package:my_side_client/TabMyPage/widget/decorationForInput.dart';
-import 'package:my_side_client/TabMyPage/widget/longRoundButton.dart';
 
-class AddHealthDataPage extends StatelessWidget {
-  final AddHealthDataPageController ahctrl =
-      Get.put(AddHealthDataPageController());
-  final MyPageMainController myPageMainController =
-      Get.put(MyPageMainController());
-  final HealthDataListController hdlCtrl = Get.put(HealthDataListController());
+class EditHealthDataPage extends StatelessWidget {
+  final EditHealthDataController editHealthDataController =
+      Get.put(EditHealthDataController());
   final List<String> cancerType = [
     '위암',
     '폐암',
@@ -61,7 +53,7 @@ class AddHealthDataPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          '건강 데이터 추가입력',
+          '건강 데이터 편집',
           style: TextStyle(
             color: Color(0xFF111111),
             fontSize: 16,
@@ -86,55 +78,28 @@ class AddHealthDataPage extends StatelessWidget {
             0.0197 * scrHeight,
             0,
           ),
-          child: GetBuilder<AddHealthDataPageController>(builder: (ctrl) {
+          child: GetBuilder<EditHealthDataController>(builder: (ctrl) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TitleAndSubtitleWidget(
-                    title: '환우의 정보를 입력해주세요',
-                    subTitle: '환우 정보에 맞는 음식을 추천해 드립니다.',
-                    scrHeight: scrHeight),
+                  title: '환우의 정보를 입력해주세요',
+                  subTitle: '환우 정보에 맞는 음식을 추천해 드립니다.',
+                  scrHeight: scrHeight,
+                ),
                 SizedBox(
                   height: 0.0496 * scrHeight,
                 ),
                 Container(
                   width: double.infinity,
                   child: Text(
-                    '날짜 선택',
+                    '2021.06.07',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: Color(0xFF666666),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 0.0099 * scrHeight,
-                ),
-                DecorationForInput(
-                  childWidget: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          '${DateFormat("yyyy-MM-dd").format(ctrl.date)}',
-                          style: TextStyle(
-                            color: Color(0xFFAAAAAA),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          ctrl.selecteDate(context);
-                        },
-                        child: SvgPicture.asset('assets/calendar.svg'),
-                      ),
-                    ],
-                  ),
-                  scrHeight: scrHeight,
-                  vertPadding: 0.016,
-                  borderColor: Color(0xFFDDDDDD),
                 ),
                 SizedBox(
                   height: scrHeight * 0.0394,
@@ -147,14 +112,10 @@ class AddHealthDataPage extends StatelessWidget {
                   scrHeight: scrHeight,
                   firstText: '환우',
                   secondText: '보호자',
-                  firstSelected: ctrl.userType == 1,
-                  secondSelected: ctrl.userType == 2,
-                  firstClicked: () {
-                    ctrl.setUserType(1);
-                  },
-                  secondClicked: () {
-                    ctrl.setUserType(2);
-                  },
+                  firstSelected: false,
+                  secondSelected: false,
+                  firstClicked: () {},
+                  secondClicked: () {},
                 ),
                 SizedBox(
                   height: 0.0394 * scrHeight,
@@ -167,14 +128,10 @@ class AddHealthDataPage extends StatelessWidget {
                   scrHeight: scrHeight,
                   firstText: '남',
                   secondText: '여',
-                  firstSelected: ctrl.gender == 1,
-                  secondSelected: ctrl.gender == 2,
-                  firstClicked: () {
-                    ctrl.setGender(1);
-                  },
-                  secondClicked: () {
-                    ctrl.setGender(2);
-                  },
+                  firstSelected: false,
+                  secondSelected: false,
+                  firstClicked: () {},
+                  secondClicked: () {},
                 ),
                 SizedBox(
                   height: 0.0394 * scrHeight,
@@ -193,11 +150,11 @@ class AddHealthDataPage extends StatelessWidget {
                 HalfWidthTextField(
                   scrHeight: scrHeight,
                   tailText: '세',
-                  tec: ctrl.tec[0],
-                  fn: ctrl.fn[0],
-                  canClear: ctrl.canClear[0],
-                  errorOcur: ctrl.errorOcur[0],
-                  errorMsg: ctrl.errorMsg[0],
+                  tec: TextEditingController(),
+                  fn: FocusNode(),
+                  canClear: true,
+                  errorOcur: false,
+                  errorMsg: '',
                 ),
                 Text(
                   '키',
@@ -213,11 +170,11 @@ class AddHealthDataPage extends StatelessWidget {
                 HalfWidthTextField(
                   scrHeight: scrHeight,
                   tailText: 'cm',
-                  tec: ctrl.tec[1],
-                  fn: ctrl.fn[1],
-                  canClear: ctrl.canClear[1],
-                  errorOcur: ctrl.errorOcur[1],
-                  errorMsg: ctrl.errorMsg[1],
+                  tec: TextEditingController(),
+                  fn: FocusNode(),
+                  canClear: true,
+                  errorOcur: false,
+                  errorMsg: '',
                 ),
                 Text(
                   '몸무게',
@@ -233,11 +190,11 @@ class AddHealthDataPage extends StatelessWidget {
                 HalfWidthTextField(
                   scrHeight: scrHeight,
                   tailText: 'kg',
-                  tec: ctrl.tec[2],
-                  fn: ctrl.fn[2],
-                  canClear: ctrl.canClear[2],
-                  errorOcur: ctrl.errorOcur[2],
-                  errorMsg: ctrl.errorMsg[2],
+                  tec: TextEditingController(),
+                  fn: FocusNode(),
+                  canClear: true,
+                  errorOcur: false,
+                  errorMsg: '',
                 ),
                 RequiredTextWidget(mainText: '암 종류'),
                 SizedBox(
@@ -522,14 +479,6 @@ class AddHealthDataPage extends StatelessWidget {
                         !ctrl.errorOcur[1] &&
                         !ctrl.errorOcur[2] &&
                         !ctrl.errorOcur[3]) {
-                      await ctrl.postHealthData(
-                        cancerType[ctrl.cancerNm - 1],
-                        stageType[ctrl.stageNm - 1],
-                        progressType[ctrl.progressNum - 1],
-                        diseaseList[ctrl.diseaseNum - 1],
-                      );
-                      await myPageMainController.getHealthDataList();
-                      await hdlCtrl.getMonthYearDatList();
                       Get.back();
                     }
                   },

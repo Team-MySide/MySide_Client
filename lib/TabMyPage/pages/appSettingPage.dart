@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/TabMyPage/pages/dropOutPage.dart';
 import 'package:my_side_client/TabMyPage/pages/faqPage.dart';
 import 'package:my_side_client/TabMyPage/pages/termsOfServicePage.dart';
 import 'package:my_side_client/TabMyPage/widget/smallRoundButton.dart';
+import 'package:my_side_client/common/UserProfile.dart';
 
 class AppSettingPage extends StatelessWidget {
   @override
@@ -38,7 +40,11 @@ class AppSettingPage extends StatelessWidget {
             }),
             buildSettingTile(
                 'assets/handshake.svg', '광고/제휴문의', scrHeight, () {}),
-            buildSettingTile('assets/logout.svg', '로그아웃', scrHeight, () {}),
+            buildSettingTile('assets/logout.svg', '로그아웃', scrHeight, () {
+              UserProfile.token = "";
+              UserProfile.isLogin = false;
+              Get.offAll(() => LoginMainPage());
+            }),
             SizedBox(
               height: 16,
             ),

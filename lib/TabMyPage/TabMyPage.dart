@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_side_client/TabMyPage/pages/myPageLoadingPage.dart';
 import 'package:my_side_client/TabMyPage/pages/myPageNotLogedInPage.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 
@@ -9,7 +10,7 @@ class TabMyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(UserProfile.isLogin);
     return UserProfile.isLogin ? MyPageMain() : MypageNotLogedInPage();
+    //return MyPageLoadingPage();
   }
 }
