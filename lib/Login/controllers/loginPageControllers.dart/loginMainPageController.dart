@@ -28,7 +28,7 @@ class LoginMainPageController extends GetxController {
   bool checked = false;
   bool success = false;
   String loginMessage = '';
-  final loginStorage = GetStorage();
+  var loginStorage = GetStorage();
 
   UserData userData = UserData();
 
@@ -41,13 +41,6 @@ class LoginMainPageController extends GetxController {
     tec[1].addListener(() {
       onListen(1);
     });
-    if (loginStorage.read('autologin')) {
-      tec[0].text = loginStorage.read('email');
-      tec[1].text = loginStorage.read('password');
-      checked = true;
-      await logIn();
-      Get.offAll(() => MainTab());
-    }
   }
 
   @override
@@ -114,13 +107,13 @@ class LoginMainPageController extends GetxController {
     update();
   }
 
-  void logIn() async {
+  void logIn(String email, String password) async {
     final response = await http
         .post(Uri.http('54.180.67.217:3000', '/auth/signin'), headers: {
       "Accept": "applications.json"
     }, body: {
-      "email": tec[0].text,
-      "password": tec[1].text,
+      "email": email,
+      "password": password,
     });
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
@@ -130,8 +123,8 @@ class LoginMainPageController extends GetxController {
         UserProfile.token = jsondata['data']['tokens']['token'];
       }
       if (checked) {
-        loginStorage.write('email', tec[0].text);
-        loginStorage.write('password', tec[1].text);
+        loginStorage.write('email', email);
+        loginStorage.write('password', password);
         loginStorage.write('autologin', checked);
       } else {
         loginStorage.write('email', '');

@@ -95,7 +95,7 @@ class LoginMainPage extends StatelessWidget {
                     ctrl.validateEmail();
                     ctrl.validatePassword();
                     if (!ctrl.errorOcur[0] && !ctrl.errorOcur[1]) {
-                      await ctrl.logIn();
+                      await ctrl.logIn(ctrl.tec[0].text, ctrl.tec[1].text);
                       if (UserProfile.isLogin) {
                         // Get.to(() => MainTab());
                         Navigator.of(context).pushAndRemoveUntil(

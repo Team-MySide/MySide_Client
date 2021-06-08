@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/Login/page/onboardingPage/onboardingPage.dart';
 import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 
@@ -13,8 +14,18 @@ import 'TabSearch/IngredientGridList.dart';
 import 'TabSearch/SerachDiseaseResult.dart';
 
 void main() async {
+  final LoginMainPageController loginMainPageController =
+      Get.put(LoginMainPageController());
   await GetStorage.init();
   GetStorage box = GetStorage();
+  bool autoLoginFlag = false;
+  if (loginMainPageController.loginStorage.read('autologin') != null &&
+      loginMainPageController.loginStorage.read('autologin')) {
+    await loginMainPageController.logIn(
+        loginMainPageController.loginStorage.read('email'),
+        loginMainPageController.loginStorage.read('password'));
+    autoLoginFlag = true;
+  }
 
   runApp(GetMaterialApp(
     title: "이웃집닥터 메인",
@@ -24,7 +35,9 @@ void main() async {
         canvasColor: Colors.white),
     home: box.read(Constants.isFirstRunApp) ?? true
         ? FirstOnboardingPage()
-        : LoginMainPage(),
+        : autoLoginFlag
+            ? MainTab()
+            : LoginMainPage(),
 
     // home: LoginMainPage()));
     // home: MainTab(),
