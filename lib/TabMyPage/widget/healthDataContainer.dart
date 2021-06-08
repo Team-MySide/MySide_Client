@@ -104,8 +104,10 @@ class HealthDataContainer extends StatelessWidget {
                       ),
                       child: Container(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
+                            Wrap(
+                              runSpacing: 0.0099 * scrHeight,
                               children: [
                                 ModifyRoundButton(
                                   buttonText: cancerNm,
@@ -113,7 +115,7 @@ class HealthDataContainer extends StatelessWidget {
                                   scrHeight: scrHeight,
                                 ),
                                 SizedBox(
-                                  width: 8,
+                                  width: 0.0099 * scrHeight,
                                 ),
                                 ModifyRoundButton(
                                   buttonText: stageNm,
@@ -121,27 +123,23 @@ class HealthDataContainer extends StatelessWidget {
                                   scrHeight: scrHeight,
                                 ),
                                 SizedBox(
-                                  width: 8,
+                                  width: 0.0099 * scrHeight,
                                 ),
                                 ModifyRoundButton(
                                   buttonText: statusNm,
                                   modified: modifiedNum == 2,
                                   scrHeight: scrHeight,
                                 ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Row(
-                              children: [
+                                SizedBox(
+                                  width: 0.0099 * scrHeight,
+                                ),
                                 ModifyRoundButton(
                                   buttonText: diseaseNm,
                                   modified: modifiedNum == 3,
                                   scrHeight: scrHeight,
                                 ),
                                 SizedBox(
-                                  width: 8,
+                                  width: 0.0099 * scrHeight,
                                 ),
                                 ModifyRoundButton(
                                   buttonText: '${weight.toString()}kg',
@@ -149,7 +147,7 @@ class HealthDataContainer extends StatelessWidget {
                                   scrHeight: scrHeight,
                                 ),
                                 SizedBox(
-                                  width: 8,
+                                  width: 0.0099 * scrHeight,
                                 ),
                                 ModifyRoundButton(
                                   buttonText: '${height.toString()}cm',
@@ -159,7 +157,7 @@ class HealthDataContainer extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: 16,
+                              height: 0.0197 * scrHeight,
                             ),
                             Text(
                               memoText,

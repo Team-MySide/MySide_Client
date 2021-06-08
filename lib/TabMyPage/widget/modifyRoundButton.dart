@@ -13,8 +13,6 @@ class ModifyRoundButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: 0.0197 * scrHeight, vertical: 0.0099 * scrHeight),
       decoration: BoxDecoration(
         border: Border.all(
           color: modified ? Color(0xFF3BD7E2) : Colors.white,
@@ -24,10 +22,12 @@ class ModifyRoundButton extends StatelessWidget {
           Radius.circular(30),
         ),
       ),
-      child: Align(
-        alignment: Alignment.center,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: 0.0197 * scrHeight, vertical: 0.0099 * scrHeight),
         child: Text(
           buttonText,
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: modified ? Color(0xFF3BD7E2) : Color(0xFF666666),
             fontWeight: FontWeight.w300,

@@ -50,9 +50,11 @@ class EditHealthDataController extends GetxController {
   int id = 0;
   String regiStr;
 
-  void findDefaultParam(int id) async {
+  bool success = false;
+
+  void findDefaultParam(int inId) async {
     final response = await http.get(
-      Uri.http('54.180.67.217:3000', '/mypage/health/list/${id.toString()}'),
+      Uri.http('54.180.67.217:3000', '/mypage/health/list/${inId.toString()}'),
       headers: {"Accept": "applications.json", "token": UserProfile.token},
     );
     if (response.statusCode == 200) {
@@ -69,7 +71,32 @@ class EditHealthDataController extends GetxController {
       progressNum = progressType.indexOf(jsondata['data'][0]['progressNm']) + 1;
       diseaseNum = diseaseList.indexOf(jsondata['data'][0]['disease']) + 1;
       tec[4].text = jsondata['data'][0]['memo'];
-      id = id;
+      id = inId;
+    }
+    update();
+  }
+
+  void healthDataEdit() async {
+    final response = await http
+        .put(Uri.http('54.180.67.217:3000', '/mypage/health/update'), headers: {
+      "Accept": "applications.json",
+      "token": UserProfile.token
+    }, body: {
+      "health_id": "${id.toString()}",
+      "relationNm": userType == 1 ? "환우" : "보호자",
+      "gender": gender == 1 ? "남" : "여",
+      "age": tec[0].text,
+      "height": tec[1].text,
+      "weight": tec[2].text,
+      "cancerNm": cancerNm == 7 ? tec[3].text : cancerType[cancerNm - 1],
+      "stageNm": stageType[stageNm - 1],
+      "progressNm": progressType[progressNum - 1],
+      "disease": diseaseList[diseaseNum - 1],
+      "memo": tec[4].text
+    });
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      success = jsondata["success"];
     }
     update();
   }

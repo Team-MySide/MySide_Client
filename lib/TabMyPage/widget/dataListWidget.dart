@@ -144,7 +144,7 @@ class DataListWidget extends StatelessWidget {
                     },
                     onUpdated: () async {
                       //edit page 초기값 설정 함수 call
-                      //print(healthDataList[index].healthId);
+                      print(healthDataList[index].healthId);
                       await editFunc(healthDataList[index].healthId);
                       Get.to(() => EditHealthDataPage());
                     },

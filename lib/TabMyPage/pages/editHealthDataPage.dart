@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/widget/cancerAutoCompleteWidget.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/halfWidthTextField.dart';
 import 'package:my_side_client/Login/widget/longRoundButton.dart';
 import 'package:my_side_client/Login/widget/requiredTextWidget.dart';
 import 'package:my_side_client/Login/widget/selectBetweenTwo.dart';
 import 'package:my_side_client/Login/widget/titleAndSubtitleWidget.dart';
 import 'package:my_side_client/TabMyPage/controller/editHealthDataController.dart';
+import 'package:my_side_client/TabMyPage/controller/healthDateListController.dart';
+import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/pages/appSettingPage.dart';
+import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 
 class EditHealthDataPage extends StatelessWidget {
   final EditHealthDataController editHealthDataController =
       Get.put(EditHealthDataController());
+  final HealthDataListController healthDataListController =
+      Get.put(HealthDataListController());
+  final MyPageMainController myPageMainController =
+      Get.put(MyPageMainController());
+
   final List<String> cancerType = [
     '위암',
     '폐암',
@@ -487,7 +496,24 @@ class EditHealthDataPage extends StatelessWidget {
                         !ctrl.errorOcur[1] &&
                         !ctrl.errorOcur[2] &&
                         !ctrl.errorOcur[3]) {
-                      Get.back();
+                      //print(ctrl.id);
+                      await ctrl.healthDataEdit();
+                      if (ctrl.success) {
+                        Get.dialog(
+                          Dialog(
+                            child: TextButtonDialog(
+                              scrHeight: scrHeight,
+                              dialogText: '건강 데이터가 수정되었습니다.',
+                              routeFunc: () async {
+                                await myPageMainController.getHealthDataList();
+                                await healthDataListController
+                                    .getMonthYearDatList();
+                                Get.offAll(() => MyPageMain());
+                              },
+                            ),
+                          ),
+                        );
+                      }
                     }
                   },
                 ),
