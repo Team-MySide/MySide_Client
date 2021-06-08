@@ -25,10 +25,11 @@ class LoginMainPageController extends GetxController {
 
   List<String> errorMsg = ['', '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.'];
 
-  bool checked = false;
   bool success = false;
   String loginMessage = '';
   var loginStorage = GetStorage();
+
+  bool checked = false;
 
   UserData userData = UserData();
 
@@ -41,6 +42,10 @@ class LoginMainPageController extends GetxController {
     tec[1].addListener(() {
       onListen(1);
     });
+    if (loginStorage.read('autologin') != null &&
+        loginStorage.read('autologin')) {
+      checked = true;
+    }
   }
 
   @override
@@ -120,6 +125,7 @@ class LoginMainPageController extends GetxController {
       loginMessage = jsondata['message'];
       UserProfile.isLogin = jsondata['success'];
       if (jsondata['success']) {
+        print(jsondata['data']['tokens']['token']);
         UserProfile.token = jsondata['data']['tokens']['token'];
       }
       if (checked) {

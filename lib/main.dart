@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/Login/page/onboardingPage/onboardingPage.dart';
+import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 
 import 'Constants.dart';
@@ -14,9 +15,11 @@ import 'TabSearch/IngredientGridList.dart';
 import 'TabSearch/SerachDiseaseResult.dart';
 
 void main() async {
+  await GetStorage.init();
   final LoginMainPageController loginMainPageController =
       Get.put(LoginMainPageController());
-  await GetStorage.init();
+  final MyPageMainController myPageMainController =
+      Get.put(MyPageMainController());
   GetStorage box = GetStorage();
   bool autoLoginFlag = false;
   if (loginMainPageController.loginStorage.read('autologin') != null &&
@@ -25,6 +28,7 @@ void main() async {
         loginMainPageController.loginStorage.read('email'),
         loginMainPageController.loginStorage.read('password'));
     autoLoginFlag = true;
+    await myPageMainController.getHealthDataList();
   }
 
   runApp(GetMaterialApp(

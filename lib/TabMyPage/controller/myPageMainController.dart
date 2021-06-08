@@ -13,7 +13,7 @@ class MyPageMainController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getHealthDataList();
+    //getHealthDataList();
   }
 
   void getHealthDataList() async {

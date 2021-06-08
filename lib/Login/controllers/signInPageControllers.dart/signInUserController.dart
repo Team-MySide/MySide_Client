@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class SignInUserController extends GetxController {
   String email = '';
@@ -18,6 +19,7 @@ class SignInUserController extends GetxController {
   String weight = '';
   String disableFood = '';
   String disease = '';
+  String tempToken = '';
 
   void setMainInfo(
       String inEmail, String inName, String inPhone, String inPswd) {
@@ -67,6 +69,51 @@ class SignInUserController extends GetxController {
     update();
   }
 
+  void tempGetToken() async {
+    final response = await http
+        .post(Uri.http('54.180.67.217:3000', '/auth/signin'), headers: {
+      "Accept": "applications.json"
+    }, body: {
+      "email": email,
+      "password": password,
+    });
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      if (jsondata['success']) {
+        tempToken = jsondata['data']['tokens']['token'];
+      }
+    }
+    update();
+  }
+
+  void initialHealthData() async {
+    final response = await http.post(
+        Uri.http('54.180.67.217:3000', '/mypage/health/insert'),
+        headers: {
+          "Accept": "applications.json",
+          "token": tempToken
+        },
+        body: {
+          "RegiDate": '${DateFormat("yyyy-MM-dd").format(DateTime.now())}',
+          "relationNm": relationNm,
+          "gender": gender,
+          "age": age,
+          "height": height,
+          "weight": weight,
+          "cancerNm": cancerNm,
+          "stageNm": stageNm,
+          "progressNm": progressNm,
+          "disease": disease,
+          "memo": '',
+        });
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      print(jsondata['success']);
+      print(jsondata['message']);
+    }
+    update();
+  }
+
   void signUpUser() async {
     final response = await http
         .post(Uri.http('54.180.67.217:3000', '/auth/signup'), headers: {
@@ -90,7 +137,12 @@ class SignInUserController extends GetxController {
     });
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
-      print(jsondata['message']);
+      if (jsondata['success']) {
+        await tempGetToken();
+        await initialHealthData();
+      }
     }
+
+    update();
   }
 }

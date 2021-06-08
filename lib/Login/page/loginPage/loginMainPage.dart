@@ -21,6 +21,8 @@ class LoginMainPage extends StatelessWidget {
   //final loginStorage = GetStorage();
   final LoginMainPageController loginMainController =
       Get.put(LoginMainPageController());
+  final MyPageMainController myPageMainController =
+      Get.put(MyPageMainController());
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
@@ -98,6 +100,7 @@ class LoginMainPage extends StatelessWidget {
                       await ctrl.logIn(ctrl.tec[0].text, ctrl.tec[1].text);
                       if (UserProfile.isLogin) {
                         // Get.to(() => MainTab());
+                        await myPageMainController.getHealthDataList();
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) => MainTab()),
                             (Route<dynamic> route) => false);
