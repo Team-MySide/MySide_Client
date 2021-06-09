@@ -133,27 +133,35 @@ class HealthDataContainer extends StatelessWidget {
                                 SizedBox(
                                   width: 0.0099 * scrHeight,
                                 ),
-                                ModifyRoundButton(
-                                  buttonText: diseaseNm,
-                                  modified: modifiedNum == 3,
-                                  scrHeight: scrHeight,
-                                ),
+                                diseaseNm != ''
+                                    ? ModifyRoundButton(
+                                        buttonText: diseaseNm,
+                                        modified: modifiedNum == 3,
+                                        scrHeight: scrHeight,
+                                      )
+                                    : SizedBox(
+                                        width: 0,
+                                      ),
                                 SizedBox(
                                   width: 0.0099 * scrHeight,
                                 ),
-                                ModifyRoundButton(
-                                  buttonText: '${weight.toString()}kg',
-                                  modified: modifiedNum == 4,
-                                  scrHeight: scrHeight,
-                                ),
+                                weight.toString() != '0'
+                                    ? ModifyRoundButton(
+                                        buttonText: '${weight.toString()}kg',
+                                        modified: modifiedNum == 4,
+                                        scrHeight: scrHeight,
+                                      )
+                                    : SizedBox(width: 0),
                                 SizedBox(
                                   width: 0.0099 * scrHeight,
                                 ),
-                                ModifyRoundButton(
-                                  buttonText: '${height.toString()}cm',
-                                  modified: modifiedNum == 5,
-                                  scrHeight: scrHeight,
-                                ),
+                                height.toString() != '0'
+                                    ? ModifyRoundButton(
+                                        buttonText: '${height.toString()}cm',
+                                        modified: modifiedNum == 5,
+                                        scrHeight: scrHeight,
+                                      )
+                                    : SizedBox(width: 0),
                               ],
                             ),
                             SizedBox(
