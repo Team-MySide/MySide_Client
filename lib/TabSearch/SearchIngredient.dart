@@ -10,6 +10,7 @@ import 'package:my_side_client/common/CommonHeader.dart';
 
 import 'FoodInformation.dart';
 import 'IngredientGridList.dart';
+import 'SearchIngredientRecommendRepository/SearchIngredientRecommendController.dart';
 
 class SearchIngredient extends StatefulWidget {
   SearchIngredient({Key key}) : super(key: key);
@@ -20,7 +21,8 @@ class SearchIngredient extends StatefulWidget {
 
 class _SearchIngredientState extends State<SearchIngredient> {
   SearchIngredientController controller = Get.put(SearchIngredientController());
-
+  SearchIngredientRecommendController _recommendController =
+      Get.put(SearchIngredientRecommendController());
   TextEditingController _textEditingController = TextEditingController();
 
   @override
@@ -56,7 +58,17 @@ class _SearchIngredientState extends State<SearchIngredient> {
                                     style: TextStyle(color: Color(0xFF666666))),
                                 alignment: Alignment.centerLeft),
                             SizedBox(height: 16),
-                            getTags(),
+                            Obx(() => _recommendController.isLoading.value
+                                ? Row(
+                                    children: [
+                                      ShimmerLoadingContainer(44, 34),
+                                      ShimmerLoadingContainer(44, 34),
+                                      ShimmerLoadingContainer(44, 34)
+                                    ],
+                                    // spacing: 4,
+                                    // alignment: WrapAlignment.start,
+                                  )
+                                : getTags(_recommendController.lst)),
                             Container()
                           ],
                         ))
@@ -103,9 +115,7 @@ class _SearchIngredientState extends State<SearchIngredient> {
     setState(() {});
   }
 
-  List<String> tags = ['비타민', '폴로보노이드', '베타카로틴', '셀레늄'];
-
-  getTags() {
+  getTags(List<String> tags) {
     List<Widget> ret = tags
         .map(
           (e) =>
@@ -121,8 +131,7 @@ class _SearchIngredientState extends State<SearchIngredient> {
             padding: EdgeInsets.all(0),
             backgroundColor: Color(0xFFFFF6D6),
             onPressed: () {
-              Get.to(() => SearchIngredientCategoryResultList(),
-                  arguments: [e]);
+              Get.to(() => SearchIngredientCategoryResultList(), arguments: e);
             },
             // selectedColor: Color(0xFFFFF6D6),
             // onSelected: (value) {

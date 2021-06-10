@@ -37,13 +37,13 @@ class FoodInformation extends StatelessWidget {
                       delegate:
                           SliverChildListDelegate(List.generate(1, (index) {
                     return Stack(children: [
-                      CustomAppBar("음식 정보", 0xFFFFEFE7),
                       Container(
                           color: Color(0xFFFFEFE7),
                           child: Column(children: [
-                            Container(height: 160, color: Colors.transparent),
+                            CustomAppBar("음식 정보", 0xFFFFEFE7),
+                            Container(height: 100, color: Colors.transparent),
                             Container(
-                              height: 221,
+                              height: 266,
                               width: double.infinity,
                               // color: Colors.transparent,
                               decoration: BoxDecoration(
@@ -53,7 +53,7 @@ class FoodInformation extends StatelessWidget {
                                       topRight: Radius.circular(20))),
                               child: Column(
                                 children: [
-                                  SizedBox(height: 16),
+                                  SizedBox(height: 46),
                                   Text(category,
                                       style: TextStyle(
                                           fontSize: 24,
@@ -103,6 +103,7 @@ class FoodInformation extends StatelessWidget {
                             ),
                           ])),
                       Column(children: [
+                        SizedBox(height: 102),
                         Container(
                             height: 132,
                             child: Obx(() => _mainInfoController.isLoading.value
@@ -178,6 +179,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return AppBar(
       title: Text(widget.title),
       backgroundColor: Color(widget.backgroundColor),
+      elevation: 0,
     );
   }
 }

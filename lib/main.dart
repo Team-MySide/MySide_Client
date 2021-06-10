@@ -30,7 +30,6 @@ void main() async {
     autoLoginFlag = true;
     await myPageMainController.getHealthDataList();
   }
-
   runApp(GetMaterialApp(
     title: "이웃집닥터 메인",
     theme: ThemeData(
@@ -51,7 +50,8 @@ void main() async {
           name: "/SearchIngredientCategoryResultList",
           page: () => SearchIngredientCategoryResultList()),
       GetPage(name: "/FoodInformation", page: () => FoodInformation()),
-      GetPage(name: "/SearchDiseaseResult", page: () => SearchDiseaseResult())
+      GetPage(name: "/SearchDiseaseResult", page: () => SearchDiseaseResult()),
+      GetPage(name: "/MainTab", page: () => MainTab())
     ],
   ));
 }
