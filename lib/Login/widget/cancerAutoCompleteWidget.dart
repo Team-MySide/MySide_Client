@@ -50,6 +50,7 @@ class CancerAutoCompleteWidget extends StatelessWidget {
                   onTap: clicked,
                   child: Container(
                     width: 0.146 * scrHeight,
+                    height: 0.067 * scrHeight,
                     padding: EdgeInsets.symmetric(
                       vertical: 0.0185 * scrHeight,
                     ),

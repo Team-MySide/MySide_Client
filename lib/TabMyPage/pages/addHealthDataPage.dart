@@ -523,7 +523,9 @@ class AddHealthDataPage extends StatelessWidget {
                         !ctrl.errorOcur[2] &&
                         !ctrl.errorOcur[3]) {
                       await ctrl.postHealthData(
-                        cancerType[ctrl.cancerNm - 1],
+                        ctrl.cancerNm == 7
+                            ? ctrl.tec[3].text
+                            : cancerType[ctrl.cancerNm - 1],
                         stageType[ctrl.stageNm - 1],
                         progressType[ctrl.progressNum - 1],
                         diseaseList[ctrl.diseaseNum - 1],
