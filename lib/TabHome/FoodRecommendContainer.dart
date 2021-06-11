@@ -103,7 +103,7 @@ class LikeBestTile extends StatelessWidget {
                     alignment: Alignment.center,
                     child: ColorTags([item.cancerNm, item.nutrition1]))),
             SizedBox(height: 11),
-            LikeBookmark(like: item.likes, bookmark: item.wishes),
+            LikeBookmark("", item.likes, item.wishes, 0, 0),
           ],
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center

@@ -66,7 +66,11 @@ class ReasonForFood extends StatelessWidget {
                 0,
                 e.likes,
                 e.wishes,
-                [e.cancerNm, e.nutrition1.trim()]);
+                [
+                  e.cancerNm,
+                  e.nutrition1.trim(),
+                ],
+                isOnTabDisabled: true);
           }).toList(),
         )
       ]);

@@ -165,6 +165,7 @@ class AutoCompleteListView2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+        shrinkWrap: true,
         itemCount: _searchResult.length,
         separatorBuilder: (_, __) {
           return SizedBox(height: 0);

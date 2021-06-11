@@ -96,6 +96,6 @@ class SearchDetailMainInfoItem {
         "views": views,
         "likeStatus": likeStatus,
         "wishStatus": wishStatus,
-        "color": color,
+        "Color": color,
       };
 }

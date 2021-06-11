@@ -5,17 +5,11 @@ import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
-import 'package:my_side_client/common/ChangeZzimStatusRepository/ChangeZzimController.dart';
-
 import 'package:my_side_client/common/CommonComponent.dart';
-
-import 'package:my_side_client/common/CommonHeader.dart';
-
 import '../Constants.dart';
 import 'SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageController.dart';
 import 'SearchDetailMainInfo/SearchDetailMainInfoController.dart';
 import 'SearchDetailNutritionFactsRepository/SearchDetailNutritionFactsController.dart';
-import 'package:m_loading/m_loading.dart';
 
 class FoodInformation extends StatelessWidget {
   FoodInformation({Key key}) : super(key: key);
@@ -43,7 +37,7 @@ class FoodInformation extends StatelessWidget {
     }));
   }
 
-  ChangeZzimController changeZzimController = Get.put(ChangeZzimController());
+  // ChangeZzimController changeZzimController = Get.put(ChangeZzimController());
   Widget mainBody() {
     return DefaultTabController(
         length: 2,
@@ -116,10 +110,13 @@ class FoodInformation extends StatelessWidget {
                                 () => _controller.isLoading.value
                                     ? ShimmerLoadingContainer(180, 14)
                                     : FittedBox(
-                                        child: LikeBookmark(
-                                        like: _controller.item.value.likes,
-                                        bookmark: _controller.item.value.wishes,
-                                      )),
+                                        child: Obx(() => LikeBookmark(
+                                            _controller.item.value.name,
+                                            _controller.item.value.likes,
+                                            _controller.item.value.wishes,
+                                            _controller.item.value.likeStatus,
+                                            _controller.item.value.wishStatus,
+                                            isOnTabDisabled: false))),
                               ),
                               SizedBox(height: 12)
                               // SizedBox(height: 16),
@@ -554,89 +551,74 @@ class DetailInfo extends StatelessWidget {
       Get.put(SearchDetailFoodDetailController(Get.arguments));
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Color(0xFFF4F4F4),
-        child: Column(children: [
-          Padding(
-              padding: EdgeInsets.all(16),
-              child: Card(
-                margin: EdgeInsets.zero,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                        child: mainHeader("효능 및 영양성분", 158),
-                        padding: EdgeInsets.only(top: 32, bottom: 24)),
-                    Obx(() => _controller.isLoading.value
-                        ? ShimmerLoadingContainer(311, 150)
-                        : content(_controller.item.value.efficacy)),
-                    SizedBox(height: 32)
-                  ],
-                ),
-              )),
-          Padding(
-              padding: EdgeInsets.only(left: 16, right: 16),
-              child: Card(
-                margin: EdgeInsets.zero,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                        child: mainHeader("섭취 가이드", 110),
-                        padding: EdgeInsets.only(top: 32, bottom: 24)),
-                    subHeader("궁합"),
-                    SizedBox(
-                      height: 8,
+    return SingleChildScrollView(
+        child: Container(
+            color: Color(0xFFF4F4F4),
+            child: Column(mainAxisSize: MainAxisSize.max, children: [
+              Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                            child: mainHeader("효능 및 영양성분", 158),
+                            padding: EdgeInsets.only(top: 32, bottom: 24)),
+                        Obx(() => _controller.isLoading.value
+                            ? ShimmerLoadingContainer(311, 150)
+                            : content(_controller.item.value.efficacy)),
+                        SizedBox(height: 32)
+                      ],
                     ),
-                    Obx(() => _controller.isLoading.value
-                        ? ShimmerLoadingContainer(311, 22)
-                        : content(_controller.item.value.combination)),
-                    SizedBox(
-                      height: 16,
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                            child: mainHeader("섭취 가이드", 110),
+                            padding: EdgeInsets.only(top: 32, bottom: 24)),
+                        subHeader("궁합"),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Obx(() => _controller.isLoading.value
+                            ? ShimmerLoadingContainer(311, 22)
+                            : content(_controller.item.value.combination)),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        subHeader("고르는 법"),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Obx(() => _controller.isLoading.value
+                            ? ShimmerLoadingContainer(311, 22)
+                            : content(_controller.item.value.selectTip)),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        subHeader("손질법"),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Obx(() => _controller.isLoading.value
+                            ? ShimmerLoadingContainer(311, 22)
+                            : content(_controller.item.value.care)),
+                        SizedBox(
+                          height: 16,
+                        ),
+                      ],
                     ),
-                    subHeader("고르는 법"),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Obx(() => _controller.isLoading.value
-                        ? ShimmerLoadingContainer(311, 22)
-                        : content(_controller.item.value.selectTip)),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    subHeader("손질법"),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Obx(() => _controller.isLoading.value
-                        ? ShimmerLoadingContainer(311, 22)
-                        : content(_controller.item.value.care)),
-                    SizedBox(
-                      height: 16,
-                    ),
-                  ],
-                ),
-              )),
-        ]));
+                  )),
+            ])));
   }
 
   mainHeader(String title, double width) {
     return Center(
-        // height: 32,
-        // width: 100,
-        // child: Stack(children: [
-        //   Align(
-        //       alignment: Alignment.center,
-        //       child: Text(title,
-        //           style: TextStyle(fontSize: 22, color: Color(0xFF111111)))),
-        //   Column(children: [
-        //     SizedBox(height: 15),
-        //     Container(
-        //       height: 12,
-        //       decoration: BoxDecoration(color: Color(0x483BD7E2)),
-        //     ),
-        //   ])
-        // ]
-        // decoration: BoxDecoration(color: Colors.yellow),
         child: Stack(
       alignment: AlignmentDirectional.center,
       children: [

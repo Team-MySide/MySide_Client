@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:my_side_client/TabHome/FoodRanking/FoodRankingItem.dart';
 import 'package:my_side_client/TabHome/FoodRankingContainer.dart';
-import 'package:my_side_client/TabSearch/FoodGridList.dart';
 import 'package:my_side_client/TabSearch/SearchDiseaseRepository/SearchDiseaseController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-import 'package:my_side_client/common/CommonHeader.dart';
 
 import 'FoodInformation.dart';
 import 'SearchCategoryFoodRepository/SearchFoodItem.dart';
@@ -51,6 +47,8 @@ class SearchDiseaseResult extends StatelessWidget {
               List<FoodItem> lst2 = [];
               if (controller.lst.length > 4) {
                 lst2.addAll(controller.lst.sublist(0, 4));
+              } else {
+                lst2.addAll(controller.lst);
               }
 
               lst2.asMap().forEach((index, e) {
@@ -65,7 +63,8 @@ class SearchDiseaseResult extends StatelessWidget {
                         0,
                         e.likes,
                         e.wishes,
-                        [e.cancerNm, e.nutrition1 ?? ""]),
+                        [e.cancerNm, e.nutrition1 ?? ""],
+                        isOnTabDisabled: true),
                     onTap: () =>
                         Get.to(() => FoodInformation(), arguments: e.name)));
               });
@@ -75,17 +74,5 @@ class SearchDiseaseResult extends StatelessWidget {
             }),
           ],
         )));
-  }
-}
-
-class RecommendContainer extends StatelessWidget {
-  RecommendContainer({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    String disease = Get.arguments;
-    return Column(
-      children: [],
-    );
   }
 }

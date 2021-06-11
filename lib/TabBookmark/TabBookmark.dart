@@ -6,39 +6,38 @@ import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 
-class TabBookmark extends StatelessWidget {
+import 'SearchBookmarkRepository/SearchFoodItem.dart';
+
+class TabBookmark extends StatefulWidget {
   TabBookmark({Key key}) : super(key: key);
+
+  @override
+  _TabBookmarkState createState() => _TabBookmarkState();
+}
+
+class _TabBookmarkState extends State<TabBookmark> with WidgetsBindingObserver {
   SearchBookmarkController _controller = Get.put(SearchBookmarkController());
-  List<dynamic> lst = [
-    // {
-    //   "name": "땅콩",
-    //   "path": "images/food4.png",
-    //   "like": "123",
-    //   "bookmark": "22",
-    //   "tags": ["위암", "비타민e"]
-    // },
-    // {
-    //   "name": "마늘",
-    //   "path": "images/food1.png",
-    //   "like": "23",
-    //   "bookmark": "122",
-    //   "tags": ["비타민1", "비타민e"]
-    // },
-    // {
-    //   "name": "마늘",
-    //   "path": "images/food1.png",
-    //   "like": "23",
-    //   "bookmark": "122",
-    //   "tags": ["위암", "비타민e"]
-    // },
-    // {
-    //   "name": "마늘",
-    //   "path": "images/food1.png",
-    //   "like": "23",
-    //   "bookmark": "122",
-    //   "tags": ["위암", "비타민e"]
-    // }
-  ];
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      //do your stuff
+      print("onResume");
+      _controller.fetch();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,9 +46,9 @@ class TabBookmark extends StatelessWidget {
             child: UserProfile.isLogin
                 ? Obx(() => _controller.isLoading.value
                     ? loadingPage()
-                    : lst.length == 0
+                    : _controller.lst.length == 0
                         ? noContent()
-                        : mainContent())
+                        : mainContent(_controller.lst))
                 : RequestLoginPage()),
         appBar: CustomAppBar(
           // title: Text("찜목록", style: TextStyle(fontSize: 16)),
@@ -88,13 +87,23 @@ class TabBookmark extends StatelessWidget {
     ));
   }
 
-  Widget mainContent() {
-    return Wrap(
-        children: lst
-            .map(
-              (item) => FoodTile(item.name, item.path, 0, int.parse(item.like),
-                  int.parse(item.bookmark), item.tags),
-            )
-            .toList());
+  Widget mainContent(List<FoodItem> lst) {
+    return SingleChildScrollView(
+        child: Wrap(
+            children: lst
+                .map(
+                  (item) => FoodTile(
+                    item.name,
+                    item.img,
+                    0,
+                    item.likes,
+                    item.wishes,
+                    [item.cancerNm, item.nutrition1],
+                    likeStatus: 1,
+                    bookmarkStatus: 1,
+                    isOnTabDisabled: true,
+                  ),
+                )
+                .toList()));
   }
 }

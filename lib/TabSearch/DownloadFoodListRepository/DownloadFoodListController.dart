@@ -22,8 +22,8 @@ class DownloadFoodListController extends GetxController {
       List<String> products =
           await DownloadFoodListService().fetchFoodCategoryList();
       if (products != null) {
-        // lst.value = products;
-        lst.value = ['당근', '당당근', '당당당근', '사과', '사사과', '사사사과'];
+        lst.value = products;
+        // lst.value = ['당근', '당당근', '당당당근', '사과', '사사과', '사사사과'];
       }
     } finally {
       isLoading(false);

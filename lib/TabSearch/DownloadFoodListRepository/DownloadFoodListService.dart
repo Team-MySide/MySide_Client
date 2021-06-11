@@ -22,7 +22,7 @@ class DownloadFoodListService extends MySideConnect implements IFetch {
       request.headers['token'] = UserProfile.temp_token;
       return request;
     });
-    var resp = await get("common/auto/food");
+    var resp = await get("/common/auto/food");
     if (resp.statusCode == 200) {
       return downloadFoodListFromJson(resp.bodyString).data;
     }

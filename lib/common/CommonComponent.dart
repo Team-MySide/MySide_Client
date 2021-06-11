@@ -11,7 +11,7 @@ import 'package:my_side_client/TabSearch/SearchDisease.dart';
 import 'package:my_side_client/TabSearch/SearchFood.dart';
 import 'package:my_side_client/TabSearch/SearchIngredient.dart';
 import 'package:my_side_client/TabSearch/SerachDiseaseResult.dart';
-import 'package:my_side_client/common/ChangeZzimStatusRepository/ChangeZzimController.dart';
+import 'package:my_side_client/common/ChangeBookmarkStatusRepository/ChangeBookmarkController.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HeaderRow extends StatelessWidget {
@@ -41,14 +41,30 @@ class HeaderRow extends StatelessWidget {
   }
 }
 
-class LikeBookmark extends StatelessWidget {
-  final Map item;
-  final int bookmark;
-  final int like;
-  final Function controller;
-  const LikeBookmark(
-      {Key key, this.item, this.bookmark, this.like, this.controller})
+class LikeBookmark extends StatefulWidget {
+  int bookmark;
+  int like;
+  int likeStatus;
+  int bookmarkStatus;
+  String food;
+  bool isOnTabDisabled = true;
+  // const LikeBookmark(this.food, this.item, this.bookmark, this.like,
+  //     this.likeStatus, this.bookmarkStatus,
+  //     {Key key})
+  //     : super(key: key);
+
+  LikeBookmark(
+      this.food, this.like, this.bookmark, this.likeStatus, this.bookmarkStatus,
+      {this.isOnTabDisabled, Key key})
       : super(key: key);
+
+  @override
+  _LikeBookmarkState createState() => _LikeBookmarkState();
+}
+
+class _LikeBookmarkState extends State<LikeBookmark> {
+  ChangeBookmarkStatusController controller =
+      Get.put(ChangeBookmarkStatusController());
 
   @override
   Widget build(BuildContext context) {
@@ -58,19 +74,59 @@ class LikeBookmark extends StatelessWidget {
           child: Wrap(children: [
             Padding(
                 padding: EdgeInsets.only(right: 5, top: 2),
-                child: SvgPicture.asset("images/svg/like.svg")),
-            Text(like.toString(), style: TextStyle(fontSize: 14))
+                child: SizedBox(
+                    width: 16,
+                    height: 15,
+                    child: SvgPicture.asset(widget.likeStatus == 0
+                        ? "images/svg/like.svg"
+                        : "images/svg/like_selected.svg"))),
+            Text(widget.like.toString(), style: TextStyle(fontSize: 16))
           ]),
+          onTap: () async {
+            if (widget.isOnTabDisabled) {
+              return;
+            } else {
+              bool result =
+                  await controller.putLike(widget.food, widget.likeStatus);
+              if (result) {
+                if (widget.likeStatus == 0) {
+                  widget.likeStatus = 1;
+                  widget.like += 1;
+                } else {
+                  widget.likeStatus = 0;
+                  widget.like -= 1;
+                }
+              }
+              setState(() {});
+            }
+          },
         ),
         GestureDetector(
-          child: Wrap(children: [
-            Padding(
-                padding: EdgeInsets.only(left: 10, right: 5, top: 2),
-                child: SvgPicture.asset("images/svg/bookmark.svg")),
-            Text(bookmark.toString(), style: TextStyle(fontSize: 14))
-          ]),
-          onTap: () => Get.put(() => controller()),
-        ),
+            child: Wrap(children: [
+              Padding(
+                  padding: EdgeInsets.only(left: 10, right: 5, top: 2),
+                  child: SizedBox(
+                      width: 16,
+                      height: 15,
+                      child: SvgPicture.asset(widget.bookmarkStatus == 0
+                          ? "images/svg/bookmark.svg"
+                          : "images/svg/bookmark_selected.svg"))),
+              Text(widget.bookmark.toString(), style: TextStyle(fontSize: 16))
+            ]),
+            onTap: () async {
+              bool result = await controller.putBookmark(
+                  widget.food, widget.bookmarkStatus);
+              if (result) {
+                if (widget.bookmarkStatus == 0) {
+                  widget.bookmarkStatus = 1;
+                  widget.bookmark += 1;
+                } else {
+                  widget.bookmarkStatus = 0;
+                  widget.bookmark -= 1;
+                }
+              }
+              setState(() {});
+            }),
       ],
       // ),
     );
@@ -80,10 +136,11 @@ class LikeBookmark extends StatelessWidget {
 class SearchContainer extends StatelessWidget {
   final TextEditingController _textEditingController;
   final Function onChanged;
+  final String hintText;
   // final Future<dynamic> onSubmitted;
   final Function onSubmitted;
   const SearchContainer(this._textEditingController,
-      {this.onChanged, this.onSubmitted, Key key})
+      {this.onChanged, this.onSubmitted, this.hintText, Key key})
       : super(key: key);
 
   @override
@@ -102,7 +159,7 @@ class SearchContainer extends StatelessWidget {
                   },
                   onChanged: onChanged,
                   decoration: InputDecoration(
-                    hintText: "사과",
+                    hintText: hintText ?? "사과",
                     hintStyle:
                         TextStyle(color: Color(0xFF999999), fontSize: 16),
                     contentPadding: EdgeInsets.only(left: 15.0),

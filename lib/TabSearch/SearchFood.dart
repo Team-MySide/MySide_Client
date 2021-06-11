@@ -36,7 +36,7 @@ class _SearchFoodState extends State<SearchFood> {
                   onSubmitted: onSubmitted,
                   onChanged: onSearchTextChanged,
                 ),
-                _textEditingController.text.isEmpty
+                _textEditingController.text.isEmpty || _searchResult.length == 0
                     ? Column(children: [
                         SizedBox(height: 40),
                         HeaderRow("음식 카테고리", isViewMore: false),

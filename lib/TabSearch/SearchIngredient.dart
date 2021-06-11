@@ -44,8 +44,11 @@ class _SearchIngredientState extends State<SearchIngredient> {
                   SizedBox(
                     height: 20,
                   ),
-                  SearchContainer(_textEditingController,
-                      onChanged: onSearchTextChanged),
+                  SearchContainer(
+                    _textEditingController,
+                    onChanged: onSearchTextChanged,
+                    hintText: "비타민c",
+                  ),
                   SizedBox(
                     height: 24,
                   ),
@@ -108,7 +111,7 @@ class _SearchIngredientState extends State<SearchIngredient> {
       return;
     }
     controller.lst.forEach((item) {
-      if (item.contains(text)) {
+      if (item.toLowerCase().contains(text.toLowerCase())) {
         _searchResult.add(item);
       }
     });

@@ -50,13 +50,14 @@ class FoodRankingContainer extends StatelessWidget {
       return ret.add(GestureDetector(
           onTap: () => Get.to(() => FoodInformation(), arguments: e.name),
           child: FoodTile(
-              // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
-              e.name,
-              e.img,
-              index + 1,
-              e.likes,
-              e.wishes,
-              [e.cancerNm, e.nutrition1 ?? ""])));
+            // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
+            e.name,
+            e.img,
+            index + 1,
+            e.likes,
+            e.wishes,
+            [e.cancerNm, e.nutrition1 ?? ""],
+          )));
     });
 
     return ret;
@@ -69,14 +70,20 @@ class FoodTile extends StatelessWidget {
   final int ranking;
   final int like;
   final int bookmark;
+  int likeStatus = 0;
+  int bookmarkStatus = 0;
   final List<String> tags;
-  const FoodTile(
+  bool isOnTabDisabled = true;
+  FoodTile(
     this.title,
     this.path,
     this.ranking,
     this.like,
     this.bookmark,
     this.tags, {
+    this.likeStatus,
+    this.bookmarkStatus,
+    this.isOnTabDisabled,
     Key key,
   }) : super(key: key);
 
@@ -137,10 +144,8 @@ class FoodTile extends StatelessWidget {
                           height: 16,
                         ),
                         FittedBox(
-                            child: LikeBookmark(
-                          like: like,
-                          bookmark: bookmark,
-                        )),
+                            child: LikeBookmark("", like, bookmark,
+                                likeStatus ?? 0, bookmarkStatus ?? 0)),
                       ],
                     ))),
             Padding(

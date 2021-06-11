@@ -49,7 +49,8 @@ class CommonFoodGridList extends StatelessWidget {
         bool showRanking = isShowRanking ?? false;
         return GestureDetector(
           child: FoodTile(item.name, item.img, showRanking ? index : 0,
-              item.likes, item.wishes, [item.cancerNm, item.nutrition1]),
+              item.likes, item.wishes, [item.cancerNm, item.nutrition1],
+              isOnTabDisabled: true),
           onTap: () => Get.to(() => FoodInformation(), arguments: item.name),
         );
       },
