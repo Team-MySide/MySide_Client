@@ -9,6 +9,38 @@ import 'dart:convert';
 import 'package:my_side_client/common/UserProfile.dart';
 
 class AddHealthDataPageController extends GetxController {
+  final List<String> cancerType = [
+    '위암',
+    '폐암',
+    '간암',
+    '대장암',
+    '유방암',
+    '갑상선암',
+  ];
+  final List<String> stageType = [
+    '1기',
+    '2기',
+    '3기',
+    '4기',
+    '완치',
+    '(구)',
+  ];
+  final List<String> progressType = [
+    '치료 예정',
+    '수술전',
+    '수술후',
+    '항암중',
+    '방사선',
+    '완치',
+    '(구)'
+  ];
+  final List<String> diseaseList = [
+    '고혈압',
+    '당뇨',
+    '이상지질혈증',
+    '해당사항없음',
+    '모름',
+  ];
   DateTime date = DateTime.now();
   int userType = 0;
   int gender = 0;
@@ -74,6 +106,27 @@ class AddHealthDataPageController extends GetxController {
         onListen(j);
       });
     }
+  }
+
+  void findCurParam() async {
+    final response = await http.get(
+      Uri.http('54.180.67.217:3000', '/mypage/health/list/detail/info'),
+      headers: {"Accept": "applications.json", "token": UserProfile.token},
+    );
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      print(jsondata['data'][0]);
+      userType = jsondata['data'][0]['relationNm'] == '환우' ? 1 : 2;
+      gender = jsondata['data'][0]['gender'] == '남' ? 1 : 2;
+      tec[0].text = jsondata['data'][0]['age'].toString();
+      tec[1].text = jsondata['data'][0]['height'].toString();
+      tec[2].text = jsondata['data'][0]['weight'].toString();
+      cancerNm = cancerType.indexOf(jsondata['data'][0]['cancerNm']) + 1;
+      stageNm = stageType.indexOf(jsondata['data'][0]['stageNm']) + 1;
+      progressNum = progressType.indexOf(jsondata['data'][0]['progressNm']) + 1;
+      diseaseNum = diseaseList.indexOf(jsondata['data'][0]['disease']) + 1;
+    }
+    update();
   }
 
   void onListenMemo() {

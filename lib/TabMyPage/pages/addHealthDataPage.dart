@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/Login/widget/cancerAutoCompleteWidget.dart';
 import 'package:my_side_client/Login/widget/halfWidthTextField.dart';
 import 'package:my_side_client/Login/widget/requiredTextWidget.dart';
@@ -21,6 +22,8 @@ class AddHealthDataPage extends StatelessWidget {
   final MyPageMainController myPageMainController =
       Get.put(MyPageMainController());
   final HealthDataListController hdlCtrl = Get.put(HealthDataListController());
+  final LoginMainPageController loginMainPageController =
+      Get.put(LoginMainPageController());
   final List<String> cancerType = [
     '위암',
     '폐암',
@@ -115,12 +118,17 @@ class AddHealthDataPage extends StatelessWidget {
                   childWidget: Row(
                     children: [
                       Expanded(
-                        child: Text(
-                          '${DateFormat("yyyy-MM-dd").format(ctrl.date)}',
-                          style: TextStyle(
-                            color: Color(0xFFAAAAAA),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
+                        child: InkWell(
+                          onTap: () {
+                            ctrl.selecteDate(context);
+                          },
+                          child: Text(
+                            '${DateFormat("yyyy-MM-dd").format(ctrl.date)}',
+                            style: TextStyle(
+                              color: Color(0xFFAAAAAA),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                            ),
                           ),
                         ),
                       ),
@@ -244,6 +252,7 @@ class AddHealthDataPage extends StatelessWidget {
                   height: 0.0099 * scrHeight,
                 ),
                 GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 6,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -306,6 +315,7 @@ class AddHealthDataPage extends StatelessWidget {
                   height: 0.0099 * scrHeight,
                 ),
                 GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 6,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -351,6 +361,7 @@ class AddHealthDataPage extends StatelessWidget {
                   height: 0.0099 * scrHeight,
                 ),
                 GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 7,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -396,6 +407,7 @@ class AddHealthDataPage extends StatelessWidget {
                   height: 0.0099 * scrHeight,
                 ),
                 GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 5,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -532,6 +544,7 @@ class AddHealthDataPage extends StatelessWidget {
                       );
                       await myPageMainController.getHealthDataList();
                       await hdlCtrl.getMonthYearDatList();
+                      await loginMainPageController.getUserInfo();
                       Get.back();
                     }
                   },

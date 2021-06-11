@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/Login/widget/cancerAutoCompleteWidget.dart';
 import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/halfWidthTextField.dart';
@@ -21,6 +22,8 @@ class EditHealthDataPage extends StatelessWidget {
       Get.put(HealthDataListController());
   final MyPageMainController myPageMainController =
       Get.put(MyPageMainController());
+  final LoginMainPageController loginMainPageController =
+      Get.put(LoginMainPageController());
 
   final List<String> cancerType = [
     '위암',
@@ -508,6 +511,7 @@ class EditHealthDataPage extends StatelessWidget {
                                 await myPageMainController.getHealthDataList();
                                 await healthDataListController
                                     .getMonthYearDatList();
+                                await loginMainPageController.getUserInfo();
                                 Get.offAll(() => MyPageMain());
                               },
                             ),
