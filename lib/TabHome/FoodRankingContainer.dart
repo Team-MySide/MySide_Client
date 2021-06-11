@@ -3,8 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/FoodRanking/FoodRankingController.dart';
 import 'package:my_side_client/TabHome/FoodRanking/FoodRankingItem.dart';
+import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
+import '../Constants.dart';
 import 'CommonViews.dart';
 
 class FoodRankingContainer extends StatelessWidget {
@@ -40,22 +42,21 @@ class FoodRankingContainer extends StatelessWidget {
   }
 
   List<Widget> _getTop4FoodRankingList(RxList<FoodRankingItem> lst) {
-    List<FoodTile> ret = [];
+    List<Widget> ret = [];
 
     List<FoodRankingItem> lst2 = lst.sublist(0, 4);
 
     lst2.asMap().forEach((index, e) {
-      print(index.toString());
-      print(e.name.toString());
-      print(e.img.toString());
-      return ret.add(FoodTile(
-          // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
-          e.name,
-          e.img,
-          index,
-          e.likes,
-          e.wishes,
-          [e.cancerNm, e.nutrition1 ?? ""]));
+      return ret.add(GestureDetector(
+          onTap: () => Get.to(() => FoodInformation(), arguments: e.name),
+          child: FoodTile(
+              // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
+              e.name,
+              e.img,
+              index + 1,
+              e.likes,
+              e.wishes,
+              [e.cancerNm, e.nutrition1 ?? ""])));
     });
 
     return ret;
@@ -91,10 +92,11 @@ class FoodTile extends StatelessWidget {
                 height: 240,
                 decoration: BoxDecoration(
                     borderRadius: new BorderRadius.all(
-                  const Radius.circular(150.0),
+                  const Radius.circular(30.0),
                 )),
                 padding: EdgeInsets.only(top: 6),
                 child: Card(
+                    elevation: 0,
                     color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,17 +109,29 @@ class FoodTile extends StatelessWidget {
                                 // child: Image.asset(path))),
                                 child: path != null
                                     ? path.isNotEmpty
-                                        ? Image.network(
-                                            path,
-                                            errorBuilder: (_, __, ___) {
-                                              return Center(
-                                                  child: SizedBox(
-                                                      child:
-                                                          ImageLoadFailedGrey(),
-                                                      width: 52,
-                                                      height: 44));
-                                            },
-                                          )
+                                        // ? Image.network(
+                                        //     path,
+                                        //     errorBuilder: (_, __, ___) {
+                                        //       return Center(
+                                        //           child: SizedBox(
+                                        //               child:
+                                        //                   ImageLoadFailedGrey(),
+                                        //               width: 52,
+                                        //               height: 44));
+                                        //     },
+                                        //   )
+                                        ? FadeInImage.assetNetwork(
+                                            image: path,
+                                            placeholder:
+                                                Constants.IMG_PLACE_HOLDER,
+                                            imageErrorBuilder:
+                                                (context, _, __) {
+                                              return SizedBox(
+                                                  width: 52,
+                                                  height: 44,
+                                                  child: Image.asset(Constants
+                                                      .IMG_PLACE_HOLDER));
+                                            })
                                         : Center(
                                             child: SizedBox(
                                                 child: ImageLoadFailedGrey(),
@@ -138,7 +152,9 @@ class FoodTile extends StatelessWidget {
                         SizedBox(
                           height: 5, //11인데 한글 일 때 높이가 약간 안맞음
                         ),
-                        Align(alignment: Alignment.center, child: Tags(tags)),
+                        Align(
+                            alignment: Alignment.center,
+                            child: ColorTags(tags)),
                         SizedBox(
                           height: 16,
                         ),
@@ -168,16 +184,16 @@ class RankingBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String path;
-    if (ranking == -1) {
+    if (ranking == 0) {
       return Container();
     }
-    if (ranking == 0) {
+    if (ranking == 1) {
       path = 'images/svg/foodranking_1.svg';
-    } else if (ranking == 1) {
-      path = 'images/svg/foodranking_2.svg';
     } else if (ranking == 2) {
-      path = 'images/svg/foodranking_3.svg';
+      path = 'images/svg/foodranking_2.svg';
     } else if (ranking == 3) {
+      path = 'images/svg/foodranking_3.svg';
+    } else if (ranking == 4) {
       //ranking ==3
       path = 'images/svg/foodranking_4.svg';
     }

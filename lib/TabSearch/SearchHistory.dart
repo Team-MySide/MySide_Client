@@ -1,10 +1,15 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_side_client/TabSearch/FoodInformation.dart';
+import 'package:my_side_client/TabSearch/SearchPopularKeywordRepository/SearchPopularKeywordController.dart';
+import 'package:my_side_client/common/CommonComponent.dart';
 
 class SearchHistory extends StatelessWidget {
-  const SearchHistory({Key key}) : super(key: key);
-
+  SearchHistory({Key key}) : super(key: key);
+  SearchPopularKeywordController _controller =
+      Get.put(SearchPopularKeywordController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,27 +25,35 @@ class SearchHistory extends StatelessWidget {
                             fontSize: 14,
                             color: Color(0xFF666666),
                             fontWeight: FontWeight.w500)),
-                    Text("기준",
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFF666666),
-                            fontWeight: FontWeight.w300))
+                    // Text("기준",
+                    //     style: TextStyle(
+                    //         fontSize: 12,
+                    //         color: Color(0xFF666666),
+                    //         fontWeight: FontWeight.w300))
                   ],
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 ),
                 // decoration: BoxDecoration(color: Color(0xFF677777)),
               ),
+              SizedBox(height: 19),
               Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                      child: Wrap(
-                        spacing: 8,
-                        children: getSearchTags(),
-                      ),
-                      height: 34)),
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  child: Obx(() => _controller.isLoading.value
+                      ? Wrap(
+                          spacing: 8,
+                          children: getLoadingContainers(),
+                          runSpacing: 8,
+                        )
+                      : Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: getSearchTags(_controller.lst))),
+                ),
+              ),
               // ListView.builder(
               //     itemBuilder: (BuildContext context, int index) {
-              //       return Text(temp[index]["item"]);
+              //       return Text(temp[index]["item"ㅇ]);
               //     },
               //     itemCount: temp.length),
             ],
@@ -50,18 +63,32 @@ class SearchHistory extends StatelessWidget {
   }
 }
 
-List<Widget> getSearchTags() {
+List<Widget> getLoadingContainers() {
+  List<Widget> ret = [
+    ShimmerLoadingContainer(
+      66,
+      34,
+      isRound: true,
+    ),
+    ShimmerLoadingContainer(66, 34, isRound: true),
+    ShimmerLoadingContainer(66, 34, isRound: true)
+  ];
+  return ret;
+}
+
+List<Widget> getSearchTags(RxList<String> lst) {
   List<Widget> ret = [];
   bool _selected = false;
-  ret.addAll(temp
+  ret.addAll(lst
       .map(
         (e) => ChoiceChip(
             selected: _selected,
             label: Text(
-              "#${e['item']}",
+              "#$e",
             ),
             onSelected: (bool selected) {
               log("selected ");
+              Get.to(() => FoodInformation(), arguments: e);
             },
             backgroundColor: Colors.white,
             labelStyle: TextStyle(

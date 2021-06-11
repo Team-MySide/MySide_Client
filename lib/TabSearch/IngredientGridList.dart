@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/FoodRankingContainer.dart';
+import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 
 import 'NoSearchResult.dart';
-import 'SearchCategoryFoodRepository/SearchFoodController.dart';
 import 'SearchCategoryFoodRepository/SearchFoodItem.dart';
+import 'SearchNutritionResultListRepository/SearchNutritionResultBody.dart';
+import 'SearchNutritionResultListRepository/SearchNutritionResultListController.dart';
 
 class SearchIngredientCategoryResultList extends StatelessWidget {
   SearchIngredientCategoryResultList({Key key}) : super(key: key);
-  SearchFoodCategoryController controller =
-      Get.put(SearchFoodCategoryController(Get.arguments, 1));
+  SearchNutritionResultListController controller =
+      Get.put(SearchNutritionResultListController(Get.arguments));
 
   String category = Get.arguments;
 
@@ -33,7 +35,7 @@ class SearchIngredientCategoryResultList extends StatelessWidget {
 class CommonFoodGridList extends StatelessWidget {
   const CommonFoodGridList(this.foodItemList, {this.isShowRanking, key})
       : super(key: key);
-  final List<FoodItem> foodItemList;
+  final List<SearchNutritionResultItem> foodItemList;
   final isShowRanking;
   @override
   Widget build(BuildContext context) {
@@ -46,10 +48,13 @@ class CommonFoodGridList extends StatelessWidget {
             itemCount: foodItemList.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext ctx, index) {
-              FoodItem item = foodItemList[index];
+              SearchNutritionResultItem item = foodItemList[index];
               bool showRanking = isShowRanking ?? false;
-              return FoodTile(item.name, item.img, showRanking ? index : 0,
-                  item.likes, item.wishes, [item.cancerNm, item.nutrition1]);
+              return GestureDetector(
+                  child: FoodTile(item.name, item.img, showRanking ? index : 0,
+                      item.likes, item.wishes, [item.cancerNm, item.nutrition]),
+                  onTap: () =>
+                      Get.to(() => FoodInformation(), arguments: item.name));
             },
           )
         : NoSearchResult();

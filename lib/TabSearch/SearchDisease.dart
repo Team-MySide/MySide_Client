@@ -12,10 +12,10 @@ class SearchDisease extends StatelessWidget {
   TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      // systemNavigationBarColor: Colors.blue, // navigation bar color
-      statusBarColor: Color(pageColor), // status bar color
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   // systemNavigationBarColor: Colors.blue, // navigation bar color
+    //   statusBarColor: Color(pageColor), // status bar color
+    // ));
     return Scaffold(
       appBar: CommonAppbar(
         "병명 검색",
@@ -87,7 +87,7 @@ _getCategories(var diseases) {
               ],
             )),
         onTap: () =>
-            Get.to(() => SearchDiseaseResult(), arguments: [d['disease']])));
+            Get.to(() => SearchDiseaseResult(), arguments: d['disease'])));
   }
   return ret;
 }

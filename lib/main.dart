@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
@@ -30,6 +31,10 @@ void main() async {
     autoLoginFlag = true;
     await myPageMainController.getHealthDataList();
   }
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
+  // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(GetMaterialApp(
     title: "이웃집닥터 메인",
     theme: ThemeData(

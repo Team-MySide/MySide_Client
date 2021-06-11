@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/FoodRankingContainer.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 
+import 'FoodInformation.dart';
 import 'SearchCategoryFoodRepository/SearchFoodController.dart';
 import 'SearchCategoryFoodRepository/SearchFoodItem.dart';
 
@@ -46,8 +47,11 @@ class CommonFoodGridList extends StatelessWidget {
       itemBuilder: (BuildContext ctx, index) {
         FoodItem item = foodItemList[index];
         bool showRanking = isShowRanking ?? false;
-        return FoodTile(item.name, item.img, showRanking ? index : 0,
-            item.likes, item.wishes, [item.cancerNm, item.nutrition1]);
+        return GestureDetector(
+          child: FoodTile(item.name, item.img, showRanking ? index : 0,
+              item.likes, item.wishes, [item.cancerNm, item.nutrition1]),
+          onTap: () => Get.to(() => FoodInformation(), arguments: item.name),
+        );
       },
     );
   }

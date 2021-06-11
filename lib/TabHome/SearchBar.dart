@@ -49,18 +49,18 @@ class _SearchBarState extends State<SearchBar> {
                       child: SearchContainer(_textEditingController,
                           onChanged: onSearchTextChanged)),
                   SizedBox(width: 16),
-                  SizedBox(
-                      width: 24,
-                      height: 24,
-                      child:
-                          // IconButton(
-                          //     onPressed: _callNotification,
-                          // icon:
-                          SvgPicture.asset(
-                        "images/svg/searchbar_notice.svg",
-                      )
-                      // )
-                      )
+                  // SizedBox(
+                  //     width: 24,
+                  //     height: 24,
+                  //     child:
+                  //         // IconButton(
+                  //         //     onPressed: _callNotification,
+                  //         // icon:
+                  //         SvgPicture.asset(
+                  //       "images/svg/searchbar_notice.svg",
+                  //     )
+                  //     // )
+                  //     )
                 ],
               )),
           _searchResult.length == 0
