@@ -19,6 +19,7 @@ class ReasonForFood extends StatelessWidget {
         appBar: CommonAppbar("아무음식이나 먹으면 안되는 이유"),
         body: SingleChildScrollView(
             child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(child: Image.asset("images/not_try_any_food.jpg")),
             Padding(
@@ -81,7 +82,7 @@ class ReasonForFood extends StatelessWidget {
                 // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
                 e.name,
                 e.img,
-                -1,
+                0,
                 e.likes,
                 e.wishes,
                 [e.cancerNm, e.nutrition1.trim()]);

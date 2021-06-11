@@ -106,7 +106,7 @@ class LikeBestTile extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Align(
                     alignment: Alignment.center,
-                    child: Tags([item.cancerNm, item.nutrition1]))),
+                    child: ColorTags([item.cancerNm, item.nutrition1]))),
             SizedBox(height: 11),
             LikeBookmark(like: item.likes, bookmark: item.wishes),
           ],

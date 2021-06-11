@@ -40,6 +40,7 @@ class _SearchFoodState extends State<SearchFood> {
                     ? Column(children: [
                         SizedBox(height: 40),
                         HeaderRow("음식 카테고리", isViewMore: false),
+                        SizedBox(height: 20),
                         FoodCategoryContainer(diseases)
                       ])
                     : Expanded(
@@ -73,7 +74,7 @@ class _SearchFoodState extends State<SearchFood> {
     //         builder: (context) =>
     //             FoodInformation(_textEditingController.text)));
     // return () => Get.to(FoodDetailInfoContainer(_textEditingController.text));
-    Get.to(FoodInformation(), arguments: [_textEditingController.text]);
+    Get.to(() => FoodInformation(), arguments: _textEditingController.text);
   }
 
   final List<Map> diseases = [

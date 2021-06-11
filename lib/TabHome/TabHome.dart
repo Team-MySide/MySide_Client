@@ -40,10 +40,10 @@ class _TabHomeState extends State<TabHome> with WidgetsBindingObserver {
 
     setState(() {
       // _notification = state;
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          // systemNavigationBarColor: Colors.blue, // navigation bar color
-          statusBarColor: Colors.white // status bar color
-          ));
+      // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      //     // systemNavigationBarColor: Colors.blue, // navigation bar color
+      //     statusBarColor: Colors.white // status bar color
+      //     ));
     });
   }
 
@@ -54,26 +54,28 @@ class _TabHomeState extends State<TabHome> with WidgetsBindingObserver {
         // padding: EdgeInsets.symmetric(
         //     horizontal: Constants.paddingMainContainerVertical),
         // child:
-        SingleChildScrollView(
-            child: UserProfile.isLogin
-                ? Column(children: [
-                    SearchBar(),
-                    LoginRequestBar(),
-                    FoodRecommendContainer(),
-                    AdContainer(),
-                    FoodRankingContainer(),
-                    DiseaseCategoryContainer(),
-                    // AdContainer()
-                  ])
-                : Column(children: [
-                    SearchBar(),
-                    LoginRequestBar(),
-                    // FoodRecommendContainer(),
-                    FoodRankingContainer(),
-                    DiseaseCategoryContainer(),
-                    AdContainer()
-                  ]
-                    // )
-                    ));
+        GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: SingleChildScrollView(
+                child: UserProfile.isLogin
+                    ? Column(children: [
+                        SearchBar(),
+                        LoginRequestBar(),
+                        FoodRecommendContainer(),
+                        AdContainer(),
+                        FoodRankingContainer(),
+                        DiseaseCategoryContainer(),
+                        // AdContainer()
+                      ])
+                    : Column(children: [
+                        SearchBar(),
+                        LoginRequestBar(),
+                        // FoodRecommendContainer(),
+                        FoodRankingContainer(),
+                        DiseaseCategoryContainer(),
+                        AdContainer()
+                      ]
+                        // )
+                        )));
   }
 }

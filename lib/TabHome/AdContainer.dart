@@ -59,6 +59,9 @@ class AdTile extends StatelessWidget {
                       Text(item['title'],
                           style: TextStyle(
                               color: Color(0xFFFFFFFF), fontSize: 18)),
+                      SizedBox(
+                        height: 2,
+                      ),
                       Text(item['content'],
                           style:
                               TextStyle(color: Color(0xFFFFFFFF), fontSize: 12))

@@ -7,6 +7,7 @@ import 'SearchDetailMainInfoService.dart';
 class SearchDetailMainInfoController extends GetxController {
   var item = SearchDetailMainInfoItem().obs;
   var isLoading = true.obs;
+  var isError = false.obs;
   @override
   void onInit() {
     super.onInit();
@@ -24,6 +25,9 @@ class SearchDetailMainInfoController extends GetxController {
         item.value = products;
       }
     } finally {
+      if (item.value == null) {
+        isError(true);
+      }
       isLoading(false);
     }
   }

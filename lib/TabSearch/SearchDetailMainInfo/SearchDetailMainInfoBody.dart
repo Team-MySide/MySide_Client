@@ -52,6 +52,7 @@ class SearchDetailMainInfoItem {
     this.views,
     this.likeStatus,
     this.wishStatus,
+    this.color,
   });
 
   String name;
@@ -65,6 +66,7 @@ class SearchDetailMainInfoItem {
   int views;
   int likeStatus;
   int wishStatus;
+  String color;
 
   factory SearchDetailMainInfoItem.fromJson(Map<String, dynamic> json) =>
       SearchDetailMainInfoItem(
@@ -79,6 +81,7 @@ class SearchDetailMainInfoItem {
         views: json["views"],
         likeStatus: json["likeStatus"],
         wishStatus: json["wishStatus"],
+        color: json["Color"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -93,5 +96,6 @@ class SearchDetailMainInfoItem {
         "views": views,
         "likeStatus": likeStatus,
         "wishStatus": wishStatus,
+        "color": color,
       };
 }

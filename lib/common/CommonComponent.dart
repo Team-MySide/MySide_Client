@@ -51,11 +51,11 @@ class LikeBookmark extends StatelessWidget {
     return Wrap(
       children: [
         Padding(
-            padding: EdgeInsets.only(right: 5),
+            padding: EdgeInsets.only(right: 5, top: 2),
             child: SvgPicture.asset("images/svg/like.svg")),
         Text(like.toString(), style: TextStyle(fontSize: 14)),
         Padding(
-            padding: EdgeInsets.only(left: 10, right: 5),
+            padding: EdgeInsets.only(left: 10, right: 5, top: 2),
             child: SvgPicture.asset("images/svg/bookmark.svg")),
         Text(bookmark.toString(), style: TextStyle(fontSize: 14)),
       ],
@@ -90,8 +90,9 @@ class SearchContainer extends StatelessWidget {
                   onChanged: onChanged,
                   decoration: InputDecoration(
                     hintText: "사과",
-                    hintStyle: TextStyle(color: Color(0xFF999999)),
-                    contentPadding: EdgeInsets.only(left: 16.0),
+                    hintStyle:
+                        TextStyle(color: Color(0xFF999999), fontSize: 16),
+                    contentPadding: EdgeInsets.only(left: 15.0),
                     suffixIcon: Container(
                         padding: EdgeInsets.all(13),
                         child: SvgPicture.asset(
@@ -153,7 +154,7 @@ _getCategories(var diseases) {
               ],
             )),
         onTap: () =>
-            Get.to(() => SearchDiseaseResult(), arguments: [d['disease']])));
+            Get.to(() => SearchDiseaseResult(), arguments: d['disease'])));
   }
   return ret;
 }
@@ -284,19 +285,16 @@ class ShimmerLoadingContainer extends StatelessWidget {
     return Shimmer.fromColors(
         baseColor: Colors.transparent,
         highlightColor: Color(Constants.loadingColor),
-        child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: isRound
-                ? Container(
-                    color: Color(0xFFEAEAEA),
-                    width: width,
-                    height: height,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(width / 2)),
-                    ))
-                : Container(
-                    width: width, height: height, color: Color(0xFFEAEAEA))));
+        child: isRound
+            ? Container(
+                color: Color(0xFFEAEAEA),
+                width: width,
+                height: height,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(width / 2)),
+                ))
+            : Container(
+                width: width, height: height, color: Color(0xFFEAEAEA)));
   }
 }
 
@@ -320,6 +318,28 @@ class RequestLoginPage extends StatelessWidget {
                       fontSize: 18,
                       color: Color(0xFF3BD7E2),
                       decoration: TextDecoration.underline)))
+        ],
+      )),
+    );
+  }
+}
+
+class NetworkErrorPage extends StatelessWidget {
+  const NetworkErrorPage({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+          child: Column(
+        children: [
+          Text("네트워크 연결상태가 좋지 않습니다. ",
+              style: TextStyle(fontSize: 22, color: Color(0xFF111111))),
+          SizedBox(height: 16),
+          Text("연결 상태를 확인 후 다시 시도해주세요.",
+              style: TextStyle(fontSize: 14, color: Color(0xFF666666))),
+          SizedBox(height: 32),
+          SvgPicture.asset("images/refresh.svg")
         ],
       )),
     );

@@ -8,13 +8,14 @@ import 'package:my_side_client/TabSearch/SearchDiseaseRepository/SearchDiseaseCo
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 
+import 'FoodInformation.dart';
 import 'SearchCategoryFoodRepository/SearchFoodItem.dart';
 
 class SearchDiseaseResult extends StatelessWidget {
   SearchDiseaseResult({Key key}) : super(key: key);
-  String disease = Get.arguments[0];
+  String disease = Get.arguments;
   SearchDiseaseController controller =
-      Get.put(SearchDiseaseController(Get.arguments[0]));
+      Get.put(SearchDiseaseController(Get.arguments));
 
   dynamic diseaseMap = {
     '위암': 'images/detail_cancer/detail_we_cancer.jpg',
@@ -27,44 +28,26 @@ class SearchDiseaseResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        // systemNavigationBarColor: Colors.blue, // navigation bar color
-        statusBarColor: Colors.white // status bar color
-        ));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //     // systemNavigationBarColor: Colors.blue, // navigation bar color
+    //     statusBarColor: Colors.white // status bar color
+    //     ));
 
     return Scaffold(
-        appBar: CommonAppbar("$disease 소개"),
+        appBar: CustomAppBar("$disease 소개", Colors.white.value, isBack: true),
         body: SingleChildScrollView(
             child: Column(
           children: [
             Container(child: Image.asset(diseaseMap[disease])),
             Padding(
                 padding:
-                    EdgeInsets.only(top: 16, bottom: 40, left: 16, right: 16),
+                    EdgeInsets.only(top: 16, bottom: 16, left: 16, right: 16),
                 child: Row()),
-            controller.lst.length > 0
-                ? HeaderRow("$disease에 좋은 랭킹별 추천 음식", isViewMore: false)
-                : SizedBox(height: 23),
-            // Obx(() {
-            //   print(controller.isLoading.value);
-            //   print(controller.lst.length);
-            //   if (controller.isLoading.value) {
-            //     return Center(child: CircularProgressIndicator());
-            //   } else {
-            //     List<FoodItem> foodLst = [];
-            //     if (controller.lst.length > 3) {
-            //       foodLst.addAll(controller.lst.sublist(0, 4));
-            //     } else {
-            //       foodLst.addAll(controller.lst);
-            //     }
-            //     return CommonFoodGridList(
-            //       foodLst,
-            //       isShowRanking: true,
-            //     );
-            //   }
-            // })
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: HeaderRow("$disease에 좋은 랭킹별 추천 음식", isViewMore: false)),
             Obx(() {
-              List<FoodTile> ret = [];
+              List<Widget> ret = [];
               List<FoodItem> lst2 = [];
               if (controller.lst.length > 4) {
                 lst2.addAll(controller.lst.sublist(0, 4));
@@ -74,14 +57,17 @@ class SearchDiseaseResult extends StatelessWidget {
                 print(index.toString());
                 print(e.name.toString());
                 print(e.img.toString());
-                return ret.add(FoodTile(
-                    // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
-                    e.name,
-                    e.img,
-                    index,
-                    e.likes,
-                    e.wishes,
-                    [e.cancerNm, e.nutrition1 ?? ""]));
+                return ret.add(GestureDetector(
+                    child: FoodTile(
+                        // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
+                        e.name,
+                        e.img,
+                        0,
+                        e.likes,
+                        e.wishes,
+                        [e.cancerNm, e.nutrition1 ?? ""]),
+                    onTap: () =>
+                        Get.to(() => FoodInformation(), arguments: e.name)));
               });
               return Wrap(
                 children: ret,
@@ -97,7 +83,7 @@ class RecommendContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String disease = Get.arguments[0];
+    String disease = Get.arguments;
     return Column(
       children: [],
     );
