@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
+import 'package:my_side_client/TabMyPage/controller/addHealthDataPageController.dart';
 import 'package:my_side_client/TabMyPage/controller/editHealthDataController.dart';
 import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
 import 'package:my_side_client/TabMyPage/pages/addHealthDataPage.dart';
@@ -19,6 +20,8 @@ class MyPageMain extends StatelessWidget {
       Get.put(EditHealthDataController());
   final LoginMainPageController loginMainPageController =
       Get.put(LoginMainPageController());
+  final AddHealthDataPageController addHealthDataPageController =
+      Get.put(AddHealthDataPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +142,8 @@ class MyPageMain extends StatelessWidget {
                             scrHeight: scrHeight,
                             iconImageNm: 'assets/list.svg',
                             iconText: '건강 데이터',
-                            onTap: () {
+                            onTap: () async {
+                              await addHealthDataPageController.findCurParam();
                               Get.to(() => AddHealthDataPage());
                             },
                           ),
@@ -174,8 +178,8 @@ class MyPageMain extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          SizedBox(
-                            width: 0.1872 * scrHeight,
+                          Expanded(
+                            child: SizedBox(),
                           ),
                           Material(
                             color: Colors.transparent,
@@ -183,12 +187,16 @@ class MyPageMain extends StatelessWidget {
                               onTap: () {
                                 Get.to(() => HealthDateListPage());
                               },
-                              child: Text(
-                                '더보기 +',
-                                style: TextStyle(
-                                  color: Color(0xFF666666),
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
+                              child: Container(
+                                width: 0.0788 * scrHeight,
+                                height: 0.025 * scrHeight,
+                                child: Text(
+                                  '더보기 +',
+                                  style: TextStyle(
+                                    color: Color(0xFF666666),
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ),

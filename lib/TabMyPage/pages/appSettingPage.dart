@@ -38,8 +38,8 @@ class AppSettingPage extends StatelessWidget {
             buildSettingTile('assets/paper.svg', '이용약관', scrHeight, () {
               Get.to(() => TermsOfServicePage());
             }),
-            buildSettingTile(
-                'assets/handshake.svg', '광고/제휴문의', scrHeight, () {}),
+            // buildSettingTile(
+            //     'assets/handshake.svg', '광고/제휴문의', scrHeight, () {}),
             buildSettingTile('assets/logout.svg', '로그아웃', scrHeight, () {
               UserProfile.token = "";
               UserProfile.isLogin = false;
@@ -85,33 +85,33 @@ class AppSettingPage extends StatelessWidget {
       String svgPath, String tileText, double scrHeight, VoidCallback onTap) {
     return Column(
       children: [
-        Container(
-          height: 0.0616 * scrHeight,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 0.0197 * scrHeight,
-            ),
-            child: Row(
-              children: [
-                SvgPicture.asset(svgPath),
-                Spacer(),
-                Container(
-                  width: 0.38 * scrHeight,
-                  child: Text(
-                    tileText,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFF111111),
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            height: 0.0616 * scrHeight,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 0.0197 * scrHeight,
+              ),
+              child: Row(
+                children: [
+                  SvgPicture.asset(svgPath),
+                  Spacer(),
+                  Container(
+                    width: 0.38 * scrHeight,
+                    child: Text(
+                      tileText,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF111111),
+                      ),
                     ),
                   ),
-                ),
-                Spacer(),
-                InkWell(
-                  child: SvgPicture.asset('assets/arrowright.svg'),
-                  onTap: onTap,
-                ),
-              ],
+                  Spacer(),
+                  SvgPicture.asset('assets/arrowright.svg'),
+                ],
+              ),
             ),
           ),
         ),
