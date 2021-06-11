@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
+import 'package:my_side_client/common/ChangeZzimStatusRepository/ChangeZzimController.dart';
 
 import 'package:my_side_client/common/CommonComponent.dart';
 
@@ -42,18 +43,7 @@ class FoodInformation extends StatelessWidget {
     }));
   }
 
-  Widget loadingPage() {
-    return Center(
-        child: SizedBox(
-            width: 40,
-            height: 40,
-            child: Water2CircleLoading(
-              color: Color(
-                Constants.primaryColorInt,
-              ),
-            )));
-  }
-
+  ChangeZzimController changeZzimController = Get.put(ChangeZzimController());
   Widget mainBody() {
     return DefaultTabController(
         length: 2,
@@ -122,13 +112,16 @@ class FoodInformation extends StatelessWidget {
                                         ],
                                       ))),
                               SizedBox(height: 32),
-                              Obx(() => _controller.isLoading.value
-                                  ? ShimmerLoadingContainer(180, 14)
-                                  : FittedBox(
-                                      child: LikeBookmark(
-                                          like: _controller.item.value.likes,
-                                          bookmark:
-                                              _controller.item.value.wishes))),
+                              Obx(
+                                () => _controller.isLoading.value
+                                    ? ShimmerLoadingContainer(180, 14)
+                                    : FittedBox(
+                                        child: LikeBookmark(
+                                        like: _controller.item.value.likes,
+                                        bookmark: _controller.item.value.wishes,
+                                      )),
+                              ),
+                              SizedBox(height: 12)
                               // SizedBox(height: 16),
                             ],
                           ),
@@ -148,22 +141,9 @@ class FoodInformation extends StatelessWidget {
                                         )))
                             : Center(
                                 child: _controller.item.value.img.isNotEmpty
-                                    // ? Image.network(
-                                    //     _controller.item.value.img,
-                                    //     errorBuilder: (_, __, ___) {
-                                    //       return ImageLoadFailed();
-                                    //     },
-                                    //   )
-                                    ? FadeInImage.assetNetwork(
-                                        image: _controller.item.value.img,
-                                        placeholder: Constants.IMG_PLACE_HOLDER,
-                                        imageErrorBuilder: (context, _, __) {
-                                          return SizedBox(
-                                              width: 52,
-                                              height: 44,
-                                              child: Image.asset(
-                                                  Constants.IMG_PLACE_HOLDER));
-                                        })
+                                    ? getImage(
+                                        _controller.item.value.img,
+                                      )
                                     : ImageLoadFailed()))),
                   ]),
                 ]);

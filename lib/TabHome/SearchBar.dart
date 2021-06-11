@@ -171,7 +171,11 @@ class AutoCompleteListView2 extends StatelessWidget {
         },
         itemBuilder: (context, i) {
           return GestureDetector(
-              child: Card(child: ListTile(title: Text(_searchResult[i]))),
+              child: Card(
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(_searchResult[i]))),
+              // child: ListTile(title: Text(_searchResult[i])),
               onTap: () {
                 if (foodLst.contains(_searchResult[i])) {
                   Get.toNamed("/FoodInformation", arguments: _searchResult[i]);

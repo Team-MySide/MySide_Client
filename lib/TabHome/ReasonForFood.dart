@@ -26,28 +26,9 @@ class ReasonForFood extends StatelessWidget {
                 padding:
                     EdgeInsets.only(top: 16, bottom: 40, left: 16, right: 16),
                 child: Row()),
-
-            // Obx(() {
-            //   print(controller.isLoading.value);
-            //   print(controller.lst.length);
-            //   if (controller.isLoading.value) {
-            //     return Center(child: CircularProgressIndicator());
-            //   } else {
-            //     List<FoodItem> foodLst = [];
-            //     if (controller.lst.length > 3) {
-            //       foodLst.addAll(controller.lst.sublist(0, 4));
-            //     } else {
-            //       foodLst.addAll(controller.lst);
-            //     }
-            //     return CommonFoodGridList(
-            //       foodLst,
-            //       isShowRanking: true,
-            //     );
-            //   }
-            // })
             Padding(
                 child: Text("질병별 추천 음식", style: TextStyle(fontSize: 22)),
-                padding: EdgeInsets.only(top: 40, bottom: 32)),
+                padding: EdgeInsets.only(top: 40, bottom: 32, left: 16)),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Obx(() {

@@ -90,12 +90,7 @@ class LikeBestTile extends StatelessWidget {
                     // color: Colors.yellow,
                     width: 184,
                     height: 144,
-                    child: FadeInImage.assetNetwork(
-                        image: item.img,
-                        placeholder: Constants.IMG_PLACE_HOLDER,
-                        imageErrorBuilder: (context, _, __) {
-                          return Image.asset(Constants.IMG_PLACE_HOLDER);
-                        }))),
+                    child: getImage(item.img))),
             SizedBox(
                 height: 28,
                 child: Text(item.name,
