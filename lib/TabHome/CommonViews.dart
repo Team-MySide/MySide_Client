@@ -33,7 +33,7 @@ class ColorTags extends StatelessWidget {
   Widget build(BuildContext context) {
     if (lst.length > 0) {
       for (String tag in lst) {
-        print("tag : $tag ");
+        // print("tag : $tag ");
         //왜 오류?
         if (tag.isNotEmpty) {
           if (!tagColorMap.containsKey(tag)) {

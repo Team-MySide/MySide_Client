@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/MainTab.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
@@ -11,33 +12,57 @@ import 'SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercent
 import 'SearchDetailMainInfo/SearchDetailMainInfoController.dart';
 import 'SearchDetailNutritionFactsRepository/SearchDetailNutritionFactsController.dart';
 
-class FoodInformation extends StatelessWidget {
+class FoodInformation extends StatefulWidget {
   FoodInformation({Key key}) : super(key: key);
+
+  get isChangedBookmark => isChangedBookmark;
+
+  @override
+  _FoodInformationState createState() => _FoodInformationState();
+}
+
+bool isChangedBookmark = false;
+
+class _FoodInformationState extends State<FoodInformation> {
   final String category = Get.arguments;
+
   SearchDetailMainInfoController _controller =
       Get.put(SearchDetailMainInfoController(Get.arguments));
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        // appBar: CommonAppbar(
-        //   "음식 정보",
-        //   backgroundColor: Color(0xFFFFEFE7),
-        // ),
-        body: Obx(() {
-      if (_controller.isLoading.value) {
-        return loadingPage();
-      } else {
-        if (_controller.isError.value) {
-          return NetworkErrorPage();
-        } else {
-          return mainBody();
-        }
-      }
-    }));
+  Future<bool> _onWillPop() async {
+    // if (Constants.isFoodInformationChanged) {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (_) => MainTab(initialIndex: 1)));
+    //   Constants.isFoodInformationChanged = false;
+    // } else {
+    Navigator.of(context).pop();
+    // }
+    return false;
   }
 
-  // ChangeZzimController changeZzimController = Get.put(ChangeZzimController());
+  @override
+  Widget build(BuildContext context) {
+    print("category: $category");
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
+            // appBar: CommonAppbar(
+            //   "음식 정보",
+            //   backgroundColor: Color(0xFFFFEFE7),
+            // ),
+            body: Obx(() {
+          if (_controller.isLoading.value) {
+            return loadingPage();
+          } else {
+            if (_controller.isError.value) {
+              return NetworkErrorPage();
+            } else {
+              return mainBody();
+            }
+          }
+        })));
+  }
+
   Widget mainBody() {
     return DefaultTabController(
         length: 2,
@@ -72,9 +97,12 @@ class FoodInformation extends StatelessWidget {
                           child: Column(
                             children: [
                               SizedBox(height: 46),
-                              Text(category ?? "",
-                                  style: TextStyle(
-                                      fontSize: 24, color: Color(0xFF111111))),
+                              Obx(() => _controller.isLoading.value
+                                  ? Text("")
+                                  : Text(_controller.item.value.name,
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          color: Color(0xFF111111)))),
                               SizedBox(height: 8),
                               Obx(() => _controller.isLoading.value
                                   ? ShimmerLoadingContainer(334, 37)
@@ -204,8 +232,18 @@ class _CustomAppBarState extends State<CustomAppBar> {
         leading: widget.isBack
             ? BackButton(
                 color: Colors.black,
-                onPressed: () => Navigator.pop(context),
-              )
+                // onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  // if (Constants.isFoodInformationChanged) {
+                  //   Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (_) => MainTab(initialIndex: 1)));
+                  //   Constants.isFoodInformationChanged = false;
+                  // } else {
+                  Navigator.of(context).pop();
+                  // }
+                })
             : Container(),
         // GestureDetector(
         //   child: SvgPicture.asset("images/arrow_back.svg"),
@@ -237,12 +275,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
 class IngredientTable extends StatelessWidget {
   IngredientTable({Key key}) : super(key: key);
+  // final String food;
   SearchDetailFoodNutritionPercentageController
       _foodNutritionPercentageController =
       Get.put(SearchDetailFoodNutritionPercentageController());
 
   SearchDetailNutritionFactsController _nutritionfactsController =
-      Get.put(SearchDetailNutritionFactsController("당근"));
+      Get.put(SearchDetailNutritionFactsController(Get.arguments));
 
   @override
   Widget build(BuildContext context) {

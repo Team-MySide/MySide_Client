@@ -28,24 +28,24 @@ class Main extends StatelessWidget {
 }
 
 class MainTab extends StatefulWidget {
-  MainTab();
+  int initialIndex = 0;
+  MainTab({this.initialIndex});
 
   @override
   _MainTabState createState() => _MainTabState();
 }
 
-class _MainTabState extends State<MainTab>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
   TabController _controller;
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    // ));
     super.initState();
-    _controller = new TabController(length: 4, initialIndex: 0, vsync: this);
+    _controller = new TabController(
+        length: 4, initialIndex: widget.initialIndex ?? 0, vsync: this);
     _controller.addListener(_handleTabSelection);
-    WidgetsBinding.instance.addObserver(this);
 
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //   // systemNavigationBarColor: Colors.blue, // navigation bar color
@@ -53,27 +53,26 @@ class _MainTabState extends State<MainTab>
     // ));
   }
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 
   void _handleTabSelection() {
     setState(() {});
   }
 
-  @override
-  void didChangeAppLifecycleState(final AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      setState(() {
-        // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        //   // systemNavigationBarColor: Colors.blue, // navigation bar color
-        //   statusBarColor: Colors.white, // status bar color
-        // ));
-      });
-    }
-  }
+  // @override
+  // void didChangeAppLifecycleState(final AppLifecycleState state) {
+  //   if (state == AppLifecycleState.resumed) {
+  //     setState(() {
+  //       // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //       //   // systemNavigationBarColor: Colors.blue, // navigation bar color
+  //       //   statusBarColor: Colors.white, // status bar color
+  //       // ));
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

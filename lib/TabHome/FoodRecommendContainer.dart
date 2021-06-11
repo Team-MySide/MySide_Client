@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabHome/FoodRecommend/FoodRecommendController.dart';
+import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:shimmer/shimmer.dart';
 import 'FoodRecommend/FoodRecommendation.dart';
@@ -80,34 +81,36 @@ class LikeBestTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            Padding(
-                padding: EdgeInsets.only(top: 64, left: 6, right: 6),
-                child: Container(
-                    // color: Colors.yellow,
-                    width: 184,
-                    height: 144,
-                    child: getImage(item.img))),
-            SizedBox(
-                height: 28,
-                child: Text(item.name,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
-            SizedBox(height: 4),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                child: Align(
-                    alignment: Alignment.center,
-                    child: ColorTags([item.cancerNm, item.nutrition1]))),
-            SizedBox(height: 11),
-            LikeBookmark("", item.likes, item.wishes, 0, 0),
-          ],
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center
-        ));
+    return GestureDetector(
+        child: Align(
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(top: 64, left: 6, right: 6),
+                    child: Container(
+                        // color: Colors.yellow,
+                        width: 184,
+                        height: 144,
+                        child: getImage(item.img))),
+                SizedBox(
+                    height: 28,
+                    child: Text(item.name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18))),
+                SizedBox(height: 4),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: ColorTags([item.cancerNm, item.nutrition1]))),
+                SizedBox(height: 11),
+                LikeBookmark("", item.likes, item.wishes, 0, 0),
+              ],
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center
+            )),
+        onTap: () => Get.to(() => FoodInformation(), arguments: item.name));
   }
 }
 
