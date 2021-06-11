@@ -47,6 +47,7 @@ class AddHealthDataPageController extends GetxController {
   int stageNm = 0;
   int progressNum = 0;
   int diseaseNum = 0;
+  bool success = false;
   // 0: 나이 , 1: 키, 2: 몸무게, 3: 암, 4: 추가내용,
   List<TextEditingController> tec = [
     TextEditingController(),
@@ -271,7 +272,7 @@ class AddHealthDataPageController extends GetxController {
         });
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
-      print(jsondata['success']);
+      success = jsondata['success'];
       print(jsondata['message']);
     }
     update();

@@ -53,7 +53,7 @@ class MyPageMain extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: Colors.cyan,
                         radius: 0.0605 * scrHeight,
-                        backgroundImage: AssetImage('assets/person_face.jpg'),
+                        backgroundImage: AssetImage('assets/girl.jpg'),
                       ),
                       SizedBox(
                         height: 0.0197 * scrHeight,
@@ -138,31 +138,39 @@ class MyPageMain extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          MyPageMainIconButton(
-                            scrHeight: scrHeight,
-                            iconImageNm: 'assets/list.svg',
-                            iconText: '건강 데이터',
-                            onTap: () async {
-                              await addHealthDataPageController.findCurParam();
-                              Get.to(() => AddHealthDataPage());
-                            },
+                          //Spacer(),
+                          Expanded(
+                            child: MyPageMainIconButton(
+                              scrHeight: scrHeight,
+                              iconImageNm: 'assets/list.svg',
+                              iconText: '건강 데이터',
+                              onTap: () async {
+                                await addHealthDataPageController
+                                    .findCurParam();
+                                Get.to(() => AddHealthDataPage());
+                              },
+                            ),
                           ),
-                          Spacer(),
-                          MyPageMainIconButton(
-                            scrHeight: scrHeight,
-                            iconImageNm: 'assets/pen.svg',
-                            iconText: '프로필 수정',
-                            onTap: () {
-                              Get.to(() => ProfileChangePage());
-                            },
+                          SizedBox(
+                            width: 0.02 * scrHeight,
                           ),
-                          Spacer(),
-                          MyPageMainIconButton(
-                            scrHeight: scrHeight,
-                            iconImageNm: 'assets/heart.svg',
-                            iconText: '좋아요 목록',
-                            onTap: () {},
+                          Expanded(
+                            child: MyPageMainIconButton(
+                              scrHeight: scrHeight,
+                              iconImageNm: 'assets/pen.svg',
+                              iconText: '프로필 수정',
+                              onTap: () {
+                                Get.to(() => ProfileChangePage());
+                              },
+                            ),
                           ),
+                          //Spacer(),
+                          // MyPageMainIconButton(
+                          //   scrHeight: scrHeight,
+                          //   iconImageNm: 'assets/heart.svg',
+                          //   iconText: '좋아요 목록',
+                          //   onTap: () {},
+                          // ),
                         ],
                       ),
                       SizedBox(

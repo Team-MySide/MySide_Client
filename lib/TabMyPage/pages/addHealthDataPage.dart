@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/Login/widget/cancerAutoCompleteWidget.dart';
+import 'package:my_side_client/Login/widget/dialogWidget/textButtonDialog.dart';
 import 'package:my_side_client/Login/widget/halfWidthTextField.dart';
 import 'package:my_side_client/Login/widget/requiredTextWidget.dart';
 import 'package:my_side_client/Login/widget/selectBetweenTwo.dart';
@@ -542,9 +543,22 @@ class AddHealthDataPage extends StatelessWidget {
                         progressType[ctrl.progressNum - 1],
                         diseaseList[ctrl.diseaseNum - 1],
                       );
-                      await myPageMainController.getHealthDataList();
-                      await hdlCtrl.getMonthYearDatList();
-                      await loginMainPageController.getUserInfo();
+                      if (ctrl.success) {
+                        await myPageMainController.getHealthDataList();
+                        await hdlCtrl.getMonthYearDatList();
+                        await loginMainPageController.getUserInfo();
+                      } else {
+                        Get.dialog(
+                          Dialog(
+                            child: TextButtonDialog(
+                              scrHeight: scrHeight,
+                              dialogText: '해당 날짜에 건강 정보가 존재합니다.',
+                              routeFunc: () {},
+                            ),
+                          ),
+                        );
+                      }
+
                       Get.back();
                     }
                   },
