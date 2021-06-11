@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:m_loading/m_loading.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/TabHome/SearchBar.dart';
@@ -10,6 +11,7 @@ import 'package:my_side_client/TabSearch/SearchDisease.dart';
 import 'package:my_side_client/TabSearch/SearchFood.dart';
 import 'package:my_side_client/TabSearch/SearchIngredient.dart';
 import 'package:my_side_client/TabSearch/SerachDiseaseResult.dart';
+import 'package:my_side_client/common/ChangeZzimStatusRepository/ChangeZzimController.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HeaderRow extends StatelessWidget {
@@ -43,21 +45,32 @@ class LikeBookmark extends StatelessWidget {
   final Map item;
   final int bookmark;
   final int like;
-  const LikeBookmark({Key key, this.item, this.bookmark, this.like})
+  final Function controller;
+  const LikeBookmark(
+      {Key key, this.item, this.bookmark, this.like, this.controller})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        Padding(
-            padding: EdgeInsets.only(right: 5, top: 2),
-            child: SvgPicture.asset("images/svg/like.svg")),
-        Text(like.toString(), style: TextStyle(fontSize: 14)),
-        Padding(
-            padding: EdgeInsets.only(left: 10, right: 5, top: 2),
-            child: SvgPicture.asset("images/svg/bookmark.svg")),
-        Text(bookmark.toString(), style: TextStyle(fontSize: 14)),
+        GestureDetector(
+          child: Wrap(children: [
+            Padding(
+                padding: EdgeInsets.only(right: 5, top: 2),
+                child: SvgPicture.asset("images/svg/like.svg")),
+            Text(like.toString(), style: TextStyle(fontSize: 14))
+          ]),
+        ),
+        GestureDetector(
+          child: Wrap(children: [
+            Padding(
+                padding: EdgeInsets.only(left: 10, right: 5, top: 2),
+                child: SvgPicture.asset("images/svg/bookmark.svg")),
+            Text(bookmark.toString(), style: TextStyle(fontSize: 14))
+          ]),
+          onTap: () => Get.put(() => controller()),
+        ),
       ],
       // ),
     );
@@ -249,7 +262,11 @@ class AutoCompleteListView extends StatelessWidget {
         },
         itemBuilder: (context, i) {
           return GestureDetector(
-              child: Card(child: ListTile(title: Text(_searchResult[i]))),
+              // child: Card(child: ListTile(title: Text(_searchResult[i]))),
+              child: Card(
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(_searchResult[i]))),
               onTap: () => Get.toNamed(page, arguments: _searchResult[i]));
           // onTap: () => Get.to(page, arguments: _searchResult[i]));
         });
@@ -272,6 +289,18 @@ class ImageLoadFailedGrey extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset('images/svg/loading_failed_grey.svg');
   }
+}
+
+Widget loadingPage() {
+  return Center(
+      child: SizedBox(
+          width: 40,
+          height: 40,
+          child: Water2CircleLoading(
+            color: Color(
+              Constants.primaryColorInt,
+            ),
+          )));
 }
 
 class ShimmerLoadingContainer extends StatelessWidget {

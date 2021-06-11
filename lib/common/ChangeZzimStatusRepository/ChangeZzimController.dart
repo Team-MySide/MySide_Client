@@ -1,28 +1,26 @@
 import 'package:get/state_manager.dart';
 
-import 'SearchPopularKeywordBody.dart';
-import 'SearchPopularKeywordService.dart';
+import 'DownloadFoodListService.dart';
 
 //https://www.google.com/search?q=flutter+rest+api+getx&oq=flutter+rest+api+getx+&aqs=chrome..69i57j0i22i30j69i60.3887j1j4&sourceid=chrome&ie=UTF-8#kpvalbx=_p8WfYPrMFdWB-Qbxsr2ADQ18
-class SearchPopularKeywordController extends GetxController {
-  var lst = <String>[].obs;
+class ChangeZzimController extends GetxController {
+  var lst = false.obs;
   var isLoading = true.obs;
   String category;
   int id;
-  SearchPopularKeywordController();
+  ChangeZzimController();
   @override
   void onInit() {
     super.onInit();
-    fetch();
   }
 
-  void fetch() async {
+  void fetch(String food, int status) async {
     isLoading(true);
     try {
-      List<String> products = await SearchPopuylarKeywordService().fetch();
+      bool products = await RequestZzimStatusChangeService()
+          .requestChangeStatus(food, status);
       if (products != null) {
-        // lst.value = products;
-        lst.value = products;
+        lst(products);
       }
     } finally {
       isLoading(false);

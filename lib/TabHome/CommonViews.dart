@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_side_client/common/CommonComponent.dart';
 
 import '../Constants.dart';
 
@@ -70,8 +71,6 @@ class ColorTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(foregroundColor);
-    print(backgroundColor);
     return SizedBox(
         height: 22,
         child: Chip(
@@ -85,4 +84,16 @@ class ColorTag extends StatelessWidget {
             backgroundColor: Color(backgroundColor),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap));
   }
+}
+
+Widget getImage(String path) {
+  return FadeInImage.assetNetwork(
+      image: path,
+      placeholder: Constants.IMG_PLACE_HOLDER_GREY,
+      // placeholderScale: 0.5,
+      placeholderCacheWidth: 52,
+      placeholderCacheHeight: 44,
+      imageErrorBuilder: (context, _, __) {
+        return SizedBox(width: 52, height: 44, child: ImageLoadFailedGrey());
+      });
 }

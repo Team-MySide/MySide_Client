@@ -51,25 +51,32 @@ class AdTile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 108,
-                  height: 100,
-                  child: Column(
-                    children: [
-                      Text(item['title'],
-                          style: TextStyle(
-                              color: Color(0xFFFFFFFF), fontSize: 18)),
-                      SizedBox(
-                        height: 2,
+                Flexible(
+                    flex: 1,
+                    child: Container(
+                      width: 108,
+                      height: 100,
+                      // decoration: BoxDecoration(color: Colors.white),
+                      child: Column(
+                        children: [
+                          Text(item['title'],
+                              style: TextStyle(
+                                  color: Color(0xFFFFFFFF), fontSize: 18)),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text(item['content'],
+                              style: TextStyle(
+                                  color: Color(0xFFFFFFFF), fontSize: 12))
+                        ],
                       ),
-                      Text(item['content'],
-                          style:
-                              TextStyle(color: Color(0xFFFFFFFF), fontSize: 12))
-                    ],
-                  ),
-                ),
-                SizedBox(
-                    width: 80, height: 72, child: SvgPicture.asset(item['not']))
+                    )),
+                Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                        width: 80,
+                        height: 72,
+                        child: SvgPicture.asset(item['not'])))
               ],
             ),
           )

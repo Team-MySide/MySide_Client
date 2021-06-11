@@ -109,29 +109,7 @@ class FoodTile extends StatelessWidget {
                                 // child: Image.asset(path))),
                                 child: path != null
                                     ? path.isNotEmpty
-                                        // ? Image.network(
-                                        //     path,
-                                        //     errorBuilder: (_, __, ___) {
-                                        //       return Center(
-                                        //           child: SizedBox(
-                                        //               child:
-                                        //                   ImageLoadFailedGrey(),
-                                        //               width: 52,
-                                        //               height: 44));
-                                        //     },
-                                        //   )
-                                        ? FadeInImage.assetNetwork(
-                                            image: path,
-                                            placeholder:
-                                                Constants.IMG_PLACE_HOLDER,
-                                            imageErrorBuilder:
-                                                (context, _, __) {
-                                              return SizedBox(
-                                                  width: 52,
-                                                  height: 44,
-                                                  child: Image.asset(Constants
-                                                      .IMG_PLACE_HOLDER));
-                                            })
+                                        ? getImage(path)
                                         : Center(
                                             child: SizedBox(
                                                 child: ImageLoadFailedGrey(),

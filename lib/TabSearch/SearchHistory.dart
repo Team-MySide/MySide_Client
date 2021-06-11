@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/TabSearch/SearchPopularKeywordRepository/SearchPopularKeywordController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
@@ -25,15 +26,9 @@ class SearchHistory extends StatelessWidget {
                             fontSize: 14,
                             color: Color(0xFF666666),
                             fontWeight: FontWeight.w500)),
-                    // Text("기준",
-                    //     style: TextStyle(
-                    //         fontSize: 12,
-                    //         color: Color(0xFF666666),
-                    //         fontWeight: FontWeight.w300))
                   ],
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 ),
-                // decoration: BoxDecoration(color: Color(0xFF677777)),
               ),
               SizedBox(height: 19),
               Align(
@@ -78,24 +73,10 @@ List<Widget> getLoadingContainers() {
 
 List<Widget> getSearchTags(RxList<String> lst) {
   List<Widget> ret = [];
-  bool _selected = false;
   ret.addAll(lst
-      .map(
-        (e) => ChoiceChip(
-            selected: _selected,
-            label: Text(
-              "#$e",
-            ),
-            onSelected: (bool selected) {
-              log("selected ");
-              Get.to(() => FoodInformation(), arguments: e);
-            },
-            backgroundColor: Colors.white,
-            labelStyle: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w300,
-                color: Color(0xFF666666))),
-      )
+      .map((e) => GestureDetector(
+          child: ColorTag("#$e", 0xFF666666, Colors.white.value),
+          onTap: () => Get.to(() => FoodInformation(), arguments: e)))
       .toList());
   return ret;
 }
