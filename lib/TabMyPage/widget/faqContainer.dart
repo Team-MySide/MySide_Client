@@ -21,65 +21,62 @@ class FAQContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: EdgeInsets.only(bottom: 0.0049),
+        InkWell(
+          onTap: toggleFunc,
           child: Container(
-            color: selected ? Color(0xFF3BD7E2) : Color(0xFFF4F4F4),
-            padding: EdgeInsets.symmetric(
-              horizontal: 0.0197 * scrHeight,
-              vertical: 0.0197 * scrHeight,
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: scrHeight * 0.08,
-                  padding: EdgeInsets.symmetric(
-                    vertical: 0.01 * scrHeight,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8),
+            padding: EdgeInsets.only(bottom: 0.0049),
+            child: Container(
+              color: selected ? Color(0xFF3BD7E2) : Color(0xFFF4F4F4),
+              padding: EdgeInsets.symmetric(
+                horizontal: 0.0197 * scrHeight,
+                vertical: 0.0197 * scrHeight,
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: scrHeight * 0.08,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 0.01 * scrHeight,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        headTitle,
+                        style: TextStyle(
+                          color: Color(0xFF666666),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
                     ),
                   ),
-                  child: Center(
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Container(
+                    width: 0.2943 * scrHeight,
                     child: Text(
-                      headTitle,
+                      question,
                       style: TextStyle(
-                        color: Color(0xFF666666),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: selected ? Colors.white : Color(0xFF111111),
                       ),
                     ),
                   ),
-                ),
-                Spacer(
-                  flex: 1,
-                ),
-                Container(
-                  width: 0.2943 * scrHeight,
-                  child: Text(
-                    question,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: selected ? Colors.white : Color(0xFF111111),
-                    ),
+                  Spacer(
+                    flex: 2,
                   ),
-                ),
-                Spacer(
-                  flex: 2,
-                ),
-                selected
-                    ? InkWell(
-                        child: SvgPicture.asset('assets/arrowup.svg'),
-                        onTap: toggleFunc,
-                      )
-                    : InkWell(
-                        child: SvgPicture.asset('assets/arrowdown.svg'),
-                        onTap: toggleFunc,
-                      ),
-              ],
+                  selected
+                      ? SvgPicture.asset('assets/arrowup.svg')
+                      : SvgPicture.asset('assets/arrowdown.svg'),
+                ],
+              ),
             ),
           ),
         ),
