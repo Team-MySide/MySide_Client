@@ -15,13 +15,11 @@ import 'SearchDetailNutritionFactsRepository/SearchDetailNutritionFactsControlle
 class FoodInformation extends StatefulWidget {
   FoodInformation({Key key}) : super(key: key);
 
-  get isChangedBookmark => isChangedBookmark;
-
   @override
   _FoodInformationState createState() => _FoodInformationState();
 }
 
-bool isChangedBookmark = false;
+bool isChangedBookmark = true;
 
 class _FoodInformationState extends State<FoodInformation> {
   final String category = Get.arguments;
@@ -35,7 +33,9 @@ class _FoodInformationState extends State<FoodInformation> {
     //       context, MaterialPageRoute(builder: (_) => MainTab(initialIndex: 1)));
     //   Constants.isFoodInformationChanged = false;
     // } else {
-    Navigator.of(context).pop();
+    // Navigator.of(context).pop();
+
+    Get.back(result: isChangedBookmark);
     // }
     return false;
   }

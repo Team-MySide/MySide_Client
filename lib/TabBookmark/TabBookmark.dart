@@ -8,41 +8,43 @@ import 'package:my_side_client/common/UserProfile.dart';
 
 import 'SearchBookmarkRepository/SearchFoodItem.dart';
 
-// class TabBookmark extends StatefulWidget {
-class TabBookmark extends StatelessWidget {
+class TabBookmark extends StatefulWidget {
+// class TabBookmark extends StatelessWidget {
   TabBookmark({Key key}) : super(key: key);
 
-//   @override
-//   _TabBookmarkState createState() => _TabBookmarkState();
-// }
+  @override
+  _TabBookmarkState createState() => _TabBookmarkState();
+}
 
-// class _TabBookmarkState extends State<TabBookmark> with WidgetsBindingObserver {
+class _TabBookmarkState extends State<TabBookmark> with WidgetsBindingObserver {
   SearchBookmarkController _controller = Get.put(SearchBookmarkController());
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addObserver(this);
-  //   _controller.fetch();
-  //   print("initState");
-  // }
 
-  // @override
-  // void dispose() {
-  //   WidgetsBinding.instance.removeObserver(this);
-  //   super.dispose();
-  //   print("dispose");
-  // }
+  // late AppLifecycleState _notification;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _controller.fetch();
+    print("initState");
+  }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   if (state == AppLifecycleState.resumed) {
-  //     //do your stuff
-  //     print("onResume");
-  //     _controller.fetch();
-  //   } else {
-  //     print("onResume else " + state.toString());
-  //   }
-  // }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+    print("dispose");
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      //do your stuff
+      print("onResume");
+      _controller.fetch();
+    } else {
+      print("onResume else " + state.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +100,14 @@ class TabBookmark extends StatelessWidget {
         child: Wrap(
             children: lst
                 .map((item) => GestureDetector(
-                      onTap: () =>
-                          Get.to(() => FoodInformation(), arguments: item.name),
+                      onTap: () async {
+                        dynamic d = await Get.to(() => FoodInformation(),
+                            arguments: item.name);
+                        print("activity result $d");
+                        if (d as bool) {
+                          setState(() {});
+                        }
+                      },
                       child: FoodTile(
                         item.name,
                         item.img,

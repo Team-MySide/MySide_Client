@@ -96,7 +96,8 @@ class _LikeBookmarkState extends State<LikeBookmark> {
                   widget.likeStatus = 0;
                   widget.like -= 1;
                 }
-                Constants.isFoodInformationChanged = true;
+                Constants.isFoodInformationChanged =
+                    !Constants.isFoodInformationChanged;
               }
               setState(() {});
             }
@@ -125,7 +126,8 @@ class _LikeBookmarkState extends State<LikeBookmark> {
                   widget.bookmarkStatus = 0;
                   widget.bookmark -= 1;
                 }
-                Constants.isFoodInformationChanged = true;
+                Constants.isFoodInformationChanged =
+                    !Constants.isFoodInformationChanged;
               }
               setState(() {});
             }),
