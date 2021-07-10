@@ -10,7 +10,6 @@ import 'package:my_side_client/TabHome/SearchBar.dart';
 import 'package:my_side_client/TabSearch/SearchDisease.dart';
 import 'package:my_side_client/TabSearch/SearchFood.dart';
 import 'package:my_side_client/TabSearch/SearchIngredient.dart';
-import 'package:my_side_client/TabSearch/SerachDiseaseResult.dart';
 import 'package:my_side_client/common/ChangeBookmarkStatusRepository/ChangeBookmarkController.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -190,9 +189,11 @@ class SearchContainer extends StatelessWidget {
   }
 }
 
-class CategoryContainer extends StatelessWidget {
-  final diseases;
-  CategoryContainer(this.diseases, {Key key}) : super(key: key);
+class NavigateIconViewsContainer extends StatelessWidget {
+  final data;
+  final namedWidget;
+  NavigateIconViewsContainer(this.data, this.namedWidget, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -202,15 +203,31 @@ class CategoryContainer extends StatelessWidget {
       alignment: WrapAlignment.start,
       spacing: 7.5,
       runSpacing: 7.5,
-      children: _getCategories(diseases),
+      children: _getNavigateIconViews(data, namedWidget),
     );
   }
 }
 
-_getCategories(var diseases) {
+_getNavigateIconViews(var diseases, String namedWidget) {
   List<Widget> ret = [];
   for (var d in diseases) {
-    ret.add(GestureDetector(
+    ret.add(NavigateIconView(d['path'], d['title'], namedWidget));
+  }
+  return ret;
+}
+
+// 주의 : main.dart에 namedRoute 추가 할 것
+// ex : GetPage(name: "/SearchDiseaseResult", page: () => SearchDiseaseResult()),
+class NavigateIconView extends StatelessWidget {
+  final String iconPath;
+  final String title;
+  final String namedWidget;
+  const NavigateIconView(this.iconPath, this.title, this.namedWidget, {Key key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
         child: Container(
             width: 104,
             height: 95,
@@ -222,15 +239,13 @@ _getCategories(var diseases) {
               children: [
                 SizedBox(height: 18),
                 SizedBox(
-                    width: 32, height: 32, child: SvgPicture.asset(d['path'])),
+                    width: 32, height: 32, child: SvgPicture.asset(iconPath)),
                 SizedBox(height: 9.87),
-                Text(d['disease'])
+                Text(title)
               ],
             )),
-        onTap: () =>
-            Get.to(() => SearchDiseaseResult(), arguments: d['disease'])));
+        onTap: () => Get.toNamed(namedWidget, arguments: title));
   }
-  return ret;
 }
 
 class SearchButtonsContainer extends StatelessWidget {

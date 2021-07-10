@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabSearch/SerachDiseaseResult.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
+import 'package:my_side_client/common/Data/data.dart';
 
 class DiseaseCategoryContainer extends StatelessWidget {
   DiseaseCategoryContainer({Key key}) : super(key: key);
@@ -24,19 +24,10 @@ class DiseaseCategoryContainer extends StatelessWidget {
                 SizedBox(
                     height:
                         Constants.paddingBetweenDiseaseCategoryAndDiseaseList),
-                CategoryContainer(diseases)
+                NavigateIconViewsContainer(diseases, "/SearchDiseaseResult")
               ],
             )));
   }
-
-  final List<Map> diseases = [
-    {"disease": "위암", "path": "images/svg/disease_1.svg"},
-    {"disease": "간암", "path": "images/svg/disease_2.svg"},
-    {"disease": "대장암", "path": "images/svg/disease_3.svg"},
-    {"disease": "폐암", "path": "images/svg/disease_4.svg"},
-    {"disease": "유방암", "path": "images/svg/disease_5.svg"},
-    {"disease": "갑상선암", "path": "images/svg/disease_6.svg"},
-  ];
 }
 
 class LabelTextWidget extends StatelessWidget {

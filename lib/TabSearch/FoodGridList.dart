@@ -10,9 +10,9 @@ import 'SearchCategoryFoodRepository/SearchFoodItem.dart';
 class SearchFoodcategoryResultList extends StatelessWidget {
   SearchFoodcategoryResultList({Key key}) : super(key: key);
   SearchFoodCategoryController controller =
-      Get.put(SearchFoodCategoryController(Get.arguments[0], 1));
+      Get.put(SearchFoodCategoryController(Get.arguments, 1));
 
-  String category = Get.arguments[0];
+  String category = Get.arguments;
 
   void initState() {}
 

@@ -5,12 +5,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
 import 'package:my_side_client/Login/page/onboardingPage/onboardingPage.dart';
 import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
-import 'package:my_side_client/TabMyPage/pages/myPageMain.dart';
 
 import 'Constants.dart';
-import 'Login.dart';
 import 'Login/page/loginPage/loginMainPage.dart';
 import 'MainTab.dart';
+import 'TabSearch/FoodGridList.dart';
 import 'TabSearch/FoodInformation.dart';
 import 'TabSearch/IngredientGridList.dart';
 import 'TabSearch/SerachDiseaseResult.dart';
@@ -56,6 +55,9 @@ void main() async {
           page: () => SearchIngredientCategoryResultList()),
       GetPage(name: "/FoodInformation", page: () => FoodInformation()),
       GetPage(name: "/SearchDiseaseResult", page: () => SearchDiseaseResult()),
+      GetPage(
+          name: "/SearchFoodcategoryResultList",
+          page: () => SearchFoodcategoryResultList()),
       GetPage(name: "/MainTab", page: () => MainTab())
     ],
   ));
