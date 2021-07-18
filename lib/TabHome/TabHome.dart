@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabHome/AdContainer.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 import 'DiseaseCategoryContainer.dart';
@@ -50,10 +48,6 @@ class _TabHomeState extends State<TabHome> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return
-        // Padding(
-        // padding: EdgeInsets.symmetric(
-        //     horizontal: Constants.paddingMainContainerVertical),
-        // child:
         GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: SingleChildScrollView(

@@ -59,23 +59,8 @@ class _TabBookmarkState extends State<TabBookmark> with WidgetsBindingObserver {
                         : mainContent(_controller.lst))
                 : RequestLoginPage()),
         appBar: CustomAppBar(
-          // title: Text("찜목록", style: TextStyle(fontSize: 16)),
           "찜목록",
           0xFFFFFFFF, isBack: false,
-          // centerTitle: true,
-          // automaticallyImplyLeading: false,
-          // backgroundColor: Colors.white,
-          //  Colors.white,
-
-          // elevation: 0,
-          // actions: [
-          // GestureDetector(
-          //   child: Padding(
-          //       child: SvgPicture.asset('images/svg/searchbar_search.svg'),
-          //       padding: EdgeInsets.only(right: 16)),
-          //   onTap: () {},
-          // ),
-          // ],
         ));
   }
 

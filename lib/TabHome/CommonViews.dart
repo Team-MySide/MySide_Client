@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-
 import '../Constants.dart';
 
 class ColorTags extends StatelessWidget {

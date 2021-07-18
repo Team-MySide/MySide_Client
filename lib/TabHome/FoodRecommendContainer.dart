@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabHome/FoodRecommend/FoodRecommendController.dart';
 import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-import 'package:shimmer/shimmer.dart';
 import 'FoodRecommend/FoodRecommendation.dart';
 
 class FoodRecommendContainer extends StatelessWidget {
@@ -26,7 +24,6 @@ class FoodRecommendContainer extends StatelessWidget {
             Container(
                 // color: Colors.amber,
                 height: 296, //원래 283 ㄱ
-
                 child:
                     Stack(alignment: AlignmentDirectional.topCenter, children: [
                   _controller.isLoading.value || _controller.lst == null
@@ -67,7 +64,6 @@ class FoodRecommendContainer extends StatelessWidget {
                           },
                         )
                 ])
-                // )
                 )
           ],
         ));

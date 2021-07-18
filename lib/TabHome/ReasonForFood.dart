@@ -15,6 +15,15 @@ class ReasonForFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> foodList = [
+                    getTiles(controller.cancer1Lst),
+                    getTiles(controller.cancer2Lst),
+                    getTiles(controller.cancer3Lst),
+                    getTiles(controller.cancer4Lst),
+                    getTiles(controller.cancer5Lst),
+                    getTiles(controller.cancer6Lst),
+                  ];
+
     return Scaffold(
         appBar: CommonAppbar("아무음식이나 먹으면 안되는 이유"),
         body: SingleChildScrollView(
@@ -35,18 +44,9 @@ class ReasonForFood extends StatelessWidget {
                   if (controller.isLoading.value) {
                     return CircularProgressIndicator();
                   }
-                  List<Widget> ret = [
-                    getTiles(controller.cancer1Lst),
-                    getTiles(controller.cancer2Lst),
-                    getTiles(controller.cancer3Lst),
-                    getTiles(controller.cancer4Lst),
-                    getTiles(controller.cancer5Lst),
-                    getTiles(controller.cancer6Lst),
-                  ];
-
                   return Wrap(
                       // children: ret,
-                      children: ret);
+                      children: foodList);
                 })),
           ],
         )));
@@ -60,7 +60,6 @@ class ReasonForFood extends StatelessWidget {
         Wrap(
           children: lst.map((e) {
             return FoodTile(
-                // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
                 e.name,
                 e.img,
                 0,
