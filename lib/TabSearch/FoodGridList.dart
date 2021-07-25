@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/FoodRankingContainer.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
-
 import 'FoodInformation.dart';
 import 'SearchCategoryFoodRepository/SearchFoodController.dart';
 import 'SearchCategoryFoodRepository/SearchFoodItem.dart';

@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-import 'package:my_side_client/TabHome/SearchBar.dart';
-import 'package:my_side_client/TabSearch/SearchFood.dart';
-import 'package:my_side_client/TabSearch/SearchIngredient.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-
 import '../Constants.dart';
-import 'SearchDisease.dart';
 
 // ignore: must_be_immutable
 class SearchBar2 extends StatelessWidget {
@@ -49,6 +42,4 @@ class SearchBar2 extends StatelessWidget {
           borderRadius: BorderRadius.circular(Constants.tagButtonRadius),
         )));
   }
-
-  _callNotification() {}
 }

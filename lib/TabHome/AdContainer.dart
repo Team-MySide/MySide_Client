@@ -16,12 +16,6 @@ class AdContainer extends StatelessWidget {
             onTap: () => Get.to(
                   () => ReasonForFood(),
                 ))
-        // child: ListView.builder(
-        //     scrollDirection: Axis.horizontal,
-        //     itemCount: items.length,
-        //     itemBuilder: (BuildContext context, int index) {
-        //       return AdTile(items[index]);
-        //     })
         );
   }
 }
@@ -47,7 +41,6 @@ class AdTile extends StatelessWidget {
                     child: Container(
                       width: 108,
                       height: 100,
-                      // decoration: BoxDecoration(color: Colors.white),
                       child: Column(
                         children: [
                           Text(item['title'],

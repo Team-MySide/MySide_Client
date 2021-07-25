@@ -5,8 +5,6 @@ import 'package:my_side_client/TabHome/FoodRanking/FoodRankingController.dart';
 import 'package:my_side_client/TabHome/FoodRanking/FoodRankingItem.dart';
 import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-
-import '../Constants.dart';
 import 'CommonViews.dart';
 
 class FoodRankingContainer extends StatelessWidget {
@@ -37,16 +35,13 @@ class FoodRankingContainer extends StatelessWidget {
                   children: _getTop4FoodRankingList(controller.lst),
                 );
               })),
-          // SizedBox(height: 40)
         ]));
   }
 
   List<Widget> _getTop4FoodRankingList(RxList<FoodRankingItem> lst) {
     List<Widget> ret = [];
-
-    List<FoodRankingItem> lst2 = lst.sublist(0, 4);
-
-    lst2.asMap().forEach((index, e) {
+    lst = lst.sublist(0, 4);
+    lst.asMap().forEach((index, e) {
       return ret.add(GestureDetector(
           onTap: () => Get.to(() => FoodInformation(), arguments: e.name),
           child: FoodTile(
@@ -57,8 +52,9 @@ class FoodRankingContainer extends StatelessWidget {
             e.likes,
             e.wishes,
             [e.cancerNm, e.nutrition1 ?? ""],
-          )));
-    });
+          ))
+        );
+      });
 
     return ret;
   }

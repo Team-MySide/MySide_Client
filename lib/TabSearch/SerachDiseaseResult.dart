@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
-import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabHome/FoodRankingContainer.dart';
 import 'package:my_side_client/TabSearch/SearchDiseaseRepository/SearchDiseaseController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-
 import 'FoodInformation.dart';
 import 'SearchCategoryFoodRepository/SearchFoodItem.dart';
 
@@ -39,11 +37,7 @@ class SearchDiseaseResult extends StatelessWidget {
             Container(
                 child: FadeInImage(
                     image: AssetImage(diseaseMap[disease]),
-                    // placeholder: kTransparentImage,
                     placeholder: AssetImage(Constants.IMG_PLACE_HOLDER_GREY),
-                    // placeholderScale: 0.5,
-                    // placeholderCacheWidth: 52,
-                    // placeholderCacheHeight: 44,
                     imageErrorBuilder: (context, _, __) {
                       return SizedBox(
                           width: 52, height: 44, child: ImageLoadFailedGrey());
@@ -70,7 +64,6 @@ class SearchDiseaseResult extends StatelessWidget {
                 print(e.img.toString());
                 return ret.add(GestureDetector(
                     child: FoodTile(
-                        // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
                         e.name,
                         e.img,
                         0,

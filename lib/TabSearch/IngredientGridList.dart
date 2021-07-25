@@ -5,7 +5,6 @@ import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 
 import 'NoSearchResult.dart';
-import 'SearchCategoryFoodRepository/SearchFoodItem.dart';
 import 'SearchNutritionResultListRepository/SearchNutritionResultBody.dart';
 import 'SearchNutritionResultListRepository/SearchNutritionResultListController.dart';
 
