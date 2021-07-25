@@ -1,27 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/common/Data/MenuData.dart';
 
 import 'ReasonForFood.dart';
 
 class AdContainer extends StatelessWidget {
-  List<Map> items = [
-    {
-      "title": "아무 음식이나 먹으면 안되는 이유?",
-      "content": "질병별 추천음식을 알아보세요.",
-      "path": "images/ad1.png",
-      "not": "images/svg/no.svg"
-    }
-  ];
   AdContainer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        // height: 152,
-        // width: double.infinity,
         child: GestureDetector(
-            child: AdTile(items[0]),
+            child: AdTile(adContainerItem),
             onTap: () => Get.to(
                   () => ReasonForFood(),
                 ))

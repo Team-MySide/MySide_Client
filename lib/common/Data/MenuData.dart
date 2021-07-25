@@ -1,4 +1,4 @@
-final List<Map> diseases = [
+const List<Map> diseases = [
   {"title": "위암", "path": "images/svg/disease_1.svg"},
   {"title": "간암", "path": "images/svg/disease_2.svg"},
   {"title": "대장암", "path": "images/svg/disease_3.svg"},
@@ -7,7 +7,7 @@ final List<Map> diseases = [
   {"title": "갑상선암", "path": "images/svg/disease_6.svg"},
 ];
 
-final List<Map> foodCategories = [
+const List<Map> foodCategories = [
   {"title": "곡류", "path": "images/svg/gogryu.svg"},
   {"title": "채소류", "path": "images/svg/chaesoryu.svg"},
   {"title": "과일류", "path": "images/svg/gwailryu.svg"},
@@ -18,3 +18,10 @@ final List<Map> foodCategories = [
   {"title": "유동식", "path": "images/svg/yoodongsik.svg"},
   {"title": "기타", "path": "images/svg/etc.svg"},
 ];
+
+const Map adContainerItem = {
+  "title": "아무 음식이나 먹으면 안되는 이유?",
+  "content": "질병별 추천음식을 알아보세요.",
+  "path": "images/ad1.png",
+  "not": "images/svg/no.svg"
+};
