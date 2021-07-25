@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabSearch/SerachDiseaseResult.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-import 'package:my_side_client/common/Data/data.dart';
+import 'package:my_side_client/common/Data/MenuData.dart';
 
 class DiseaseCategoryContainer extends StatelessWidget {
   DiseaseCategoryContainer({Key key}) : super(key: key);

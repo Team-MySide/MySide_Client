@@ -12,7 +12,7 @@ class SearchBookmarkController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetch();
+    // fetch();
   }
 
   void fetch() async {

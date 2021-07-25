@@ -9,7 +9,6 @@ import 'package:my_side_client/common/UserProfile.dart';
 import 'SearchBookmarkRepository/SearchFoodItem.dart';
 
 class TabBookmark extends StatefulWidget {
-// class TabBookmark extends StatelessWidget {
   TabBookmark({Key key}) : super(key: key);
 
   @override
@@ -19,12 +18,13 @@ class TabBookmark extends StatefulWidget {
 class _TabBookmarkState extends State<TabBookmark> with WidgetsBindingObserver {
   SearchBookmarkController _controller = Get.put(SearchBookmarkController());
 
-  // late AppLifecycleState _notification;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _controller.fetch();
+    if (UserProfile.isLogin) {
+      _controller.fetch();
+    }
     print("initState");
   }
 
@@ -40,7 +40,9 @@ class _TabBookmarkState extends State<TabBookmark> with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed) {
       //do your stuff
       print("onResume");
-      _controller.fetch();
+      if (UserProfile.isLogin) {
+        _controller.fetch();
+      }
     } else {
       print("onResume else " + state.toString());
     }
@@ -59,23 +61,9 @@ class _TabBookmarkState extends State<TabBookmark> with WidgetsBindingObserver {
                         : mainContent(_controller.lst))
                 : RequestLoginPage()),
         appBar: CustomAppBar(
-          // title: Text("찜목록", style: TextStyle(fontSize: 16)),
           "찜목록",
-          0xFFFFFFFF, isBack: false,
-          // centerTitle: true,
-          // automaticallyImplyLeading: false,
-          // backgroundColor: Colors.white,
-          //  Colors.white,
-
-          // elevation: 0,
-          // actions: [
-          // GestureDetector(
-          //   child: Padding(
-          //       child: SvgPicture.asset('images/svg/searchbar_search.svg'),
-          //       padding: EdgeInsets.only(right: 16)),
-          //   onTap: () {},
-          // ),
-          // ],
+          0xFFFFFFFF,
+          isBack: false,
         ));
   }
 

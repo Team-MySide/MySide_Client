@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_side_client/TabSearch/DownloadFoodListRepository/DownloadFoodListController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
-import 'package:my_side_client/common/Data/data.dart';
+import 'package:my_side_client/common/Data/MenuData.dart';
 
 import 'FoodInformation.dart';
 
@@ -67,12 +67,6 @@ class _SearchFoodState extends State<SearchFood> {
 
   void onSubmitted(BuildContext context) {
     print(_textEditingController.text);
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) =>
-    //             FoodInformation(_textEditingController.text)));
-    // return () => Get.to(FoodDetailInfoContainer(_textEditingController.text));
     Get.to(() => FoodInformation(), arguments: _textEditingController.text);
   }
 }

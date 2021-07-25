@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
-import 'package:my_side_client/common/Data/data.dart';
+import 'package:my_side_client/common/Data/MenuData.dart';
 
 class SearchDisease extends StatelessWidget {
   SearchDisease({Key key}) : super(key: key);

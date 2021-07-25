@@ -28,15 +28,7 @@ class _FoodInformationState extends State<FoodInformation> {
       Get.put(SearchDetailMainInfoController(Get.arguments));
 
   Future<bool> _onWillPop() async {
-    // if (Constants.isFoodInformationChanged) {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (_) => MainTab(initialIndex: 1)));
-    //   Constants.isFoodInformationChanged = false;
-    // } else {
-    // Navigator.of(context).pop();
-
     Get.back(result: isChangedBookmark);
-    // }
     return false;
   }
 
@@ -45,12 +37,7 @@ class _FoodInformationState extends State<FoodInformation> {
     print("category: $category");
     return WillPopScope(
         onWillPop: _onWillPop,
-        child: Scaffold(
-            // appBar: CommonAppbar(
-            //   "음식 정보",
-            //   backgroundColor: Color(0xFFFFEFE7),
-            // ),
-            body: Obx(() {
+        child: Scaffold(body: Obx(() {
           if (_controller.isLoading.value) {
             return loadingPage();
           } else {
@@ -232,23 +219,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
         leading: widget.isBack
             ? BackButton(
                 color: Colors.black,
-                // onPressed: () => Navigator.pop(context),
                 onPressed: () {
-                  // if (Constants.isFoodInformationChanged) {
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //           builder: (_) => MainTab(initialIndex: 1)));
-                  //   Constants.isFoodInformationChanged = false;
-                  // } else {
                   Navigator.of(context).pop();
-                  // }
                 })
             : Container(),
-        // GestureDetector(
-        //   child: SvgPicture.asset("images/arrow_back.svg"),
-        //   onTap: () => Navigator.pop(context),
-        // ),
         actions: [
           GestureDetector(
               child: Padding(
