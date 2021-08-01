@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final foodRanking = foodRankingFromJson(jsonString);
-
 import 'dart:convert';
 
 FoodRanking foodRankingFromJson(String str) =>

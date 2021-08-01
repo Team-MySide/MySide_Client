@@ -1,5 +1,4 @@
 import 'package:get/state_manager.dart';
-
 import 'FoodRankingItem.dart';
 import 'FoodRankingService.dart';
 

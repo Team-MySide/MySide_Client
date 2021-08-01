@@ -1,8 +1,4 @@
-// import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:my_side_client/common/MySideConnect.dart';
-
 import 'FoodRankingItem.dart';
 
 abstract class IFetch {

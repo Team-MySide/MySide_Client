@@ -1,5 +1,4 @@
 import 'package:get/state_manager.dart';
-
 import 'FoodRecommendationForDisease.dart';
 import 'FoodRecommendationServices.dart';
 

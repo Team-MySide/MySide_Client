@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_side_client/TabMyPage/pages/myPageLoadingPage.dart';
 import 'package:my_side_client/TabMyPage/pages/myPageNotLogedInPage.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 

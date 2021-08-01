@@ -1,9 +1,5 @@
-// import 'package:http/http.dart' as http;
-
 import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
-
-import '../../Constants.dart';
 import 'FoodRecommendationForDisease.dart';
 
 abstract class IFetch {

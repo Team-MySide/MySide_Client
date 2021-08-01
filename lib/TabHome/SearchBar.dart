@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabHome/TotalSearch/TotalSearchController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-
-import '../Constants.dart';
 
 // ignore: must_be_immutable
 class SearchBar extends StatefulWidget {
