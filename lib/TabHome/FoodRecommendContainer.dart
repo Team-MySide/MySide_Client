@@ -63,8 +63,7 @@ class FoodRecommendContainer extends StatelessWidget {
                             return LikeBestTile(_controller.lst[i]);
                           },
                         )
-                ])
-                )
+                ]))
           ],
         ));
   }

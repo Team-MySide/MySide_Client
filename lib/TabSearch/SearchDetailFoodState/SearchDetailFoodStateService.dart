@@ -19,7 +19,7 @@ class SearchDetailFoodStateService extends MySideConnect implements IFetch {
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
       request.headers['Content-Type'] = 'application/json';
-      request.headers['token'] = UserProfile.temp_token;
+      request.headers['token'] = UserProfile.TEMP_TOKEN;
       return request;
     });
     var resp = await get("/search/info/status/당근");

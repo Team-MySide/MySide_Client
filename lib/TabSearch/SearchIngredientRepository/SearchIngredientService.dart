@@ -20,7 +20,7 @@ class SearchIngredientService extends MySideConnect implements IFetch {
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
       request.headers['Content-Type'] = 'application/json';
-      request.headers['token'] = UserProfile.temp_token;
+      request.headers['token'] = UserProfile.TEMP_TOKEN;
       return request;
     });
     var resp = await get("/common/auto/nutrition");
@@ -38,7 +38,7 @@ class SearchIngredientService extends MySideConnect implements IFetch {
     // httpClient.addRequestModifier((request) {
     //   request.headers['Content-Type'] = 'application/json';
     //   request.headers['token'] =
-    //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIxMDgzMjY1LCJleHAiOjE2MjIyOTI4NjUsImlzcyI6ImlnIn0.F9xl2Ii-5bymNK5LQ8kLhLQ5vlIcSIBz5ZFVG5vhVcI';
+
     //   return request;
     // });
     // var resp = await get("/home/rank");

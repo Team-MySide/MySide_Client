@@ -47,29 +47,28 @@ class _TabHomeState extends State<TabHome> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return
-        GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: SingleChildScrollView(
-                child: UserProfile.isLogin
-                    ? Column(children: [
-                        SearchBar(),
-                        LoginRequestBar(),
-                        FoodRecommendContainer(),
-                        AdContainer(),
-                        FoodRankingContainer(),
-                        DiseaseCategoryContainer(),
-                        // AdContainer()
-                      ])
-                    : Column(children: [
-                        SearchBar(),
-                        LoginRequestBar(),
-                        // FoodRecommendContainer(),
-                        FoodRankingContainer(),
-                        DiseaseCategoryContainer(),
-                        AdContainer()
-                      ]
-                        // )
-                        )));
+    return GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SingleChildScrollView(
+            child: UserProfile.isLogin
+                ? Column(children: [
+                    SearchBar(),
+                    LoginRequestBar(),
+                    FoodRecommendContainer(),
+                    AdContainer(),
+                    FoodRankingContainer(),
+                    DiseaseCategoryContainer(),
+                    // AdContainer()
+                  ])
+                : Column(children: [
+                    SearchBar(),
+                    LoginRequestBar(),
+                    // FoodRecommendContainer(),
+                    FoodRankingContainer(),
+                    DiseaseCategoryContainer(),
+                    AdContainer()
+                  ]
+                    // )
+                    )));
   }
 }
