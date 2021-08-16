@@ -6,9 +6,16 @@ import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'FoodRecommend/FoodRecommendation.dart';
 
-class FoodRecommendContainer extends StatelessWidget {
+class FoodRecommendContainer extends StatefulWidget {
   FoodRecommendContainer({Key key}) : super(key: key);
+
+  @override
+  _FoodRecommendContainerState createState() => _FoodRecommendContainerState();
+}
+
+class _FoodRecommendContainerState extends State<FoodRecommendContainer> {
   FoodRecommendController _controller = Get.put(FoodRecommendController());
+  int activePage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +39,12 @@ class FoodRecommendContainer extends StatelessWidget {
                           width: 200,
                           height: 180,
                           child: ClipPath(
-                            child: Container(color: Color(0xFFF9F1DF)),
+                            child: AnimatedContainer(
+                                color: Color(int.parse(
+                                    "0xFF${_controller.lst[activePage].backgroundColor ?? 'E9F1D1'}")),
+                                duration: Duration(
+                                  milliseconds: 1000,
+                                )),
                             clipper: OctagonClipper(),
                           )),
                   _controller.isLoading.value || _controller.lst == null
@@ -58,7 +70,11 @@ class FoodRecommendContainer extends StatelessWidget {
                       : PageView.builder(
                           itemCount: _controller.lst.length,
                           controller: PageController(viewportFraction: 0.5),
-                          // onPageChanged: (int index) => setState(()=> _index = index),
+                          onPageChanged: (int index) {
+                            setState(() {
+                              activePage = index;
+                            });
+                          },
                           itemBuilder: (_, i) {
                             return LikeBestTile(_controller.lst[i]);
                           },
