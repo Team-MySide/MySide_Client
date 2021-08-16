@@ -38,7 +38,7 @@ class FoodRankingContainer extends StatelessWidget {
         ]));
   }
 
-  List<Widget> _getTop4FoodRankingList(RxList<FoodRankingItem> lst) {
+  List<Widget> _getTop4FoodRankingList(List<FoodRankingItem> lst) {
     List<Widget> ret = [];
     lst = lst.sublist(0, 4);
     lst.asMap().forEach((index, e) {
@@ -52,9 +52,8 @@ class FoodRankingContainer extends StatelessWidget {
             e.likes,
             e.wishes,
             [e.cancerNm, e.nutrition1 ?? ""],
-          ))
-        );
-      });
+          )));
+    });
 
     return ret;
   }
