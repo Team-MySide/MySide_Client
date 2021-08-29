@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'TabBookmark/TabBookmark.dart';
 import 'TabHome/TabHome.dart';
 
 import 'Constants.dart';
-import 'TabMyPage/TabMyPage.dart';
 import 'TabSearch/TabSearch.dart';
+import 'screens/mypagescreens/tabMyPage.dart';
 
 class Main extends StatelessWidget {
   Main({Key key}) : super(key: key);

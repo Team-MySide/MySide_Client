@@ -5,12 +5,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:m_loading/m_loading.dart';
 import 'package:my_side_client/Constants.dart';
-import 'package:my_side_client/Login/page/loginPage/loginMainPage.dart';
 import 'package:my_side_client/TabHome/SearchBar.dart';
 import 'package:my_side_client/TabSearch/SearchDisease.dart';
 import 'package:my_side_client/TabSearch/SearchFood.dart';
 import 'package:my_side_client/TabSearch/SearchIngredient.dart';
 import 'package:my_side_client/common/ChangeBookmarkStatusRepository/ChangeBookmarkController.dart';
+import 'package:my_side_client/screens/loginscreens/loginMainPage.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HeaderRow extends StatelessWidget {

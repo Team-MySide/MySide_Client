@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_side_client/Login/controllers/loginPageControllers.dart/loginMainPageController.dart';
-import 'package:my_side_client/Login/page/loginPage/signInPage.dart';
-import 'package:my_side_client/TabMyPage/controller/myPageMainController.dart';
-import 'package:my_side_client/TabMyPage/pages/addHealthDataPage.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/UserProfile.dart';
+import 'package:my_side_client/controllers/myPageMainController.dart';
+import 'package:my_side_client/screens/loginscreens/signupPages/signUpMainPage.dart';
+import 'package:my_side_client/screens/mypagescreens/addHealthDataPage.dart';
 
 class LoginRequestBar extends StatelessWidget {
   const LoginRequestBar({Key key}) : super(key: key);
@@ -13,7 +12,9 @@ class LoginRequestBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PageController controller = PageController(initialPage: 0);
-    LoginMainPageController userController = Get.put(LoginMainPageController());
+
+    final MyPageMainController myPageMainController =
+        Get.put(MyPageMainController());
     return
         // PageView(
         //   controller: controller,
@@ -26,7 +27,8 @@ class LoginRequestBar extends StatelessWidget {
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                            HeaderRow("${userController.userData.nickname}님,",
+                            HeaderRow(
+                                "${myPageMainController.userData.nickname}님,",
                                 isViewMore: false),
                             SizedBox(
                               height: 10,
@@ -34,7 +36,7 @@ class LoginRequestBar extends StatelessWidget {
                             SizedBox(
                                 width: 204,
                                 child: Text(
-                                    "${userController.userData.nickname}님 최근에 변화된게 있으시다면,\n좀 더 자세히 알려주세요.")),
+                                    "${myPageMainController.userData.nickname}님 최근에 변화된게 있으시다면,\n좀 더 자세히 알려주세요.")),
                           ])
                     : const Text.rich(TextSpan(
                         text: "고객님, 안녕하세요.\n",
@@ -57,7 +59,7 @@ class LoginRequestBar extends StatelessWidget {
                       if (UserProfile.isLogin) {
                         Get.to(() => AddHealthDataPage());
                       } else {
-                        Get.to(SignInPage());
+                        Get.to(SignUpMainPage());
                       }
                     },
                     child: SizedBox(
