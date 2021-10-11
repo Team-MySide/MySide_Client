@@ -8,53 +8,34 @@ import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'CommonViews.dart';
 import 'FoodRanking/FoodRankingController.dart';
-import 'WholeFoodRankingContainer.dart';
 
-class FoodRankingContainer extends StatelessWidget {
-  FoodRankingContainer({this.isLimit = true, Key key}) : super(key: key);
+class WholeFoodRankingContainer extends StatelessWidget {
+  WholeFoodRankingContainer({this.isLimit = true, Key key}) : super(key: key);
   bool isLimit = true;
   final FoodRankingController controller = Get.put(FoodRankingController());
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        height: 634,
-        decoration: BoxDecoration(
-          color: Color(0xFFF4F4F4),
-        ),
-        child: Column(children: [
-          Padding(
-              padding:
-                  EdgeInsets.only(top: 40, bottom: 20, left: 16, right: 16),
-              child: HeaderRow("좋아요가 많은 음식",
-                  onClickAction: () =>
-                      Get.to(() => WholeFoodRankingContainer(isLimit: false)),
-                  // onClickAction: () => Navigator.push(
-                  // context,
-                  // MaterialPageRoute(
-                  //     builder: (context) =>
-                  //         FoodRankingContainer(isLimit: false))),
-                  isViewMore: true)),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.5),
-              child: Obx(() {
-                if (controller.lst.length == 0) {
-                  return CircularProgressIndicator();
-                }
-                if (isLimit) {
-                  return Wrap(
-                    spacing: 7.5,
-                    runSpacing: 5,
-                    children: _getTop4FoodRankingList(controller.lst,
-                        isLimit: isLimit),
-                  );
-                } else {
-                  return Expanded(
-                      child: CommonFoodGridList(controller.lst,
-                          isShowRanking: false));
-                }
-              })),
-        ]));
+    return Scaffold(
+        body: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFFF4F4F4),
+            ),
+            child: Column(children: [
+              Padding(
+                  padding:
+                      EdgeInsets.only(top: 40, bottom: 20, left: 16, right: 16),
+                  child: HeaderRow("좋아요가 많은 음식", isViewMore: false)),
+              Expanded(
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.5),
+                      child: Obx(() {
+                        if (controller.lst.length == 0) {
+                          return CircularProgressIndicator();
+                        }
+                        return CommonFoodGridList(controller.lst,
+                            isShowRanking: false);
+                      }))),
+            ])));
   }
 
   List<Widget> _getTop4FoodRankingList(List<FoodItem> lst, {bool isLimit}) {

@@ -16,7 +16,9 @@ import 'package:shimmer/shimmer.dart';
 class HeaderRow extends StatelessWidget {
   final String title;
   final bool isViewMore;
-  const HeaderRow(this.title, {this.isViewMore, Key key}) : super(key: key);
+  final Function onClickAction;
+  const HeaderRow(this.title, {this.isViewMore, this.onClickAction, Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class HeaderRow extends StatelessWidget {
             TextButton(
               child: Text("더보기 +",
                   style: TextStyle(fontSize: 14, color: Color(0xFF666666))),
-              onPressed: () {},
+              onPressed: onClickAction,
             ),
           ])
         : Align(child: _header(title), alignment: Alignment.centerLeft);

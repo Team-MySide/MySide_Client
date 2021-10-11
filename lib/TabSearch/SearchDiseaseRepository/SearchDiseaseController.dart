@@ -1,5 +1,5 @@
 import 'package:get/state_manager.dart';
-import 'package:my_side_client/TabSearch/SearchCategoryFoodRepository/SearchFoodItem.dart';
+import 'package:my_side_client/TabBookmark/SearchBookmarkRepository/SearchFoodItem.dart';
 
 import 'SearchDiseaseService.dart';
 

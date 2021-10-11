@@ -1,8 +1,6 @@
-import 'package:my_side_client/TabSearch/SearchCategoryFoodRepository/SearchFoodItem.dart';
+import 'package:my_side_client/TabBookmark/SearchBookmarkRepository/SearchFoodItem.dart';
 import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
-
-import '../../Constants.dart';
 
 abstract class IFetch {
   Future<List<FoodItem>> fetch(String cancer);

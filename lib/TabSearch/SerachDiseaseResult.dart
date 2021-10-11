@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/TabBookmark/SearchBookmarkRepository/SearchFoodItem.dart';
 import 'package:my_side_client/TabHome/FoodRankingContainer.dart';
 import 'package:my_side_client/TabSearch/SearchDiseaseRepository/SearchDiseaseController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'FoodInformation.dart';
-import 'SearchCategoryFoodRepository/SearchFoodItem.dart';
 
 class SearchDiseaseResult extends StatelessWidget {
   SearchDiseaseResult({Key key}) : super(key: key);
@@ -63,12 +63,7 @@ class SearchDiseaseResult extends StatelessWidget {
                 print(e.name.toString());
                 print(e.img.toString());
                 return ret.add(GestureDetector(
-                    child: FoodTile(
-                        e.name,
-                        e.img,
-                        0,
-                        e.likes,
-                        e.wishes,
+                    child: FoodTile(e.name, e.img, 0, e.likes, e.wishes,
                         [e.cancerNm, e.nutrition1 ?? ""],
                         isOnTabDisabled: true),
                     onTap: () =>

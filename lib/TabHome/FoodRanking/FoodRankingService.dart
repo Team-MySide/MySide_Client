@@ -1,16 +1,17 @@
+import 'package:my_side_client/TabBookmark/SearchBookmarkRepository/SearchFoodItem.dart';
 import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 import 'FoodRankingItem.dart';
 
 abstract class IFetch {
-  Future<List<FoodRankingItem>> fetch();
+  Future<List<FoodItem>> fetch();
 }
 
 class FoodRankingService extends MySideConnect implements IFetch {
   // static var client = http.Client();
 
   @override
-  Future<List<FoodRankingItem>> fetch() async {
+  Future<List<FoodItem>> fetch() async {
     httpClient.baseUrl = "http://54.180.67.217:3000";
 
     //모든 헤더에 붙인다.

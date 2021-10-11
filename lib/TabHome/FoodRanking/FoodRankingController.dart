@@ -1,9 +1,10 @@
 import 'package:get/state_manager.dart';
-import 'FoodRankingItem.dart';
+import 'package:my_side_client/TabBookmark/SearchBookmarkRepository/SearchFoodItem.dart';
+
 import 'FoodRankingService.dart';
 
 class FoodRankingController extends GetxController {
-  var lst = <FoodRankingItem>[].obs;
+  var lst = <FoodItem>[].obs;
   var isLoading = true.obs;
   @override
   void onInit() {
@@ -14,7 +15,7 @@ class FoodRankingController extends GetxController {
   void fetch() async {
     isLoading(true);
     try {
-      List<FoodRankingItem> products = await FoodRankingService().fetch();
+      List<FoodItem> products = await FoodRankingService().fetch();
       if (products != null) {
         lst.value = products;
       }

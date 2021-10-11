@@ -1,7 +1,5 @@
 import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
-
-import '../../Constants.dart';
 import 'SearchPopularKeywordBody.dart';
 
 abstract class IFetch {
