@@ -4,7 +4,6 @@ import 'package:my_side_client/TabSearch/SearchIngredientRepository/SearchIngred
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 
-import 'FoodInformation.dart';
 import 'IngredientGridList.dart';
 import 'SearchIngredientRecommendRepository/SearchIngredientRecommendController.dart';
 
@@ -16,7 +15,8 @@ class SearchIngredient extends StatefulWidget {
 }
 
 class _SearchIngredientState extends State<SearchIngredient> {
-  SearchIngredientController controller = Get.put(SearchIngredientController());
+  DownloadIngredientController controller =
+      Get.put(DownloadIngredientController());
   SearchIngredientRecommendController _recommendController =
       Get.put(SearchIngredientRecommendController());
   TextEditingController _textEditingController = TextEditingController();
