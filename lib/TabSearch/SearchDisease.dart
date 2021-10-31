@@ -22,7 +22,7 @@ class SearchDisease extends StatelessWidget {
         children: [
           Container(
               height: 270,
-              // decoration: BoxDecoration(color: Color(0xFFE4F7FB)),
+              decoration: BoxDecoration(color: Color(0xFFE4F7FB)),
               child: Image.asset("images/disease_intro.png")),
           Padding(
               child: Column(children: [
