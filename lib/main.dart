@@ -27,6 +27,7 @@ import 'package:my_side_client/screens/mypagescreens/termOfServicePage.dart';
 import 'package:my_side_client/screens/onboarding/onBoardingPage.dart';
 import 'Constants.dart';
 import 'MainTab.dart';
+import 'TabRecipe/RecipeMain.dart';
 import 'TabSearch/FoodGridList.dart';
 import 'TabSearch/FoodInformation.dart';
 import 'TabSearch/IngredientGridList.dart';
@@ -65,10 +66,12 @@ void main() async {
     //         ? MainTab()
     //         : LoginMainPage(),
     initialRoute: loginMainController.loginStorage.read('isFirstRunApp') ?? true
-        ? '/onboarding'
-        : autoLoginFlag
-            ? '/MainTab'
-            : '/',
+        // ? '/onboarding'
+        // : autoLoginFlag
+        // ? '/MainTab'
+        // : '/',
+        ? 'MainTab'
+        : 'RecipeMain',
     // home: LoginMainPage()));
     // home: MainTab(),
     getPages: [
@@ -103,7 +106,8 @@ void main() async {
       GetPage(
           name: "/SearchFoodcategoryResultList",
           page: () => SearchFoodcategoryResultList()),
-      GetPage(name: "/MainTab", page: () => MainTab())
+      GetPage(name: "/MainTab", page: () => MainTab()),
+      GetPage(name: "/RecipeMain", page: () => RecipeMain())
     ],
   ));
 }
