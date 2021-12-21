@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/SearchBar.dart';
-import 'package:my_side_client/TabRecipe/RecipeMain.dart';
 import 'package:my_side_client/TabSearch/DownloadFoodListRepository/DownloadFoodListController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/common/Data/MenuData.dart';
-import 'package:my_side_client/TabSearch/testtesttest.dart';
-import 'FoodInformation.dart';
+
+import '../FoodInformation.dart';
 
 class SearchFood extends StatefulWidget {
   SearchFood({Key key}) : super(key: key);
@@ -19,7 +18,7 @@ class SearchFood extends StatefulWidget {
 class _SearchFoodState extends State<SearchFood> {
   TextEditingController _textEditingController = TextEditingController();
   DownloadFoodListController _controller =
-      Get.put(DownloadFoodListController());
+  Get.put(DownloadFoodListController());
   List<String> _searchResult = [];
 
   @override
@@ -38,24 +37,24 @@ class _SearchFoodState extends State<SearchFood> {
                 ),
                 _textEditingController.text.isEmpty || _searchResult.length == 0
                     ? Column(children: [
-                        SizedBox(height: 40),
-                        HeaderRow("음식 카테고리", isViewMore: false),
-                        SizedBox(height: 20),
-                        NavigateIconViewsContainer(
-                            foodCategories, "/SearchFoodcategoryResultList")
-                      ])
+                  SizedBox(height: 40),
+                  HeaderRow("음식 카테고리", isViewMore: false),
+                  SizedBox(height: 20),
+                  NavigateIconViewsContainer(
+                      foodCategories, "/SearchFoodcategoryResultList")
+                ])
                     : Expanded(
-                        child: AutoCompleteListView(
-                        _searchResult,
-                        "/FoodInformation",
-                      )),
+                    child: AutoCompleteListView(
+                      _searchResult,
+                      "/FoodInformation",
+                    )),
                 GestureDetector(
                     child: SizedBox(
                         width: 104,
                         height: 40,
                         child: SearchButton("이준현 버튼", "images/svg/searchbar_food.svg",
                             0xFFEDF5E9, 0xFF528A36)),
-                    onTap: () => Get.to(RecipeMain()))
+                    onTap: () => Get.to(SearchFood()))
               ],
             )));
   }
