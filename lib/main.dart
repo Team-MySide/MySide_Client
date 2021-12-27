@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_side_client/TabRecipe/CommentMain.dart';
 import 'package:my_side_client/controllers/loginMainController.dart';
 import 'package:my_side_client/controllers/myPageMainController.dart';
 import 'package:my_side_client/screens/loginscreens/findEmailPage.dart';
@@ -65,13 +66,14 @@ void main() async {
     //     : autoLoginFlag
     //         ? MainTab()
     //         : LoginMainPage(),
-    initialRoute: loginMainController.loginStorage.read('isFirstRunApp') ?? true
+    initialRoute:
+        // loginMainController.loginStorage.read('isFirstRunApp') ?? true
         // ? '/onboarding'
         // : autoLoginFlag
         // ? '/MainTab'
         // : '/',
-        ? 'MainTab'
-        : 'RecipeMain',
+        // ? 'MainTab'
+        '/CommentMain',
     // home: LoginMainPage()));
     // home: MainTab(),
     getPages: [
@@ -98,6 +100,7 @@ void main() async {
       GetPage(name: '/checkPswd', page: () => CheckPswdPage()),
       GetPage(name: '/changePhone', page: () => PhoneChangePage()),
       GetPage(name: '/changePswd', page: () => PswdChangePage()),
+      GetPage(name: '/CommentMain', page: () => CommentMain()),
       GetPage(
           name: "/SearchIngredientCategoryResultList",
           page: () => SearchIngredientCategoryResultList()),
@@ -107,7 +110,7 @@ void main() async {
           name: "/SearchFoodcategoryResultList",
           page: () => SearchFoodcategoryResultList()),
       GetPage(name: "/MainTab", page: () => MainTab()),
-      GetPage(name: "/RecipeMain", page: () => RecipeMain())
+      GetPage(name: "/RecipeMain", page: () => RecipeMain()),
     ],
   ));
 }
