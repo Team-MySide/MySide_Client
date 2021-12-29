@@ -2,12 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
+import 'package:my_side_client/common/CommonTheme.dart';
 
 import 'Comment.dart';
 
-class CommentMain extends StatelessWidget {
+class CommentMain extends StatefulWidget {
   CommentMain({Key key}) : super(key: key);
+
+  @override
+  State<CommentMain> createState() => _CommentMainState();
+}
+
+class _CommentMainState extends State<CommentMain> {
   List<dynamic> sampleList = Comment.sampleList;
+  TextEditingController textEditingController;
+  bool isButtonActive = false;
+  @override
+  void initState() {
+    super.initState();
+    textEditingController = TextEditingController();
+    textEditingController.addListener(() {
+      final isButtonActive = textEditingController.text.isNotEmpty;
+      setState(() => this.isButtonActive = isButtonActive);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,11 +51,28 @@ class CommentMain extends StatelessWidget {
               decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
               padding: EdgeInsets.all(16),
               child: Row(children: [
-                Expanded(child: TextField()),
+                Expanded(
+                    child: TextField(
+                  controller: textEditingController,
+                  decoration: InputDecoration(
+                    hintText: "이웃주민에게 댓글을 입력해주세요!",
+                    hintStyle: TextStyle(color: Color(0xFFAAAAAA)),
+                    fillColor: Colors.white,
+                    filled: true, // <- this is required.
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.zero,
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                )),
+                // ConstrainedBox(
+                //   constraints: BoxConstraints.tightFor(width: 60, height: 154),
+                // child:
                 TextButton(
-                  // style: ButtonStyle(backgroundColor: Color(0xFF3BD7E2)),
-                  onPressed: () {},
+                  style: CommonTheme().getSquareButtonStyle(60, 54),
+                  onPressed: isButtonActive ? () {} : null,
                   child: Text("전송"),
+                  // ),
                 )
               ]),
             )
@@ -107,7 +143,7 @@ class CommentMainItem {
             ),
           ]),
         ),
-        Text("1시간전")
+        Text("1시간전", style: TextStyle(color: Color(0xFF999999)))
       ]),
     );
   }
