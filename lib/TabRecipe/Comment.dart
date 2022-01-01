@@ -20,6 +20,7 @@ class Comment {
     this.comment,
     this.likeCount,
     this.commentCount,
+    this.isLiked,
     this.createdTime,
     this.commendId,
   });
@@ -31,6 +32,7 @@ class Comment {
   String comment;
   int likeCount;
   int commentCount;
+  bool isLiked;
   String createdTime;
   int commendId;
 
@@ -42,6 +44,7 @@ class Comment {
         comment: json["comment"],
         likeCount: json["likeCount"],
         commentCount: json["commentCount"],
+        isLiked: json["isLiked"],
         createdTime: json["createdTime"],
         commendId: json["commendId"],
       );
@@ -54,6 +57,7 @@ class Comment {
         "comment": comment,
         "likeCount": likeCount,
         "commentCount": commentCount,
+        "isLiked": isLiked,
         "createdTime": createdTime,
         "commendId": commendId,
       };
@@ -77,6 +81,7 @@ final dynamic sampleComment = {
   "userId": "testId",
   "commentary": ["위암 2기", "수술전", "보호자"],
   "comment": "시금치는 몸에 다 좋아요! 특히 겨울 시금치~너무 좋더라구요",
+  "isLiked": true,
   "likeCount": 10,
   "commentCount": 222,
   "createdTime": "2021123 11:22:11",

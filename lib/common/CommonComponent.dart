@@ -452,3 +452,15 @@ class NetworkErrorPage extends StatelessWidget {
     );
   }
 }
+
+class EmptyWidget extends StatelessWidget {
+  const EmptyWidget({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 0,
+      height: 0,
+    );
+  }
+}

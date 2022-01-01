@@ -1,6 +1,9 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/common/CommonTheme.dart';
 
@@ -17,6 +20,7 @@ class _CommentMainState extends State<CommentMain> {
   List<dynamic> sampleList = Comment.sampleList;
   TextEditingController textEditingController;
   bool isButtonActive = false;
+  String writtenId = ""; //이전 화면에서 넘긴 글쓴이 id
   @override
   void initState() {
     super.initState();
@@ -38,9 +42,9 @@ class _CommentMainState extends State<CommentMain> {
               child: ListView.separated(
                 itemCount: sampleList.length,
                 itemBuilder: (context, i) {
-                  CommentMainItem item =
-                      CommentMainItem(Comment.fromJson(sampleList[i]));
-                  return item.createItem();
+                  CommentItem item =
+                      CommentItem(Comment.fromJson(sampleList[i]), true);
+                  return item.createCommentItem();
                 },
                 separatorBuilder: (BuildContext context, int index) {
                   return SizedBox(height: 24);
@@ -83,16 +87,30 @@ class _CommentMainState extends State<CommentMain> {
   }
 }
 
-class CommentMainItem {
+class CommentItem {
   final Comment item;
-  CommentMainItem(this.item, {Key key});
+  final bool isWriter;
+  CommentItem(this.item, this.isWriter, {Key key});
+  Widget createCommentItem() {
+    return createItem(true);
+  }
 
-  Widget createItem() {
+  Widget createReplyItem() {
+    return createItem(false);
+  }
+
+  Widget createItem(bool isMain) {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: 16,
       ),
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        isMain
+            ? SizedBox(width: 0)
+            : [
+                SvgPicture.asset("images/svg/comment_reply_arrow.svg"),
+                SizedBox(width: 20)
+              ],
         Image.asset(item.profileImage),
         Container(
           width: 8,
@@ -101,11 +119,20 @@ class CommentMainItem {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(item.userId, style: TextStyle(fontSize: 14)),
+                Row(children: [
+                  Text(
+                    item.userId,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  isWriter ? getWriter() : EmptyWidget()
+                ]),
+                Text("1시간전", style: TextStyle(color: Color(0xFF999999)))
                 // nickname
               ],
             ),
+            SizedBox(height: 4),
             Text(item.commentary.join("/"),
                 style: TextStyle(fontSize: 12, color: Color(0xFF999999))),
             Container(
@@ -120,7 +147,9 @@ class CommentMainItem {
             ),
             Row(
               children: [
-                SvgPicture.asset(Constants.likeSVGPath),
+                item.isLiked
+                    ? SvgPicture.asset(Constants.likeSVGSelectedPath)
+                    : SvgPicture.asset(Constants.likeSVGPath),
                 SizedBox(width: 5),
                 SizedBox(
                     width: 33,
@@ -128,14 +157,18 @@ class CommentMainItem {
                     child: Text(
                         item.likeCount != 0 ? "${item.likeCount}" : "좋아요")),
                 SizedBox(width: 24),
-                SvgPicture.asset(Constants.chatSVGPath),
-                SizedBox(width: 5),
-                SizedBox(
-                    width: 46,
-                    height: 16,
-                    child: Text(item.commentCount != 0
-                        ? "${item.commentCount}"
-                        : "댓글 쓰기")),
+                isMain
+                    ? SvgPicture.asset(Constants.chatSVGPath)
+                    : EmptyWidget(),
+                isMain ? SizedBox(width: 5) : EmptyWidget(),
+                isMain
+                    ? SizedBox(
+                        width: 46,
+                        height: 16,
+                        child: Text(item.commentCount != 0
+                            ? "${item.commentCount}"
+                            : "댓글 쓰기"))
+                    : EmptyWidget(),
                 // item.commentCount != 0
                 //     ? SvgPicture.asset("img/svg/vertical_dots.svg")
                 //     : null
@@ -143,8 +176,26 @@ class CommentMainItem {
             ),
           ]),
         ),
-        Text("1시간전", style: TextStyle(color: Color(0xFF999999)))
       ]),
+    );
+  }
+
+  Widget getWriter() {
+    return Padding(
+      padding: EdgeInsets.only(left: 8),
+      child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                  color: Color(Constants.primaryColorInt),
+                  width: 1,
+                  style: BorderStyle.solid)),
+          child: Padding(
+            padding: const EdgeInsets.all(3.5),
+            child: Text("글쓴이",
+                style: TextStyle(
+                    fontSize: 12, color: Color(Constants.primaryColorInt))),
+          )),
     );
   }
 }
