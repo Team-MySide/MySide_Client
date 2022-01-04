@@ -111,7 +111,20 @@ class CommentItem {
                 SvgPicture.asset("images/svg/comment_reply_arrow.svg"),
                 SizedBox(width: 20)
               ],
-        Image.asset(item.profileImage),
+        Container(
+          width: 32,
+          height: 32,
+          child: Image.asset(item.profileImage),
+          decoration: isWriter
+              ? BoxDecoration(
+                  // backgroundBlendMode: BlendMode.dst,
+                  shape: BoxShape.circle,
+                  color: Color(Constants.primaryColorInt),
+                  // borderRadius:BorderRadius.
+                  border: Border.all(
+                      width: 1, color: Color(Constants.primaryColorInt)))
+              : null,
+        ),
         Container(
           width: 8,
         ),
@@ -132,7 +145,7 @@ class CommentItem {
                 // nickname
               ],
             ),
-            SizedBox(height: 4),
+            SizedBox(height: 8),
             Text(item.commentary.join("/"),
                 style: TextStyle(fontSize: 12, color: Color(0xFF999999))),
             Container(
