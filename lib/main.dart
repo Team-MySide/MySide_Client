@@ -71,7 +71,7 @@ void main() async {
     // ? '/MainTab'
     // : '/',
         ? 'MainTab'
-        : 'RecipeMain',
+        : '/',
     // home: LoginMainPage()));
     // home: MainTab(),
     getPages: [

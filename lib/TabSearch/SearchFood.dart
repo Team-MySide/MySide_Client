@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_side_client/TabHome/SearchBar.dart';
-import 'package:my_side_client/TabRecipe/RecipeMain.dart';
 import 'package:my_side_client/TabSearch/DownloadFoodListRepository/DownloadFoodListController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/common/Data/MenuData.dart';
-import 'package:my_side_client/TabSearch/testtesttest.dart';
 import 'FoodInformation.dart';
 
 class SearchFood extends StatefulWidget {
@@ -49,13 +46,6 @@ class _SearchFoodState extends State<SearchFood> {
                         _searchResult,
                         "/FoodInformation",
                       )),
-                GestureDetector(
-                    child: SizedBox(
-                        width: 104,
-                        height: 40,
-                        child: SearchButton("이준현 버튼", "images/svg/searchbar_food.svg",
-                            0xFFEDF5E9, 0xFF528A36)),
-                    onTap: () => Get.to(RecipeMain()))
               ],
             )));
   }
