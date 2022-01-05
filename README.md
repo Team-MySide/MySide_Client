@@ -2,6 +2,12 @@
 
 My side project client repository
 
+# 개발 환경
+* Flutter 2.5.3 • channel stable • https://github.com/flutter/flutter.git
+* Framework • revision 18116933e7 (7 weeks ago) • 2021-10-15 10:46:35 -0700
+* Engine • revision d3ea636dc5
+* Tools • Dart 2.14.4
+
 # 코드 커밋 규약 가이드 
 
 ## reference : [참고 링크](https://tttsss77.tistory.com/58)
@@ -10,6 +16,8 @@ My side project client repository
 * 헤더 타입과 작성 예제
   * 기능 추가 / 삭제 / 변경
     * 기능 : UI 1.0 구현
+  * GUI 
+    * GUI : 레시피 구현 
   * 버그
     * 버그 : 암 목록 가져오는 api 수정
   * 리팩토링

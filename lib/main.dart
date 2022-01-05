@@ -39,9 +39,9 @@ import 'screens/mypagescreens/myPageMain.dart';
 void main() async {
   await GetStorage.init();
   final LoginMainController loginMainController =
-      Get.put(LoginMainController());
+  Get.put(LoginMainController());
   final MyPageMainController myPageMainController =
-      Get.put(MyPageMainController());
+  Get.put(MyPageMainController());
   GetStorage box = GetStorage();
   bool autoLoginFlag = false;
   if (loginMainController.loginStorage.read('autologin') != null &&
@@ -66,14 +66,14 @@ void main() async {
     //     : autoLoginFlag
     //         ? MainTab()
     //         : LoginMainPage(),
-    initialRoute:
-        // loginMainController.loginStorage.read('isFirstRunApp') ?? true
-        // ? '/onboarding'
-        // : autoLoginFlag
-        // ? '/MainTab'
-        // : '/',
-        // ? 'MainTab'
-        '/CommentMain',
+
+    initialRoute: loginMainController.loginStorage.read('isFirstRunApp') ?? true
+    // ? '/onboarding'
+    // : autoLoginFlag
+    // ? '/MainTab'
+    // : '/',
+        ? 'MainTab'
+        : '/',
     // home: LoginMainPage()));
     // home: MainTab(),
     getPages: [
@@ -111,6 +111,7 @@ void main() async {
           page: () => SearchFoodcategoryResultList()),
       GetPage(name: "/MainTab", page: () => MainTab()),
       GetPage(name: "/RecipeMain", page: () => RecipeMain()),
+
     ],
   ));
 }
