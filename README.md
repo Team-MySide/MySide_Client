@@ -16,6 +16,8 @@ My side project client repository
 * 헤더 타입과 작성 예제
   * 기능 추가 / 삭제 / 변경
     * 기능 : UI 1.0 구현
+  * GUI 
+    * GUI : 레시피 구현 
   * 버그
     * 버그 : 암 목록 가져오는 api 수정
   * 리팩토링
