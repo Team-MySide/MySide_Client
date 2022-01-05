@@ -18,4 +18,7 @@ class Constants {
 
   //use in getx_storage
   static String isFirstRunApp = "isFirstRunApp";
+  static const String likeSVGPath = "images/svg/like.svg";
+  static const String likeSVGSelectedPath = "images/svg/like_selected.svg";
+  static const String chatSVGPath = "images/svg/chat.svg";
 }
