@@ -4,7 +4,6 @@ import 'package:my_side_client/TabSearch/DownloadFoodListRepository/DownloadFood
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/common/Data/MenuData.dart';
-
 import 'FoodInformation.dart';
 
 class SearchFood extends StatefulWidget {
@@ -46,7 +45,7 @@ class _SearchFoodState extends State<SearchFood> {
                         child: AutoCompleteListView(
                         _searchResult,
                         "/FoodInformation",
-                      ))
+                      )),
               ],
             )));
   }
