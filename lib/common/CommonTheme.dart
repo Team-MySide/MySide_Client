@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CommonTheme {
-  ButtonStyle getSquareButtonStyle(double w, double h) {
+  static ButtonStyle getSquareButtonStyle({double w, double h}) {
     return ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
           borderRadius: BorderRadius.zero,
         )),
-        fixedSize: MaterialStateProperty.all(Size(w, h)),
+        fixedSize: w != null && h != null
+            ? MaterialStateProperty.all(Size(w, h))
+            : null,
         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         // backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF3BD7E2)),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -23,6 +25,7 @@ class CommonTheme {
           },
         ));
   }
+
 // 0xFF3BD7E2
 
 }

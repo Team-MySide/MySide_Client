@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/TabRecipe/CommentMain.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipe05InsertRecipe.dart';
 import 'package:my_side_client/controllers/loginMainController.dart';
 import 'package:my_side_client/controllers/myPageMainController.dart';
 import 'package:my_side_client/screens/loginscreens/findEmailPage.dart';
@@ -29,6 +30,7 @@ import 'package:my_side_client/screens/onboarding/onBoardingPage.dart';
 import 'Constants.dart';
 import 'MainTab.dart';
 import 'TabRecipe/RecipeMain.dart';
+import 'TabRecipe/RegisterRecipe03InsertRecipe.dart';
 import 'TabSearch/FoodGridList.dart';
 import 'TabSearch/FoodInformation.dart';
 import 'TabSearch/IngredientGridList.dart';
@@ -39,9 +41,9 @@ import 'screens/mypagescreens/myPageMain.dart';
 void main() async {
   await GetStorage.init();
   final LoginMainController loginMainController =
-  Get.put(LoginMainController());
+      Get.put(LoginMainController());
   final MyPageMainController myPageMainController =
-  Get.put(MyPageMainController());
+      Get.put(MyPageMainController());
   GetStorage box = GetStorage();
   bool autoLoginFlag = false;
   if (loginMainController.loginStorage.read('autologin') != null &&
@@ -68,11 +70,11 @@ void main() async {
     //         : LoginMainPage(),
 
     initialRoute: loginMainController.loginStorage.read('isFirstRunApp') ?? true
-    // ? '/onboarding'
-    // : autoLoginFlag
-    // ? '/MainTab'
-    // : '/',
-        ? 'MainTab'
+        // ? '/onboarding'
+        // : autoLoginFlag
+        // ? '/MainTab'
+        // : '/',
+        ? 'RegisterRecipe05'
         : '/',
     // home: LoginMainPage()));
     // home: MainTab(),
@@ -111,7 +113,12 @@ void main() async {
           page: () => SearchFoodcategoryResultList()),
       GetPage(name: "/MainTab", page: () => MainTab()),
       GetPage(name: "/RecipeMain", page: () => RecipeMain()),
-
+      GetPage(
+          name: "/RegisterRecipe03",
+          page: () => RegisterRecipe03InsertRecipe()),
+      GetPage(
+          name: "/RegisterRecipe05",
+          page: () => RegisterRecipe05InsertRecipe()),
     ],
   ));
 }

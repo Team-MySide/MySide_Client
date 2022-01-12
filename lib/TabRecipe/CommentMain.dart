@@ -83,7 +83,7 @@ class CommentFooter extends StatelessWidget {
         //   constraints: BoxConstraints.tightFor(width: 60, height: 154),
         // child:
         TextButton(
-          style: CommonTheme().getSquareButtonStyle(60, 54),
+          style: CommonTheme.getSquareButtonStyle(w: 60, h: 54),
           onPressed: isButtonActive ? () {} : null,
           child: Text("전송"),
           // ),
