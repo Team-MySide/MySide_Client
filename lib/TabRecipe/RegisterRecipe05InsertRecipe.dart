@@ -179,7 +179,7 @@ class _RegisterRecipe05InsertRecipeState
                       onPressed: isSomethingInserted() ? () {} : null,
                       child: Text("임시저장", style: TextStyle(fontSize: 16)),
                       // style:
-                      style: CommonTheme.getSquareButtonStyle(),
+                      style: CommonTheme.getSquareGreyButtonStyle(),
                     ),
                   )),
                   Expanded(
@@ -188,7 +188,7 @@ class _RegisterRecipe05InsertRecipeState
                     child: TextButton(
                       onPressed: isSomethingInserted() ? () {} : null,
                       child: Text("미리보기", style: TextStyle(fontSize: 16)),
-                      style: CommonTheme.getSquareButtonStyle(),
+                      style: CommonTheme.getSquarePrimaryButtonStyle(),
                     ),
                   ))
                 ],
