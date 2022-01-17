@@ -1,302 +1,208 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_side_client/TabSearch/contants.dart';
-import '../Constants.dart';
-
+import 'package:get/get.dart';
+import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/Styles.dart';
+import 'package:my_side_client/TabHome/SearchBar.dart';
+import 'package:my_side_client/common/CommonComponent.dart';
 
 class RecipeMain extends StatefulWidget {
-  RecipeMain({Key key}) : super(key: key);
-
   @override
   State<RecipeMain> createState() => _RecipeMainState();
 }
 
 class _RecipeMainState extends State<RecipeMain> {
-  TextEditingController _textEditingController;
-  String _dropdownValue = "최신순";
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _textEditingController = TextEditingController();
-  }
+  TextEditingController controller = TextEditingController();
+
+  bool isRecipe = true;
 
   @override
   Widget build(BuildContext context) {
-    double scrHeight = MediaQuery.of(context).size.height;
-    double scrWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
-        child: Column(children: [
-          Container(
-              margin: EdgeInsets.all(16),
-              // decoration: BoxDecoration(color: Colors.amber),
-              height: 49,
-              child: Row(children: [
-                Container(
-                  margin: EdgeInsets.only(right: 16),
-                  width: 101,
-                  height: 49,
-                  child: DropdownButtonFormField<String>(
-                    items: <String>['최신순', '좋아요순', '별점순', '난이도순']
-                        .map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 15),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30))),
-                    ),
-                    value: _dropdownValue,
-                    onChanged: (String newValue) {
-                      setState(() {
-                        _dropdownValue = newValue;
-                      });
-                    },
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SearchContainer(
+                  controller,
+                  hintText: "레시피를 입력하세요",
                 ),
-                Expanded(
-                  child: TextField(
-                    // textAlignVertical: TextAlignVertical.center,
-                      controller: _textEditingController,
-                      textInputAction: TextInputAction.search,
-                      onSubmitted: (String value) {
-                        print("submitted run");
-                        // onSubmitted(context);
-                      },
-                      // onChanged: onChanged,
-                      decoration: InputDecoration(
-                        hintText: "음식을 입력하세요",
-                        hintStyle:
-                        TextStyle(color: Color(0xFF999999), fontSize: 16),
-                        contentPadding: EdgeInsets.only(left: 15.0),
-                        suffixIcon: Container(
-                            padding: EdgeInsets.all(13),
-                            child: SvgPicture.asset(
-                                "images/svg/searchbar_search.svg")),
-                        enabledBorder: const OutlineInputBorder(
-                          // width: 0.0 produces a thin "hairline" border
-                          borderSide:
-                          const BorderSide(color: Colors.grey, width: 0.0),
-                          borderRadius: const BorderRadius.all(
-                              const Radius.circular(30.0)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color(Constants.primaryColorInt),
-                                width: 0),
-                            borderRadius: const BorderRadius.all(
-                                const Radius.circular(30.0))),
-                      ),
-                      style: TextStyle(
-                          fontSize: 18, textBaseline: TextBaseline.alphabetic)),
-                )
-              ])),
-          // SingleChildScrollView(
-          //   child:
-          Expanded(
-          child: ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: recipeTiles.length,
-            itemBuilder: (BuildContext context, int index) {
-              return buildSingleRecipeTile(
-                scrWidth,
-                scrHeight,
-                recipeTiles[index],
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                SizedBox(height: 0.0296 * scrHeight),
+                SizedBox(
+                  height: 40,
+                ),
+                CategoryTitle(),
+                SizedBox(
+                  height: 24,
+                ),
+                isRecipe
+                    ? NavigateIconViewsContainer2(categoryList)
+                    : NavigateIconViewsContainer2(diseasesList),
+                // RecommendRecipeContainer(),
+                // BestRecipeContainer()
+              ],
+            ),
           ),
-          ),
-        ]),
+        ),
       ),
+    );
+  }
+
+  final String namedWidgetPath = "/Recipe03InsertRecipe";
+
+  Widget CategoryTitle() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () => setState(() {
+            isRecipe = true;
+          }),
+          child: Column(children: [
+            Text("종류별 레시피",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: isRecipe
+                        ? Color(Constants.primaryColorInt)
+                        : Color(0xFFAAAAAA))),
+            SizedBox(
+              height: 8,
+            ),
+            Container(
+              height: 3,
+              width: 92,
+              decoration: BoxDecoration(
+                  color: isRecipe
+                      ? Color(Constants.primaryColorInt)
+                      : Colors.transparent),
+            )
+          ]),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        GestureDetector(
+          onTap: () => setState(() {
+            isRecipe = false;
+          }),
+          child: Column(children: [
+            Text("질병별 레시피",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: isRecipe
+                        ? Color(0xFFAAAAAA)
+                        : Color(Constants.primaryColorInt))),
+            SizedBox(
+              height: 8,
+            ),
+            Container(
+              height: 3,
+              width: 92,
+              decoration: BoxDecoration(
+                  color: isRecipe
+                      ? Colors.transparent
+                      : Color(Constants.primaryColorInt)),
+            )
+          ]),
+        ),
+      ],
     );
   }
 }
 
-Widget buildRoundedWidget(
-    Widget frondWidget, Widget backWidget, double scrHeight, double scrWidth) {
-  return Container(
-    padding: EdgeInsets.symmetric(
-      vertical: scrHeight * 0.01355,
-      horizontal: 0.0427 * scrWidth,
-    ),
-    decoration: BoxDecoration(
-      border: Border.all(
-        color: const Color(0xFFDDDDDD),
-      ),
-      borderRadius: const BorderRadius.all(
-        Radius.circular(50),
-      ),
-    ),
-    child: Row(
-      children: [
-        frondWidget,
-        const Spacer(),
-        backWidget,
-      ],
-    ),
-  );
+class BestRecipeContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
 }
 
-Widget buildFoodImg(String imgPath, String ranking, double scrWidth) {
-  return Stack(
-    clipBehavior: Clip.none,
-    children: [
-      Image.asset(
-        imgPath,
-        width: 0.4373 * scrWidth,
-      ),
-      Positioned(
-        top: -2,
-        left: 10,
-        child: SvgPicture.asset(ranking),
-      ),
-    ],
-  );
+class RecommendRecipeContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
 }
 
-Widget buildRecipeName(String recipeName) {
-  return Text(
-    recipeName,
-    maxLines: 2,
-    overflow: TextOverflow.ellipsis,
-    style: const TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w700,
-    ),
-  );
+//will move to CommonComponent. And will replace NavigateIconViewsContainer
+class NavigateIconViewsContainer2 extends StatelessWidget {
+  final data;
+
+  NavigateIconViewsContainer2(this.data, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // return _getNavigateIconViews(data)
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: data.length,
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 75,
+          mainAxisExtent: 101,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 15),
+      itemBuilder: (context, index) => NavigateIconView(data[index]),
+    );
+  }
 }
 
-Widget buildUsrInfo(List<String> usrInfo, double scrWidth) {
-  return SizedBox(
-    width: double.infinity,
-    child: Wrap(
-      spacing: 0.0213 * scrWidth,
-      children: [
-        Text(usrInfo[0], style: hashStyle),
-        Text(usrInfo[1], style: hashStyle),
-        Text(usrInfo[2], style: hashStyle),
-      ],
-    ),
-  );
-}
+const List<Map> diseasesList = [
+  {"title": "위암", "iconPath": "images/svg/disease_1.svg", "namedRoute": ""},
+  {"title": "간암", "iconPath": "images/svg/disease_2.svg", "namedRoute": ""},
+  {"title": "대장암", "iconPath": "images/svg/disease_3.svg", "namedRoute": ""},
+  {"title": "폐암", "iconPath": "images/svg/disease_4.svg", "namedRoute": ""},
+  {"title": "유방암", "iconPath": "images/svg/disease_5.svg", "namedRoute": ""},
+  {"title": "갑상선암", "iconPath": "images/svg/disease_6.svg", "namedRoute": ""},
+];
 
-Widget buildProfileAndNickname(
-    String profileImg, String nickname, double scrWidth) {
-  return Row(
-    children: [
-      Image.asset(profileImg),
-      SizedBox(
-        width: 0.0213 * scrWidth,
-      ),
-      Text(
-        nickname,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    ],
-  );
-}
+const List<dynamic> categoryList = [
+  {"iconPath": "images/svg/maindish.svg", "title": "메인요리", "namedRoute": ""},
+  {"iconPath": "images/svg/side.svg", "title": "밑반찬", "namedRoute": ""},
+  {"iconPath": "images/svg/stew.svg", "title": "국/탕/찌개", "namedRoute": ""},
+  {"iconPath": "images/svg/dessert.svg", "title": "디저트", "namedRoute": ""},
+  {"iconPath": "images/svg/nudle.svg", "title": "면/만두", "namedRoute": ""},
+  {"iconPath": "images/svg/rice.svg", "title": "밥/죽/떡", "namedRoute": ""},
+  {"iconPath": "images/svg/kimchi.svg", "title": "김치/젓갈/장", "namedRoute": ""},
+  {"iconPath": "images/svg/steak.svg", "title": "양식", "namedRoute": ""},
+  {"iconPath": "images/svg/jam.svg", "title": "양념/잼", "namedRoute": ""},
+  {"iconPath": "images/svg/salad.svg", "title": "샐러드", "namedRoute": ""},
+  {
+    "iconPath": "images/svg/category_tea.svg",
+    "title": "차/음료",
+    "namedRoute": ""
+  },
+  {"iconPath": "images/svg/category_etc.svg", "title": "기타", "namedRoute": ""}
+];
 
-Widget buildStarRatingNMinute(double scrWidth, int minute, int rating) {
-  return Row(
-    children: [
-      rating < 1
-          ? SvgPicture.asset('assets/icons/off.svg')
-          : SvgPicture.asset('assets/icons/on.svg'),
-      SizedBox(
-        width: 0.0107 * scrWidth,
-      ),
-      rating < 2
-          ? SvgPicture.asset('assets/icons/off.svg')
-          : SvgPicture.asset('assets/icons/on.svg'),
-      SizedBox(
-        width: 0.0107 * scrWidth,
-      ),
-      rating < 3
-          ? SvgPicture.asset('assets/icons/off.svg')
-          : SvgPicture.asset('assets/icons/on.svg'),
-      SizedBox(
-        width: 0.0267 * scrWidth,
-      ),
-      const VerticalDivider(
-        color: Color(0xFFDDDDDD),
-        thickness: 1.5,
-      ),
-      SizedBox(
-        width: 0.0267 * scrWidth,
-      ),
-      SvgPicture.asset('assets/icons/time.svg'),
-      SizedBox(
-        width: 0.0133 * scrWidth,
-      ),
-      Text(
-        minute.toString() + '분',
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w300,
-          color: Color(0xFF666666),
-        ),
-      ),
-    ],
-  );
-}
+class NavigateIconView extends StatelessWidget {
+  final data;
+  const NavigateIconView(this.data, {Key key}) : super(key: key);
 
-Widget buildSingleRecipeTile(
-    double scrWidth,
-    double scrHeight,
-    RecipeTile recipeTile,
-    ) {
-  return SizedBox(
-    height: 0.22 * scrHeight,
-    child: Row(
-      children: [
-        buildFoodImg(
-          recipeTile.recipeImg,
-          recipeTile.rankImg,
-          scrWidth,
-        ),
-        SizedBox(
-          width: 0.03 * scrWidth,
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              buildRecipeName(recipeTile.recipeName),
-              const Spacer(),
-              Column(
-                children: [
-                  buildProfileAndNickname(
-                    recipeTile.usrProfileImg,
-                    recipeTile.usrNickname,
-                    scrWidth,
-                  ),
-                  SizedBox(
-                    height: 0.0049 * scrHeight,
-                  ),
-                  buildUsrInfo(recipeTile.usrInfo, scrWidth),
-                  SizedBox(
-                    height: 0.0197 * scrHeight,
-                  ),
-                  SizedBox(
-                    height: 0.025 * scrHeight,
-                    child: buildStarRatingNMinute(
-                        scrWidth, recipeTile.minute, recipeTile.rate),
-                  ),
-                ],
+  @override
+  Widget build(BuildContext context) {
+    String iconPath = data['iconPath'];
+    String title = data['title'];
+    String namedWidget = data['namedRoute'];
+
+    return GestureDetector(
+        child: Column(
+          children: [
+            Container(
+              width: 75,
+              height: 75,
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xFFDDDDDD)),
+                borderRadius: BorderRadius.circular(10),
               ),
-            ],
-          ),
+              child: Center(child: SvgPicture.asset(iconPath)),
+            ),
+            SizedBox(height: 8),
+            Text(title, style: TextStyle(fontSize: 14))
+          ],
         ),
-      ],
-    ),
-  );
+        onTap: () => Get.toNamed(namedWidget, arguments: title));
+  }
 }
