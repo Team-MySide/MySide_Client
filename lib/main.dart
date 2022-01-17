@@ -29,6 +29,7 @@ import 'package:my_side_client/screens/mypagescreens/termOfServicePage.dart';
 import 'package:my_side_client/screens/onboarding/onBoardingPage.dart';
 import 'Constants.dart';
 import 'MainTab.dart';
+import 'TabRecipe/RecipeList.dart';
 import 'TabRecipe/RecipeMain.dart';
 import 'TabRecipe/RegisterRecipe03InsertRecipe.dart';
 import 'TabSearch/FoodGridList.dart';
@@ -74,8 +75,8 @@ void main() async {
         // : autoLoginFlag
         // ? '/MainTab'
         // : '/',
-        ? 'RegisterRecipe05'
-        : '/',
+        ? '/RecipeMain'
+        : '/RecipeMain',
     // home: LoginMainPage()));
     // home: MainTab(),
     getPages: [
@@ -112,13 +113,14 @@ void main() async {
           name: "/SearchFoodcategoryResultList",
           page: () => SearchFoodcategoryResultList()),
       GetPage(name: "/MainTab", page: () => MainTab()),
-      GetPage(name: "/RecipeMain", page: () => RecipeMain()),
+      GetPage(name: "/RecipeList", page: () => RecipeList()),
       GetPage(
           name: "/RegisterRecipe03",
           page: () => RegisterRecipe03InsertRecipe()),
       GetPage(
           name: "/RegisterRecipe05",
           page: () => RegisterRecipe05InsertRecipe()),
+      GetPage(name: "/RecipeMain", page: () => RecipeMain()),
     ],
   ));
 }
