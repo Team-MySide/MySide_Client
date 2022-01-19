@@ -29,7 +29,6 @@ import 'package:my_side_client/screens/mypagescreens/termOfServicePage.dart';
 import 'package:my_side_client/screens/onboarding/onBoardingPage.dart';
 import 'Constants.dart';
 import 'MainTab.dart';
-import 'TabRecipe/RecipeList.dart';
 import 'TabRecipe/RecipeMain.dart';
 import 'TabRecipe/RegisterRecipe03InsertRecipe.dart';
 import 'TabSearch/FoodGridList.dart';
@@ -61,6 +60,10 @@ void main() async {
   runApp(GetMaterialApp(
     title: "이웃집닥터 메인",
     theme: ThemeData(
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: MaterialStateProperty.all(Color(0xFF3BD7E2)),
+          trackColor: MaterialStateProperty.all(Color(0xFFF4F4F4)),
+        ),
         primaryColor: Color(Constants.primaryColorInt),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         canvasColor: Colors.white),
@@ -113,7 +116,6 @@ void main() async {
           name: "/SearchFoodcategoryResultList",
           page: () => SearchFoodcategoryResultList()),
       GetPage(name: "/MainTab", page: () => MainTab()),
-      GetPage(name: "/RecipeList", page: () => RecipeList()),
       GetPage(
           name: "/RegisterRecipe03",
           page: () => RegisterRecipe03InsertRecipe()),

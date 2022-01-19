@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
-import 'package:my_side_client/Styles.dart';
-import 'package:my_side_client/TabHome/SearchBar.dart';
+import 'package:my_side_client/TabRecipe/RecipeListExample.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
+import 'package:my_side_client/models/recipeTileModel.dart';
+import 'package:my_side_client/wigets/buttonwidget/textWithMoreButton.dart';
+import 'package:my_side_client/wigets/etcwidgets/recipeTileType1.dart';
+import 'package:my_side_client/wigets/etcwidgets/recipeTileType2.dart';
+import 'package:my_side_client/wigets/etcwidgets/starRating.dart';
 
 class RecipeMain extends StatefulWidget {
   @override
@@ -13,6 +17,7 @@ class RecipeMain extends StatefulWidget {
 
 class _RecipeMainState extends State<RecipeMain> {
   TextEditingController controller = TextEditingController();
+  final ScrollController _scrollCtrl = ScrollController();
 
   bool isRecipe = true;
 
@@ -24,6 +29,7 @@ class _RecipeMainState extends State<RecipeMain> {
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SearchContainer(
                   controller,
@@ -39,8 +45,8 @@ class _RecipeMainState extends State<RecipeMain> {
                 isRecipe
                     ? NavigateIconViewsContainer2(categoryList)
                     : NavigateIconViewsContainer2(diseasesList),
-                // RecommendRecipeContainer(),
-                // BestRecipeContainer()
+                buildRecommendRecipe(() {}, recipeTiles, 410, 223),
+                buildBestRecipe(() {}, recipeTiles),
               ],
             ),
           ),
@@ -50,6 +56,69 @@ class _RecipeMainState extends State<RecipeMain> {
   }
 
   final String namedWidgetPath = "/Recipe03InsertRecipe";
+
+  Widget buildRecommendRecipe(
+    VoidCallback onTap,
+    List<RecipeTile> recipeTiles,
+    double listviewHeight,
+    double imgSize,
+  ) {
+    return Column(
+      children: [
+        SizedBox(height: 40),
+        TextWithMoreButton(titleText: '위암에 좋은 추천 레시피', onTap: onTap),
+        SizedBox(height: 26),
+        SizedBox(
+          height: listviewHeight,
+          child: Scrollbar(
+            controller: _scrollCtrl,
+            showTrackOnHover: true,
+            isAlwaysShown: true,
+            thickness: 2,
+            child: ListView.separated(
+              controller: _scrollCtrl,
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                return RecipeTileType2Widget(
+                  recipeTile: recipeTiles[index],
+                  imgWidth: imgSize,
+                  subTileHeight: listviewHeight - imgSize - 24,
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  SizedBox(width: 16),
+              itemCount: recipeTiles.length,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildBestRecipe(VoidCallback onTap, List<RecipeTile> recipeTiles) {
+    return Column(
+      children: [
+        SizedBox(height: 40),
+        TextWithMoreButton(titleText: '이달의 BEST 레시피', onTap: onTap),
+        SizedBox(height: 26),
+        ListView.separated(
+          physics: ScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: recipeTiles.length,
+          itemBuilder: (BuildContext context, int index) {
+            return RecipeTileType1Widget(
+              recipeTile: recipeTiles[index],
+              tileHeight: 164,
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) =>
+              SizedBox(height: 30),
+        ),
+      ],
+    );
+  }
 
   Widget CategoryTitle() {
     return Row(
@@ -108,22 +177,6 @@ class _RecipeMainState extends State<RecipeMain> {
         ),
       ],
     );
-  }
-}
-
-class BestRecipeContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
-
-class RecommendRecipeContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }
 

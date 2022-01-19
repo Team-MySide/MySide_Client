@@ -66,6 +66,10 @@ flutter:
     - images/loading/
     - images/detail_cancer/
     - assets/
+    - assets/food_img/
+    - assets/icons/
+    - assets/profile_img/
+
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

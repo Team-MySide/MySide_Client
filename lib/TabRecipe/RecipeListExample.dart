@@ -1,27 +1,4 @@
-import 'package:flutter/material.dart';
-
-TextStyle hashStyle = const TextStyle(
-  fontSize: 14,
-  fontWeight: FontWeight.w300,
-  color: Color(0xFF3BD7E2),
-);
-
-class RecipeTile {
-  RecipeTile({
-    this.recipeImg,
-    this.rankImg,
-    this.recipeName,
-    this.usrProfileImg,
-    this.usrNickname,
-    this.usrInfo,
-    this.rate,
-    this.minute,
-  });
-
-  String recipeImg, rankImg, recipeName, usrProfileImg, usrNickname;
-  List<String> usrInfo;
-  int rate, minute;
-}
+import 'package:my_side_client/models/recipeTileModel.dart';
 
 List<RecipeTile> recipeTiles = [
   RecipeTile(
