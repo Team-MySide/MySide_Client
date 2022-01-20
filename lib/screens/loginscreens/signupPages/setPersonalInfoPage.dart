@@ -118,7 +118,7 @@ class SetPersonalInfoPage extends StatelessWidget {
                   ),
                   RecSubmitButton(
                     buttonText: '다음 페이지',
-                    scrHeight: scrHeight,
+                    buttonHeight: scrHeight,
                     activated: controller.isActive(),
                     validateFunc: () {
                       controller.setValidateNum();

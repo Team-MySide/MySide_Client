@@ -122,7 +122,7 @@ class SignUpMainPage extends StatelessWidget {
                   ),
                   RecSubmitButton(
                     buttonText: '회원가입',
-                    scrHeight: scrHeight,
+                    buttonHeight: scrHeight,
                     activated: isActive,
                     validateFunc: () {
                       if (controller.validateSignUpdMain() &&

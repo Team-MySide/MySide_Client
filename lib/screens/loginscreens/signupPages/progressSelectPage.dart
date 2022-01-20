@@ -79,7 +79,7 @@ class ProgressSelectPage extends StatelessWidget {
                     Expanded(
                       child: RecSubmitButton(
                         buttonText: '완료 할래요',
-                        scrHeight: scrHeight,
+                        buttonHeight: scrHeight,
                         activated: controller.progressNm > 0,
                         validateFunc: () async {
                           if (controller.progressNm > 0) {
@@ -95,7 +95,7 @@ class ProgressSelectPage extends StatelessWidget {
                     Expanded(
                       child: RecSubmitButton(
                         buttonText: '2단계 입력하러 갈래요',
-                        scrHeight: scrHeight,
+                        buttonHeight: scrHeight,
                         activated: controller.progressNm > 0,
                         validateFunc: () {
                           if (controller.progressNm > 0) {

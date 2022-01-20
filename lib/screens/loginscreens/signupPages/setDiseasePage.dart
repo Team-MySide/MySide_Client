@@ -91,7 +91,7 @@ class SetDiseasePage extends StatelessWidget {
                   ),
                   RecSubmitButton(
                     buttonText: '다음 페이지',
-                    scrHeight: scrHeight,
+                    buttonHeight: scrHeight,
                     activated: controller.diseaseNum > 0,
                     validateFunc: () async {
                       if (controller.diseaseNum > 0) {

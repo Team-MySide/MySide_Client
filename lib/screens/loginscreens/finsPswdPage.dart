@@ -56,7 +56,7 @@ class FindPswdPage extends StatelessWidget {
                       ),
                       RecSubmitButton(
                         buttonText: '비밀번호 찾기',
-                        scrHeight: scrHeight,
+                        buttonHeight: scrHeight,
                         activated:
                             controller.nameTextField.tec.text.isNotEmpty &&
                                 controller.emailTextField.tec.text.isNotEmpty,

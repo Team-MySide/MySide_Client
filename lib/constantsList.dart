@@ -60,3 +60,25 @@ final List<String> monthList = [
   '11월',
   '12월'
 ];
+
+final List<String> recipeList = [
+  '메인요리',
+  '밑반찬',
+  '국/탕/찌개',
+  '디저트',
+  '면/만두',
+  '밥/죽/떡',
+  '김치/젓갈/장',
+  '양식',
+  '양념/잼',
+  '샐러드',
+  '차/음료',
+  '기타'
+];
+
+final List<String> foodAmountList = [
+  '1인분',
+  '2인분',
+  '3인분',
+  '4인분',
+];
