@@ -35,32 +35,30 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
 
   var nowState = List<bool>.filled(10, true);
 
-  bool somethingInsert(bool a){
+
+  List<bool> _nownowState =[true,true,true,true,true,true,true,true,true,true ];
+
+
+
+
+  bool somethingInsert(){
+    int f=10;
     for(int i=0; i<10; i++){
-      if(nowState[i]=true){return true;}
-      else{
-        break;
-      }
-      return false;
+      if(_nownowState[i])f--;
     }
+    if(f<_count.length){return true;}
+    else return false;
+
 
   }
 
-  bool ControllerState(int index){
-    if(_stateController[index].text.isNotEmpty){
-      nowState[index]=true;
-      return true;
+  bool everyInsert(){
+    int t=0;
+    for(int i=0; i<10; i++){
+      if(_nownowState[i])t++;
     }
-    else {
-      nowState[index]=false;
-      return false;
-    }
-  }
-
-  bool everyinsert(int number){
-    for(int i=0; i<number; i++){
-      return true;
-    }
+    if(t==10) return true;
+    else return false;
   }
 
 
@@ -169,7 +167,7 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
     if(number==0){   //요리순서 step1 항목
 
       _count.insert(0, number);
-      nowState[0]=false;
+      _nownowState[0]=false;
       Future.delayed(const Duration(milliseconds: 100), () {
         _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.ease);
       },);
@@ -245,11 +243,15 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
                 child:  TextField(
                   controller: _stateController[index],
                   onChanged: (_) => setState(() {
-
-
+                    if(_stateController[index].text.isNotEmpty){
+                      _nownowState[index]=true;
+                    }
+                    else{
+                      _nownowState[index]=false;
+                    }
                   }),
                   maxLines: null,
-                  decoration: InputDecoration(hintText: '0/1000자',
+                  decoration: InputDecoration(hintText: '0/1000자$_nownowState[0]',
                     border:InputBorder.none,),),),
             ),
 
@@ -292,11 +294,11 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
 
   TextButton ItemAddButton() {
     return TextButton(onPressed: () {
+
       setState(()  {
         number++;
-        nowState[_count.length]=false;
         _count.insert(0, number);
-        nowState[_count.length-1]=false;
+        _nownowState[_count.length-1]=false;
         Future.delayed(const Duration(milliseconds: 100), () {
           _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.ease);
         },);});},
@@ -324,6 +326,7 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
                   _count.removeAt(_count.length-1);
                   _image[_count.length]=null;
                   number--;});}
+              _nownowState[_count.length]=true;
               _stateController[_count.length].clear();
             },
 
@@ -343,7 +346,7 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
                 child: Container(
                   height: 70,
                   child: TextButton(
-                    onPressed: ControllerState(0) ? () {_showDialog();} : null,
+                    onPressed: somethingInsert() ? () {_showDialog();} : null,
                     child: Text("임시저장", style: TextStyle(fontSize: 16)),
                     // style:
                     style: CommonTheme.getSquareGreyButtonStyle(),
@@ -353,7 +356,7 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
                 child: Container(
                   height: 70,
                   child: TextButton(
-                    onPressed: everyinsert(number) ? () {} : null,
+                    onPressed: everyInsert() ? () {} : null,
                     child: Text("재료 입력하기", style: TextStyle(fontSize: 16)),
                     style: CommonTheme.getSquarePrimaryButtonStyle(),
                   ),

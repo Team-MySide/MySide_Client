@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_side_client/TabRecipe/CommentDelete.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
-
 import 'RegisterRecipe02InsertRecipeImage.dart';
 import 'RegisterRecipe02InsertVideo.dart';
 
@@ -17,85 +16,19 @@ class RegisterRecipe01InsertRecipe extends StatefulWidget {
 
 class _RegisterRecipe01InsertRecipeState extends State<RegisterRecipe01InsertRecipe> {
 
-  void _showDelete() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CommentDelete();
-      },
-    );
-  }
 
+  /* showDialog(  // 등록 취소 or 이전 작업 불러오기 팝업
+  context: context,
+  builder: (BuildContext context) {
+  Future.delayed(const Duration(seconds: 1), () {
+  Navigator.pop(context);
+  });
+  return RecipeDeletePoP('이전에 작성 중인던 레시피가 있어요!\n삭제할까요? 불러올까요?');
+  });*/
 
-
-
-  void LoadRecipe() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        Future.delayed(const Duration(seconds: 1), () {
-          Navigator.pop(context);
-        });
-        return Padding(
-          padding: const EdgeInsets.only(top: 323.0),
-          child: Column(
-            children: [
-              Container(height: 176, width: 343,
-                  decoration: BoxDecoration(
-                    color: Color(0xffffffff),
-                    border: Border.all(color: Colors.transparent, ), borderRadius: const BorderRadius.all(
-                      Radius.circular(8.0) ),),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 40,),
-                      TextButton(onPressed: (){Navigator.of(context).pop();},
-                        child: const Text('이전에 작성 중인던 레시피가 있어요!\n삭제할까요? 불러올까요?',
-                            textAlign: TextAlign.center,
-                            style : TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff111111),
-                            )),),
-                      SizedBox(height: 16,),
-                      Row(mainAxisAlignment: MainAxisAlignment.center,
-
-                        children: [
-                          Container(width: 140, height: 48,
-                            child: OutlinedButton(
-                                style: OutlinedButton.styleFrom(shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),backgroundColor: Color(0xffdddddd)),
-                                onPressed: (){Navigator.of(context).pop();}, child: Text('삭제하기',style: TextStyle(
-                              color: Color(0xffffffff),
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w500,))),
-                          ),
-                          SizedBox(width: 16,),
-                          Container(width: 140, height: 48,
-                            child: OutlinedButton(
-                                style: OutlinedButton.styleFrom(shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),backgroundColor: Color(0xff3bd7e2)),
-                                onPressed: (){Navigator.of(context).pop();}, child: Text('불러오기',style: TextStyle(
-                              color: Color(0xffffffff),
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w500,))),
-                          )
-                        ],
-                      ),
-                    ],
-                  )
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-
-
-
+  /*return showDialog( //삭제 팝업
+  context: context,
+  builder: (BuildContext context) {return CommentDelete();});*/
 
 
   @override
