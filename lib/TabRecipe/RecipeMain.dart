@@ -15,11 +15,11 @@ class RecipeMain extends StatefulWidget {
   State<RecipeMain> createState() => _RecipeMainState();
 }
 
+bool isRecipe = true;
+
 class _RecipeMainState extends State<RecipeMain> {
   TextEditingController controller = TextEditingController();
   final ScrollController _scrollCtrl = ScrollController();
-
-  bool isRecipe = true;
 
   @override
   Widget build(BuildContext context) {
@@ -192,11 +192,15 @@ class NavigateIconViewsContainer2 extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       itemCount: data.length,
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 75,
-          mainAxisExtent: 101,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: isRecipe ? 4 : 3,
+          // const SliverGridDelegateWithMaxCrossAxisExtent(
+          //     maxCrossAxisExtent: 75,
+          //     mainAxisExtent: 101,
+
+          childAspectRatio: isRecipe ? 75 / 101 : 104 / 95,
           mainAxisSpacing: 16,
-          crossAxisSpacing: 15),
+          crossAxisSpacing: 14),
       itemBuilder: (context, index) => NavigateIconView(data[index]),
     );
   }
@@ -241,21 +245,76 @@ class NavigateIconView extends StatelessWidget {
     String namedWidget = data['namedRoute'];
 
     return GestureDetector(
-        child: Column(
-          children: [
-            Container(
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFDDDDDD)),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(child: SvgPicture.asset(iconPath)),
-            ),
-            SizedBox(height: 8),
-            Text(title, style: TextStyle(fontSize: 14))
-          ],
-        ),
+        child: isRecipe
+            ? RecipeCategoryItem(iconPath: iconPath, title: title)
+            : DiseaseCategoryItem(iconPath: iconPath, title: title),
         onTap: () => Get.toNamed(namedWidget, arguments: title));
+  }
+}
+
+class DiseaseCategoryItem extends StatelessWidget {
+  const DiseaseCategoryItem({
+    Key key,
+    @required this.iconPath,
+    @required this.title,
+  }) : super(key: key);
+
+  final String iconPath;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 36, top: 25, right: 36),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: SvgPicture.asset(iconPath),
+            ),
+          ),
+          Text(title, style: TextStyle(fontSize: 14, height: 1.428))
+        ],
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xFFC29E9E)),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
+}
+
+class RecipeCategoryItem extends StatelessWidget {
+  const RecipeCategoryItem({
+    Key key,
+    @required this.iconPath,
+    @required this.title,
+  }) : super(key: key);
+
+  final String iconPath;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          // width: 75,
+          // height: 75,
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFC29E9E)),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: AspectRatio(
+              aspectRatio: 1,
+              child: Padding(
+                  padding: EdgeInsets.all(17),
+                  child: SvgPicture.asset(iconPath))),
+        ),
+        SizedBox(height: 8),
+        Text(title, style: TextStyle(fontSize: 14, height: 1.3))
+      ],
+    );
   }
 }
