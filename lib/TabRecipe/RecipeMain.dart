@@ -266,14 +266,11 @@ class DiseaseCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 36, top: 25, right: 36),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: SvgPicture.asset(iconPath),
-            ),
-          ),
+          // FractionallySizedBox(
+          //     widthFactor: 40 / 104, child:
+          AspectRatio(aspectRatio: 104 / 40, child: SvgPicture.asset(iconPath)),
           Text(title, style: TextStyle(fontSize: 14, height: 1.428))
         ],
       ),
@@ -308,8 +305,9 @@ class RecipeCategoryItem extends StatelessWidget {
           ),
           child: AspectRatio(
               aspectRatio: 1,
-              child: Padding(
-                  padding: EdgeInsets.all(17),
+              child: FractionallySizedBox(
+                  widthFactor: 40 / 75,
+                  heightFactor: 40 / 75,
                   child: SvgPicture.asset(iconPath))),
         ),
         SizedBox(height: 8),
