@@ -251,7 +251,7 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
                     }
                   }),
                   maxLines: null,
-                  decoration: InputDecoration(hintText: '0/1000자$_nownowState[0]',
+                  decoration: InputDecoration(hintText: '0/1000자',
                     border:InputBorder.none,),),),
             ),
 
