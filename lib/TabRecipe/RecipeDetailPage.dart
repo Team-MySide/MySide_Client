@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:my_side_client/constantsList.dart';
+import 'package:my_side_client/controllers/RecipeControllers/RecipeDetailController.dart';
 import 'package:my_side_client/wigets/etcwidgets/starRating.dart';
 
 class RecipeDetailPage extends StatelessWidget {
+  final bool hasVideo = true;
+  final bool hasVideoComment = true;
+  final RegisterDetailController registerDetailController =
+      Get.put(RegisterDetailController());
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -11,29 +18,99 @@ class RecipeDetailPage extends StatelessWidget {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: buildRecipDetailAppbar(),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 220),
-                buildFoodTypeContainer('양식'),
-                SizedBox(height: 8),
-                buildRecipeDetailContainer(
-                  '올리브유로 만든 뽀빠이 감바스',
-                  ['위암', '대장암', '새우', '마늘'],
-                  [false, false, true, true],
-                  [1, 25, 2],
-                  '바다의 채소라 불리는 미역은 칼슘이 풍부해서 뼈를 튼튼하게 해준다. 식이섬유가 풍부해 포만감을 주며, 장운동을 도와 변비를 예방한다.',
-                  '생새우는 위험하기 때문에 충분히 익혀주세요.',
-                  '102동 옆집',
-                  ['갑상선암', '수술후'],
-                  [123, 22, 94, 22],
+          body: GetBuilder<RegisterDetailController>(
+            builder: (controller) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    hasVideo
+                        ? Column(
+                            children: [
+                              SizedBox(height: 59),
+                              SvgPicture.asset('assets/play_big.svg'),
+                              SizedBox(height: 105),
+                            ],
+                          )
+                        : SizedBox(height: 220),
+                    buildFoodTypeContainer('양식', hasVideo, 15, 24),
+                    SizedBox(height: 8),
+                    buildRecipeDetailContainer(
+                      '올리브유로 만든 뽀빠이 감바스',
+                      [1, 25, 2],
+                      '바다의 채소라 불리는 미역은 칼슘이 풍부해서 뼈를 튼튼하게 해준다. 식이섬유가 풍부해 포만감을 주며, 장운동을 도와 변비를 예방한다.',
+                      '생새우는 위험하기 때문에 충분히 익혀주세요.',
+                      '102동 옆집',
+                      ['갑상선암', '수술후'],
+                      [123, 22, 94, 22],
+                      controller.ingredInfoExpanded,
+                      controller.expandIngredInfo,
+                    ),
+                    !hasVideoComment && hasVideo
+                        ? SizedBox()
+                        : tapBarRow(controller.belowType,
+                            controller.setBelowType, hasVideo),
+                    buildDetailBelowContainer(controller.belowType, hasVideo),
+                  ],
                 ),
-                buildDetailBelowContainer(1),
-              ],
-            ),
+              );
+            },
           ),
         )
       ],
+    );
+  }
+
+  Widget tapBarRow(int curType, Function tapFunc, bool hasVideo) {
+    return Container(
+      color: Colors.white,
+      child: Row(
+        children: [
+          selectType(
+            '재료',
+            curType == 1,
+            tapFunc,
+            1,
+          ),
+          selectType(
+            hasVideo ? '영상설명' : '요리순서',
+            curType == 2,
+            tapFunc,
+            2,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget selectType(
+      String typeString, bool isSelected, Function tapFunc, int id) {
+    return Expanded(
+      child: InkWell(
+        child: Column(
+          children: [
+            Text(
+              typeString,
+              style: TextStyle(
+                color: isSelected ? Color(0xFF3BD7E2) : Color(0xFF666666),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 9),
+            Container(
+              height: 3,
+              color: isSelected ? Color(0xFF3BD7E2) : Colors.white,
+            ),
+          ],
+        ),
+        onTap: () {
+          if (id == 1) {
+            tapFunc(1);
+          } else {
+            tapFunc(2);
+          }
+        },
+      ),
     );
   }
 
@@ -62,14 +139,18 @@ class RecipeDetailPage extends StatelessWidget {
     );
   }
 
-  Widget buildDetailBelowTitle(int titleType) {
+  Widget buildDetailBelowTitle(int titleType, bool hasVideo) {
     return SizedBox(
       width: double.infinity,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Text(
-            titleType == 1 ? '재료' : '요리순서',
+            titleType == 1
+                ? '재료'
+                : hasVideo
+                    ? '영상설명'
+                    : '요리순서',
             style: TextStyle(
               color: Color(0xFF111111),
               fontWeight: FontWeight.w500,
@@ -120,6 +201,7 @@ class RecipeDetailPage extends StatelessWidget {
 
   Widget buildDetailBelowContainer(
     int containerType,
+    bool hasVideo,
   ) {
     return Container(
       width: double.infinity,
@@ -138,60 +220,104 @@ class RecipeDetailPage extends StatelessWidget {
             Stack(
               alignment: Alignment.bottomRight,
               children: [
-                buildDetailBelowTitle(containerType),
+                buildDetailBelowTitle(containerType, hasVideo),
                 containerType == 1 ? buildGuideButton() : SizedBox(),
               ],
             ),
             SizedBox(height: 24),
-            // TODO : 이부분도 subtitle list, subtile 안의 재료 list따로 받아햐함.
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildDetailBelowSubtitle('기본재료'),
-                SizedBox(
-                  width: 16,
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Divider(
-                        thickness: 1.5,
-                        color: Color(0xFFDDDDDD),
-                      ),
-                      buildIngredientDetail('마늘 3개'),
-                      buildIngredientDetail('새우 12마리'),
-                      buildIngredientDetail('시금치 200g'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 24),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildDetailBelowSubtitle('양념장 소스 재료'),
-                SizedBox(
-                  width: 16,
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Divider(
-                        thickness: 1.5,
-                        color: Color(0xFFDDDDDD),
-                      ),
-                      buildIngredientDetail('소금 1/2 컵'),
-                      buildIngredientDetail('올리브유 1컵'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            containerType == 1
+                ? buildIngreDetailTiles()
+                : hasVideo
+                    ? buildVideoCommentTile()
+                    : buildRecipeOrderTiles()
           ],
         ),
       ),
     );
+  }
+
+  Widget buildVideoCommentTile() {
+    return Text(
+      '올리브유는 엑스트라버진 올리브유가 좋아요~!\n 추가로 방울 토마토도 넣으면 더 양양가 있는 감바스가 탄생할거예요~ 🤗',
+      style: const TextStyle(
+        color: Color(0xFF666666),
+        fontWeight: FontWeight.w300,
+        fontSize: 16,
+      ),
+    );
+  }
+
+  Widget buildRecipeOrderTiles() {
+    List<Widget> widgetList = [];
+    for (var i = 0; i < recipeOrderContent.length; i++) {
+      widgetList.add(
+        SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildDetailBelowSubtitle('# 0${i + 1}'),
+              SizedBox(height: 8),
+              recipeOrderHasPhoto[i]
+                  ? Column(
+                      children: [
+                        Image.asset(recipeOrderPhoto[i]),
+                        SizedBox(height: 8),
+                      ],
+                    )
+                  : SizedBox(),
+              Text(
+                recipeOrderContent[i],
+                style: const TextStyle(
+                  color: Color(0xFF666666),
+                  fontWeight: FontWeight.w300,
+                  fontSize: 16,
+                ),
+              ),
+              i == recipeOrderContent.length - 1
+                  ? SizedBox()
+                  : SizedBox(height: 24)
+            ],
+          ),
+        ),
+      );
+    }
+    return Column(children: widgetList);
+  }
+
+  Widget buildIngreDetailTiles() {
+    List<Widget> widgetList = [];
+    for (var i = 0; i < ingreTitleList.length; i++) {
+      widgetList.add(
+        Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildDetailBelowSubtitle(ingreTitleList[i]),
+                SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      const Divider(
+                        thickness: 1.5,
+                        color: Color(0xFFDDDDDD),
+                      ),
+                      for (var j = 0; j < detailIngreList[i].length; j++)
+                        buildIngredientDetail(detailIngreList[i][j]),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            i == ingreTitleList.length - 1 ? SizedBox() : SizedBox(height: 24)
+          ],
+        ),
+      );
+    }
+    return Column(children: widgetList);
   }
 
   Widget buildIngredientDetail(String ingreDetail) {
@@ -214,14 +340,14 @@ class RecipeDetailPage extends StatelessWidget {
   //TODO : 이부분 class로 가져오면 쉽게 할수 있음, model이 정해지면 그때수정
   Widget buildRecipeDetailContainer(
     String recipeName,
-    List<String> cancerIngredInfo,
-    List<bool> cancerIngredInfoType,
     List<int> recipeInfoNumbers,
     String recipeExplain,
     String recipeCaution,
     String nickName,
     List<String> usrInfos,
     List<int> iconsRowNumbers,
+    bool isIngredInfoExpanded,
+    Function expandFunc,
   ) {
     return Container(
       width: double.infinity,
@@ -243,16 +369,94 @@ class RecipeDetailPage extends StatelessWidget {
               fontSize: 24,
             ),
           ),
-          buildFoodInfoRow(
-            cancerIngredInfo,
-            cancerIngredInfoType,
+          SizedBox(height: 10),
+          buildIngredRelatedCancerNComponentColumns(isIngredInfoExpanded),
+          InkWell(
+            child: Center(
+              child: isIngredInfoExpanded
+                  ? SvgPicture.asset('assets/arrow2up.svg')
+                  : SvgPicture.asset('assets/arrow2down.svg'),
+            ),
+            onTap: expandFunc,
           ),
+          SizedBox(height: 32),
           buildRecipeInfoRow(recipeInfoNumbers),
           buildRecipeTextBox(recipeExplain, recipeCaution),
           buildUsrInfoBox(nickName, usrInfos[0], usrInfos[1]),
           buildRecipeIconsRow(iconsRowNumbers),
+          SizedBox(height: 25),
         ],
       ),
+    );
+  }
+
+  Widget buildIngredRelatedCancerNComponentColumns(bool isExpanded) {
+    List<Widget> widgetList = [];
+    int colNum = isExpanded ? ingredImgs.length : 1;
+    for (var i = 0; i < colNum; i++) {
+      widgetList.add(
+        buildIngredRelatedCancerNComponent(
+          imgContainerColor[i],
+          ingredImgs[i],
+          ingredRelatedCancer[i],
+          ingredRelatedComponent[i],
+        ),
+      );
+    }
+    return SizedBox(
+      height: isExpanded ? 145 : 50,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: widgetList,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildIngredRelatedCancerNComponent(
+    Color imgContColor,
+    String imgPth,
+    List<String> ingredRelatedCancers,
+    List<String> ingredRelatedComponents,
+  ) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                color: imgContColor,
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              child: Image.asset(
+                imgPth,
+                height: 25,
+              ),
+            ),
+            SizedBox(width: 8),
+            for (var i = 0; i < ingredRelatedCancers.length; i++)
+              buildIngredInfoRow(ingredRelatedCancers[i], false),
+            for (var i = 0; i < ingredRelatedComponents.length; i++)
+              buildIngredInfoRow(ingredRelatedComponents[i], true)
+          ],
+        ),
+        SizedBox(height: 8),
+      ],
+    );
+  }
+
+  Widget buildIngredInfoRow(String infoText, bool isIngred) {
+    return Row(
+      children: [
+        buildRoundFoodInfo(infoText, isIngred),
+        SizedBox(width: 8),
+      ],
     );
   }
 
@@ -507,31 +711,6 @@ class RecipeDetailPage extends StatelessWidget {
     );
   }
 
-  //TODO : container가 여러개로 늘경우 wrap으로 바꿔줘야함
-  Widget buildFoodInfoRow(List<String> infos, List<bool> infoTypes) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 11,
-        ),
-        Row(
-          children: [
-            buildRoundFoodInfo(infos[0], infoTypes[0]),
-            SizedBox(width: 8),
-            buildRoundFoodInfo(infos[1], infoTypes[1]),
-            SizedBox(width: 8),
-            buildRoundFoodInfo(infos[2], infoTypes[2]),
-            SizedBox(width: 8),
-            buildRoundFoodInfo(infos[3], infoTypes[3]),
-          ],
-        ),
-        SizedBox(
-          height: 32,
-        ),
-      ],
-    );
-  }
-
   Widget buildRoundFoodInfo(String infoText, bool isIngrediant) {
     return Container(
       padding: EdgeInsets.symmetric(
@@ -592,7 +771,12 @@ class RecipeDetailPage extends StatelessWidget {
     );
   }
 
-  Widget buildFoodTypeContainer(String foodType) {
+  Widget buildFoodTypeContainer(
+    String foodType,
+    bool hasVideo,
+    int durationMin,
+    int durationSec,
+  ) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 17),
       child: Row(
@@ -618,6 +802,28 @@ class RecipeDetailPage extends StatelessWidget {
             ),
           ),
           const Spacer(),
+          hasVideo
+              ? Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    '$durationMin:$durationSec',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w300,
+                      fontSize: 14,
+                    ),
+                  ),
+                )
+              : SizedBox(),
         ],
       ),
     );
