@@ -1,6 +1,11 @@
+
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'package:my_side_client/constantsList.dart';
 import 'package:my_side_client/controllers/RecipeControllers/RecipeRegisterController.dart';
@@ -11,11 +16,77 @@ import 'package:my_side_client/wigets/etcwidgets/TimePickerWidget.dart';
 import 'package:my_side_client/wigets/textfieldwidget/memoTextField.dart';
 import 'package:my_side_client/wigets/textwidget/requiredText.dart';
 
-class RegisterRecipe04InsertRecipe extends StatelessWidget {
-  final RecipeRegisterController recipeRegisterController =
-      Get.put(RecipeRegisterController());
+class RegisterRecipe04InsertRecipe extends StatefulWidget {
   @override
+  State<RegisterRecipe04InsertRecipe> createState() => _RegisterRecipe04InsertRecipeState();
+}
+
+class _RegisterRecipe04InsertRecipeState extends State<RegisterRecipe04InsertRecipe> {
+  final RecipeRegisterController recipeRegisterController =
+  Get.put(RecipeRegisterController());
+
+  void _showCamera(int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 40.0),
+          child: Column(mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(height: 50, width: 343,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.transparent, ), borderRadius: const BorderRadius.all(
+                      Radius.circular(30.0) ),),
+                  child: TextButton(onPressed: (){
+                    getImage(ImageSource.camera);
+                    Navigator.of(context).pop();
+                  },child: const Text('사진 촬영',style : TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff666666),
+                  )),)
+              ),
+              const SizedBox(height: 8,),
+              Container(height: 50, width: 343,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.transparent, ), borderRadius: const BorderRadius.all(
+                      Radius.circular(30.0) ),),
+                  child: TextButton(onPressed: (){
+                    getImage(ImageSource.gallery);
+                    Navigator.of(context).pop();
+                  },child: const Text('앨범에서 사진 선택',style : TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff666666),
+                  )),)
+              ),
+              const SizedBox(height: 8,),
+              Container(height: 50, width: 343,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.transparent, ), borderRadius: const BorderRadius.all(
+                      Radius.circular(30.0) ),),
+                  child: TextButton(onPressed: (){Navigator.of(context).pop();},
+                    child: const Text('취소',style : TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff666666),
+                    )),)
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
   Widget build(BuildContext context) {
+
+
+
+
+
     return Scaffold(
       appBar: CommonAppBarVer2(
         title: '레시피 입력 (3/5)',
@@ -134,24 +205,31 @@ class RegisterRecipe04InsertRecipe extends StatelessWidget {
       true,
       false,
       0,
-      Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            width: double.infinity,
-            height: 343,
-            color: Color(0xFFEDEDED),
-          ),
-          Container(
-            width: 64,
-            height: 64,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Colors.white,
+      InkWell(
+        child: image==null ?Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              width: double.infinity,
+              height: 343,
+              color: Color(0xFFEDEDED),
             ),
-          ),
-          SvgPicture.asset('assets/camera.svg'),
-        ],
+            Container(
+              width: 64,
+              height: 64,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.white,
+              ),
+            ),
+            SvgPicture.asset('assets/camera.svg'),
+          ],
+        ) :Container(width: double.infinity, height: 343,
+          child: kIsWeb
+              ? Image.network(image.path)
+              :Image.file(File(image.path)),
+        ),
+        onTap: (){ _showCamera(0); },
       ),
     );
   }
@@ -199,16 +277,16 @@ class RegisterRecipe04InsertRecipe extends StatelessWidget {
             Spacer(),
             hasNumCounts
                 ? Text(
-                    '$charlen/1000자',
-                    style: TextStyle(
-                      color: Color(0xFFAAAAAA),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  )
+              '$charlen/1000자',
+              style: TextStyle(
+                color: Color(0xFFAAAAAA),
+                fontSize: 12,
+                fontWeight: FontWeight.w300,
+              ),
+            )
                 : SizedBox(
-                    width: 0,
-                  ),
+              width: 0,
+            ),
           ],
         ),
         SizedBox(height: 8),
@@ -249,15 +327,15 @@ class RegisterRecipe04InsertRecipe extends StatelessWidget {
     return InkWell(
       child: idx >= id
           ? SvgPicture.asset(
-              'assets/icons/on.svg',
-              height: 22.86,
-              width: 22.86,
-            )
+        'assets/icons/on.svg',
+        height: 22.86,
+        width: 22.86,
+      )
           : SvgPicture.asset(
-              'assets/icons/off.svg',
-              height: 22.86,
-              width: 22.86,
-            ),
+        'assets/icons/off.svg',
+        height: 22.86,
+        width: 22.86,
+      ),
       onTap: onTap,
     );
   }
@@ -359,5 +437,15 @@ class RegisterRecipe04InsertRecipe extends StatelessWidget {
         },
       ),
     );
+  }
+
+  File image;
+  final picker = ImagePicker();
+
+  Future getImage(ImageSource imageSource) async{
+    final pickedFile = await picker.pickImage(source: imageSource);
+    setState(() {
+      image=File(pickedFile.path);
+    });
   }
 }

@@ -41,6 +41,7 @@ dependencies:
   page_indicator: ^0.4.1
   get_storage: ^2.0.2
   m_loading: ^0.0.2
+  image_picker: ^0.8.4+5
 
 
 dev_dependencies:
