@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipe03InsertRecipe.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'package:my_side_client/common/CommonTheme.dart';
 
@@ -29,6 +30,26 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
   TextEditingController recipeController8 = TextEditingController();
   TextEditingController recipeController9 = TextEditingController();
   TextEditingController recipeController10 = TextEditingController();
+  TextEditingController recipeController11 = TextEditingController();
+  TextEditingController recipeController12 = TextEditingController();
+  TextEditingController recipeController13 = TextEditingController();
+  TextEditingController recipeController14 = TextEditingController();
+  TextEditingController recipeController15 = TextEditingController();
+  TextEditingController recipeController16 = TextEditingController();
+  TextEditingController recipeController17 = TextEditingController();
+  TextEditingController recipeController18 = TextEditingController();
+  TextEditingController recipeController19 = TextEditingController();
+  TextEditingController recipeController20 = TextEditingController();
+  TextEditingController recipeController21 = TextEditingController();
+  TextEditingController recipeController22 = TextEditingController();
+  TextEditingController recipeController23 = TextEditingController();
+  TextEditingController recipeController24 = TextEditingController();
+  TextEditingController recipeController25 = TextEditingController();
+  TextEditingController recipeController26 = TextEditingController();
+  TextEditingController recipeController27 = TextEditingController();
+  TextEditingController recipeController28 = TextEditingController();
+  TextEditingController recipeController29 = TextEditingController();
+  TextEditingController recipeController30 = TextEditingController();
 
   final List<int> _count=[];
   int number=0;
@@ -100,6 +121,7 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
                   )),)
               ),
               const SizedBox(height: 8,),
+
               Container(height: 50, width: 343,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -161,13 +183,38 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
     _stateController.insert(7,recipeController8);
     _stateController.insert(8,recipeController9);
     _stateController.insert(9,recipeController10);
+    _stateController.insert(10,recipeController11);
+    _stateController.insert(11,recipeController12);
+    _stateController.insert(12,recipeController13);
+    _stateController.insert(13,recipeController14);
+    _stateController.insert(14,recipeController15);
+    _stateController.insert(15,recipeController16);
+    _stateController.insert(16,recipeController17);
+    _stateController.insert(17,recipeController18);
+    _stateController.insert(18,recipeController19);
+    _stateController.insert(19,recipeController20);
+    _stateController.insert(20,recipeController21);
+    _stateController.insert(21,recipeController22);
+    _stateController.insert(22,recipeController23);
+    _stateController.insert(23,recipeController24);
+    _stateController.insert(24,recipeController25);
+    _stateController.insert(25,recipeController26);
+    _stateController.insert(26,recipeController27);
+    _stateController.insert(27,recipeController28);
+    _stateController.insert(28,recipeController29);
+    _stateController.insert(29,recipeController30);
 
     double scrHeight = MediaQuery.of(context).size.height;
 
     if(number==0){   //요리순서 step1 항목
-
       _count.insert(0, number);
       _nownowState[0]=false;
+      Future.delayed(const Duration(milliseconds: 100), () {
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+      },);
+      number++;
+      _count.insert(1, number);
+      _nownowState[1]=false;
       Future.delayed(const Duration(milliseconds: 100), () {
         _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.ease);
       },);
@@ -184,14 +231,18 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
           Column(crossAxisAlignment: CrossAxisAlignment.center,
             children: [
 
+
+
+
+
               Padding(
                 padding: const EdgeInsets.only( left: 16,right: 16),
-                child: Container(constraints: BoxConstraints(maxHeight: 0.8*scrHeight,),
+                child: Container(constraints: BoxConstraints(maxHeight: 0.85*scrHeight,),
                   child: DecribeRecipeListView(),
                 ),
               ),
 
-              ItemAddButton(),
+
             ],),
           BottomButtons()
         ],
@@ -213,104 +264,167 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
   }
 
   Column ListViewItem(int index) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
       children: [
-        SizedBox(height:25,
-          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('step${index+1}',style: const TextStyle(
-                color: Color(0xff666666), fontSize: 14.0, fontWeight: FontWeight.w400,) ),
-              if(index>0)
-                if(index==number-1)
-                  DeleteButton(),
-            ],
+        if(index==0)
+          Container(height: 32, width: 343,
+            decoration: BoxDecoration(
+              color: Color(0xfff4f4f4),
+              border: Border.all(color: Colors.transparent, ), borderRadius: const BorderRadius.all(
+                Radius.circular(40.0) ),),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/error.svg'),
+                Text('순서 추가는 30개까지 가능해요',style : TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w300,
+                  color: Color(0xffaaaaaa),
+                )),
+              ],
+            ),
           ),
+        Column(crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            SizedBox(height:25,
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('STEP 0${index+1}',style: const TextStyle(
+                    color: Color(0xff666666), fontSize: 14.0, fontWeight: FontWeight.w400,) ),
+                  if(index>1)
+                    if(index==number-1)
+                      DeleteButton(),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 7,),
+            //_count[index],
+
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+              children: [
+                Expanded(
+                  child: Container(height: 100,
+                    decoration: BoxDecoration(
+                      border: Border.all(), borderRadius: const BorderRadius.all(
+                        Radius.circular(8.0) ),),
+
+                    padding: const EdgeInsets.only(left: 15, ),
+                    child:  TextField(
+                      controller: _stateController[index],
+                      onChanged: (_) => setState(() {
+                        if(_stateController[index].text.isNotEmpty){
+                          _nownowState[index]=true;
+                        }
+                        else{
+                          _nownowState[index]=false;
+                        }
+                      }),
+                      maxLines: null,
+                      decoration: InputDecoration(hintText: '0/1000자',
+                        border:InputBorder.none,),),),
+                ),
+
+                const SizedBox(width: 8,),
+                //RegisterPhoto(index),
+                InkWell(
+                  child: _image[index]==null ? Stack(
+                    children: [
+                      Container( width:100, height:100,
+                        decoration: BoxDecoration(color: const Color(0xffedededed),
+                          border: Border.all(color: Colors.transparent, ),
+                          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                      ),
+                      Positioned( left: 30,top: 30, child:
+                      Container(width: 40, height: 40,
+                        decoration: BoxDecoration(color: Colors.white,
+                          border: Border.all(color: Colors.transparent, ),
+                          borderRadius: const BorderRadius.all(
+                              Radius.circular(100.0) ),),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 8),
+                          child: SvgPicture.asset('assets/camera.svg'),
+                        ),
+                      ),
+                      ),
+                    ],
+                  ) : Container(width: 100, height: 100,
+                    child: kIsWeb
+                        ? Image.network(_image[index].path)
+                        :Image.file(File(_image[index].path)),
+                  ),
+                  onTap: (){_showCamera(index);},
+                ),
+              ],),
+            const SizedBox(height: 24,),
+          ],
         ),
 
-        const SizedBox(height: 7,),
-        //_count[index],
 
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        if(index==number-1&&index!=29)
+        TextButton(onPressed: () {
+          setState(()  {
+            number++;
+            _count.insert(0, number);
+            _nownowState[_count.length-1]=false;
+            Future.delayed(const Duration(milliseconds: 100), () {
+              _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+            },);});},
+          child:  const Text('순서 추가하기 +', style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,) ),
+          style: TextButton.styleFrom(
+            primary:  const Color(0xff666666),
+            onSurface: Colors.blue,
+          ),),
 
-          children: [
-            Expanded(
-              child: Container(height: 100,
-                decoration: BoxDecoration(
-                  border: Border.all(), borderRadius: const BorderRadius.all(
-                    Radius.circular(8.0) ),),
+        if(index==29)
+        Container(width: 341, height: 40,
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(255, 0, 0, 0.1),
+            border: Border.all(color: Colors.transparent, ), borderRadius: const BorderRadius.all(
+              Radius.circular(40.0) ),),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center,
 
-                padding: const EdgeInsets.only(left: 15, ),
-                child:  TextField(
-                  controller: _stateController[index],
-                  onChanged: (_) => setState(() {
-                    if(_stateController[index].text.isNotEmpty){
-                      _nownowState[index]=true;
-                    }
-                    else{
-                      _nownowState[index]=false;
-                    }
-                  }),
-                  maxLines: null,
-                  decoration: InputDecoration(hintText: '0/1000자',
-                    border:InputBorder.none,),),),
-            ),
+            children: [
+              Text("순서 추가는 30개까지 가능해요😢",textAlign: TextAlign.center,style : TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w400,
+                color: Color(0xffe10000),
+              )),
+            ],
+          ),
+        )
 
-            const SizedBox(width: 8,),
-            //RegisterPhoto(index),
-            InkWell(
-              child: _image[index]==null ? Stack(
-                children: [
-                  Container( width:100, height:100,
-                    decoration: BoxDecoration(color: const Color(0xffedededed),
-                      border: Border.all(color: Colors.transparent, ),
-                      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                    ),
-                  ),
-                  Positioned( left: 30,top: 30, child:
-                  Container(width: 40, height: 40,
-                    decoration: BoxDecoration(color: Colors.white,
-                      border: Border.all(color: Colors.transparent, ),
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(100.0) ),),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 8),
-                      child: SvgPicture.asset('assets/camera.svg'),
-                    ),
-                  ),
-                  ),
-                ],
-              ) : Container(width: 100, height: 100,
-                child: kIsWeb
-                    ? Image.network(_image[index].path)
-                    :Image.file(File(_image[index].path)),
-              ),
-              onTap: (){_showCamera(index);},
-            ),
-          ],),
-        const SizedBox(height: 24,),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ],
     );
   }
 
-  TextButton ItemAddButton() {
-    return TextButton(onPressed: () {
 
-      setState(()  {
-        number++;
-        _count.insert(0, number);
-        _nownowState[_count.length-1]=false;
-        Future.delayed(const Duration(milliseconds: 100), () {
-          _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.ease);
-        },);});},
-      child:  const Text('순서 추가하기 +', style: TextStyle(
-        fontSize: 14.0,
-        fontWeight: FontWeight.bold,
-        decoration: TextDecoration.underline,) ),
-      style: TextButton.styleFrom(
-        primary:  const Color(0xff666666),
-        onSurface: Colors.blue,
-      ),);
-  }
   ButtonTheme DeleteButton() {
     return ButtonTheme(
         minWidth:40,
@@ -356,7 +470,10 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
                 child: Container(
                   height: 70,
                   child: TextButton(
-                    onPressed: everyInsert() ? () {} : null,
+                    onPressed: everyInsert() ? () {Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterRecipe03InsertRecipe()),
+                    );} : null,
                     child: Text("재료 입력하기", style: TextStyle(fontSize: 16)),
                     style: CommonTheme.getSquarePrimaryButtonStyle(),
                   ),
