@@ -311,7 +311,10 @@ class RecipeCategoryItem extends StatelessWidget {
                   child: SvgPicture.asset(iconPath))),
         ),
         SizedBox(height: 8),
-        Text(title, style: TextStyle(fontSize: 14, height: 1.3))
+        Text(title,
+            // style: TextStyle(fontSize: 13, height: 1.0, letterSpacing: -0.015)) //note10 works
+            style:
+                TextStyle(fontSize: 14, height: 18 / 14, letterSpacing: -0.015))
       ],
     );
   }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/state_manager.dart';
 import 'package:my_side_client/TabSearch/contants.dart';
 import '../Constants.dart';
+import 'Service/Recipe02ListController.dart';
 
 class RecipeList extends StatefulWidget {
   RecipeList({Key key}) : super(key: key);
-
+  final Recipe02ListController controller = Get.put(Recipe02ListController());
   @override
   State<RecipeList> createState() => _RecipeListState();
 }
