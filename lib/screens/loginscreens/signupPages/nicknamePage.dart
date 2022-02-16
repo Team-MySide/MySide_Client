@@ -63,7 +63,7 @@ class NicknamePage extends StatelessWidget {
                   ),
                   RecSubmitButton(
                     buttonText: '다음 페이지',
-                    scrHeight: scrHeight,
+                    buttonHeight: scrHeight,
                     activated: controller.duplicated == 1,
                     validateFunc: () {
                       if (controller.duplicated == 1) {

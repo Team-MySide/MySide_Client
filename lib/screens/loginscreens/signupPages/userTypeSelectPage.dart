@@ -79,7 +79,7 @@ class UserTypeSelectPage extends StatelessWidget {
                 ),
                 RecSubmitButton(
                   buttonText: '다음 페이지',
-                  scrHeight: scrHeight,
+                  buttonHeight: scrHeight,
                   activated: controller.userType > 0,
                   validateFunc: () {
                     if (controller.userType > 0) {

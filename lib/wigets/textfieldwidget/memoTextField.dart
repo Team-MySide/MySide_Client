@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_side_client/models/textFieldModel.dart';
 
 class MemoTextField extends StatelessWidget {
@@ -6,12 +7,14 @@ class MemoTextField extends StatelessWidget {
   final TextFieldModel textFieldModel;
   final int maxLines;
   final int maxLength;
+  final bool belowTextExist;
 
   MemoTextField({
     @required this.scrHeight,
     @required this.textFieldModel,
     this.maxLines,
     this.maxLength,
+    this.belowTextExist,
   });
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class MemoTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 0.0197 * scrHeight),
+          padding: EdgeInsets.symmetric(horizontal: 11),
           decoration: BoxDecoration(
             border: Border.all(
               color: textFieldModel.fn.hasFocus
@@ -43,22 +46,42 @@ class MemoTextField extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w300,
               ),
+              suffixIcon: textFieldModel.tec.text.isEmpty
+                  ? Container(
+                      width: 0,
+                    )
+                  : textFieldModel.errorOcur && !textFieldModel.canClear
+                      ? Icon(Icons.error)
+                      : IconButton(
+                          onPressed: () {
+                            textFieldModel.tec.text = '';
+                          },
+                          icon: SvgPicture.asset('assets/x.svg'),
+                        ),
             ),
           ),
         ),
-        SizedBox(
-          height: 0.0105 * scrHeight,
-        ),
-        Text(
-          textFieldModel.errorMsg,
-          style: TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 12,
-            color: textFieldModel.fn.hasFocus
-                ? Color(0xFF3BD7E2)
-                : Color(0xFFAAAAAA),
-          ),
-        ),
+        belowTextExist
+            ? Column(
+                children: [
+                  SizedBox(
+                    height: 0.0105 * scrHeight,
+                  ),
+                  Text(
+                    textFieldModel.errorMsg,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 12,
+                      color: textFieldModel.fn.hasFocus
+                          ? Color(0xFF3BD7E2)
+                          : Color(0xFFAAAAAA),
+                    ),
+                  ),
+                ],
+              )
+            : SizedBox(
+                height: 0,
+              ),
       ],
     );
   }

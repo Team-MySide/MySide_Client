@@ -92,7 +92,7 @@ class SelectCancerPage extends StatelessWidget {
                   ),
                   RecSubmitButton(
                     buttonText: '다음 페이지',
-                    scrHeight: scrHeight,
+                    buttonHeight: scrHeight,
                     activated: controller.cancerNum > 0,
                     validateFunc: () {
                       controller

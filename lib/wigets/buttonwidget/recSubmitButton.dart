@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class RecSubmitButton extends StatelessWidget {
   final String buttonText;
-  final double scrHeight;
+  final double buttonHeight;
   final bool activated;
   final VoidCallback validateFunc;
   final Color rectButtonColor;
 
   RecSubmitButton({
     @required this.buttonText,
-    @required this.scrHeight,
+    @required this.buttonHeight,
     @required this.activated,
     @required this.validateFunc,
     this.rectButtonColor,
@@ -19,7 +19,7 @@ class RecSubmitButton extends StatelessWidget {
     return InkWell(
       onTap: validateFunc,
       child: Container(
-        height: 0.0887 * scrHeight,
+        height: buttonHeight,
         //width: double.infinity,
         decoration: BoxDecoration(
           color: activated

@@ -76,7 +76,7 @@ class StageSelectPage extends StatelessWidget {
                 ),
                 RecSubmitButton(
                   buttonText: '다음 페이지',
-                  scrHeight: scrHeight,
+                  buttonHeight: scrHeight,
                   activated: controller.stageNm > 0,
                   validateFunc: () {
                     if (controller.stageNm > 0) {
