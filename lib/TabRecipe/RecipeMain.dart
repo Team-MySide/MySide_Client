@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
-import 'package:my_side_client/Styles.dart';
-import 'package:my_side_client/TabHome/SearchBar.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
 class RecipeMain extends StatefulWidget {
@@ -258,7 +256,10 @@ class RecipeCategoryItem extends StatelessWidget {
                   child: SvgPicture.asset(iconPath))),
         ),
         SizedBox(height: 8),
-        Text(title, style: TextStyle(fontSize: 14, height: 1.3))
+        Text(title,
+            // style: TextStyle(fontSize: 13, height: 1.0, letterSpacing: -0.015)) //note10 works
+            style:
+                TextStyle(fontSize: 14, height: 18 / 14, letterSpacing: -0.015))
       ],
     );
   }

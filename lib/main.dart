@@ -29,7 +29,7 @@ import 'package:my_side_client/screens/mypagescreens/termOfServicePage.dart';
 import 'package:my_side_client/screens/onboarding/onBoardingPage.dart';
 import 'Constants.dart';
 import 'MainTab.dart';
-import 'TabRecipe/RecipeList.dart';
+import 'TabRecipe/Recipe02List.dart';
 import 'TabRecipe/RecipeMain.dart';
 import 'TabRecipe/RegisterRecipe03InsertRecipe.dart';
 import 'TabSearch/FoodGridList.dart';
