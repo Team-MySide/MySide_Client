@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_side_client/TabRecipe/CommentDelete.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipe07Complete.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'RegisterRecipe02InsertRecipeImage.dart';
 import 'RegisterRecipe02InsertVideo.dart';
@@ -55,7 +56,7 @@ class _RegisterRecipe01InsertRecipeState extends State<RegisterRecipe01InsertRec
                     onTap: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const RegisterRecipe02InsertRecipeImage()),
+                        MaterialPageRoute(builder: (context) => const RegisterRecipe07Complete()),
                       );
                     },
                   ),
