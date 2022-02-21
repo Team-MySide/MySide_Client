@@ -54,17 +54,20 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
   final List<int> _count=[];
   int number=0;
 
-  var nowState = List<bool>.filled(10, true);
+  var nowState = List<bool>.filled(30, true);
 
 
-  List<bool> _nownowState =[true,true,true,true,true,true,true,true,true,true ];
+  List<bool> _nownowState =[
+    true,true,true,true,true,true,true,true,true,true,
+    true,true,true,true,true,true,true,true,true,true,
+    true,true,true,true,true,true,true,true,true,true];
 
 
 
 
   bool somethingInsert(){
-    int f=10;
-    for(int i=0; i<10; i++){
+    int f=30;
+    for(int i=0; i<30; i++){
       if(_nownowState[i])f--;
     }
     if(f<_count.length){return true;}
@@ -75,10 +78,10 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
 
   bool everyInsert(){
     int t=0;
-    for(int i=0; i<10; i++){
+    for(int i=0; i<30; i++){
       if(_nownowState[i])t++;
     }
-    if(t==10) return true;
+    if(t==30) return true;
     else return false;
   }
 
@@ -289,8 +292,14 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
             SizedBox(height:25,
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  if(index<9)
                   Text('STEP 0${index+1}',style: const TextStyle(
                     color: Color(0xff666666), fontSize: 14.0, fontWeight: FontWeight.w400,) ),
+                  if(index>8)
+                    Text('STEP ${index+1}',style: const TextStyle(
+                      color: Color(0xff666666), fontSize: 14.0, fontWeight: FontWeight.w400,) ),
+
+
                   if(index>1)
                     if(index==number-1)
                       DeleteButton(),
@@ -486,7 +495,7 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
   }
   final ImagePicker picker = ImagePicker();
   // List<File> _image =[];
-  var _image =  List<File>.filled(10,null);
+  var _image =  List<File>.filled(30,null);
   // final picker = ImagePicker();
 
 

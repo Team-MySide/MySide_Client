@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_side_client/TabRecipe/CommentDelete.dart';
-import 'package:my_side_client/TabRecipe/RegisterRecipe07Complete.dart';
+import 'package:my_side_client/TabRecipe/RecipeDeletePop.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'RegisterRecipe02InsertRecipeImage.dart';
 import 'RegisterRecipe02InsertVideo.dart';
@@ -15,25 +14,38 @@ class RegisterRecipe01InsertRecipe extends StatefulWidget {
   _RegisterRecipe01InsertRecipeState createState() => _RegisterRecipe01InsertRecipeState();
 }
 
+
 class _RegisterRecipe01InsertRecipeState extends State<RegisterRecipe01InsertRecipe> {
 
+  int num=0;
 
-  /* showDialog(  // 등록 취소 or 이전 작업 불러오기 팝업
-  context: context,
-  builder: (BuildContext context) {
-  Future.delayed(const Duration(seconds: 1), () {
-  Navigator.pop(context);
-  });
-  return RecipeDeletePoP('이전에 작성 중인던 레시피가 있어요!\n삭제할까요? 불러올까요?');
-  });*/
+
 
   /*return showDialog( //삭제 팝업
   context: context,
-  builder: (BuildContext context) {return CommentDelete();});*/
+  builder: (BuildContext context) {return CommentDelete();});
+
+
+
+  showDialog(  // 등록 취소 or 이전 작업 불러오기 팝업
+        context: context,
+        builder: (BuildContext context) {
+          return RecipeDeletePoP('이전에 작성 중인던 레시피가 있어요!\n삭제할까요? 불러올까요?');
+        });
+
+  */
 
 
   @override
   Widget build(BuildContext context) {
+
+
+
+
+
+
+
+
     return SizedBox(
       width: 303,
       height: 787.67,
@@ -54,9 +66,13 @@ class _RegisterRecipe01InsertRecipeState extends State<RegisterRecipe01InsertRec
                   InkWell(
                     child: SvgPicture.asset('assets/letter.svg'),
                     onTap: (){
+
+
+
+
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const RegisterRecipe07Complete()),
+                        MaterialPageRoute(builder: (context) => const RegisterRecipe02InsertRecipeImage()),
                       );
                     },
                   ),
@@ -80,12 +96,15 @@ class _RegisterRecipe01InsertRecipeState extends State<RegisterRecipe01InsertRec
   }
 }
 class TitleText extends StatelessWidget {
+
   const TitleText({
     Key key,
   }) : super(key: key);
 
   @override
+
   Widget build(BuildContext context) {
+
     return Column(
       children: const [
         SizedBox(height: 159,),
