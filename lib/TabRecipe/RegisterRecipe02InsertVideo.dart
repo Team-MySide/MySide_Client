@@ -72,7 +72,6 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
         return true;
       }
     }
-
     return false;
   }
   @override

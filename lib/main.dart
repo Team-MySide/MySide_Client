@@ -34,6 +34,7 @@ import 'MainTab.dart';
 import 'TabRecipe/Recipe02List.dart';
 
 import 'TabRecipe/RecipeMain.dart';
+import 'TabRecipe/RegisterRecipe01InsertRecipe.dart';
 import 'TabRecipe/RegisterRecipe03InsertRecipe.dart';
 import 'TabSearch/FoodGridList.dart';
 import 'TabSearch/FoodInformation.dart';
@@ -82,8 +83,8 @@ void main() async {
         // : autoLoginFlag
         // ? '/MainTab'
         // : '/',
-        ? '/RecipeDetailPage'
-        : '/RecipeDetailPage',
+        ? '/RegisterRecipe01'
+        : '/RegisterRecipe01',
     // home: LoginMainPage()));
     // home: MainTab(),
     getPages: [
@@ -120,6 +121,9 @@ void main() async {
           name: "/SearchFoodcategoryResultList",
           page: () => SearchFoodcategoryResultList()),
       GetPage(name: "/MainTab", page: () => MainTab()),
+      GetPage(
+          name: "/RegisterRecipe01",
+          page: () => RegisterRecipe01InsertRecipe()),
       GetPage(
           name: "/RegisterRecipe03",
           page: () => RegisterRecipe03InsertRecipe()),

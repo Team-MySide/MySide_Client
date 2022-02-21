@@ -1,11 +1,11 @@
 
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipe05InsertRecipe.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'package:my_side_client/constantsList.dart';
 import 'package:my_side_client/controllers/RecipeControllers/RecipeRegisterController.dart';
@@ -22,6 +22,7 @@ class RegisterRecipe04InsertRecipe extends StatefulWidget {
 }
 
 class _RegisterRecipe04InsertRecipeState extends State<RegisterRecipe04InsertRecipe> {
+
   final RecipeRegisterController recipeRegisterController =
   Get.put(RecipeRegisterController());
 
@@ -84,7 +85,7 @@ class _RegisterRecipe04InsertRecipeState extends State<RegisterRecipe04InsertRec
   Widget build(BuildContext context) {
 
 
-
+    double scrHeight = MediaQuery.of(context).size.height;
 
 
     return Scaffold(
@@ -95,73 +96,90 @@ class _RegisterRecipe04InsertRecipeState extends State<RegisterRecipe04InsertRec
         builder: (controller) {
           bool isButtonActive = controller.checkActive();
           return SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Container(height: scrHeight-200,
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        //레시피 이름
-                        buildRecipeName(controller.recipeNameTextField),
-                        SizedBox(height: 15),
-                        //레시피 설명
-                        buildRecipeDetail(controller.recipeDetailTextField),
-                        SizedBox(height: 25),
-                        // 대표사진(음식사진)
-                        buildFoodPic(),
-                        SizedBox(height: 25),
-                        // 레시피 종류
-                        buildRecipeType(
-                          controller.setRecipeType,
-                          controller.recipeType,
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              //레시피 이름
+                              buildRecipeName(controller.recipeNameTextField),
+                              SizedBox(height: 15),
+                              //레시피 설명
+                              buildRecipeDetail(controller.recipeDetailTextField),
+                              SizedBox(height: 25),
+                              // 대표사진(음식사진)
+                              buildFoodPic(),
+                              SizedBox(height: 25),
+                              // 레시피 종류
+                              buildRecipeType(
+                                controller.setRecipeType,
+                                controller.recipeType,
+                              ),
+                              SizedBox(height: 25),
+                              // 레시피난이도
+                              buildRecipeDifficulty(
+                                  controller.starRating, controller.setStarRating),
+                              SizedBox(height: 25),
+                              // 소요시간
+                              buildTimeRequired(
+                                controller.setTmpDuration,
+                                controller.setHoursAndMinutes,
+                                controller.hours,
+                                controller.minutes,
+                                controller.setInitDuration,
+                              ),
+                              SizedBox(height: 25),
+                              // 분량
+                              buildFoodAmount(
+                                controller.setFoodAmount,
+                                controller.foodAmount,
+                              ),
+                              SizedBox(height: 40),
+                            ],
+                          ),
                         ),
-                        SizedBox(height: 25),
-                        // 레시피난이도
-                        buildRecipeDifficulty(
-                            controller.starRating, controller.setStarRating),
-                        SizedBox(height: 25),
-                        // 소요시간
-                        buildTimeRequired(
-                          controller.setTmpDuration,
-                          controller.setHoursAndMinutes,
-                          controller.hours,
-                          controller.minutes,
-                          controller.setInitDuration,
-                        ),
-                        SizedBox(height: 25),
-                        // 분량
-                        buildFoodAmount(
-                          controller.setFoodAmount,
-                          controller.foodAmount,
-                        ),
-                        SizedBox(height: 40),
+
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: RecSubmitButton(
-                          buttonText: '임시저장',
-                          buttonHeight: 70,
-                          activated: isButtonActive,
-                          validateFunc: () {},
-                          rectButtonColor: Color(0xFF666666),
-                        ),
+                ),
+
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: RecSubmitButton(
+                        buttonText: '임시저장',
+                        buttonHeight: 70,
+                        activated: isButtonActive,
+                        validateFunc: () {},
+                        rectButtonColor: Color(0xFF666666),
                       ),
-                      Expanded(
-                        child: RecSubmitButton(
-                          buttonText: '다음단계',
-                          buttonHeight: 70,
-                          activated: isButtonActive,
-                          validateFunc: () {},
-                        ),
+                    ),
+                    Expanded(
+                      child: RecSubmitButton(
+                        buttonText: '다음단계',
+                        buttonHeight: 70,
+                        activated: isButtonActive,
+                        validateFunc: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => RegisterRecipe05InsertRecipe()),
+                          );
+                        },
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+
+
+
+              ],
             ),
           );
         },

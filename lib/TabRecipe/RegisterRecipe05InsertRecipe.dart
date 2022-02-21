@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipe07Complete.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
 import 'package:my_side_client/common/CommonHeader.dart';
@@ -144,26 +145,32 @@ class _RegisterRecipe05InsertRecipeState
                   SizedBox(
                     height: 25,
                   ),
-                  Align(
-                    child:
-                        // Baseline(
-                        //not work
+                  InkWell(
+                    onTap: (){Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterRecipe07Complete()),
+                    );},
+                    child: Align(
+                      child:
+                          // Baseline(
+                          //not work
 
-                        // baseline: 0,
-                        // baselineType: TextBaseline.ideographic,
-                        //https://github.com/flutter/flutter/issues/42833
-                        // child:
-                        Text("음식 등록 요청 >",
-                            locale: Locale('ko', 'KR'), //not work
-                            // textAlign: TextAlign.justify,
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                textBaseline: TextBaseline.alphabetic,
-                                fontSize: 14,
-                                color: Color(0xFF666666))
-                            // ),
-                            ),
-                    alignment: Alignment.center,
+                          // baseline: 0,
+                          // baselineType: TextBaseline.ideographic,
+                          //https://github.com/flutter/flutter/issues/42833
+                          // child:
+                          Text("음식 등록 요청 >",
+                              locale: Locale('ko', 'KR'), //not work
+                              // textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  textBaseline: TextBaseline.alphabetic,
+                                  fontSize: 14,
+                                  color: Color(0xFF666666))
+                              // ),
+                              ),
+                      alignment: Alignment.center,
+                    ),
                   ),
                 ],
               )),
