@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_side_client/TabRecipe/RecipeSavePop.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'package:my_side_client/common/CommonTheme.dart';
 
@@ -29,28 +30,10 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
     showDialog(
       context: context,
       builder: (BuildContext context) {
-
         Future.delayed(const Duration(seconds: 1), () {
           Navigator.pop(context);
         });
-
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 60.0),
-          child: Column(mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0)
-                ),
-                backgroundColor: const Color(0xff3bd7e2),
-                content: const SizedBox(
-                  height: 30, width: 341,
-                  child: Center(child: Text('임시 저장 되었습니다!')),
-                ),
-              ),
-            ],
-          ),
-        );
+        return RecipeSavePop();
       },
     );
   }
@@ -176,7 +159,15 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
                         child: Container(
                           height: 70,
                           child: TextButton(
-                            onPressed: isSomethingInserted() ? () {_showDialog();} : null,
+                            onPressed: isSomethingInserted() ? () {showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  Navigator.pop(context);
+                                });
+                                return RecipeSavePop();
+                              },
+                            );} : null,
                             child: Text("임시저장", style: TextStyle(fontSize: 16)),
                             // style:
                             style: CommonTheme.getSquareGreyButtonStyle(),

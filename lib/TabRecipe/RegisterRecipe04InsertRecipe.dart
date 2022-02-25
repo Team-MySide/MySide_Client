@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_side_client/TabRecipe/RecipeSavePop.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe05InsertRecipe.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'package:my_side_client/constantsList.dart';
@@ -157,7 +158,17 @@ class _RegisterRecipe04InsertRecipeState extends State<RegisterRecipe04InsertRec
                         buttonText: '임시저장',
                         buttonHeight: 70,
                         activated: isButtonActive,
-                        validateFunc: () {},
+                        validateFunc: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              Future.delayed(const Duration(seconds: 1), () {
+                                Navigator.pop(context);
+                              });
+                              return RecipeSavePop();
+                            },
+                          );
+                        },
                         rectButtonColor: Color(0xFF666666),
                       ),
                     ),
