@@ -71,6 +71,8 @@ flutter:
     - assets/food_img/
     - assets/icons/
     - assets/profile_img/
+    - assets/recipe_sample_imgs/
+    - assets/sample_ingred/
 
     
 

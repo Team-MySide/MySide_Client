@@ -69,6 +69,7 @@ void main() async {
         scrollbarTheme: ScrollbarThemeData(
           thumbColor: MaterialStateProperty.all(Color(0xFF3BD7E2)),
           trackColor: MaterialStateProperty.all(Color(0xFFF4F4F4)),
+          //trackColor: MaterialStateProperty.all(Colors.red),
         ),
         primaryColor: Color(Constants.primaryColorInt),
         visualDensity: VisualDensity.adaptivePlatformDensity,

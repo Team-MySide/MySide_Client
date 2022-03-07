@@ -110,7 +110,7 @@ class _RecipeMainState extends State<RecipeMain> {
           itemBuilder: (BuildContext context, int index) {
             return RecipeTileType1Widget(
               recipeTile: recipeTiles[index],
-              tileHeight: 164,
+              tileHeight: 170,
             );
           },
           separatorBuilder: (BuildContext context, int index) =>
