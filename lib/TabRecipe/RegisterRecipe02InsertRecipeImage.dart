@@ -5,7 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_side_client/TabRecipe/RecipeSavePop.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe03InsertRecipe.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipeAppBar.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'package:my_side_client/common/CommonTheme.dart';
 
@@ -144,35 +146,7 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
     );
   }
 
-  void _showDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        Future.delayed(const Duration(seconds: 1), () {
-          Navigator.pop(context);
-        });
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 80.0),
-          child: Column(mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(height: 40, width: 343,
-                  decoration: BoxDecoration(
-                    color: Color(0xffd8f7f9),
-                    border: Border.all(color: Colors.transparent, ), borderRadius: const BorderRadius.all(
-                      Radius.circular(40.0) ),),
-                  child: TextButton(onPressed: (){Navigator.of(context).pop();},
-                    child: const Text('임시 저장 되었습니다!',style : TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff3bd7e2),
-                    )),)
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -226,18 +200,13 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
 
     return Scaffold(
       resizeToAvoidBottomInset : false,
-      appBar: CommonAppBarVer2(
+      appBar: RegisterRecipeAppBar(
         title: "요리 순서(1/5)",
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:[
           Column(crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
-
-
-
-
               Padding(
                 padding: const EdgeInsets.only( left: 16,right: 16),
                 child: Container(constraints: BoxConstraints(maxHeight: 0.85*scrHeight,),
@@ -469,7 +438,15 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
                 child: Container(
                   height: 70,
                   child: TextButton(
-                    onPressed: somethingInsert() ? () {_showDialog();} : null,
+                    onPressed: somethingInsert() ? () {showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        Future.delayed(const Duration(seconds: 1), () {
+                          Navigator.pop(context);
+                        });
+                        return RecipeSavePop();
+                      },
+                    );} : null,
                     child: Text("임시저장", style: TextStyle(fontSize: 16)),
                     // style:
                     style: CommonTheme.getSquareGreyButtonStyle(),

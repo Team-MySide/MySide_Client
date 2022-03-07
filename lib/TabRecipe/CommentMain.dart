@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/TabRecipe/CommentDelete.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/common/CommonTheme.dart';
@@ -29,6 +30,15 @@ class _CommentMainState extends State<CommentMain> {
       final isButtonActive = textEditingController.text.isNotEmpty;
       setState(() => this.isButtonActive = isButtonActive);
     });
+  }
+
+  void showDeletePoP(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CommentDelete();
+      },
+    );
   }
 
   @override
@@ -84,7 +94,9 @@ class CommentFooter extends StatelessWidget {
         // child:
         TextButton(
           style: CommonTheme.getSquarePrimaryButtonStyle(w: 60, h: 54),
-          onPressed: isButtonActive ? () {} : null,
+          onPressed: isButtonActive ? () {
+
+          } : null,
           child: Text("전송"),
           // ),
         )
@@ -107,7 +119,7 @@ class CommentBody extends StatelessWidget {
       child: ListView.separated(
         itemCount: sampleList.length,
         itemBuilder: (context, i) {
-          CommentItem item = CommentItem(Comment.fromJson(sampleList[i]), true);
+          CommentItem item = CommentItem(Comment.fromJson(sampleList[i]), true, context);
           return item.createCommentItem();
         },
         separatorBuilder: (BuildContext context, int index) {
@@ -121,16 +133,17 @@ class CommentBody extends StatelessWidget {
 class CommentItem {
   final Comment item;
   final bool isWriter;
-  CommentItem(this.item, this.isWriter, {Key key});
+  final context;
+  CommentItem(this.item, this.isWriter, this.context,{Key key});
   Widget createCommentItem() {
-    return createItem(true);
+    return createItem(true,context);
   }
 
   Widget createReplyItem() {
-    return createItem(false);
+    return createItem(false,context);
   }
 
-  Widget createItem(bool isMain) {
+  Widget createItem(bool isMain, BuildContext context) {
     isMain = false;
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -191,35 +204,53 @@ class CommentItem {
             Container(
               height: 8,
             ),
-            Row(
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                item.isLiked
-                    ? SvgPicture.asset(Constants.likeSVGSelectedPath)
-                    : SvgPicture.asset(Constants.likeSVGPath),
-                SizedBox(width: 5),
-                SizedBox(
-                    width: 33,
-                    height: 18,
-                    child: Text(
-                        item.likeCount != 0 ? "${item.likeCount}" : "좋아요")),
-                SizedBox(width: 24),
-                isMain
-                    ? SvgPicture.asset(Constants.chatSVGPath)
-                    : EmptyWidget(),
-                isMain ? SizedBox(width: 5) : EmptyWidget(),
-                isMain
-                    ? SizedBox(
-                        width: 46,
-                        height: 16,
-                        child: Text(item.commentCount != 0
-                            ? "${item.commentCount}"
-                            : "댓글 쓰기"))
-                    : EmptyWidget(),
-                // item.commentCount != 0
-                //     ? SvgPicture.asset("img/svg/vertical_dots.svg")
-                //     : null
+                Row(
+                  children: [
+                    item.isLiked
+                        ? SvgPicture.asset(Constants.likeSVGSelectedPath)
+                        : SvgPicture.asset(Constants.likeSVGPath),
+                    SizedBox(width: 5),
+                    SizedBox(
+                        width: 33,
+                        height: 18,
+                        child: Text(
+                            item.likeCount != 0 ? "${item.likeCount}" : "좋아요")),
+                    SizedBox(width: 24),
+                    isMain
+                        ? SvgPicture.asset(Constants.chatSVGPath)
+                        : EmptyWidget(),
+                    isMain ? SizedBox(width: 5) : EmptyWidget(),
+                    isMain
+                        ? SizedBox(
+                            width: 46,
+                            height: 16,
+                            child: Text(item.commentCount != 0
+                                ? "${item.commentCount}"
+                                : "댓글 쓰기"))
+                        : EmptyWidget(),
+                    // item.commentCount != 0
+                    //     ? SvgPicture.asset("img/svg/vertical_dots.svg")
+                    //     : null
+                  ],
+                ),
+                Row(children: [
+                  InkWell(
+                    child: SvgPicture.asset('assets/deletemenu.svg'),
+                    onTap: (){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CommentDelete();
+                        },
+                      );
+                    },
+                  ),
+                ],),
               ],
             ),
+
           ]),
         ),
       ]),

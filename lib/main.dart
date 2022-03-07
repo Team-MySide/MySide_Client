@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/TabRecipe/CommentMain.dart';
 import 'package:my_side_client/TabRecipe/RecipeDetailPage.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipe02InsertVideo.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe04InsertRecipe.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe05InsertRecipe.dart';
 import 'package:my_side_client/controllers/loginMainController.dart';
@@ -125,6 +126,9 @@ void main() async {
           name: "/RegisterRecipe01",
           page: () => RegisterRecipe01InsertRecipe()),
       GetPage(
+          name: "/RegisterRecipe02",
+          page: () => RegisterRecipe02InsertRecipeVideo()),
+      GetPage(
           name: "/RegisterRecipe03",
           page: () => RegisterRecipe03InsertRecipe()),
       GetPage(
@@ -133,6 +137,12 @@ void main() async {
       GetPage(
           name: "/RegisterRecipe04",
           page: () => RegisterRecipe04InsertRecipe()),
+
+      GetPage(
+          name: "/RecipeList",
+          page: () => RecipeList()),
+
+
       GetPage(name: "/RecipeMain", page: () => RecipeMain()),
       GetPage(name: "/RecipeDetailPage", page: () => RecipeDetailPage()),
     ],

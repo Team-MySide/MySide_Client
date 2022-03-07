@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/TabRecipe/RecipeSavePop.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe07Complete.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipeAppBar.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 
 import 'package:my_side_client/common/CommonHeader.dart';
@@ -30,8 +32,8 @@ class _RegisterRecipe05InsertRecipeState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppbar(
-        "레시피 입력(4/5)",
+      appBar: RegisterRecipeAppBar(
+       title: "레시피 입력(4/5)",
         // Colors.white.value,
         // isBack: true,
       ),
@@ -183,7 +185,17 @@ class _RegisterRecipe05InsertRecipeState
                       child: Container(
                     height: 70,
                     child: TextButton(
-                      onPressed: isSomethingInserted() ? () {} : null,
+                      onPressed: isSomethingInserted() ? () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            Future.delayed(const Duration(seconds: 1), () {
+                              Navigator.pop(context);
+                            });
+                            return RecipeSavePop();
+                          },
+                        );
+                      } : null,
                       child: Text("임시저장", style: TextStyle(fontSize: 16)),
                       // style:
                       style: CommonTheme.getSquareGreyButtonStyle(),
