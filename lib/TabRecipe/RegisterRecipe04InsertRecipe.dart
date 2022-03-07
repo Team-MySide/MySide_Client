@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_side_client/TabRecipe/RecipeSavePop.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe05InsertRecipe.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipeAppBar.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'package:my_side_client/constantsList.dart';
 import 'package:my_side_client/controllers/RecipeControllers/RecipeRegisterController.dart';
@@ -90,7 +91,7 @@ class _RegisterRecipe04InsertRecipeState extends State<RegisterRecipe04InsertRec
 
 
     return Scaffold(
-      appBar: CommonAppBarVer2(
+      appBar: RegisterRecipeAppBar(
         title: '레시피 입력 (3/5)',
       ),
       body: GetBuilder<RecipeRegisterController>(

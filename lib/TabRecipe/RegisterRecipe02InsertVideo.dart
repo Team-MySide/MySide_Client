@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_side_client/TabRecipe/RecipeSavePop.dart';
-import 'package:my_side_client/common/CommonAppBar.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipe03InsertRecipe.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipeAppBar.dart';
 import 'package:my_side_client/common/CommonTheme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterRecipe02InsertRecipeVideo extends StatefulWidget {
   const RegisterRecipe02InsertRecipeVideo({Key key}) : super(key: key);
@@ -16,27 +18,8 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
   TextEditingController recipeURLEditingController = TextEditingController();
   TextEditingController recipeProcessEditingController = TextEditingController();
 
-  @override
-  void dispose() {
-    TextEditingController recipeURLEditingController = TextEditingController();
-    TextEditingController recipeProcessEditingController = TextEditingController();
-    super.dispose();
-  }
-
   int a=0;
   String abc='recipeURLEditingController';
-
-  void _showDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        Future.delayed(const Duration(seconds: 1), () {
-          Navigator.pop(context);
-        });
-        return RecipeSavePop();
-      },
-    );
-  }
 
   bool isSomethingInserted() {
     if (recipeURLEditingController.text.isNotEmpty) {
@@ -59,13 +42,14 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
   }
   @override
   Widget build(BuildContext context) {
+
     final List<TextEditingController> _stateController=[];
     final TextEditingController recipeController = TextEditingController();
     _stateController.insert(0,recipeController);
     return SizedBox(
       child: Scaffold(
         resizeToAvoidBottomInset : false,
-        appBar: CommonAppBarVer2(
+        appBar: RegisterRecipeAppBar(
           title: "요리 순서(1/5)",
         ),
         body: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,6 +130,7 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
                       ),
                     ),
                   ),
+
                 ],
               ),
             ),
@@ -159,7 +144,12 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
                         child: Container(
                           height: 70,
                           child: TextButton(
-                            onPressed: isSomethingInserted() ? () {showDialog(
+                            onPressed: isSomethingInserted() ? () async {
+
+                              SharedPreferences sp = await SharedPreferences.getInstance();
+                              await sp.setString('testKey', 'setter test');
+
+                              showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 Future.delayed(const Duration(seconds: 1), () {
@@ -167,7 +157,10 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
                                 });
                                 return RecipeSavePop();
                               },
-                            );} : null,
+                            );
+                            print(sp);
+                              print(sp.toString());
+                            } : null,
                             child: Text("임시저장", style: TextStyle(fontSize: 16)),
                             // style:
                             style: CommonTheme.getSquareGreyButtonStyle(),
@@ -177,7 +170,13 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
                         child: Container(
                           height: 70,
                           child: TextButton(
-                            onPressed: isBothInserted() ? () {} : null,
+                            onPressed: isBothInserted() ? ()  {
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => RegisterRecipe03InsertRecipe()),
+                              );
+                            } : null,
                             child: Text("재료 입력하기", style: TextStyle(fontSize: 16)),
                             style: CommonTheme.getSquarePrimaryButtonStyle(),
                           ),
@@ -186,8 +185,6 @@ class _RegisterRecipe02InsertRecipeVideoState extends State<RegisterRecipe02Inse
                 ),
               ),
             )
-
-
           ],
         ),
       ),

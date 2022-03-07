@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_side_client/TabRecipe/RecipeSavePop.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe04InsertRecipe.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipeAppBar.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/common/CommonTheme.dart';
 
@@ -40,8 +41,8 @@ class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRec
     }
 
     return Scaffold(
-      appBar: CommonAppbar(
-        "재료 입력(2/5)",
+      appBar: RegisterRecipeAppBar(
+        title: "재료 입력(2/5)",
         // Colors.white.value,
         // isBack: true,
       ),

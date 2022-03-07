@@ -42,7 +42,7 @@ dependencies:
   get_storage: ^2.0.2
   m_loading: ^0.0.2
   image_picker: ^0.8.4+5
-  shared_preferences: ^0.5.3+4
+  shared_preferences: ^2.0.13
 
 
 dev_dependencies:

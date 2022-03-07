@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_side_client/TabRecipe/RecipeSavePop.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe03InsertRecipe.dart';
+import 'package:my_side_client/TabRecipe/RegisterRecipeAppBar.dart';
 import 'package:my_side_client/common/CommonAppBar.dart';
 import 'package:my_side_client/common/CommonTheme.dart';
 
@@ -199,7 +200,7 @@ class _RegisterRecipe02InsertRecipeImageState extends State<RegisterRecipe02Inse
 
     return Scaffold(
       resizeToAvoidBottomInset : false,
-      appBar: CommonAppBarVer2(
+      appBar: RegisterRecipeAppBar(
         title: "요리 순서(1/5)",
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
