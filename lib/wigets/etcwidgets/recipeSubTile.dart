@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_side_client/models/recipeTileModel.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainService/RecipeMainRecommendRecipeItem.dart';
 import 'package:my_side_client/wigets/etcwidgets/starRating.dart';
 
 class RecipeSubTile extends StatelessWidget {
-  final RecipeTile recipeTile;
+  final RecommendRecipeItem recipeTile;
   RecipeSubTile({@required this.recipeTile});
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class RecipeSubTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          recipeTile.recipeName,
+          recipeTile.name,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
@@ -25,14 +25,16 @@ class RecipeSubTile extends StatelessWidget {
           children: [
             Row(
               children: [
+                // FlutterLogo(),
                 Image.asset(
-                  recipeTile.usrProfileImg,
+                  // recipeTile.cancerNm,
+                  'assets/profile_img/person_round.png',
                   width: 32,
                   height: 32,
                 ),
                 SizedBox(width: 8),
                 Text(
-                  recipeTile.usrNickname,
+                  recipeTile.name,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -49,7 +51,7 @@ class RecipeSubTile extends StatelessWidget {
             spacing: 4,
             children: [
               Text(
-                recipeTile.usrInfo[0],
+                "#${recipeTile.name}",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
@@ -57,7 +59,7 @@ class RecipeSubTile extends StatelessWidget {
                 ),
               ),
               Text(
-                recipeTile.usrInfo[1],
+                "#${recipeTile.name}",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
@@ -65,7 +67,7 @@ class RecipeSubTile extends StatelessWidget {
                 ),
               ),
               Text(
-                recipeTile.usrInfo[2],
+                "#${recipeTile.name}",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
@@ -79,7 +81,7 @@ class RecipeSubTile extends StatelessWidget {
         Row(
           children: [
             StarRating(
-                rating: recipeTile.rate,
+                rating: recipeTile.userId,
                 spacing: 4,
                 starSize: 12,
                 starAlign: 2),
@@ -89,7 +91,7 @@ class RecipeSubTile extends StatelessWidget {
             SvgPicture.asset('assets/icons/time.svg'),
             SizedBox(width: 5),
             Text(
-              recipeTile.minute.toString() + '분',
+              recipeTile.progressNm.toString() + '분',
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w300,

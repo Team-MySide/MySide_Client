@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
-import 'package:my_side_client/TabRecipe/RecipeListExample.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainService/RecipeMainController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
-import 'package:my_side_client/models/recipeTileModel.dart';
 import 'package:my_side_client/wigets/buttonwidget/textWithMoreButton.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeTileType1.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeTileType2.dart';
-import 'package:my_side_client/wigets/etcwidgets/starRating.dart';
+import 'RecipeMainService/RecipeMainRecommendRecipeItem.dart';
 
 class RecipeMain extends StatefulWidget {
   @override
@@ -17,9 +16,17 @@ class RecipeMain extends StatefulWidget {
 
 bool isRecipe = true;
 
+// bool isRecommendRecipeLoaded = false;
 class _RecipeMainState extends State<RecipeMain> {
   TextEditingController controller = TextEditingController();
   final ScrollController _scrollCtrl = ScrollController();
+  RecipeMainRecommendRecipeController recommendRecipeController =
+      Get.put(RecipeMainRecommendRecipeController());
+  @override
+  void initState() {
+    super.initState();
+    recommendRecipeController.fetch();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +45,20 @@ class _RecipeMainState extends State<RecipeMain> {
                 SizedBox(
                   height: 40,
                 ),
-                CategoryTitle(),
+                categoryTitleWidget(),
                 SizedBox(
                   height: 24,
                 ),
                 isRecipe
                     ? NavigateIconViewsContainer2(categoryList)
                     : NavigateIconViewsContainer2(diseasesList),
-                buildRecommendRecipe(() {}, recipeTiles, 410, 223),
-                buildBestRecipe(() {}, recipeTiles),
+                Obx(() => recommendRecipeController.isLoaded.value
+                    ? buildRecommendRecipe(
+                        () {}, recommendRecipeController.lst, 410, 223, true)
+                    : buildRecommendRecipe(() {}, [], 410, 223, false)),
+                Obx(() => recommendRecipeController.isLoaded.value
+                    ? buildBestRecipe(() {}, recommendRecipeController.lst)
+                    : buildBestRecipe(() {}, [])),
               ],
             ),
           ),
@@ -58,15 +70,19 @@ class _RecipeMainState extends State<RecipeMain> {
   final String namedWidgetPath = "/Recipe03InsertRecipe";
 
   Widget buildRecommendRecipe(
-    VoidCallback onTap,
-    List<RecipeTile> recipeTiles,
-    double listviewHeight,
-    double imgSize,
-  ) {
+      VoidCallback onTap,
+      List<RecommendRecipeItem> recipeTiles,
+      double listviewHeight,
+      double imgSize,
+      bool isLoaded) {
     return Column(
       children: [
         SizedBox(height: 40),
-        TextWithMoreButton(titleText: '위암에 좋은 추천 레시피', onTap: onTap),
+        TextWithMoreButton(
+            titleText: recipeTiles.length == 0
+                ? '암에 좋은 추천 레시피'
+                : '${recipeTiles[0].cancerNm}에 좋은 추천 레시피',
+            onTap: onTap),
         SizedBox(height: 26),
         SizedBox(
           height: listviewHeight,
@@ -75,29 +91,18 @@ class _RecipeMainState extends State<RecipeMain> {
             showTrackOnHover: true,
             isAlwaysShown: true,
             thickness: 2,
-            child: ListView.separated(
-              controller: _scrollCtrl,
-              physics: ScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return RecipeTileType2Widget(
-                  recipeTile: recipeTiles[index],
-                  imgWidth: imgSize,
-                  subTileHeight: listviewHeight - imgSize - 24,
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  SizedBox(width: 16),
-              itemCount: recipeTiles.length,
-            ),
+            child: RecipeRecommendTileWidget(
+                recipeTiles: recipeTiles,
+                scrollCtrl: _scrollCtrl,
+                isLoaded: isLoaded),
           ),
         ),
       ],
     );
   }
 
-  Widget buildBestRecipe(VoidCallback onTap, List<RecipeTile> recipeTiles) {
+  Widget buildBestRecipe(
+      VoidCallback onTap, List<RecommendRecipeItem> recipeTiles) {
     return Column(
       children: [
         SizedBox(height: 40),
@@ -108,8 +113,9 @@ class _RecipeMainState extends State<RecipeMain> {
           shrinkWrap: true,
           itemCount: recipeTiles.length,
           itemBuilder: (BuildContext context, int index) {
-            return RecipeTileType1Widget(
+            return RecipeBestTileWidget(
               recipeTile: recipeTiles[index],
+              position: index,
               tileHeight: 164,
             );
           },
@@ -120,7 +126,7 @@ class _RecipeMainState extends State<RecipeMain> {
     );
   }
 
-  Widget CategoryTitle() {
+  Widget categoryTitleWidget() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -176,6 +182,35 @@ class _RecipeMainState extends State<RecipeMain> {
           ]),
         ),
       ],
+    );
+  }
+}
+
+class RecipeRecommendTileWidget extends StatelessWidget {
+  const RecipeRecommendTileWidget(
+      {Key key, this.scrollCtrl, this.isLoaded, this.recipeTiles});
+  final List<RecommendRecipeItem> recipeTiles;
+  final ScrollController scrollCtrl;
+  final bool isLoaded;
+  final double imgSize = 223;
+  final double listviewHeight = 410;
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      controller: scrollCtrl,
+      physics: ScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (BuildContext context, int index) {
+        return RecipeTileType2Widget(
+            recipeTile: recipeTiles[index],
+            imgWidth: imgSize,
+            subTileHeight: listviewHeight - imgSize - 24,
+            isLoaded: isLoaded);
+      },
+      separatorBuilder: (BuildContext context, int index) =>
+          SizedBox(width: 16),
+      itemCount: recipeTiles.length,
     );
   }
 }

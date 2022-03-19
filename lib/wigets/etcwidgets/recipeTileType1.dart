@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_side_client/models/recipeTileModel.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainService/RecipeMainRecommendRecipeItem.dart';
+import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeSubTile.dart';
 
-class RecipeTileType1Widget extends StatelessWidget {
-  final RecipeTile recipeTile;
+class RecipeBestTileWidget extends StatelessWidget {
+  // final RecipeTile recipeTile;
+  final RecommendRecipeItem recipeTile;
   final double tileHeight;
-  RecipeTileType1Widget({
-    @required this.recipeTile,
-    @required this.tileHeight,
-  });
+  final int position;
+  RecipeBestTileWidget({this.recipeTile, this.tileHeight, this.position});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,15 +19,20 @@ class RecipeTileType1Widget extends StatelessWidget {
           Stack(
             clipBehavior: Clip.none,
             children: [
-              Image.asset(
-                recipeTile.recipeImg,
-                width: tileHeight,
-                height: tileHeight,
-              ),
+              recipeTile == null
+                  ? ShimmerLoadingContainer(tileHeight, tileHeight)
+                  : Image.asset(
+                      // recipeTile.receipeImg,
+                      'assets/profile_img/person_round.png',
+
+                      width: tileHeight,
+                      height: tileHeight,
+                    ),
+              // FlutterLogo(),
               Positioned(
                 top: -4.5,
                 left: 10,
-                child: SvgPicture.asset(recipeTile.rankImg),
+                child: rankBanner(position),
               )
             ],
           ),
@@ -40,5 +45,18 @@ class RecipeTileType1Widget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget rankBanner(int position) {
+    switch (position) {
+      case 1:
+        return SvgPicture.asset('assets/icons/02.svg');
+      case 2:
+        return SvgPicture.asset('assets/icons/03.svg');
+      case 3:
+        return SvgPicture.asset('assets/icons/04.svg');
+      default:
+        return SvgPicture.asset('assets/icons/01.svg');
+    }
   }
 }
