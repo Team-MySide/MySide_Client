@@ -227,15 +227,26 @@ class NavigateIconViewsContainer2 extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       itemCount: data.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: isRecipe ? 4 : 3,
-          // const SliverGridDelegateWithMaxCrossAxisExtent(
-          //     maxCrossAxisExtent: 75,
-          //     mainAxisExtent: 101,
+      physics: new NeverScrollableScrollPhysics(),
+      gridDelegate: isRecipe
+          ?
+          // SliverGridDelegateWithMaxCrossAxisExtent(
 
-          childAspectRatio: isRecipe ? 75 / 101 : 104 / 95,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 14),
+          const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 75,
+              mainAxisExtent: 101,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 15,
+            )
+          // crossAxisCount: 4,
+          // childAspectRatio: 75 / 104 : 104 / 95,//  75/101
+          // mainAxisSpacing: 16,
+          // crossAxisSpacing: 14)
+          : const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 104 / 95,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 14),
       itemBuilder: (context, index) => NavigateIconView(data[index]),
     );
   }
@@ -346,10 +357,13 @@ class RecipeCategoryItem extends StatelessWidget {
                   child: SvgPicture.asset(iconPath))),
         ),
         SizedBox(height: 8),
+        // SizedBox(height: 6),
         Text(title,
             // style: TextStyle(fontSize: 13, height: 1.0, letterSpacing: -0.015)) //note10 works
-            style:
-                TextStyle(fontSize: 14, height: 18 / 14, letterSpacing: -0.015))
+            style: TextStyle(
+                fontSize: title == "김치/젓갈/장" ? 13 : 14,
+                height: 18 / 14,
+                letterSpacing: -0.15))
       ],
     );
   }
