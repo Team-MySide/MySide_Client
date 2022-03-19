@@ -227,6 +227,7 @@ class NavigateIconViewsContainer2 extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       itemCount: data.length,
+      physics: new NeverScrollableScrollPhysics(),
       gridDelegate: isRecipe
           ?
           // SliverGridDelegateWithMaxCrossAxisExtent(
