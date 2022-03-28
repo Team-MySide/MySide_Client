@@ -16,12 +16,17 @@ class RecipeTileType2Widget extends StatelessWidget {
             width: imgWidth,
             child: Column(
               children: [
-                Image.asset(
-                  // recipeTile.receipeImg,
-                  'assets/profile_img/person_round.png',
+                SizedBox(
+                  child: (recipeTile.receipeImg ?? "").isEmpty
+                      ? Image.asset(
+                          'images/searchbar_logo.png',
+                          fit: BoxFit.fitWidth,
+                        )
+                      : NetworkImage(
+                          recipeTile.receipeImg,
+                        ),
                   width: imgWidth,
                   height: imgWidth,
-                  fit: BoxFit.fitWidth,
                 ),
                 SizedBox(height: 8),
                 SizedBox(

@@ -19,16 +19,18 @@ class RecipeBestTileWidget extends StatelessWidget {
           Stack(
             clipBehavior: Clip.none,
             children: [
-              recipeTile == null
-                  ? ShimmerLoadingContainer(tileHeight, tileHeight)
-                  : Image.asset(
-                      // recipeTile.receipeImg,
-                      'assets/profile_img/person_round.png',
-
-                      width: tileHeight,
-                      height: tileHeight,
-                    ),
-              // FlutterLogo(),
+              SizedBox(
+                child: (recipeTile.receipeImg ?? "").isEmpty
+                    ? Image.asset(
+                        'images/searchbar_logo.png',
+                        fit: BoxFit.fitWidth,
+                      )
+                    : NetworkImage(
+                        recipeTile.receipeImg,
+                      ),
+                width: tileHeight,
+                height: tileHeight,
+              ),
               Positioned(
                 top: -4.5,
                 left: 10,

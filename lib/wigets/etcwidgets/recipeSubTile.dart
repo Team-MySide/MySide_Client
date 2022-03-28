@@ -51,7 +51,7 @@ class RecipeSubTile extends StatelessWidget {
             spacing: 4,
             children: [
               Text(
-                "#${recipeTile.name}",
+                "#${recipeTile.cancerNm}",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
@@ -59,7 +59,7 @@ class RecipeSubTile extends StatelessWidget {
                 ),
               ),
               Text(
-                "#${recipeTile.name}",
+                "#${recipeTile.stageNm}",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
@@ -67,7 +67,7 @@ class RecipeSubTile extends StatelessWidget {
                 ),
               ),
               Text(
-                "#${recipeTile.name}",
+                "#${recipeTile.progressNm}",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
@@ -91,7 +91,7 @@ class RecipeSubTile extends StatelessWidget {
             SvgPicture.asset('assets/icons/time.svg'),
             SizedBox(width: 5),
             Text(
-              recipeTile.progressNm.toString() + '분',
+              '${recipeTile.receipeTime}분',
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w300,

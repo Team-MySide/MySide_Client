@@ -101,7 +101,7 @@ class _RecipeListState extends State<RecipeList> {
           //   child:
           Expanded(
             child: ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: recipeTiles.length,
               itemBuilder: (BuildContext context, int index) {
