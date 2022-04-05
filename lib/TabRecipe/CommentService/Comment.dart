@@ -7,9 +7,9 @@
 
 import 'dart:convert';
 
-CommentDataItem commentFromJson(String str) => CommentDataItem.fromJson(json.decode(str));
+CommentDataItem commentDataItemFromJson(String str) => CommentDataItem.fromJson(json.decode(str));
 
-String commentToJson(CommentDataItem data) => json.encode(data.toJson());
+String commentDataItemToJson(CommentDataItem data) => json.encode(data.toJson());
 
 class CommentDataItem {
   CommentDataItem({
@@ -35,7 +35,7 @@ class CommentDataItem {
     "status": status,
     "success": success,
     "message": message,
-    "data": List<Comment>.from(data.map((x) => x.toJson())),
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
   };
 }
 
@@ -84,30 +84,22 @@ class Comment {
     progressNm: json["progressNm"],
     relationNm: json["relationNm"],
     like_status: json["like_status"],
-      );
+  );
 
   Map<String, dynamic> toJson() => {
-        "comment_id": comment_id, //아직 없음
-        "receipe_id": receipe_id,
-        "comment_content": comment_content,
-        "likesum": likesum,
-        "subcomment_sum": subcomment_sum,
-        "comment_time": comment_time,
-        "nickname": nickname,
-        "cancerNm": cancerNm,
-        "stageNm": stageNm,
-        "progressNm": progressNm,
-        "relationNm": relationNm,
-        "like_status": like_status,
-      };
-
-
-
-  static List<dynamic> sampleList = [
-    sampleComment,
-    sampleComment,
-    sampleComment
-  ];
+    "comment_id": comment_id, //아직 없음
+    "receipe_id": receipe_id,
+    "comment_content": comment_content,
+    "likesum": likesum,
+    "subcomment_sum": subcomment_sum,
+    "comment_time": comment_time,
+    "nickname": nickname,
+    "cancerNm": cancerNm,
+    "stageNm": stageNm,
+    "progressNm": progressNm,
+    "relationNm": relationNm,
+    "like_status": like_status,
+  };
 
   List<dynamic> sampleThread = [
     {"commendId": 454, "threadId": 444},
@@ -116,20 +108,31 @@ class Comment {
   ];
 }
 
-final dynamic sampleComment = {
+CommentPost commentPostFromJson(String str) => CommentPost.fromJson(json.decode(str));
 
-  "comment_id": 1, //아직 없음
-  "receipe_id": 1,
-  "comment_content": "시금치는 몸에 다 좋아요! 특히 겨울 시금치~너무 좋더라구요",
-  "likesum": 0,
-  "subcomment_sum": 0,
-  "comment_time": "2022-03-18 15:08:11",
-  "nickname": "토끼가족",
-  "cancerNm": "위암",
-  "stageNm": "2기",
-  "progressNm": "수술전",
-  "relationNm": "본인",
-  "like_status": false,
+String commentPostToJson(CommentPost data) => json.encode(data.toJson());
 
+class CommentPost {
+  CommentPost({
+    this.status,
+    this.success,
+    this.message,
+  });
 
-};
+  int status;
+  bool success;
+  String message;
+
+  factory CommentPost.fromJson(Map<String, dynamic> json) => CommentPost(
+    status: json["status"],
+    success: json["success"],
+    message: json["message"],
+
+  );
+
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "success": success,
+    "message": message,
+  };
+}

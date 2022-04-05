@@ -1,11 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_side_client/TabRecipe/CommentService/CommentDeleteController.dart';
+import 'package:get/get.dart';
+import 'package:my_side_client/common/CommonComponent.dart';
 
 class CommentDelete extends StatelessWidget {
-  const CommentDelete({Key key}) : super(key: key);
+  const CommentDelete(this.index, {Key key}) : super(key: key);
 
+  final int index;
   @override
   Widget build(BuildContext context) {
+
+
+
     return
       Padding(
         padding: const EdgeInsets.only(bottom: 40.0),
@@ -62,7 +69,11 @@ class CommentDelete extends StatelessWidget {
                                               style: OutlinedButton.styleFrom(shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.circular(25),
                                               ),backgroundColor: Color(0xff3bd7e2)),
-                                              onPressed: (){Navigator.of(context).pop();}, child: Text('삭제',style: TextStyle(
+                                              onPressed: (){
+                                                CommentDeleteController _controller =  Get.put(CommentDeleteController(index));
+                                                print(_controller.lst);
+                                                Navigator.of(context).pop();
+                                              }, child: Text('삭제',style: TextStyle(
                                             color: Color(0xffffffff),
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w500,))),
