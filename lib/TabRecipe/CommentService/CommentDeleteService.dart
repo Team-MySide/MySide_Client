@@ -3,14 +3,14 @@ import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 
 abstract class IFetch {
-  Future<List<Comment>> fetch();
+  Future<String> fetch(int index);
 }
 
-class Commentservice extends MySideConnect implements IFetch {
+class CommentDeleteService extends MySideConnect implements IFetch {
   // static var client = http.Client();
 
   @override
-  Future<List<Comment>> fetch() async {
+  Future<String> fetch(int index) async {
     //
     httpClient.baseUrl = "http://54.180.67.217:3000";
 
@@ -21,10 +21,10 @@ class Commentservice extends MySideConnect implements IFetch {
       request.headers['token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ4MTM1MDgxLCJleHAiOjE2NDkzNDQ2ODEsImlzcyI6ImlnIn0.1CSK1NhK74auMe1xdGq5oMt3HHiVhsWYta2lQ0PbYY4';
       return request;
     });
-    var resp = await get("/receipe/comment/main/view/1");
+    var resp = await delete("/receipe/comment/main/delete/1/$index");
     if (resp.statusCode == 200) {
-      return commentDataItemFromJson(resp.bodyString).data;
+      return commentPostFromJson(resp.bodyString).message;
     }
-    return [];
+    return "";
   }
 }

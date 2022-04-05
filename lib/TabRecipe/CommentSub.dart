@@ -15,34 +15,33 @@ import 'package:http/http.dart' as http;
 
 class CommentSub extends StatefulWidget {
   const CommentSub({Key key}) : super(key: key);
-
-
   @override
   State<CommentSub> createState() => _CommentSubState();
 }
 
-class _CommentSubState extends State<CommentSub> {
-  Future<SubCommentDataItem> fetchPost() async {
-    final response =
-    await http.get(Uri.parse('http://54.180.67.217:3000/receipe/comment/sub/view/2'),
-        headers:
-        {
-          "Content-Type": "application/json",
-          "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ4MTM1MDgxLCJleHAiOjE2NDkzNDQ2ODEsImlzcyI6ImlnIn0.1CSK1NhK74auMe1xdGq5oMt3HHiVhsWYta2lQ0PbYY4",
-        }
-    );
-    if (response.statusCode == 200) {
-      return SubCommentDataItem.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load post');
-    }
-  }
+Future<SubCommentDataItem> fetchPost() async {
+  final response =
+  await http.get(Uri.parse('http://54.180.67.217:3000/receipe/comment/sub/view/2'),
+      headers:
+      {
+        "Content-Type": "application/json",
+        "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ4MTM1MDgxLCJleHAiOjE2NDkzNDQ2ODEsImlzcyI6ImlnIn0.1CSK1NhK74auMe1xdGq5oMt3HHiVhsWYta2lQ0PbYY4",
+      }
+  );
+  if (response.statusCode == 200) {
+    return SubCommentDataItem.fromJson(json.decode(response.body));
+  } else {
+    print("망함");
+    throw Exception('Failed to load post');
 
+  }
+}
+
+class _CommentSubState extends State<CommentSub> {
+
+  Future<SubCommentDataItem> post;
   TextEditingController textEditingController;
   bool isButtonActive = false;
-  Future<SubCommentDataItem> post;
-  List<dynamic> sampleList = SubComment.sampleList;
-
   void iniState(){
     super.initState();
     textEditingController = TextEditingController();
@@ -52,7 +51,6 @@ class _CommentSubState extends State<CommentSub> {
       setState(() => this.isButtonActive = isButtonActive);
     });
   }
-  @override
   Widget build(BuildContext context) {
 
     //Comment mainComment = widget.item;
@@ -63,7 +61,7 @@ class _CommentSubState extends State<CommentSub> {
       body: Container(
         child: Column(
           children: [
-           // items.createCommentItem(),
+            // items.createCommentItem(),
             FutureBuilder<SubCommentDataItem>(
               future: post,
               builder: (context, snapshot) {
@@ -235,7 +233,7 @@ class SubCommentItem {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return CommentDelete();
+                          return CommentDelete(item.comment_id);
                         },
                       );
                     },
