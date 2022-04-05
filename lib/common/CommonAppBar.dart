@@ -4,7 +4,7 @@ class CommonAppBarVer2 extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
   CommonAppBarVer2({
-    @required this.title,
+    this.title,
   });
 
   @override

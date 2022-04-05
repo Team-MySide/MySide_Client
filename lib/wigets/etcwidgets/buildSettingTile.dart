@@ -8,10 +8,10 @@ class BuildSettingTile extends StatelessWidget {
   final VoidCallback onTap;
 
   BuildSettingTile({
-    @required this.svgPath,
-    @required this.tileText,
-    @required this.scrHeight,
-    @required this.onTap,
+    this.svgPath,
+    this.tileText,
+    this.scrHeight,
+    this.onTap,
   });
 
   @override

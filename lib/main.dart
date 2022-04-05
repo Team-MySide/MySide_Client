@@ -85,8 +85,9 @@ void main() async {
         // : autoLoginFlag
         // ? '/MainTab'
         // : '/',
-        ? '/CommentMain'
-        : '/CommentMain',
+        ? '/RecipeList'
+        : '/RecipeList',
+
     // home: LoginMainPage()));
     // home: MainTab(),
     getPages: [
@@ -138,13 +139,10 @@ void main() async {
       GetPage(
           name: "/RegisterRecipe04",
           page: () => RegisterRecipe04InsertRecipe()),
+      GetPage(name: "/RecipeList", page: () => RecipeList()),
+      GetPage(name: "/RecipeMain", page: () => RecipeMain()),
+      GetPage(name: "/RecipeDetailPage", page: () => RecipeDetailPage()),
 
-      GetPage(
-          name: "/RecipeList",
-          page: () => RecipeList()),
-
-      GetPage(name: "/RecipeList", page: () => RecipeMain()),
-      GetPage(name: "/RecipeList", page: () => RecipeDetailPage()),
     ],
   ));
 }

@@ -5,7 +5,7 @@ import 'package:my_side_client/wigets/etcwidgets/starRating.dart';
 
 class RecipeSubTile extends StatelessWidget {
   final RecommendRecipeItem recipeTile;
-  RecipeSubTile({@required this.recipeTile});
+  RecipeSubTile({this.recipeTile});
   @override
   Widget build(BuildContext context) {
     return Column(

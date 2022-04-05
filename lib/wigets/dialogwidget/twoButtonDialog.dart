@@ -8,9 +8,9 @@ class TwoButtonDialog extends StatelessWidget {
   final VoidCallback routeFunc;
 
   TwoButtonDialog({
-    @required this.scrHeight,
-    @required this.dialogText,
-    @required this.routeFunc,
+    this.scrHeight,
+    this.dialogText,
+    this.routeFunc,
   });
 
   @override

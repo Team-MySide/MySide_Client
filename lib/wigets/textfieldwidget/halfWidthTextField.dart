@@ -8,9 +8,9 @@ class HalfWidthTextField extends StatelessWidget {
   final String tailText;
 
   HalfWidthTextField({
-    @required this.scrHeight,
-    @required this.textFieldModel,
-    @required this.tailText,
+    this.scrHeight,
+    this.textFieldModel,
+    this.tailText,
   });
   @override
   Widget build(BuildContext context) {

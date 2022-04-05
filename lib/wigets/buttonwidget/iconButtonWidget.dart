@@ -8,10 +8,10 @@ class IconButtonWidget extends StatelessWidget {
   final VoidCallback onTap;
 
   IconButtonWidget({
-    @required this.scrHeight,
-    @required this.iconImageNm,
-    @required this.iconText,
-    @required this.onTap,
+    this.scrHeight,
+    this.iconImageNm,
+    this.iconText,
+    this.onTap,
   });
 
   @override

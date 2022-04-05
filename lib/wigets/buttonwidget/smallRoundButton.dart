@@ -7,9 +7,9 @@ class SmallRoundButton extends StatelessWidget {
   final double buttonWidth;
 
   SmallRoundButton({
-    @required this.scrHeight,
-    @required this.buttonText,
-    @required this.onTap,
+    this.scrHeight,
+    this.buttonText,
+    this.onTap,
     this.buttonWidth,
   });
   @override

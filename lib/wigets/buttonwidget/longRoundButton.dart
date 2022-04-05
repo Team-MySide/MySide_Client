@@ -8,10 +8,10 @@ class LongRoundButton extends StatelessWidget {
   final Color buttonColor;
 
   LongRoundButton({
-    @required this.buttonText,
-    @required this.scrHeight,
-    @required this.activated,
-    @required this.validateFunc,
+    this.buttonText,
+    this.scrHeight,
+    this.activated,
+    this.validateFunc,
     this.buttonColor,
   });
 

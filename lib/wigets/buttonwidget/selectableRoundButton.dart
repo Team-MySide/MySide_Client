@@ -6,9 +6,9 @@ class SelectableRoundButton extends StatelessWidget {
   final VoidCallback onTap;
 
   SelectableRoundButton({
-    @required this.buttonText,
-    @required this.isSelected,
-    @required this.onTap,
+    this.buttonText,
+    this.isSelected,
+    this.onTap,
   });
 
   @override

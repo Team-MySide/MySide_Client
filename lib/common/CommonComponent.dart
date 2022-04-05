@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:m_loading/m_loading.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabHome/SearchBar.dart';
 import 'package:my_side_client/TabSearch/SearchDisease.dart';
@@ -374,7 +373,7 @@ Widget loadingPage() {
       child: SizedBox(
           width: 40,
           height: 40,
-          child: Water2CircleLoading(
+          child: CircularProgressIndicator(
             color: Color(
               Constants.primaryColorInt,
             ),

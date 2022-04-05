@@ -9,10 +9,10 @@ class ButtonTextField extends StatelessWidget {
   final VoidCallback valFunc;
 
   ButtonTextField({
-    @required this.scrHeight,
-    @required this.textFieldModel,
-    @required this.buttonText,
-    @required this.valFunc,
+    this.scrHeight,
+    this.textFieldModel,
+    this.buttonText,
+    this.valFunc,
   });
 
   @override

@@ -8,10 +8,10 @@ class CheckWidget extends StatelessWidget {
   final VoidCallback checkClicked;
 
   CheckWidget({
-    @required this.checked,
-    @required this.checkText,
-    @required this.scrHeight,
-    @required this.checkClicked,
+    this.checked,
+    this.checkText,
+    this.scrHeight,
+    this.checkClicked,
   });
 
   @override

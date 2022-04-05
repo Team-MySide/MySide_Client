@@ -9,11 +9,11 @@ class SelectBetweenTwo extends StatelessWidget {
   final String secondOption;
 
   SelectBetweenTwo({
-    @required this.scrHeight,
-    @required this.ind,
-    @required this.selectFunc,
-    @required this.firstOption,
-    @required this.secondOption,
+    this.scrHeight,
+    this.ind,
+    this.selectFunc,
+    this.firstOption,
+    this.secondOption,
   });
 
   @override

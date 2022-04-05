@@ -6,11 +6,7 @@ class StarRating extends StatelessWidget {
   final double spacing;
   final double starSize;
   final int starAlign;
-  StarRating(
-      {@required this.rating,
-      @required this.spacing,
-      @required this.starSize,
-      @required this.starAlign});
+  StarRating({this.rating, this.spacing, this.starSize, this.starAlign});
   @override
   Widget build(BuildContext context) {
     return Row(

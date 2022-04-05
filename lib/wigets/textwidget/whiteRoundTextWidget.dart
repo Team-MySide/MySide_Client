@@ -4,7 +4,7 @@ class WhiteRountTextWidget extends StatelessWidget {
   final String textInside;
 
   WhiteRountTextWidget({
-    @required this.textInside,
+    this.textInside,
   });
   @override
   Widget build(BuildContext context) {

@@ -3,17 +3,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_side_client/TabRecipe/RecipeSavePop.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe04InsertRecipe.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipeAppBar.dart';
-import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/common/CommonTheme.dart';
 
 class RegisterRecipe03InsertRecipe extends StatefulWidget {
   RegisterRecipe03InsertRecipe({Key key}) : super(key: key);
 
   @override
-  State<RegisterRecipe03InsertRecipe> createState() => _RegisterRecipe03InsertRecipeState();
+  State<RegisterRecipe03InsertRecipe> createState() =>
+      _RegisterRecipe03InsertRecipeState();
 }
 
-class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRecipe> {
+class _RegisterRecipe03InsertRecipeState
+    extends State<RegisterRecipe03InsertRecipe> {
   TextEditingController recipeComponentController = TextEditingController();
   TextEditingController recipeSeasoningController = TextEditingController();
   @override
@@ -23,17 +24,15 @@ class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRec
     bool isSomethingInserted() {
       if (recipeComponentController.text.isNotEmpty) {
         return true;
-      }
-      else if(recipeSeasoningController.text.isNotEmpty)
-      {
+      } else if (recipeSeasoningController.text.isNotEmpty) {
         return true;
       }
       return false;
     }
+
     bool isBothInserted() {
       if (recipeComponentController.text.isNotEmpty) {
-        if(recipeSeasoningController.text.isNotEmpty)
-        {
+        if (recipeSeasoningController.text.isNotEmpty) {
           return true;
         }
       }
@@ -48,7 +47,8 @@ class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRec
       ),
       body: Column(
         children: [
-          Container(height: scrHeight-200,
+          Container(
+            height: scrHeight - 200,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -66,7 +66,8 @@ class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRec
                             ],
                           ),
                           SizedBox(height: 8),
-                          TextField(controller:recipeComponentController,
+                          TextField(
+                            controller: recipeComponentController,
                             onChanged: (_) => setState(() {}),
                             maxLines: 3,
                             decoration: InputDecoration(
@@ -81,7 +82,8 @@ class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRec
                                 children: [
                                   Text("양념재료",
                                       style: TextStyle(
-                                          fontSize: 14, color: Color(0xFF666666))),
+                                          fontSize: 14,
+                                          color: Color(0xFF666666))),
                                   SizedBox(width: 7),
                                   SvgPicture.asset("images/svg/edit.svg")
                                 ],
@@ -90,7 +92,8 @@ class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRec
                             ],
                           ),
                           SizedBox(height: 8),
-                          TextField(controller:recipeSeasoningController,
+                          TextField(
+                            controller: recipeSeasoningController,
                             onChanged: (_) => setState(() {}),
                             maxLines: 3,
                             decoration: InputDecoration(
@@ -105,19 +108,17 @@ class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRec
                                 child: Text("추가하기 +",
                                     style: TextStyle(
                                         decoration: TextDecoration.underline,
-                                        textBaseline: TextBaseline.ideographic)),
+                                        textBaseline:
+                                            TextBaseline.ideographic)),
                                 alignment: Alignment.center),
                           ),
-
                         ],
-                      )
-                  ),
+                      )),
                   GuideImageList(sampleList: sampleList),
                 ],
               ),
             ),
           ),
-
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -125,53 +126,51 @@ class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRec
                 children: [
                   Expanded(
                       child: Container(
-                        height: 70,
-                        child: TextButton(
-                          onPressed: isSomethingInserted() ? () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                Future.delayed(const Duration(seconds: 1), () {
-                                  Navigator.pop(context);
-                                });
-                                return RecipeSavePop();
-                              },
-                            );
-                          } : null,
-                          child: Text("임시저장", style: TextStyle(fontSize: 16)),
-                          // style:
-                          style: CommonTheme.getSquareGreyButtonStyle(),
-                        ),
-                      )),
+                    height: 70,
+                    child: TextButton(
+                      onPressed: isSomethingInserted()
+                          ? () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  Future.delayed(const Duration(seconds: 1),
+                                      () {
+                                    Navigator.pop(context);
+                                  });
+                                  return RecipeSavePop();
+                                },
+                              );
+                            }
+                          : null,
+                      child: Text("임시저장", style: TextStyle(fontSize: 16)),
+                      // style:
+                      style: CommonTheme.getSquareGreyButtonStyle(),
+                    ),
+                  )),
                   Expanded(
                       child: Container(
-                        height: 70,
-                        child: TextButton(
-                          onPressed: isBothInserted() ? () {Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => RegisterRecipe04InsertRecipe()),
-                          );} : null,
-                          child: Text("재료 입력하기", style: TextStyle(fontSize: 16)),
-                          style: CommonTheme.getSquarePrimaryButtonStyle(),
-                        ),
-                      ))
+                    height: 70,
+                    child: TextButton(
+                      onPressed: isBothInserted()
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        RegisterRecipe04InsertRecipe()),
+                              );
+                            }
+                          : null,
+                      child: Text("재료 입력하기", style: TextStyle(fontSize: 16)),
+                      style: CommonTheme.getSquarePrimaryButtonStyle(),
+                    ),
+                  ))
                 ],
               ),
             ),
           ),
         ],
-
-
-
-
-
       ),
-
-
-
-
-
-
     );
   }
 
@@ -181,7 +180,7 @@ class _RegisterRecipe03InsertRecipeState extends State<RegisterRecipe03InsertRec
 class GuideImageList extends StatelessWidget {
   const GuideImageList({
     Key key,
-    @required this.sampleList,
+    this.sampleList,
   }) : super(key: key);
 
   final List sampleList;

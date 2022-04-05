@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SecondStageTextStyle extends StatelessWidget {
   final String title;
   SecondStageTextStyle({
-    @required this.title,
+    this.title,
   });
   @override
   Widget build(BuildContext context) {

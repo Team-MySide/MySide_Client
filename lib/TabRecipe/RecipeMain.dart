@@ -301,8 +301,8 @@ class NavigateIconView extends StatelessWidget {
 class DiseaseCategoryItem extends StatelessWidget {
   const DiseaseCategoryItem({
     Key key,
-    @required this.iconPath,
-    @required this.title,
+    this.iconPath,
+    this.title,
   }) : super(key: key);
 
   final String iconPath;
@@ -331,8 +331,8 @@ class DiseaseCategoryItem extends StatelessWidget {
 class RecipeCategoryItem extends StatelessWidget {
   const RecipeCategoryItem({
     Key key,
-    @required this.iconPath,
-    @required this.title,
+    this.iconPath,
+    this.title,
   }) : super(key: key);
 
   final String iconPath;

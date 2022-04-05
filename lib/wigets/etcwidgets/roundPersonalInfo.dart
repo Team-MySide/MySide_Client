@@ -5,8 +5,8 @@ class RoundPersonalInfo extends StatelessWidget {
   final double scrHeight;
 
   RoundPersonalInfo({
-    @required this.buttonText,
-    @required this.scrHeight,
+    this.buttonText,
+    this.scrHeight,
   });
   @override
   Widget build(BuildContext context) {

@@ -10,12 +10,12 @@ class FAQContainer extends StatelessWidget {
   final VoidCallback toggleFunc;
 
   FAQContainer({
-    @required this.scrHeight,
-    @required this.headTitle,
-    @required this.question,
-    @required this.answer,
-    @required this.selected,
-    @required this.toggleFunc,
+    this.scrHeight,
+    this.headTitle,
+    this.question,
+    this.answer,
+    this.selected,
+    this.toggleFunc,
   });
 
   @override
