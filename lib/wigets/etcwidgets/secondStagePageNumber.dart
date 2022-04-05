@@ -4,8 +4,8 @@ class SecondStagePageNumber extends StatelessWidget {
   final int pageNum;
   final double scrHeight;
   SecondStagePageNumber({
-    @required this.pageNum,
-    @required this.scrHeight,
+    this.pageNum,
+    this.scrHeight,
   });
   @override
   Widget build(BuildContext context) {

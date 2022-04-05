@@ -6,9 +6,9 @@ class TitleAndSubtitleWidget extends StatelessWidget {
   final double scrHeight;
 
   TitleAndSubtitleWidget({
-    @required this.title,
-    @required this.subTitle,
-    @required this.scrHeight,
+    this.title,
+    this.subTitle,
+    this.scrHeight,
   });
   @override
   Widget build(BuildContext context) {

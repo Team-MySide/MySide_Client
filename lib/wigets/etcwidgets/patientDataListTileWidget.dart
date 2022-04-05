@@ -11,10 +11,10 @@ class PatientDataListTileWidget extends StatelessWidget {
   final VoidCallback onUpdated;
 
   PatientDataListTileWidget({
-    @required this.scrHeight,
-    @required this.healthData,
-    @required this.onDelete,
-    @required this.onUpdated,
+    this.scrHeight,
+    this.healthData,
+    this.onDelete,
+    this.onUpdated,
   });
 
   @override

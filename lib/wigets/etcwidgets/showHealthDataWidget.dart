@@ -16,14 +16,14 @@ class ShowHealthdataWidget extends StatelessWidget {
   final Function setOption;
 
   ShowHealthdataWidget({
-    @required this.scrHeight,
-    @required this.isMain,
-    @required this.toAddHealthDataPage,
-    @required this.healthDataList,
-    @required this.deleteFunc,
+    this.scrHeight,
+    this.isMain,
+    this.toAddHealthDataPage,
+    this.healthDataList,
+    this.deleteFunc,
     this.myPageListRefresh,
     this.myPageUserInfoRefresh,
-    @required this.editFunc,
+    this.editFunc,
     this.setOption,
   });
 

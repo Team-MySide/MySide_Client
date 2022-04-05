@@ -7,9 +7,9 @@ class SingleButtonDialog extends StatelessWidget {
   final VoidCallback routeFunc;
 
   SingleButtonDialog({
-    @required this.widgetBetween,
-    @required this.dialogHeight,
-    @required this.routeFunc,
+    this.widgetBetween,
+    this.dialogHeight,
+    this.routeFunc,
   });
 
   @override

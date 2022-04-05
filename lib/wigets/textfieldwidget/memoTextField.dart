@@ -10,8 +10,8 @@ class MemoTextField extends StatelessWidget {
   final bool belowTextExist;
 
   MemoTextField({
-    @required this.scrHeight,
-    @required this.textFieldModel,
+    this.scrHeight,
+    this.textFieldModel,
     this.maxLines,
     this.maxLength,
     this.belowTextExist,

@@ -6,7 +6,7 @@ class BasicTextField extends StatelessWidget {
   final double scrHeight;
   final TextFieldModel textFieldModel;
 
-  BasicTextField({@required this.scrHeight, @required this.textFieldModel});
+  BasicTextField({this.scrHeight, this.textFieldModel});
 
   @override
   Widget build(BuildContext context) {

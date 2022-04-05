@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SkipButton extends StatelessWidget {
   final VoidCallback onTap;
-  SkipButton({@required this.onTap});
+  SkipButton({this.onTap});
   @override
   Widget build(BuildContext context) {
     return InkWell(

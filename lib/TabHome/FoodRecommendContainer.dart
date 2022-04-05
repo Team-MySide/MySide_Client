@@ -155,8 +155,8 @@ class ListWheelScrollViewX extends StatelessWidget {
   final void Function(int) onSelectedItemChanged;
   const ListWheelScrollViewX({
     Key key,
-    @required this.builder,
-    @required this.itemExtent,
+    this.builder,
+    this.itemExtent,
     this.controller,
     this.onSelectedItemChanged,
     this.scrollDirection = Axis.vertical,

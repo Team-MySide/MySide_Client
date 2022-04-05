@@ -32,7 +32,7 @@ class _CommentMainState extends State<CommentMain> {
     });
   }
 
-  void showDeletePoP(BuildContext context){
+  void showDeletePoP(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -62,8 +62,8 @@ class _CommentMainState extends State<CommentMain> {
 class CommentFooter extends StatelessWidget {
   const CommentFooter({
     Key key,
-    @required this.textEditingController,
-    @required this.isButtonActive,
+    this.textEditingController,
+    this.isButtonActive,
   }) : super(key: key);
 
   final TextEditingController textEditingController;
@@ -94,9 +94,7 @@ class CommentFooter extends StatelessWidget {
         // child:
         TextButton(
           style: CommonTheme.getSquarePrimaryButtonStyle(w: 60, h: 54),
-          onPressed: isButtonActive ? () {
-
-          } : null,
+          onPressed: isButtonActive ? () {} : null,
           child: Text("전송"),
           // ),
         )
@@ -108,7 +106,7 @@ class CommentFooter extends StatelessWidget {
 class CommentBody extends StatelessWidget {
   const CommentBody({
     Key key,
-    @required this.sampleList,
+    this.sampleList,
   }) : super(key: key);
 
   final List sampleList;
@@ -119,7 +117,8 @@ class CommentBody extends StatelessWidget {
       child: ListView.separated(
         itemCount: sampleList.length,
         itemBuilder: (context, i) {
-          CommentItem item = CommentItem(Comment.fromJson(sampleList[i]), true, context);
+          CommentItem item =
+              CommentItem(Comment.fromJson(sampleList[i]), true, context);
           return item.createCommentItem();
         },
         separatorBuilder: (BuildContext context, int index) {
@@ -134,13 +133,13 @@ class CommentItem {
   final Comment item;
   final bool isWriter;
   final context;
-  CommentItem(this.item, this.isWriter, this.context,{Key key});
+  CommentItem(this.item, this.isWriter, this.context, {Key key});
   Widget createCommentItem() {
-    return createItem(true,context);
+    return createItem(true, context);
   }
 
   Widget createReplyItem() {
-    return createItem(false,context);
+    return createItem(false, context);
   }
 
   Widget createItem(bool isMain, BuildContext context) {
@@ -204,7 +203,8 @@ class CommentItem {
             Container(
               height: 8,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
@@ -235,22 +235,23 @@ class CommentItem {
                     //     : null
                   ],
                 ),
-                Row(children: [
-                  InkWell(
-                    child: SvgPicture.asset('assets/deletemenu.svg'),
-                    onTap: (){
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CommentDelete();
-                        },
-                      );
-                    },
-                  ),
-                ],),
+                Row(
+                  children: [
+                    InkWell(
+                      child: SvgPicture.asset('assets/deletemenu.svg'),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CommentDelete();
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
-
           ]),
         ),
       ]),

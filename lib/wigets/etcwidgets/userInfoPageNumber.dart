@@ -4,8 +4,8 @@ class UserInfoPageNumber extends StatelessWidget {
   final int pageNum;
   final double scrHeight;
   UserInfoPageNumber({
-    @required this.pageNum,
-    @required this.scrHeight,
+    this.pageNum,
+    this.scrHeight,
   });
   @override
   Widget build(BuildContext context) {

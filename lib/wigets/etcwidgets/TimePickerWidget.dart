@@ -8,9 +8,9 @@ class TimerPickerWidget extends StatelessWidget {
   final Function setInitDuration;
 
   TimerPickerWidget({
-    @required this.setTmpDuration,
-    @required this.setTimeRequired,
-    @required this.setInitDuration,
+    this.setTmpDuration,
+    this.setTimeRequired,
+    this.setInitDuration,
   });
 
   @override

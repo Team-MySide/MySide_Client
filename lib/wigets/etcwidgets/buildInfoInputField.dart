@@ -9,11 +9,11 @@ class BuildInfoInputField extends StatelessWidget {
   final bool isTextField;
 
   BuildInfoInputField({
-    @required this.scrHeight,
-    @required this.title,
-    @required this.widgetForBuild,
-    @required this.isRequired,
-    @required this.isTextField,
+    this.scrHeight,
+    this.title,
+    this.widgetForBuild,
+    this.isRequired,
+    this.isTextField,
   });
 
   @override

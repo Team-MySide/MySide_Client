@@ -8,10 +8,10 @@ class RecSubmitButton extends StatelessWidget {
   final Color rectButtonColor;
 
   RecSubmitButton({
-    @required this.buttonText,
-    @required this.buttonHeight,
-    @required this.activated,
-    @required this.validateFunc,
+    this.buttonText,
+    this.buttonHeight,
+    this.activated,
+    this.validateFunc,
     this.rectButtonColor,
   });
   @override

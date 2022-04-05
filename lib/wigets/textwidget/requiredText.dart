@@ -4,7 +4,7 @@ class RequiredTextWidget extends StatelessWidget {
   final String mainText;
   final bool isRequired;
   RequiredTextWidget({
-    @required this.mainText,
+    this.mainText,
     this.isRequired,
   });
   @override

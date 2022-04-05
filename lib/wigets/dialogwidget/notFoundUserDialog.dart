@@ -7,9 +7,9 @@ class NotFountUserDialog extends StatelessWidget {
   final VoidCallback gotoSignUp;
 
   NotFountUserDialog({
-    @required this.whichInfo,
-    @required this.routeFunc,
-    @required this.gotoSignUp,
+    this.whichInfo,
+    this.routeFunc,
+    this.gotoSignUp,
   });
 
   @override

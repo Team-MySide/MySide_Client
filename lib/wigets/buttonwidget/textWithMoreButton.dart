@@ -5,8 +5,8 @@ class TextWithMoreButton extends StatelessWidget {
   final VoidCallback onTap;
 
   TextWithMoreButton({
-    @required this.titleText,
-    @required this.onTap,
+    this.titleText,
+    this.onTap,
   });
 
   @override

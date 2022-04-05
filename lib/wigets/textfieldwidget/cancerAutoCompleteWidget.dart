@@ -11,11 +11,11 @@ class CancerAutoCompleteWidget extends StatelessWidget {
   final Function getSuggestion;
 
   CancerAutoCompleteWidget({
-    @required this.scrHeight,
-    @required this.textFieldModel,
-    @required this.cancerNum,
-    @required this.clicked,
-    @required this.getSuggestion,
+    this.scrHeight,
+    this.textFieldModel,
+    this.cancerNum,
+    this.clicked,
+    this.getSuggestion,
   });
 
   @override

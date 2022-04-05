@@ -7,14 +7,14 @@ class BuildAgreement extends StatelessWidget {
   final VoidCallback firstCliked, secondClicked, thirdClicked, forthClicked;
 
   BuildAgreement({
-    @required this.first,
-    @required this.second,
-    @required this.third,
-    @required this.forth,
-    @required this.firstCliked,
-    @required this.secondClicked,
-    @required this.thirdClicked,
-    @required this.forthClicked,
+    this.first,
+    this.second,
+    this.third,
+    this.forth,
+    this.firstCliked,
+    this.secondClicked,
+    this.thirdClicked,
+    this.forthClicked,
   });
 
   @override

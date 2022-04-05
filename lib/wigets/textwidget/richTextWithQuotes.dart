@@ -4,8 +4,8 @@ class RichTextWithQuotes extends StatelessWidget {
   final String firstText;
   final String secondText;
   RichTextWithQuotes({
-    @required this.firstText,
-    @required this.secondText,
+    this.firstText,
+    this.secondText,
   });
   @override
   Widget build(BuildContext context) {
