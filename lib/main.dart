@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/TabRecipe/CommentMain.dart';
+import 'package:my_side_client/TabRecipe/CommentSub.dart';
 import 'package:my_side_client/TabRecipe/RecipeDetailPage.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe02InsertVideo.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe04InsertRecipe.dart';
@@ -86,6 +87,7 @@ void main() async {
         // : '/',
         ? '/RecipeList'
         : '/RecipeList',
+
     // home: LoginMainPage()));
     // home: MainTab(),
     getPages: [
@@ -140,6 +142,7 @@ void main() async {
       GetPage(name: "/RecipeList", page: () => RecipeList()),
       GetPage(name: "/RecipeMain", page: () => RecipeMain()),
       GetPage(name: "/RecipeDetailPage", page: () => RecipeDetailPage()),
+
     ],
   ));
 }
