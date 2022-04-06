@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_side_client/common/CommonLikeBookmark.dart';
 import 'package:my_side_client/wigets/etcwidgets/starRating.dart';
 
 class RecipeDetailPage extends StatelessWidget {
@@ -292,23 +293,19 @@ class RecipeDetailPage extends StatelessWidget {
   }
 
   Widget buildRecipeIconsRow(List<int> referedNumbers) {
-    List<String> icons = [
-      'assets/icons/like.svg',
-      'assets/icons/bookmark.svg',
-      'assets/icons/share.svg',
-      'assets/icons/comment.svg',
-    ];
     return SizedBox(
       height: 16,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          for (var i = 0; i < icons.length; i++)
-            buildIconAndNumber(
-              referedNumbers[i].toString(),
-              icons[i],
-              i == icons.length - 1,
-            ),
+          LikeComponent("1", false, 123, IconType.like),
+          VerticalDivider(),
+          LikeComponent("1", false, 123, IconType.bookmark),
+          VerticalDivider(),
+          LikeComponent("1", false, 123, IconType.share),
+          VerticalDivider(),
+          CommentWidget("1", 123),
+          // LikeComponent("1", false, 123, IconType.comment),
         ],
       ),
     );
@@ -620,6 +617,43 @@ class RecipeDetailPage extends StatelessWidget {
           const Spacer(),
         ],
       ),
+    );
+  }
+}
+
+class CommentWidget extends StatelessWidget {
+  final String id;
+  final int cnt;
+  const CommentWidget(
+    this.id,
+    this.cnt, {
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: SizedBox(
+        width: 70,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset("assets/icons/comment.svg"),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              cnt.toString(),
+              style: const TextStyle(
+                color: Color(0xFF666666),
+                fontWeight: FontWeight.w300,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
+      // onTap: ,navigate to 댓글 목록
     );
   }
 }
