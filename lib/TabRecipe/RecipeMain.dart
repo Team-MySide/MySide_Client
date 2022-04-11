@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
-import 'package:my_side_client/TabRecipe/RecipeMainService/RecipeMainController.dart';
+
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/wigets/buttonwidget/textWithMoreButton.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeTileType1.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeTileType2.dart';
-import 'RecipeMainService/RecipeMainRecommendRecipeItem.dart';
+import 'RecipeMainRecommendService/RecipeMainController.dart';
+import 'RecipeMainRecommendService/RecipeMainRecommendRecipeData.dart';
 
 class RecipeMain extends StatefulWidget {
   @override
@@ -22,6 +23,9 @@ class _RecipeMainState extends State<RecipeMain> {
   final ScrollController _scrollCtrl = ScrollController();
   RecipeMainRecommendRecipeController recommendRecipeController =
       Get.put(RecipeMainRecommendRecipeController());
+  // RecipeMainBestController bestRecipeController =
+  //     Get.put(RecipeMainBestController());
+
   @override
   void initState() {
     super.initState();
@@ -71,7 +75,7 @@ class _RecipeMainState extends State<RecipeMain> {
 
   Widget buildRecommendRecipe(
       VoidCallback onTap,
-      List<RecommendRecipeItem> recipeTiles,
+      List<RecipeMainRecommendItem> recipeTiles,
       double listviewHeight,
       double imgSize,
       bool isLoaded) {
@@ -102,7 +106,7 @@ class _RecipeMainState extends State<RecipeMain> {
   }
 
   Widget buildBestRecipe(
-      VoidCallback onTap, List<RecommendRecipeItem> recipeTiles) {
+      VoidCallback onTap, List<RecipeMainRecommendItem> recipeTiles) {
     return Column(
       children: [
         SizedBox(height: 40),
@@ -189,7 +193,7 @@ class _RecipeMainState extends State<RecipeMain> {
 class RecipeRecommendTileWidget extends StatelessWidget {
   const RecipeRecommendTileWidget(
       {Key key, this.scrollCtrl, this.isLoaded, this.recipeTiles});
-  final List<RecommendRecipeItem> recipeTiles;
+  final List<RecipeMainRecommendItem> recipeTiles;
   final ScrollController scrollCtrl;
   final bool isLoaded;
   final double imgSize = 223;

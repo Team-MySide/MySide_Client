@@ -1,11 +1,11 @@
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
-import 'RecipeMainRecommendRecipeItem.dart';
+import 'RecipeMainRecommendRecipeData.dart';
 import 'RecipeMainService.dart';
 
 class RecipeMainRecommendRecipeController extends GetxController {
-  var lst = <RecommendRecipeItem>[].obs;
+  var lst = <RecipeMainRecommendItem>[].obs;
   var isLoaded = false.obs;
 
   @override
@@ -16,7 +16,7 @@ class RecipeMainRecommendRecipeController extends GetxController {
 
   fetch() async {
     try {
-      List<RecommendRecipeItem> resp =
+      List<RecipeMainRecommendItem> resp =
           await RecipeMainRecommendRecipeService().getRecipeList();
       if (resp != null) {
         lst.value = resp;

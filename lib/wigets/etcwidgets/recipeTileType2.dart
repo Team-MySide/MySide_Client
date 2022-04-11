@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_side_client/TabRecipe/RecipeMainService/RecipeMainRecommendRecipeItem.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainRecommendService/RecipeMainRecommendRecipeData.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeSubTile.dart';
 
 class RecipeTileType2Widget extends StatelessWidget {
-  final RecommendRecipeItem recipeTile;
+  final RecipeMainRecommendItem recipeTile;
   final double imgWidth;
   final double subTileHeight;
   final bool isLoaded;

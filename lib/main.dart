@@ -85,8 +85,8 @@ void main() async {
         // : autoLoginFlag
         // ? '/MainTab'
         // : '/',
-        ? '/RecipeList'
-        : '/RecipeList',
+        ? '/RecipeMain'
+        : '/RecipeMain',
 
     // home: LoginMainPage()));
     // home: MainTab(),

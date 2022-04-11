@@ -23,15 +23,15 @@ class RecipeMainRecommendRecipeItem {
   int status;
   bool success;
   String message;
-  List<RecommendRecipeItem> data;
+  List<RecipeMainRecommendItem> data;
 
   factory RecipeMainRecommendRecipeItem.fromJson(Map<String, dynamic> json) =>
       RecipeMainRecommendRecipeItem(
         status: json["status"],
         success: json["success"],
         message: json["message"],
-        data: List<RecommendRecipeItem>.from(
-            json["data"].map((x) => RecommendRecipeItem.fromJson(x))),
+        data: List<RecipeMainRecommendItem>.from(
+            json["data"].map((x) => RecipeMainRecommendItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,8 +42,8 @@ class RecipeMainRecommendRecipeItem {
       };
 }
 
-class RecommendRecipeItem {
-  RecommendRecipeItem({
+class RecipeMainRecommendItem {
+  RecipeMainRecommendItem({
     this.receipeId,
     this.receipeName,
     this.receipeImg,
@@ -67,8 +67,8 @@ class RecommendRecipeItem {
   String stageNm;
   String progressNm;
 
-  factory RecommendRecipeItem.fromJson(Map<String, dynamic> json) =>
-      RecommendRecipeItem(
+  factory RecipeMainRecommendItem.fromJson(Map<String, dynamic> json) =>
+      RecipeMainRecommendItem(
         receipeId: json["receipe_id"],
         receipeName: json["receipe_name"] == null ? null : json["receipe_name"],
         receipeImg: json["receipe_img"] == null ? null : json["receipe_img"],

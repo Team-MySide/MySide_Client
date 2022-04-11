@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_side_client/TabRecipe/RecipeMainService/RecipeMainRecommendRecipeItem.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainRecommendService/RecipeMainRecommendRecipeData.dart';
+
 import 'package:my_side_client/wigets/etcwidgets/recipeSubTile.dart';
 
 class RecipeBestTileWidget extends StatelessWidget {
   // final RecipeTile recipeTile;
-  final RecommendRecipeItem recipeTile;
+  final RecipeMainRecommendItem recipeTile;
   final double tileHeight;
   final int position;
   RecipeBestTileWidget({this.recipeTile, this.tileHeight, this.position});

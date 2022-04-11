@@ -1,8 +1,9 @@
 import 'dart:developer';
 
-import 'package:my_side_client/TabRecipe/RecipeMainService/RecipeMainRecommendRecipeItem.dart';
 import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
+
+import 'RecipeMainRecommendRecipeData.dart';
 
 abstract class IFetch {
   void getRecipeList();
@@ -11,7 +12,7 @@ abstract class IFetch {
 //wiki link
 class RecipeMainRecommendRecipeService extends MySideConnect implements IFetch {
   @override
-  Future<List<RecommendRecipeItem>> getRecipeList() async {
+  Future<List<RecipeMainRecommendItem>> getRecipeList() async {
     httpClient.baseUrl = "http://54.180.67.217:3000";
 
     //모든 헤더에 붙인다.

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_side_client/TabRecipe/RecipeMainService/RecipeMainRecommendRecipeItem.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainRecommendService/RecipeMainRecommendRecipeData.dart';
 import 'package:my_side_client/wigets/etcwidgets/starRating.dart';
 
 class RecipeSubTile extends StatelessWidget {
-  final RecommendRecipeItem recipeTile;
+  final RecipeMainRecommendItem recipeTile;
   RecipeSubTile({this.recipeTile});
   @override
   Widget build(BuildContext context) {
