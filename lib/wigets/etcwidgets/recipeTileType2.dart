@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:my_side_client/TabRecipe/RecipeMainRecommendService/RecipeMainRecommendRecipeData.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeSubTile.dart';
 
-class RecipeTileType2Widget extends StatelessWidget {
+class RecipeMainRecommendTile extends StatelessWidget {
   final RecipeMainRecommendItem recipeTile;
   final double imgWidth;
   final double subTileHeight;
   final bool isLoaded;
-  RecipeTileType2Widget(
+  RecipeMainRecommendTile(
       {this.recipeTile, this.imgWidth, this.subTileHeight, this.isLoaded});
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class RecipeTileType2Widget extends StatelessWidget {
                           'images/searchbar_logo.png',
                           fit: BoxFit.fitWidth,
                         )
-                      : NetworkImage(
+                      : Image.network(
                           recipeTile.receipeImg,
                         ),
                   width: imgWidth,

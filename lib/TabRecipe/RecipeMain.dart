@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestData.dart';
 
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/wigets/buttonwidget/textWithMoreButton.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeTileType1.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeTileType2.dart';
+import 'RecipeMainBestService/RecipeMainBestController.dart';
 import 'RecipeMainRecommendService/RecipeMainController.dart';
 import 'RecipeMainRecommendService/RecipeMainRecommendRecipeData.dart';
 
@@ -23,8 +25,8 @@ class _RecipeMainState extends State<RecipeMain> {
   final ScrollController _scrollCtrl = ScrollController();
   RecipeMainRecommendRecipeController recommendRecipeController =
       Get.put(RecipeMainRecommendRecipeController());
-  // RecipeMainBestController bestRecipeController =
-  //     Get.put(RecipeMainBestController());
+  RecipeMainBestController bestRecipeController =
+      Get.put(RecipeMainBestController());
 
   @override
   void initState() {
@@ -61,7 +63,7 @@ class _RecipeMainState extends State<RecipeMain> {
                         () {}, recommendRecipeController.lst, 410, 223, true)
                     : buildRecommendRecipe(() {}, [], 410, 223, false)),
                 Obx(() => recommendRecipeController.isLoaded.value
-                    ? buildBestRecipe(() {}, recommendRecipeController.lst)
+                    ? buildBestRecipe(() {}, bestRecipeController.lst)
                     : buildBestRecipe(() {}, [])),
               ],
             ),
@@ -106,7 +108,7 @@ class _RecipeMainState extends State<RecipeMain> {
   }
 
   Widget buildBestRecipe(
-      VoidCallback onTap, List<RecipeMainRecommendItem> recipeTiles) {
+      VoidCallback onTap, List<RecipeMainBestItem> recipeTiles) {
     return Column(
       children: [
         SizedBox(height: 40),
@@ -206,7 +208,7 @@ class RecipeRecommendTileWidget extends StatelessWidget {
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) {
-        return RecipeTileType2Widget(
+        return RecipeMainRecommendTile(
             recipeTile: recipeTiles[index],
             imgWidth: imgSize,
             subTileHeight: listviewHeight - imgSize - 24,
