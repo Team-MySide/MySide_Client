@@ -29,11 +29,6 @@ class LoginMainController extends GetxController {
   //자동로그인
   var loginStorage = GetStorage();
 
-  void fistTimeRunning() {
-    loginStorage.write('isFirstRunApp', false);
-    update();
-  }
-
   @override
   void onInit() {
     emailTextField.tec.addListener(onListenEmail);
@@ -46,6 +41,11 @@ class LoginMainController extends GetxController {
     emailTextField.tec.removeListener(onListenEmail);
     pswdTextField.tec.removeListener(onListenPassword);
     super.onClose();
+  }
+
+  void fistTimeRunning() {
+    loginStorage.write('isFirstRunApp', false);
+    update();
   }
 
   void onListenEmail() {
