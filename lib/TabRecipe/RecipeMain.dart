@@ -19,7 +19,6 @@ class RecipeMain extends StatefulWidget {
 
 bool isRecipe = true;
 
-// bool isRecommendRecipeLoaded = false;
 class _RecipeMainState extends State<RecipeMain> {
   TextEditingController controller = TextEditingController();
   final ScrollController _scrollCtrl = ScrollController();
@@ -31,7 +30,6 @@ class _RecipeMainState extends State<RecipeMain> {
   @override
   void initState() {
     super.initState();
-    recommendRecipeController.fetch();
   }
 
   @override
@@ -51,20 +49,31 @@ class _RecipeMainState extends State<RecipeMain> {
                 SizedBox(
                   height: 40,
                 ),
-                categoryTitleWidget(),
+                RecipeMainCategoryHeader(),
                 SizedBox(
                   height: 24,
                 ),
                 isRecipe
-                    ? NavigateIconViewsContainer2(categoryList)
-                    : NavigateIconViewsContainer2(diseasesList),
+                    ? RecipeMainCancerGridView(categoryList)
+                    : RecipeMainCancerGridView(diseasesList),
                 Obx(() => recommendRecipeController.isLoaded.value
-                    ? buildRecommendRecipe(
-                        () {}, recommendRecipeController.lst, 410, 223, true)
-                    : buildRecommendRecipe(() {}, [], 410, 223, false)),
+                    ? buildRecommendRecipe(() {
+                        Get.toNamed("RecipeList",
+                            arguments: [Category.recommend, "위암"]);
+                      }, recommendRecipeController.lst, 410, 223, true)
+                    : buildRecommendRecipe(() {
+                        Get.toNamed("RecipeList",
+                            arguments: [Category.recommend, "위암"]);
+                      }, [], 410, 223, false)),
                 Obx(() => recommendRecipeController.isLoaded.value
-                    ? buildBestRecipe(() {}, bestRecipeController.lst)
-                    : buildBestRecipe(() {}, [])),
+                    ? buildBestRecipe(() {
+                        Get.toNamed("RecipeList",
+                            arguments: [Category.best, "위암"]);
+                      }, bestRecipeController.lst)
+                    : buildBestRecipe(() {
+                        Get.toNamed("RecipeList",
+                            arguments: [Category.best, "위암"]);
+                      }, [])),
               ],
             ),
           ),
@@ -119,11 +128,13 @@ class _RecipeMainState extends State<RecipeMain> {
           shrinkWrap: true,
           itemCount: recipeTiles.length,
           itemBuilder: (BuildContext context, int index) {
-            return RecipeBestTileWidget(
-              recipeTile: recipeTiles[index],
-              position: index,
-              tileHeight: 164,
-            );
+            return GestureDetector(
+                child: RecipeBestTileWidget(
+                  recipeTile: recipeTiles[index],
+                  position: index,
+                  tileHeight: 164,
+                ),
+                onTap: () => Get.toNamed("/RecipeDetailPage"));
           },
           separatorBuilder: (BuildContext context, int index) =>
               SizedBox(height: 30),
@@ -132,7 +143,7 @@ class _RecipeMainState extends State<RecipeMain> {
     );
   }
 
-  Widget categoryTitleWidget() {
+  Widget RecipeMainCategoryHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -208,11 +219,13 @@ class RecipeRecommendTileWidget extends StatelessWidget {
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) {
-        return RecipeMainRecommendTile(
-            recipeTile: recipeTiles[index],
-            imgWidth: imgSize,
-            subTileHeight: listviewHeight - imgSize - 24,
-            isLoaded: isLoaded);
+        return GestureDetector(
+            child: RecipeMainRecommendTile(
+                recipeTile: recipeTiles[index],
+                imgWidth: imgSize,
+                subTileHeight: listviewHeight - imgSize - 24,
+                isLoaded: isLoaded),
+            onTap: () => Get.toNamed("/RecipeDetailPage"));
       },
       separatorBuilder: (BuildContext context, int index) =>
           SizedBox(width: 16),
@@ -222,10 +235,10 @@ class RecipeRecommendTileWidget extends StatelessWidget {
 }
 
 //will move to CommonComponent. And will replace NavigateIconViewsContainer
-class NavigateIconViewsContainer2 extends StatelessWidget {
+class RecipeMainCancerGridView extends StatelessWidget {
   final data;
 
-  NavigateIconViewsContainer2(this.data, {Key key}) : super(key: key);
+  RecipeMainCancerGridView(this.data, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -304,6 +317,8 @@ class NavigateIconView extends StatelessWidget {
   }
 }
 
+enum Category { disease, food, recommend, best }
+
 class DiseaseCategoryItem extends StatelessWidget {
   const DiseaseCategoryItem({
     Key key,
@@ -316,21 +331,25 @@ class DiseaseCategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // FractionallySizedBox(
-          //     widthFactor: 40 / 104, child:
-          AspectRatio(aspectRatio: 104 / 40, child: SvgPicture.asset(iconPath)),
-          Text(title, style: TextStyle(fontSize: 14, height: 1.428))
-        ],
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFC29E9E)),
-        borderRadius: BorderRadius.circular(10),
-      ),
-    );
+    return GestureDetector(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // FractionallySizedBox(
+              //     widthFactor: 40 / 104, child:
+              AspectRatio(
+                  aspectRatio: 104 / 40, child: SvgPicture.asset(iconPath)),
+              Text(title, style: TextStyle(fontSize: 14, height: 1.428))
+            ],
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFC29E9E)),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onTap: () =>
+            Get.toNamed("/RecipeList", arguments: [Category.disease, title]));
   }
 }
 
@@ -346,31 +365,34 @@ class RecipeCategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          // width: 75,
-          // height: 75,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFC29E9E)),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: AspectRatio(
-              aspectRatio: 1,
-              child: FractionallySizedBox(
-                  widthFactor: 40 / 75,
-                  heightFactor: 40 / 75,
-                  child: SvgPicture.asset(iconPath))),
+    return GestureDetector(
+        child: Column(
+          children: [
+            Container(
+              // width: 75,
+              // height: 75,
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xFFC29E9E)),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: AspectRatio(
+                  aspectRatio: 1,
+                  child: FractionallySizedBox(
+                      widthFactor: 40 / 75,
+                      heightFactor: 40 / 75,
+                      child: SvgPicture.asset(iconPath))),
+            ),
+            SizedBox(height: 8),
+            // SizedBox(height: 6),
+            Text(title,
+                // style: TextStyle(fontSize: 13, height: 1.0, letterSpacing: -0.015)) //note10 works
+                style: TextStyle(
+                    fontSize: title == "김치/젓갈/장" ? 13 : 14,
+                    height: 18 / 14,
+                    letterSpacing: -0.15))
+          ],
         ),
-        SizedBox(height: 8),
-        // SizedBox(height: 6),
-        Text(title,
-            // style: TextStyle(fontSize: 13, height: 1.0, letterSpacing: -0.015)) //note10 works
-            style: TextStyle(
-                fontSize: title == "김치/젓갈/장" ? 13 : 14,
-                height: 18 / 14,
-                letterSpacing: -0.15))
-      ],
-    );
+        onTap: () =>
+            Get.toNamed("/RecipeList", arguments: [Category.food, title]));
   }
 }

@@ -23,10 +23,10 @@ class RecipeMainRecommendRecipeService extends MySideConnect implements IFetch {
       return request;
     });
 
-    var resp = await get("/receipe/recommendation");
+    var resp = await get("/recipe/recommendation");
     if (resp.statusCode == 200) {
-      // return recipeMainRecommendRecipeItemFromJson(resp.bodyString).data;
-      return recipeMainRecommendRecipeItemFromJson(sample).data;
+      return recipeMainRecommendRecipeItemFromJson(resp.bodyString).data;
+      // return recipeMainRecommendRecipeItemFromJson(sample).data;
     } else {
       log("error : ${resp.statusCode}");
     }

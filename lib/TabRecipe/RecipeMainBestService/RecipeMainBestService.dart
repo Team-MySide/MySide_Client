@@ -23,11 +23,9 @@ class RecipeMainBestService extends MySideConnect implements IFetch {
       return request;
     });
 
-    var resp = await get("/receipe/month/top");
+    var resp = await get("/recipe/month/top");
     if (resp.statusCode == 200) {
-      // return recipeMainBestDataFromJson(resp.bodyString).data;
       return recipeMainBestDataFromJson(sample).data;
-      ;
     } else {
       log("error : ${resp.statusCode}");
     }

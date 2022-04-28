@@ -33,7 +33,9 @@ class RecipeBestTileWidget extends StatelessWidget {
               Positioned(
                 top: -4.5,
                 left: 10,
-                child: rankBanner(position),
+                child: RankBanner(
+                  position: position,
+                ),
               )
             ],
           ),
@@ -138,8 +140,17 @@ class RecipeBestTileWidget extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget rankBanner(int position) {
+class RankBanner extends StatelessWidget {
+  final int position;
+  const RankBanner({
+    Key key,
+    this.position,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     switch (position) {
       case 1:
         return SvgPicture.asset('assets/icons/02.svg');

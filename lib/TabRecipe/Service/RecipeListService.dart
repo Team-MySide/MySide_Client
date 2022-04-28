@@ -1,17 +1,21 @@
-import 'dart:convert';
-
+import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestData.dart';
+import 'package:my_side_client/TabRecipe/Service/RecipeListDiseaseType.dart';
 import 'package:my_side_client/TabRecipe/Service/RecipeListItem.dart';
 import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 
 abstract class IFetch {
-  void getRecipeList();
+  void getDiseaseRecipeList(String target, String tabIdx);
+  void getFoodRecipeList(String target, String tabIdx);
+  void getRecommendList();
+  void getAllRankList();
 }
 
 //wiki link
 class RecipeListService extends MySideConnect implements IFetch {
   @override
-  Future<List<RecipeItem>> getRecipeList() async {
+  Future<List<RecipeListDiseaseItem>> getDiseaseRecipeList(
+      String target, String tabIdx) async {
     httpClient.baseUrl = "http://54.180.67.217:3000";
 
     //모든 헤더에 붙인다.
@@ -22,7 +26,31 @@ class RecipeListService extends MySideConnect implements IFetch {
     });
 
     var resp = await get(
-        "/receipe/month/all"); //receipe/search/kinds/:foodtype/:tabIdx
+        "/recipe/search/disease/$target/$tabIdx"); //receipe/search/kinds/:foodtype/:tabIdx
+    print("/recipe/search/disease/$target/$tabIdx");
+    if (resp.statusCode == 200) {
+      List<RecipeListDiseaseItem> item =
+          recipeListDiseaseTypeFromJson(resp.bodyString).data;
+      return item; //pass
+    }
+    return []; //fail
+  }
+
+  @override
+  Future<List<RecipeItem>> getFoodRecipeList(
+      String target, String tabIdx) async {
+    httpClient.baseUrl = "http://54.180.67.217:3000";
+
+    //모든 헤더에 붙인다.
+    httpClient.addRequestModifier((request) {
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['token'] = UserProfile.TEMP_TOKEN;
+      return request;
+    });
+
+    var resp = await get(
+        "/recipe/search/foodtype/$target/$tabIdx"); //receipe/search/kinds/:foodtype/:tabIdx
+    print("/recipe/search/foodtype/$target/$tabIdx");
     if (resp.statusCode == 200) {
       RecipeItemList item = recipeListItemFromJson(resp.bodyString);
       return item.data; //pass
@@ -30,6 +58,46 @@ class RecipeListService extends MySideConnect implements IFetch {
     return []; //fail
   }
 
+  @override
+  Future<List<RecipeItem>> getRecommendList() async {
+    httpClient.baseUrl = "http://54.180.67.217:3000";
+
+    //모든 헤더에 붙인다.
+    httpClient.addRequestModifier((request) {
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['token'] = UserProfile.TEMP_TOKEN;
+      return request;
+    });
+
+    var resp = await get(
+        "/recipe/recommendation"); //receipe/search/kinds/:foodtype/:tabIdx
+    print("/recipe/recommendation");
+    if (resp.statusCode == 200) {
+      RecipeItemList item = recipeListItemFromJson(resp.bodyString);
+      return item.data; //pass
+    }
+    return []; //fail
+  }
+
+  @override
+  Future<List<RecipeMainBestItem>> getAllRankList() async {
+    httpClient.baseUrl = "http://54.180.67.217:3000";
+
+    //모든 헤더에 붙인다.
+    httpClient.addRequestModifier((request) {
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['token'] = UserProfile.TEMP_TOKEN;
+      return request;
+    });
+
+    var resp =
+        await get("/recipe/month/all"); //receipe/search/kinds/:foodtype/:tabIdx
+    print("/recipe/month/all");
+    if (resp.statusCode == 200) {
+      return recipeMainBestDataFromJson(resp.bodyString).data;
+    }
+    return []; //fail
+  }
   // String sample = jsonEncode({
   //   "status": 200,
   //   "success": true,

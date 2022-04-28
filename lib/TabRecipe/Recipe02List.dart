@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/state_manager.dart';
 import 'package:my_side_client/TabSearch/contants.dart';
+import 'package:my_side_client/wigets/etcwidgets/recipeTileType1.dart';
 import '../Constants.dart';
+import 'RecipeMain.dart';
 import 'Service/Recipe02ListController.dart';
+import 'Service/RecipeListItem.dart';
 
 class RecipeList extends StatefulWidget {
   RecipeList({Key key}) : super(key: key);
-  final Recipe02ListController controller = Get.put(Recipe02ListController());
+
+  final Recipe02ListController recipeListController =
+      Get.put(Recipe02ListController(Get.arguments[0], Get.arguments[1]));
+
   @override
   State<RecipeList> createState() => _RecipeListState();
 }
@@ -16,9 +23,9 @@ class RecipeList extends StatefulWidget {
 class _RecipeListState extends State<RecipeList> {
   TextEditingController _textEditingController;
   String _dropdownValue = "최신순";
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _textEditingController = TextEditingController();
   }
@@ -56,6 +63,21 @@ class _RecipeListState extends State<RecipeList> {
                     onChanged: (String newValue) {
                       setState(() {
                         _dropdownValue = newValue;
+                        Category category = Get.arguments[0];
+                        switch (category) {
+                          case Category.disease:
+                            widget.recipeListController.fetchDiseaseList();
+                            break;
+                          case Category.food:
+                            widget.recipeListController.fetchFoodList();
+                            break;
+                          case Category.recommend:
+                            widget.recipeListController.fetchRecommendList();
+                            break;
+                          case Category.best:
+                            widget.recipeListController.fetchMonthAllRankList();
+                            break;
+                        }
                       });
                     },
                   ),
@@ -99,22 +121,24 @@ class _RecipeListState extends State<RecipeList> {
               ])),
           // SingleChildScrollView(
           //   child:
-          Expanded(
-            child: ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: recipeTiles.length,
-              itemBuilder: (BuildContext context, int index) {
-                return buildSingleRecipeTile(
-                  scrWidth,
-                  scrHeight,
-                  recipeTiles[index],
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  SizedBox(height: 0.0296 * scrHeight),
-            ),
-          ),
+          Obx(
+            () => widget.recipeListController.isLoading.value
+                ? CircularProgressIndicator()
+                : Expanded(
+                    child: ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: widget.recipeListController.lst.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return buildSingleRecipeTile(scrWidth, scrHeight,
+                            widget.recipeListController.lst[index], index);
+                        // recipeTiles, index);
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          SizedBox(height: 0.0296 * scrHeight),
+                    ),
+                  ),
+          )
         ]),
       ),
     );
@@ -146,7 +170,7 @@ Widget buildRoundedWidget(
   );
 }
 
-Widget buildFoodImg(String imgPath, String ranking, double scrWidth) {
+Widget buildFoodImg(String imgPath, double scrWidth, int position) {
   return Stack(
     clipBehavior: Clip.none,
     children: [
@@ -157,7 +181,7 @@ Widget buildFoodImg(String imgPath, String ranking, double scrWidth) {
       Positioned(
         top: -2,
         left: 10,
-        child: SvgPicture.asset(ranking),
+        child: RankBanner(position: position),
       ),
     ],
   );
@@ -253,45 +277,45 @@ Widget buildStarRatingNMinute(double scrWidth, int minute, int rating) {
 }
 
 Widget buildSingleRecipeTile(
-  double scrWidth,
-  double scrHeight,
-  RecipeTile recipeTile,
-) {
+    double scrWidth, double scrHeight, RecipeItem recipeTile, int index) {
   return SizedBox(
     height: 0.22 * scrHeight,
     child: Row(
       children: [
-        buildFoodImg(
-          recipeTile.recipeImg,
-          recipeTile.rankImg,
-          scrWidth,
-        ),
+        buildFoodImg(recipeTile.receipeImg, scrWidth, index),
         SizedBox(
           width: 0.03 * scrWidth,
         ),
         Expanded(
           child: Column(
             children: [
-              buildRecipeName(recipeTile.recipeName),
+              buildRecipeName(recipeTile.receipeName),
               const Spacer(),
               Column(
                 children: [
                   buildProfileAndNickname(
-                    recipeTile.usrProfileImg,
-                    recipeTile.usrNickname,
+                    // recipeTile.usrProfileImg,
+                    'assets/profile_img/1.png',
+                    recipeTile.userName,
                     scrWidth,
                   ),
                   SizedBox(
                     height: 0.0049 * scrHeight,
                   ),
-                  buildUsrInfo(recipeTile.usrInfo, scrWidth),
+                  buildUsrInfo([
+                    recipeTile.userCancerNm,
+                    recipeTile.userProgressNm,
+                    recipeTile.userStageNm
+                  ], scrWidth),
                   SizedBox(
                     height: 0.0197 * scrHeight,
                   ),
                   SizedBox(
                     height: 0.025 * scrHeight,
                     child: buildStarRatingNMinute(
-                        scrWidth, recipeTile.minute, recipeTile.rate),
+                        scrWidth,
+                        int.parse(recipeTile.receipeTime),
+                        int.parse(recipeTile.receipeDifficulty)),
                   ),
                 ],
               ),

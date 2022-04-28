@@ -24,6 +24,7 @@ class RecipeMainRecommendTile extends StatelessWidget {
                         )
                       : Image.network(
                           recipeTile.receipeImg,
+                          fit: BoxFit.fitWidth,
                         ),
                   width: imgWidth,
                   height: imgWidth,
