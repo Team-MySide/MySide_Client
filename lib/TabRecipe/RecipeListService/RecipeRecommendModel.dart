@@ -4,14 +4,14 @@
 
 import 'dart:convert';
 
-RecipeRecommendList recipeRecommendItemFromJson(String str) =>
-    RecipeRecommendList.fromJson(json.decode(str));
+RecipeRecommendModel recipeRecommendItemFromJson(String str) =>
+    RecipeRecommendModel.fromJson(json.decode(str));
 
-String recipeRecommendItemToJson(RecipeRecommendList data) =>
+String recipeRecommendItemToJson(RecipeRecommendModel data) =>
     json.encode(data.toJson());
 
-class RecipeRecommendList {
-  RecipeRecommendList({
+class RecipeRecommendModel {
+  RecipeRecommendModel({
     this.status,
     this.success,
     this.message,
@@ -23,8 +23,8 @@ class RecipeRecommendList {
   String message;
   List<RecipeRecommendItem> data;
 
-  factory RecipeRecommendList.fromJson(Map<String, dynamic> json) =>
-      RecipeRecommendList(
+  factory RecipeRecommendModel.fromJson(Map<String, dynamic> json) =>
+      RecipeRecommendModel(
         status: json["status"],
         success: json["success"],
         message: json["message"],

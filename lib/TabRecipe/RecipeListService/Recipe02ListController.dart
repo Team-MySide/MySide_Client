@@ -1,11 +1,11 @@
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:my_side_client/TabRecipe/RecipeMain.dart';
-import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestData.dart';
-import 'package:my_side_client/TabRecipe/Service/RecipeListService.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestModel.dart';
 
-import 'RecipeListDiseaseType.dart';
-import 'RecipeListItem.dart';
+import 'RecipeListDiseaseModel.dart';
+import 'RecipeListData.dart';
+import 'RecipeListService.dart';
 
 class Recipe02ListController extends GetxController {
   var lst = <RecipeItem>[].obs;

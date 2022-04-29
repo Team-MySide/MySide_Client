@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/Constants.dart';
-import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestData.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestModel.dart';
 
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/wigets/buttonwidget/textWithMoreButton.dart';

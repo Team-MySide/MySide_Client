@@ -1,17 +1,16 @@
 // To parse this JSON data, do
 //
-//     final recipeListFoodType = recipeListFoodTypeFromJson(jsonString);
+//     final recipeListItem = recipeListItemFromJson(jsonString);
 
 import 'dart:convert';
 
-RecipeListDiseaseType recipeListDiseaseTypeFromJson(String str) =>
-    RecipeListDiseaseType.fromJson(json.decode(str));
+RecipeItemData recipeListItemFromJson(String str) =>
+    RecipeItemData.fromJson(json.decode(str));
 
-String recipeListFoodTypeToJson(RecipeListDiseaseType data) =>
-    json.encode(data.toJson());
+String recipeListItemToJson(RecipeItemData data) => json.encode(data.toJson());
 
-class RecipeListDiseaseType {
-  RecipeListDiseaseType({
+class RecipeItemData {
+  RecipeItemData({
     this.status,
     this.success,
     this.message,
@@ -21,15 +20,14 @@ class RecipeListDiseaseType {
   int status;
   bool success;
   String message;
-  List<RecipeListDiseaseItem> data;
+  List<RecipeItem> data;
 
-  factory RecipeListDiseaseType.fromJson(Map<String, dynamic> json) =>
-      RecipeListDiseaseType(
+  factory RecipeItemData.fromJson(Map<String, dynamic> json) => RecipeItemData(
         status: json["status"],
         success: json["success"],
         message: json["message"],
-        data: List<RecipeListDiseaseItem>.from(
-            json["data"].map((x) => RecipeListDiseaseItem.fromJson(x))),
+        data: List<RecipeItem>.from(
+            json["data"].map((x) => RecipeItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,8 +38,9 @@ class RecipeListDiseaseType {
       };
 }
 
-class RecipeListDiseaseItem {
-  RecipeListDiseaseItem({
+class RecipeItem {
+  RecipeItem({
+    this.receipeFoodtype,
     this.receipeId,
     this.receipeName,
     this.receipeImg,
@@ -54,6 +53,7 @@ class RecipeListDiseaseItem {
     this.userProgressNm,
   });
 
+  String receipeFoodtype;
   String receipeId;
   String receipeName;
   String receipeImg;
@@ -65,8 +65,8 @@ class RecipeListDiseaseItem {
   String userStageNm;
   String userProgressNm;
 
-  factory RecipeListDiseaseItem.fromJson(Map<String, dynamic> json) =>
-      RecipeListDiseaseItem(
+  factory RecipeItem.fromJson(Map<String, dynamic> json) => RecipeItem(
+        receipeFoodtype: json["receipe_foodtype"],
         receipeId: json["receipe_id"],
         receipeName: json["receipe_name"],
         receipeImg: json["receipe_img"],
@@ -80,6 +80,7 @@ class RecipeListDiseaseItem {
       );
 
   Map<String, dynamic> toJson() => {
+        "receipe_foodtype": receipeFoodtype,
         "receipe_id": receipeId,
         "receipe_name": receipeName,
         "receipe_img": receipeImg,

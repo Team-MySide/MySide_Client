@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 
-import 'RecipeMainBestData.dart';
+import 'RecipeMainBestModel.dart';
 
 abstract class IFetch {
   void getRecipeList();

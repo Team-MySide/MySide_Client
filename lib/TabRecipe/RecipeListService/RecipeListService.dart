@@ -1,8 +1,9 @@
-import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestData.dart';
-import 'package:my_side_client/TabRecipe/Service/RecipeListDiseaseType.dart';
-import 'package:my_side_client/TabRecipe/Service/RecipeListItem.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestModel.dart';
 import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
+
+import 'RecipeListData.dart';
+import 'RecipeListDiseaseModel.dart';
 
 abstract class IFetch {
   void getDiseaseRecipeList(String target, String tabIdx);
@@ -52,7 +53,7 @@ class RecipeListService extends MySideConnect implements IFetch {
         "/recipe/search/foodtype/$target/$tabIdx"); //receipe/search/kinds/:foodtype/:tabIdx
     print("/recipe/search/foodtype/$target/$tabIdx");
     if (resp.statusCode == 200) {
-      RecipeItemList item = recipeListItemFromJson(resp.bodyString);
+      RecipeItemData item = recipeListItemFromJson(resp.bodyString);
       return item.data; //pass
     }
     return []; //fail
@@ -73,7 +74,7 @@ class RecipeListService extends MySideConnect implements IFetch {
         "/recipe/recommendation"); //receipe/search/kinds/:foodtype/:tabIdx
     print("/recipe/recommendation");
     if (resp.statusCode == 200) {
-      RecipeItemList item = recipeListItemFromJson(resp.bodyString);
+      RecipeItemData item = recipeListItemFromJson(resp.bodyString);
       return item.data; //pass
     }
     return []; //fail

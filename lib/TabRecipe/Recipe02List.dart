@@ -6,9 +6,9 @@ import 'package:get/state_manager.dart';
 import 'package:my_side_client/TabSearch/contants.dart';
 import 'package:my_side_client/wigets/etcwidgets/recipeTileType1.dart';
 import '../Constants.dart';
+import 'RecipeListService/RecipeListData.dart';
 import 'RecipeMain.dart';
 import 'Service/Recipe02ListController.dart';
-import 'Service/RecipeListItem.dart';
 
 class RecipeList extends StatefulWidget {
   RecipeList({Key key}) : super(key: key);

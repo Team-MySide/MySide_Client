@@ -4,14 +4,14 @@
 
 import 'dart:convert';
 
-RecipeMainBestData recipeMainBestDataFromJson(String str) =>
-    RecipeMainBestData.fromJson(json.decode(str));
+RecipeMainBestDataModel recipeMainBestDataFromJson(String str) =>
+    RecipeMainBestDataModel.fromJson(json.decode(str));
 
-String recipeMainBestDataToJson(RecipeMainBestData data) =>
+String recipeMainBestDataToJson(RecipeMainBestDataModel data) =>
     json.encode(data.toJson());
 
-class RecipeMainBestData {
-  RecipeMainBestData({
+class RecipeMainBestDataModel {
+  RecipeMainBestDataModel({
     this.status,
     this.success,
     this.message,
@@ -23,8 +23,8 @@ class RecipeMainBestData {
   String message;
   List<RecipeMainBestItem> data;
 
-  factory RecipeMainBestData.fromJson(Map<String, dynamic> json) =>
-      RecipeMainBestData(
+  factory RecipeMainBestDataModel.fromJson(Map<String, dynamic> json) =>
+      RecipeMainBestDataModel(
         status: json["status"],
         success: json["success"],
         message: json["message"],
