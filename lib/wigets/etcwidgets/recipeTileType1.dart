@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestData.dart';
+import 'package:my_side_client/TabRecipe/RecipeMainBestService/RecipeMainBestModel.dart';
 import 'starRating.dart';
 
 class RecipeBestTileWidget extends StatelessWidget {
