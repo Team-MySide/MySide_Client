@@ -15,7 +15,7 @@ class LoginMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
-    loginMainController.fistTimeRunning();
+
     return Scaffold(
       body: GetBuilder<LoginMainController>(
         builder: (controller) {

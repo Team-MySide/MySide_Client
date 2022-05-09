@@ -31,13 +31,16 @@ class LoginMainController extends GetxController {
 
   void fistTimeRunning() {
     loginStorage.write('isFirstRunApp', false);
-    update();
+    //supdate();
   }
 
   @override
   void onInit() {
+    fistTimeRunning();
     emailTextField.tec.addListener(onListenEmail);
     pswdTextField.tec.addListener(onListenPassword);
+    emailTextField.tec.text = "aaa1111@naver.com";
+    pswdTextField.tec.text = "qwer1234!!";
     super.onInit();
   }
 

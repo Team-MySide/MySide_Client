@@ -22,7 +22,7 @@ class RecipeListService extends MySideConnect implements IFetch {
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
       request.headers['Content-Type'] = 'application/json';
-      request.headers['token'] = UserProfile.TEMP_TOKEN;
+      request.headers['token'] = UserProfile.token;
       return request;
     });
 
@@ -45,7 +45,7 @@ class RecipeListService extends MySideConnect implements IFetch {
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
       request.headers['Content-Type'] = 'application/json';
-      request.headers['token'] = UserProfile.TEMP_TOKEN;
+      request.headers['token'] = UserProfile.token;
       return request;
     });
 
@@ -66,7 +66,7 @@ class RecipeListService extends MySideConnect implements IFetch {
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
       request.headers['Content-Type'] = 'application/json';
-      request.headers['token'] = UserProfile.TEMP_TOKEN;
+      request.headers['token'] = UserProfile.token;
       return request;
     });
 
@@ -87,7 +87,7 @@ class RecipeListService extends MySideConnect implements IFetch {
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
       request.headers['Content-Type'] = 'application/json';
-      request.headers['token'] = UserProfile.TEMP_TOKEN;
+      request.headers['token'] = UserProfile.token;
       return request;
     });
 

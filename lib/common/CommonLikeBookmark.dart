@@ -143,7 +143,7 @@ mixin LikeMixin<T extends StatefulWidget> on State<T> {
     Response resp = await http.put(Uri.http('54.180.67.217:3000', url),
         headers: {
           "Content-Type": "application/json",
-          "token": UserProfile.TEMP_TOKEN
+          "token": UserProfile.token
         },
         // body: {"receipe_id": commentId});
         body: json.encode({"receipe_id": 1}));
