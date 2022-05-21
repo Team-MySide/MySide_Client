@@ -19,7 +19,7 @@ class RecSubmitButton extends StatelessWidget {
     return InkWell(
       onTap: validateFunc,
       child: Container(
-        height: buttonHeight,
+        height: 72,
         //width: double.infinity,
         decoration: BoxDecoration(
           color: activated

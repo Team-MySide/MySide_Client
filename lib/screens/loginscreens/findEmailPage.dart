@@ -61,7 +61,7 @@ class FindEmailPage extends StatelessWidget {
                   ),
                   RecSubmitButton(
                     buttonText: '이메일 찾기',
-                    buttonHeight: scrHeight,
+                    buttonHeight: 60,
                     activated: controller.nameTextField.tec.text.isNotEmpty &&
                         controller.phoneTextField.tec.text.isNotEmpty,
                     validateFunc: () async {

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -63,13 +65,15 @@ class LoginMainController extends GetxController {
 
   void logInClicked(
       double height, Function getUserInfo, Function getHealthData) async {
+    bool ret = false;
     emailTextField.validateEmail();
     pswdTextField.validatePswd();
     if (!emailTextField.errorOcur && !pswdTextField.errorOcur) {
       await logIn();
-      await getUserInfo();
-      await getHealthData();
       if (UserProfile.isLogin) {
+        await getUserInfo();
+        await getHealthData();
+
         Get.offAllNamed('/MainTab');
       } else {
         Get.dialog(
@@ -90,6 +94,7 @@ class LoginMainController extends GetxController {
           ),
         );
       }
+      ret = true;
     }
     update();
   }

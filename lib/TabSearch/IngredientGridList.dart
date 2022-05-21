@@ -23,7 +23,7 @@ class SearchIngredientCategoryResultList extends StatelessWidget {
         appBar: CommonAppbar(category),
         body: Obx(() {
           if (controller.isLoading.value) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
           return Column(
               children: [Expanded(child: CommonFoodGridList(controller.lst))]);

@@ -90,14 +90,16 @@ class ProfileModifyPage extends StatelessWidget {
                       '휴대폰 번호',
                       Row(
                         children: [
-                          Text(
-                            '+82 10-${controller.usrProfile.phone.substring(4, 6)}**-${controller.usrProfile.phone.substring(9, 11)}**',
-                            style: TextStyle(
-                              color: Color(0xFF3BD7E2),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                          controller.isLoading
+                              ? Text("")
+                              : Text(
+                                  '+82 10-${controller.usrProfile.phone.substring(4, 6)}**-${controller.usrProfile.phone.substring(9, 11)}**',
+                                  style: TextStyle(
+                                    color: Color(0xFF3BD7E2),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
                           SizedBox(
                             width: scrHeight * 0.0105,
                           ),

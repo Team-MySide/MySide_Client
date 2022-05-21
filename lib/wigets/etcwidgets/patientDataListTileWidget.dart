@@ -84,60 +84,56 @@ class PatientDataListTileWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Wrap(
-                        runSpacing: 0.0105 * scrHeight,
+                        // runSpacing: 0.0105 * scrHeight,
+                        spacing: 0.0105 * scrHeight,
                         children: [
                           RoundPersonalInfo(
                             buttonText: healthData.cancerNm,
                             scrHeight: scrHeight,
                           ),
-                          SizedBox(
-                            width: 0.0105 * scrHeight,
-                          ),
                           RoundPersonalInfo(
                             buttonText: healthData.stageNm,
                             scrHeight: scrHeight,
-                          ),
-                          SizedBox(
-                            width: 0.0105 * scrHeight,
                           ),
                           RoundPersonalInfo(
                             buttonText: healthData.progressNm,
                             scrHeight: scrHeight,
                           ),
-                          SizedBox(
-                            width: 0.0105 * scrHeight,
-                          ),
-                          RoundPersonalInfo(
-                            buttonText: healthData.disease,
-                            scrHeight: scrHeight,
-                          ),
-                          SizedBox(
-                            width: 0.0105 * scrHeight,
-                          ),
-                          RoundPersonalInfo(
-                            buttonText: '${healthData.weight}kg',
-                            scrHeight: scrHeight,
-                          ),
-                          SizedBox(
-                            width: 0.0105 * scrHeight,
-                          ),
-                          RoundPersonalInfo(
-                            buttonText: '${healthData.height}cm',
-                            scrHeight: scrHeight,
-                          ),
+                          (healthData.disease ?? "").isEmpty
+                              ? SizedBox()
+                              : RoundPersonalInfo(
+                                  buttonText: healthData.disease,
+                                  scrHeight: scrHeight,
+                                ),
+                          healthData.weight == 0
+                              ? SizedBox()
+                              : RoundPersonalInfo(
+                                  buttonText: '${healthData.weight}kg',
+                                  scrHeight: scrHeight,
+                                ),
+                          healthData.height == 0
+                              ? SizedBox()
+                              : RoundPersonalInfo(
+                                  buttonText: '${healthData.height}cm',
+                                  scrHeight: scrHeight,
+                                ),
                         ],
                       ),
-                      SizedBox(
-                        height: 0.0211 * scrHeight,
-                      ),
-                      Text(
-                        healthData.memo,
-                        style: TextStyle(
-                          color: Color(0xFF666666),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
+                      healthData.memo.isEmpty
+                          ? SizedBox()
+                          : SizedBox(
+                              height: 0.0211 * scrHeight,
+                            ),
+                      healthData.memo.isEmpty
+                          ? SizedBox()
+                          : Text(
+                              healthData.memo,
+                              style: TextStyle(
+                                color: Color(0xFF666666),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
                     ],
                   ),
                 ),

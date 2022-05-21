@@ -14,6 +14,7 @@ class ProfileModifyController extends GetxController {
     isPswd: false,
     errorMsg: '',
   );
+  bool isLoading = true;
   bool changeSuccess = false;
   bool duplicatePass = false;
   Profile usrProfile = Profile();
@@ -24,6 +25,7 @@ class ProfileModifyController extends GetxController {
     nicknameTextField.tec.addListener(onListenNickname);
     nicknameTextField.tec.text = usrProfile.nickname;
     super.onInit();
+    isLoading = false;
   }
 
   @override
