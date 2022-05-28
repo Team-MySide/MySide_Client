@@ -110,9 +110,7 @@ class _LikeBookmarkState extends State<LikeBookmark> {
                   child: SizedBox(
                       width: 16,
                       height: 15,
-                      child: SvgPicture.asset(widget.bookmarkStatus == 0
-                          ? "images/svg/bookmark.svg"
-                          : "images/svg/bookmark_selected.svg"))),
+                      child: SvgPicture.asset("images/svg/icon_eye.svg"))),
               Text(widget.bookmark.toString(), style: TextStyle(fontSize: 16))
             ]),
             onTap: () async {
