@@ -96,19 +96,36 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                 controller: _controller,
                 tabs: [
                   Tab(
+                      child: Text(
+                        '홈',
+                        style: TextStyle(fontSize: 12),
+                      ),
                       icon: _controller.index == 0
                           ? SvgPicture.asset('images/svg/home_selected.svg')
                           : SvgPicture.asset('images/svg/home_grey.svg')),
                   Tab(
+                      child: Text(
+                        '레시피',
+                        style: TextStyle(fontSize: 12),
+                      ),
                       icon: _controller.index == 1
                           ? SvgPicture.asset('images/svg/favorite_selected.svg')
                           : SvgPicture.asset('images/svg/favorite.svg')),
                   Tab(
+                      child: Text(
+                        '검색',
+                        style: TextStyle(fontSize: 12),
+                      ),
                       icon: _controller.index == 2
                           ? SvgPicture.asset('images/svg/search_selected.svg')
                           : SvgPicture.asset(
                               'images/svg/searchbar_search.svg')),
                   Tab(
+                      child: Text(
+                        '마이페이지',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                      //text: '마이페이지',
                       icon: _controller.index == 3
                           ? SvgPicture.asset('images/svg/person_selected.svg')
                           : SvgPicture.asset('images/svg/person.svg'))
