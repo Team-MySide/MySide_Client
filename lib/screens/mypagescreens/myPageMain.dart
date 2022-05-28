@@ -18,6 +18,7 @@ class MyPageMain extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFF3BD7E2),
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color(0xFF3BD7E2),
         actions: [
           IconButton(
