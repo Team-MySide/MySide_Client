@@ -37,6 +37,7 @@ class CommonFoodGridList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      padding: EdgeInsets.zero,
       physics: ScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           // maxCrossAxisExtent: 240, mainAxisSpacing: 20, crossAxisSpacing: 5),
@@ -44,7 +45,7 @@ class CommonFoodGridList extends StatelessWidget {
           crossAxisCount: 2,
           mainAxisExtent: 240),
       itemCount: foodItemList.length,
-      shrinkWrap: true,
+      // shrinkWrap: true,
       itemBuilder: (BuildContext ctx, index) {
         FoodItem item = foodItemList[index];
         bool showRanking = isShowRanking ?? false;
