@@ -18,7 +18,6 @@ class TabHome extends StatefulWidget {
 class _TabHomeState extends State<TabHome> with WidgetsBindingObserver {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);

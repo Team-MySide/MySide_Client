@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
@@ -195,7 +195,9 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final int backgroundColor;
   bool isBack = true;
-  CustomAppBar(this.title, this.backgroundColor, {Key key, this.isBack})
+  bool isReference = false;
+  CustomAppBar(this.title, this.backgroundColor,
+      {Key key, this.isBack, this.isReference})
       : preferredSize = Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -223,25 +225,35 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 })
             : Container(),
         actions: [
-          GestureDetector(
-              child: Padding(
-                  child: SvgPicture.asset("images/svg/question.svg"),
-                  padding: EdgeInsets.only(right: 16)),
-              onTap: () {
-                Get.defaultDialog(
-                    title: '출처',
-                    content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("• 사단법인 대한암협회",
-                              style: TextStyle(
-                                  fontSize: 14, color: Color(0xFF666666))),
-                          Text("• 세브란스병원",
-                              style: TextStyle(
-                                  fontSize: 14, color: Color(0xFF666666)))
-                        ]));
-              })
+          Padding(
+              // child: SvgPicture.asset("images/svg/question.svg"),
+              //can't change button height in appbar
+              //https://stackoverflow.com/questions/61177775/cant-change-the-height-of-a-button-in-flutter
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    side: BorderSide(width: 1.0, color: Color(0xFF666666))),
+                onPressed: () {
+                  Get.defaultDialog(
+                      title: '출처',
+                      content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("• 사단법인 대한암협회",
+                                style: TextStyle(
+                                    fontSize: 14, color: Color(0xFF666666))),
+                            Text("• 세브란스병원",
+                                style: TextStyle(
+                                    fontSize: 14, color: Color(0xFF666666)))
+                          ]));
+                },
+                child: Text(
+                  "출처",
+                  style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
+                ),
+              ),
+              padding: EdgeInsets.only(top: 14, bottom: 14, right: 16))
         ]);
   }
 }

@@ -30,7 +30,12 @@ class SearchDiseaseResult extends StatelessWidget {
     //     ));
 
     return Scaffold(
-        appBar: CustomAppBar("$disease 소개", Colors.white.value, isBack: true),
+        appBar: CustomAppBar(
+          "$disease 소개",
+          Colors.white.value,
+          isBack: true,
+          isReference: true,
+        ),
         body: SingleChildScrollView(
             child: Column(
           children: [
