@@ -93,7 +93,7 @@ Widget buildFindEmailDialog(
     widgetBetween: Column(
       children: [
         Text(
-          '고객님의 이메일은',
+          '이웃사촌님의 이메일은',
           style: TextStyle(
             color: Color(0xFF111111),
             fontSize: 16,

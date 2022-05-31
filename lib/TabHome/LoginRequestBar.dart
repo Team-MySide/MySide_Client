@@ -39,7 +39,7 @@ class LoginRequestBar extends StatelessWidget {
                                     "${myPageMainController.userData.nickname}님 최근에 변화된게 있으시다면,\n좀 더 자세히 알려주세요.")),
                           ])
                     : const Text.rich(TextSpan(
-                        text: "고객님, 안녕하세요.\n",
+                        text: "이웃사촌님, 안녕하세요.\n",
                         style: TextStyle(fontSize: 20),
                         children: [
                             TextSpan(
