@@ -36,40 +36,29 @@ class _FoodRecommendContainerState extends State<FoodRecommendContainer> {
                 height: 296, //원래 283 ㄱ
                 child:
                     Stack(alignment: AlignmentDirectional.topCenter, children: [
-                  _controller.isLoading.value || _controller.lst == null
-                      ? Container()
-                      : Container(
-                          width: 200,
-                          height: 180,
-                          child: ClipPath(
-                            child: AnimatedContainer(
-                                color: Color(int.parse(
+                  Container(
+                      width: 200,
+                      height: 180,
+                      child: ClipPath(
+                        child: AnimatedContainer(
+                            color: _controller.isLoading.value ||
+                                    _controller.lst == null
+                                ? Color(0xFFE9F1D1)
+                                : Color(int.parse(
                                     "0xFF${_controller.lst[activePage].backgroundColor ?? 'E9F1D1'}")),
-                                duration: Duration(
-                                  milliseconds: 1000,
-                                )),
-                            clipper: OctagonClipper(),
-                          )),
+                            duration: Duration(
+                              milliseconds: 1000,
+                            )),
+                        clipper: OctagonClipper(),
+                      )),
                   _controller.isLoading.value || _controller.lst == null
-                      ? Column(children: [
-                          Row(
-                            children: [
-                              ShimmerLoadingContainer(20, 180),
-                              ShimmerLoadingContainer(200, 180),
-                              ShimmerLoadingContainer(20, 180)
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          ),
-                          SizedBox(height: 16),
-                          Row(
-                            children: [
-                              ShimmerLoadingContainer(20, 86),
-                              ShimmerLoadingContainer(200, 86),
-                              ShimmerLoadingContainer(20, 86)
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          )
-                        ])
+                      ?
+                      // SizedBox(
+                      //     height: 407,
+                      //     child: Center(
+                      //       child: CircularProgressIndicator(),
+                      //     ))
+                      LikeBestTile(dummyRecommendItem)
                       : PageView.builder(
                           itemCount: _controller.lst.length,
                           controller: PageController(viewportFraction: 0.5),
@@ -87,6 +76,19 @@ class _FoodRecommendContainerState extends State<FoodRecommendContainer> {
         ));
   }
 }
+
+final dummyRecommendItem = FoodRecommendItem(
+  foodId: 0,
+  name: "  ?  ",
+  img: "",
+  category: " ? ",
+  cancerNm: " ? ",
+  backgroundColor: "FFF3D9",
+  wishes: 0,
+  views: 0,
+  likes: 0,
+  nutrition1: " ? ",
+);
 
 class LikeBestTile extends StatelessWidget {
   final FoodRecommendItem item;
