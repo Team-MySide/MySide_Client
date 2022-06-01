@@ -19,6 +19,7 @@ class SearchDiseaseController extends GetxController {
     isLoading(true);
     try {
       List<FoodItem> products = await SearchDiseaseService().fetch(cancer);
+
       if (products != null) {
         lst.value = products;
       }

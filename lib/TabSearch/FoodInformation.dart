@@ -211,7 +211,6 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
-    print("${widget.isBack}");
     return AppBar(
         title: Text(widget.title),
         centerTitle: true,
@@ -223,37 +222,42 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 })
-            : Container(),
+            : null,
         actions: [
-          Padding(
-              // child: SvgPicture.asset("images/svg/question.svg"),
-              //can't change button height in appbar
-              //https://stackoverflow.com/questions/61177775/cant-change-the-height-of-a-button-in-flutter
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                    shape: StadiumBorder(),
-                    side: BorderSide(width: 1.0, color: Color(0xFF666666))),
-                onPressed: () {
-                  Get.defaultDialog(
-                      title: '출처',
-                      content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("• 사단법인 대한암협회",
-                                style: TextStyle(
-                                    fontSize: 14, color: Color(0xFF666666))),
-                            Text("• 세브란스병원",
-                                style: TextStyle(
-                                    fontSize: 14, color: Color(0xFF666666)))
-                          ]));
-                },
+          Container(
+            margin: EdgeInsets.only(top: 13, bottom: 13, right: 13),
+            child: InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(24)),
+              onTap: () {
+                Get.defaultDialog(
+                    title: '출처',
+                    content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("• 사단법인 대한암협회",
+                              style: TextStyle(
+                                  fontSize: 14, color: Color(0xFF666666))),
+                          Text("• 세브란스병원",
+                              style: TextStyle(
+                                  fontSize: 14, color: Color(0xFF666666)))
+                        ]));
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  // shape: BoxShape.rectangle,
+                  border: Border.all(width: 1.0, color: Color(0xFF666666)),
+                  borderRadius: BorderRadius.all(Radius.circular(24)),
+                ),
                 child: Text(
                   "출처",
                   style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
                 ),
               ),
-              padding: EdgeInsets.only(top: 14, bottom: 14, right: 16))
+            ),
+          )
         ]);
   }
 }
