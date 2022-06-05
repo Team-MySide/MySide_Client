@@ -26,6 +26,15 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
     '유방암': 'images/detail_cancer/detail_breast_cancer.jpg',
     '갑상선암': 'images/detail_cancer/detail_thyroid_cancer.jpg',
   };
+  dynamic diseaseBackgroundColor = {
+    '위암': 0xFFFFD15A,
+    '간암': 0xFFC0A7CF,
+    '대장암': 0xFFC9D86D,
+    '폐암': 0xFFAAC0FA,
+    '유방암': 0xFFFFB6B6,
+    '갑상선암': 0xFF90D5EB,
+  };
+
   @override
   void initState() {
     super.initState();
@@ -39,8 +48,11 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
     //     // systemNavigationBarColor: Colors.blue, // navigation bar color
     //     statusBarColor: Colors.white // status bar color
     //     ));
+    // precacheImage(AssetImage(diseaseMap[disease]), context);
+    double scrHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+        backgroundColor: Color(diseaseBackgroundColor[disease]),
         appBar: CustomAppBar(
           "$disease 소개",
           Colors.white.value,
@@ -50,7 +62,13 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
         body: SingleChildScrollView(
             child: Column(
           children: [
-            Image.asset(diseaseMap[disease]),
+            ConstrainedBox(
+                constraints: BoxConstraints(minHeight: scrHeight),
+                child: Container(
+                  // color: Color(diseaseBackgroundColor[disease]),
+                  child: Image(image: AssetImage(diseaseMap[disease])),
+                )),
+
             // Container(
             //     child: FadeInImage(
             //         image: AssetImage(diseaseMap[disease]),
@@ -64,15 +82,15 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
             ),
             Obx(() => controller.isLoading.value
                 ? SizedBox()
-                : Column(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: HeaderRow("$disease에 좋은 랭킹별 추천 음식",
-                              isViewMore: false)),
-                      FoodTileGridView(controller.lst.sublist(0, 4).toList()),
-                    ],
-                  ))
+                : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: HeaderRow("$disease에 좋은 랭킹별 추천 음식",
+                        isViewMore: false))),
+            Obx(
+              () => controller.isLoading.value
+                  ? SizedBox()
+                  : FoodTileGridView(controller.lst.sublist(0, 4).toList()),
+            )
           ],
         )));
   }
