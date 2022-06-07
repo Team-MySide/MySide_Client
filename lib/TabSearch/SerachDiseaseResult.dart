@@ -27,12 +27,12 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
     '갑상선암': 'images/detail_cancer/detail_thyroid_cancer.jpg',
   };
   dynamic diseaseBackgroundColor = {
-    '위암': 0xFFFFD15A,
-    '간암': 0xFFC0A7CF,
-    '대장암': 0xFFC9D86D,
-    '폐암': 0xFFAAC0FA,
-    '유방암': 0xFFFFB6B6,
-    '갑상선암': 0xFF90D5EB,
+    '위암': 0xFFFFE8AD,
+    '간암': 0xFFE0D3E7,
+    '대장암': 0xFFE4EBB6,
+    '폐암': 0xFFD4DFFC,
+    '유방암': 0xFFFFDADA,
+    '갑상선암': 0xFFC7EAF5,
   };
 
   @override
@@ -50,7 +50,7 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
     //     ));
     // precacheImage(AssetImage(diseaseMap[disease]), context);
     double scrHeight = MediaQuery.of(context).size.height;
-
+    print("scrHeight $scrHeight");
     return Scaffold(
         backgroundColor: Color(diseaseBackgroundColor[disease]),
         appBar: CustomAppBar(
@@ -65,8 +65,8 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
             ConstrainedBox(
                 constraints: BoxConstraints(minHeight: scrHeight),
                 child: Container(
-                  // color: Color(diseaseBackgroundColor[disease]),
-                  child: Image(image: AssetImage(diseaseMap[disease])),
+                  // child: Image(image: AssetImage(diseaseMap[disease])),
+                  child: Image.asset(diseaseMap[disease]),
                 )),
 
             // Container(
@@ -82,14 +82,25 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
             ),
             Obx(() => controller.isLoading.value
                 ? SizedBox()
-                : Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: HeaderRow("$disease에 좋은 랭킹별 추천 음식",
-                        isViewMore: false))),
+                : Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 40),
+                        child: HeaderRow("$disease에 좋은 랭킹별 추천 음식",
+                            isViewMore: false)),
+                  )),
             Obx(
               () => controller.isLoading.value
                   ? SizedBox()
-                  : FoodTileGridView(controller.lst.sublist(0, 4).toList()),
+                  : Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: FoodTileGridView(
+                          controller.lst.sublist(0, 4).toList())),
             )
           ],
         )));
