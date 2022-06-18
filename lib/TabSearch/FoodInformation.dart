@@ -467,7 +467,7 @@ class IngredientTable extends StatelessWidget {
                       SizedBox(height: 32),
                       Stack(children: [
                         Align(
-                          child: DetailInfo().mainHeader("성분 퍼센트", 121),
+                          child: DetailInfo().mainHeader("성분 퍼센트", 112),
                           alignment: Alignment.center,
                         ),
                         // SvgPicture.asset("images/arrow_right.svg")
@@ -609,7 +609,7 @@ class ReferenceContainer extends StatelessWidget {
         height: 32,
       ),
       Stack(children: [
-        Center(child: DetailInfo().mainHeader('출처', 140)),
+        Center(child: DetailInfo().mainHeader('출처', 48)),
         Positioned(
             right: 24,
             child: GestureDetector(
@@ -888,40 +888,32 @@ class DetailInfo extends StatelessWidget {
   }
 
   mainHeader(String title, double width) {
-    return Center(
-        child: Stack(
-      alignment: AlignmentDirectional.center,
+    return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
       children: [
-        Positioned(
-          bottom: 0,
+        SizedBox(
+          width: width,
           child: Container(
-            width: 210,
-            height: 22,
+            height: 12,
             color: Color(0x483BD7E2),
-          )
-          // Text(
-          //     "${title.replaceAll(" ", "일")}${title.replaceAll(" ", "")}", //색이 약간 삐져나오는 버그
-          //     style: TextStyle(
-          //         fontSize: 11,
-          //         color: Colors.transparent,
-          //         backgroundColor: Color(0x483BD7E2),
-          //         // height: 2.3,
-          //         leadingDistribution: TextLeadingDistribution.proportional))
-          ,
+          ),
         ),
-        Text(title,
-            style: TextStyle(
-              fontSize: 22,
-              // color: Color(0xFF111111),
-              // backgroundColor: Color(0x483BD7E2)
-            )),
+        SizedBox(
+          // height: 32,
+          child: Text(title,
+              style: TextStyle(
+                fontSize: 22,
+                // color: Color(0xFF111111),
+                // backgroundColor: Color(0x483BD7E2)
+              )),
+        ),
         // backgroundColor: Color(0x483BD7E2))),
         //  Column(children: [
         // SizedBox(height: 12),
 
         // ]
       ],
-    ));
+    );
   }
 
   // getDoubledText(String input){
