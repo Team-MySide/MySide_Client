@@ -72,8 +72,8 @@ class SignUpUserController extends GetxController {
   }
 
   void tempGetToken() async {
-    final response = await http
-        .post(Uri.http('54.180.67.217:3000', '/auth/signin'), headers: {
+    final response =
+        await http.post(Uri.http('3.39.126.13:3000', '/auth/signin'), headers: {
       "Accept": "applications.json"
     }, body: {
       "email": email,
@@ -107,8 +107,8 @@ class SignUpUserController extends GetxController {
   }
 
   void signUpUser() async {
-    final response = await http
-        .post(Uri.http('54.180.67.217:3000', '/auth/signup'), headers: {
+    final response =
+        await http.post(Uri.http('3.39.126.13:3000', '/auth/signup'), headers: {
       "Accept": "applications.json"
     }, body: {
       "email": email,

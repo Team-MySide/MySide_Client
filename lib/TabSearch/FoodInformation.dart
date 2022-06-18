@@ -10,7 +10,6 @@ import 'package:my_side_client/TabSearch/SearchDetailReference/SearchDetailMainI
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/wigets/dialogwidget/singleButtonDialog.dart';
 import '../Constants.dart';
-import 'FoodReferenceDesc.dart';
 import 'SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageController.dart';
 import 'SearchDetailMainInfo/SearchDetailMainInfoController.dart';
 import 'SearchDetailNutritionFactsRepository/SearchDetailNutritionFactsController.dart';
@@ -610,7 +609,7 @@ class ReferenceContainer extends StatelessWidget {
         height: 32,
       ),
       Stack(children: [
-        Center(child: DetailInfo().mainHeader('출처', 121)),
+        Center(child: DetailInfo().mainHeader('출처', 140)),
         Positioned(
             right: 24,
             child: GestureDetector(
@@ -893,6 +892,23 @@ class DetailInfo extends StatelessWidget {
         child: Stack(
       alignment: AlignmentDirectional.center,
       children: [
+        Positioned(
+          bottom: 0,
+          child: Container(
+            width: 210,
+            height: 22,
+            color: Color(0x483BD7E2),
+          )
+          // Text(
+          //     "${title.replaceAll(" ", "일")}${title.replaceAll(" ", "")}", //색이 약간 삐져나오는 버그
+          //     style: TextStyle(
+          //         fontSize: 11,
+          //         color: Colors.transparent,
+          //         backgroundColor: Color(0x483BD7E2),
+          //         // height: 2.3,
+          //         leadingDistribution: TextLeadingDistribution.proportional))
+          ,
+        ),
         Text(title,
             style: TextStyle(
               fontSize: 22,
@@ -902,14 +918,7 @@ class DetailInfo extends StatelessWidget {
         // backgroundColor: Color(0x483BD7E2))),
         //  Column(children: [
         // SizedBox(height: 12),
-        Text(
-            "${title.replaceAll(" ", "일")}${title.replaceAll(" ", "")}", //색이 약간 삐져나오는 버그
-            style: TextStyle(
-                fontSize: 11,
-                color: Colors.transparent,
-                backgroundColor: Color(0x483BD7E2),
-                height: 2.3,
-                leadingDistribution: TextLeadingDistribution.proportional))
+
         // ]
       ],
     ));

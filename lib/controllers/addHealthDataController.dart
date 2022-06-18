@@ -10,7 +10,6 @@ import 'package:my_side_client/models/textFieldModel.dart';
 import 'package:my_side_client/services/mypageService/myPageService.dart';
 import 'package:my_side_client/wigets/dialogwidget/singleButtonDialog.dart';
 
-
 class AddHealthDataController extends GetxController {
   int usrType = 0;
   int gender = 0;
@@ -219,7 +218,7 @@ class AddHealthDataController extends GetxController {
 
   void getCancerData() async {
     final response = await http.get(
-      Uri.http('54.180.67.217:3000', '/common/auto/cancer'),
+      Uri.http('3.39.126.13:3000', '/common/auto/cancer'),
       headers: {"Accept": "applications.json"},
     );
     if (response.statusCode == 200) {
@@ -255,7 +254,7 @@ class AddHealthDataController extends GetxController {
 
   void healthDataEdit() async {
     final response = await http
-        .put(Uri.http('54.180.67.217:3000', '/mypage/health/update'), headers: {
+        .put(Uri.http('3.39.126.13:3000', '/mypage/health/update'), headers: {
       "Accept": "applications.json",
       "token": UserProfile.token
     }, body: {

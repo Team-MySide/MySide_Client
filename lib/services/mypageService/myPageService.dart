@@ -6,7 +6,6 @@ import 'dart:convert';
 
 import 'package:my_side_client/models/userInfo.dart';
 
-
 Future<bool> writeHealthData(
     String token,
     String date,
@@ -22,7 +21,7 @@ Future<bool> writeHealthData(
     String memo) async {
   print(cancerNm);
   final response = await http
-      .post(Uri.http('54.180.67.217:3000', '/mypage/health/insert'), headers: {
+      .post(Uri.http('3.39.126.13:3000', '/mypage/health/insert'), headers: {
     "Accept": "applications.json",
     "token": token
   }, body: {
@@ -49,7 +48,7 @@ Future<bool> writeHealthData(
 
 void deleteData(int index, String token) async {
   final response = await http.delete(
-    Uri.http('54.180.67.217:3000', '/mypage/health/delete/${index.toString()}'),
+    Uri.http('3.39.126.13:3000', '/mypage/health/delete/${index.toString()}'),
     headers: {"Accept": "applications.json", "token": token},
   );
   if (response.statusCode == 200) {
@@ -59,7 +58,7 @@ void deleteData(int index, String token) async {
 
 Future<UserData> getUserInfoService(String token) async {
   final response = await http.get(
-    Uri.http('54.180.67.217:3000', '/mypage'),
+    Uri.http('3.39.126.13:3000', '/mypage'),
     headers: {"Accept": "applications.json", "token": token},
   );
   if (response.statusCode == 200) {
@@ -70,7 +69,7 @@ Future<UserData> getUserInfoService(String token) async {
 
 Future<List<HealthData>> readTotalHealthData(String token) async {
   final response = await http.get(
-    Uri.http('54.180.67.217:3000', '/mypage/health'),
+    Uri.http('3.39.126.13:3000', '/mypage/health'),
     headers: {"Accept": "applications.json", "token": token},
   );
   if (response.statusCode == 200) {
@@ -85,7 +84,7 @@ Future<List<HealthData>> readTotalHealthData(String token) async {
 Future<List<HealthData>> readMonthYearDatList(
     String year, String month, String token) async {
   final response = await http.get(
-    Uri.http('54.180.67.217:3000', '/mypage/health/$year-$month'),
+    Uri.http('3.39.126.13:3000', '/mypage/health/$year-$month'),
     headers: {"Accept": "applications.json", "token": token},
   );
   if (response.statusCode == 200) {
@@ -101,7 +100,7 @@ Future<List<HealthData>> readMonthYearDatList(
 Future<List<dynamic>> findCurUserInfo(String token) async {
   List<dynamic> curInfo = [];
   final response = await http.get(
-    Uri.http('54.180.67.217:3000', '/mypage/health/list/detail/info'),
+    Uri.http('3.39.126.13:3000', '/mypage/health/list/detail/info'),
     headers: {"Accept": "applications.json", "token": token},
   );
   if (response.statusCode == 200) {
@@ -126,7 +125,7 @@ Future<List<dynamic>> findCurUserInfo(String token) async {
 Future<List<dynamic>> findEditInfo(int id, String token) async {
   List<dynamic> curInfo = [];
   final response = await http.get(
-    Uri.http('54.180.67.217:3000', '/mypage/health/list/${id.toString()}'),
+    Uri.http('3.39.126.13:3000', '/mypage/health/list/${id.toString()}'),
     headers: {"Accept": "applications.json", "token": token},
   );
   if (response.statusCode == 200) {
@@ -153,7 +152,7 @@ Future<List<dynamic>> findEditInfo(int id, String token) async {
 Future<Profile> userProfile(String token) async {
   Profile curProfile = Profile();
   final response = await http.get(
-    Uri.http('54.180.67.217:3000', '/mypage/profile'),
+    Uri.http('3.39.126.13:3000', '/mypage/profile'),
     headers: {"Accept": "applications.json", "token": token},
   );
   if (response.statusCode == 200) {
@@ -167,7 +166,7 @@ Future<Profile> userProfile(String token) async {
 Future<bool> checkNickname(String nickname) async {
   bool duplicated = false;
   final response = await http.get(
-    Uri.http('54.180.67.217:3000', '/auth/duplicated/nickname/$nickname'),
+    Uri.http('3.39.126.13:3000', '/auth/duplicated/nickname/$nickname'),
     headers: {"Accept": "applications.json"},
   );
   if (response.statusCode == 200) {
@@ -180,7 +179,7 @@ Future<bool> checkNickname(String nickname) async {
 //닉네임 변경
 Future<bool> nicknameChange(String nickname, String token) async {
   final response = await http.put(
-    Uri.http('54.180.67.217:3000', '/mypage/profile/nickname'),
+    Uri.http('3.39.126.13:3000', '/mypage/profile/nickname'),
     headers: {"Accept": "applications.json", "token": token},
     body: {
       "nickname": nickname,
@@ -196,7 +195,7 @@ Future<bool> nicknameChange(String nickname, String token) async {
 //패스워드 체크
 Future<bool> checkPassword(String pswd, String token) async {
   final response = await http.post(
-    Uri.http('54.180.67.217:3000', '/mypage/profile/checkpw'),
+    Uri.http('3.39.126.13:3000', '/mypage/profile/checkpw'),
     headers: {"Accept": "applications.json", "token": token},
     body: {
       "password": pswd,
@@ -212,7 +211,7 @@ Future<bool> checkPassword(String pswd, String token) async {
 //휴대폰 번호 변경
 Future<bool> changePhoneNumber(String token, String newPhone) async {
   final response = await http.put(
-    Uri.http('54.180.67.217:3000', '/mypage/profile/changepb'),
+    Uri.http('3.39.126.13:3000', '/mypage/profile/changepb'),
     headers: {"Accept": "applications.json", "token": token},
     body: {
       "phone": newPhone,
@@ -229,7 +228,7 @@ Future<bool> changePhoneNumber(String token, String newPhone) async {
 //비밀번호 변경
 Future<bool> changePassword(String token, String pswd, String newPswd) async {
   final response = await http.put(
-    Uri.http('54.180.67.217:3000', '/mypage/profile/change/password'),
+    Uri.http('3.39.126.13:3000', '/mypage/profile/change/password'),
     headers: {"Accept": "applications.json", "token": token},
     body: {
       "password": pswd,
@@ -246,7 +245,7 @@ Future<bool> changePassword(String token, String pswd, String newPswd) async {
 //탈퇴
 Future<bool> dropOutUser(String token, String reason) async {
   final response = await http.get(
-    Uri.http('54.180.67.217:3000', '/mypage/leave/$reason'),
+    Uri.http('3.39.126.13:3000', '/mypage/leave/$reason'),
     headers: {"Accept": "applications.json", "token": token},
   );
   if (response.statusCode == 200) {

@@ -66,7 +66,7 @@ class SelectCancerController extends GetxController {
 
   void getData() async {
     final response = await http.get(
-      Uri.http('54.180.67.217:3000', '/common/auto/cancer'),
+      Uri.http('3.39.126.13:3000', '/common/auto/cancer'),
       headers: {"Accept": "applications.json"},
     );
     if (response.statusCode == 200) {
