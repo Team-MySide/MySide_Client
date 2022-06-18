@@ -25,8 +25,8 @@ class CommentMain extends StatefulWidget {
 }
 
 bool isChangedBookmark = true;
-class _CommentMainState extends State<CommentMain> {
 
+class _CommentMainState extends State<CommentMain> {
   CommentController _controller = Get.put(CommentController());
 
   TextEditingController textEditingController;
@@ -42,11 +42,11 @@ class _CommentMainState extends State<CommentMain> {
     });
   }
 
-
   Future<bool> _onWillPop() async {
     Get.back(result: isChangedBookmark);
     return false;
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -84,31 +84,26 @@ class CommentFooter extends StatefulWidget {
 class _CommentFooterState extends State<CommentFooter> {
   Future<CommentPost> postComment;
   Future<CommentPost> postRequest(String text) async {
-
-    final response = await http.post(Uri.parse('http://54.180.67.217:3000/receipe/comment/main/write'),
-      headers:
-      {
+    final response = await http.post(
+      Uri.parse('http://3.39.126.13:3000/receipe/comment/main/write'),
+      headers: {
         "Content-Type": "application/json",
-        "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ4MTM1MDgxLCJleHAiOjE2NDkzNDQ2ODEsImlzcyI6ImlnIn0.1CSK1NhK74auMe1xdGq5oMt3HHiVhsWYta2lQ0PbYY4",
+        "token":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ4MTM1MDgxLCJleHAiOjE2NDkzNDQ2ODEsImlzcyI6ImlnIn0.1CSK1NhK74auMe1xdGq5oMt3HHiVhsWYta2lQ0PbYY4",
       },
-      body: json.encode({
-        "receipe_id" : 1,
-        "comment_content" : text
-      }),
+      body: json.encode({"receipe_id": 1, "comment_content": text}),
     );
-    if(response.statusCode==200){
+    if (response.statusCode == 200) {
       return CommentPost.fromJson(json.decode(response.body));
-    }
-    else {
+    } else {
       throw Exception('Failed to load post');
     }
   }
 
-  void handleSubmitted(String text){
+  void handleSubmitted(String text) {
     setState(() {
       widget.textEditingController.clear();
-      postComment=postRequest(text);
-
+      postComment = postRequest(text);
     });
   }
 
@@ -120,27 +115,29 @@ class _CommentFooterState extends State<CommentFooter> {
       child: Row(children: [
         Expanded(
             child: TextField(
-              controller: widget.textEditingController,
-              decoration: InputDecoration(
-                hintText: "이웃주민에게 댓글을 입력해주세요!",
-                hintStyle: TextStyle(color: Color(0xFFAAAAAA)),
-                fillColor: Colors.white,
-                filled: true, // <- this is required.
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.zero,
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            )),
+          controller: widget.textEditingController,
+          decoration: InputDecoration(
+            hintText: "이웃주민에게 댓글을 입력해주세요!",
+            hintStyle: TextStyle(color: Color(0xFFAAAAAA)),
+            fillColor: Colors.white,
+            filled: true, // <- this is required.
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.zero,
+              borderSide: BorderSide.none,
+            ),
+          ),
+        )),
         // ConstrainedBox(
         //   constraints: BoxConstraints.tightFor(width: 60, height: 154),
         // child:
         TextButton(
           style: CommonTheme.getSquarePrimaryButtonStyle(w: 60, h: 54),
-          onPressed: widget.isButtonActive ? () async {
-            handleSubmitted(widget.textEditingController.text);
-            await Future.delayed(Duration(seconds: 1));
-          } : null,
+          onPressed: widget.isButtonActive
+              ? () async {
+                  handleSubmitted(widget.textEditingController.text);
+                  await Future.delayed(Duration(seconds: 1));
+                }
+              : null,
           child: Text("전송"),
           // ),
         )
@@ -179,17 +176,17 @@ class CommentItem {
   final Comment item;
   final bool isWriter;
   final context;
-  CommentItem(this.item, this.isWriter, this.context,{Key key});
+  CommentItem(this.item, this.isWriter, this.context, {Key key});
   Widget createCommentItem() {
-    return createItem(true,context);
+    return createItem(true, context);
   }
 
   Widget createReplyItem() {
-    return createItem(false,context);
+    return createItem(false, context);
   }
 
   Widget createItem(bool isMain, BuildContext context) {
-    String timeData= Jiffy(item.comment_time).fromNow();
+    String timeData = Jiffy(item.comment_time).fromNow();
     Jiffy.locale('ko');
 
     // return true;
@@ -201,22 +198,22 @@ class CommentItem {
         isMain
             ? SizedBox(width: 0)
             : Container(
-            child: Row(children: [
-              SvgPicture.asset("images/svg/comment_reply_arrow.svg"),
-              SizedBox(width: 20)
-            ])),
+                child: Row(children: [
+                SvgPicture.asset("images/svg/comment_reply_arrow.svg"),
+                SizedBox(width: 20)
+              ])),
         Container(
           width: 32,
           height: 32,
-          child: Image.asset(/*item.profileImage*/"asset"),
+          child: Image.asset(/*item.profileImage*/ "asset"),
           decoration: isWriter
               ? BoxDecoration(
-            // backgroundBlendMode: BlendMode.dst,
-              shape: BoxShape.circle,
-              color: Color(Constants.primaryColorInt),
-              // borderRadius:BorderRadius.
-              border: Border.all(
-                  width: 1, color: Color(Constants.primaryColorInt)))
+                  // backgroundBlendMode: BlendMode.dst,
+                  shape: BoxShape.circle,
+                  color: Color(Constants.primaryColorInt),
+                  // borderRadius:BorderRadius.
+                  border: Border.all(
+                      width: 1, color: Color(Constants.primaryColorInt)))
               : null,
         ),
         Container(
@@ -224,7 +221,7 @@ class CommentItem {
         ),
         Expanded(
           child:
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -236,16 +233,19 @@ class CommentItem {
                   isWriter ? getWriter() : EmptyWidget()
                 ]),
 
-                timeData.contains("시간 전")?
-                Text(timeData, style: TextStyle(color: Color(0xFF999999)))
-                    :Text("${item.comment_time.substring(0,4)}."
-                    "${item.comment_time.substring(5,7)}."
-                    "${item.comment_time.substring(8,10)}", style: TextStyle(color: Color(0xFF999999)))
+                timeData.contains("시간 전")
+                    ? Text(timeData, style: TextStyle(color: Color(0xFF999999)))
+                    : Text(
+                        "${item.comment_time.substring(0, 4)}."
+                        "${item.comment_time.substring(5, 7)}."
+                        "${item.comment_time.substring(8, 10)}",
+                        style: TextStyle(color: Color(0xFF999999)))
                 // nickname
               ],
             ),
             SizedBox(height: 8),
-            Text("${item.cancerNm}/${item.stageNm}/${item.progressNm}/${item.relationNm}",
+            Text(
+                "${item.cancerNm}/${item.stageNm}/${item.progressNm}/${item.relationNm}",
                 style: TextStyle(fontSize: 12, color: Color(0xFF999999))),
             Container(
               height: 8,
@@ -257,73 +257,82 @@ class CommentItem {
             Container(
               height: 8,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
                     item.like_status
-                        ? InkWell(child:SvgPicture.asset(Constants.likeSVGSelectedPath),
-                      onTap: (){},)
-                        : InkWell(child:SvgPicture.asset(Constants.likeSVGPath),
-                      onTap: (){},),
+                        ? InkWell(
+                            child:
+                                SvgPicture.asset(Constants.likeSVGSelectedPath),
+                            onTap: () {},
+                          )
+                        : InkWell(
+                            child: SvgPicture.asset(Constants.likeSVGPath),
+                            onTap: () {},
+                          ),
 
                     SizedBox(width: 5),
                     SizedBox(
                         width: 50,
                         height: 18,
                         child: Text(
-                            item.likesum != 0 ? "${item.likesum}" : "좋아요 "
-                            ,style : TextStyle(
-                            fontSize: 12.0,
-                            fontFamily: "NotoSans",
-                            fontWeight: FontWeight.w300,
-                            color: Color(0xff666666)
-                        ))),
+                            item.likesum != 0 ? "${item.likesum}" : "좋아요 ",
+                            style: TextStyle(
+                                fontSize: 12.0,
+                                fontFamily: "NotoSans",
+                                fontWeight: FontWeight.w300,
+                                color: Color(0xff666666)))),
                     SizedBox(width: 24),
                     isMain
-                        ? InkWell(child:SvgPicture.asset('images/svg/chat.svg'),
-                      onTap: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => CommentSub()));
-
-                      },)
+                        ? InkWell(
+                            child: SvgPicture.asset('images/svg/chat.svg'),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CommentSub()));
+                            },
+                          )
                         : EmptyWidget(),
                     isMain ? SizedBox(width: 5) : EmptyWidget(),
                     isMain
                         ? SizedBox(
-                        width: 70,
-                        height: 18,
-                        child: Text(item.subcomment_sum != 0
-                            ? "${item.subcomment_sum}"
-                            : "댓글 쓰기",style : TextStyle(
-                            fontSize: 12.0,
-                            fontFamily: "NotoSans",
-                            fontWeight: FontWeight.w300,
-                            color: Color(0xff666666)
-                        )))
+                            width: 70,
+                            height: 18,
+                            child: Text(
+                                item.subcomment_sum != 0
+                                    ? "${item.subcomment_sum}"
+                                    : "댓글 쓰기",
+                                style: TextStyle(
+                                    fontSize: 12.0,
+                                    fontFamily: "NotoSans",
+                                    fontWeight: FontWeight.w300,
+                                    color: Color(0xff666666))))
                         : EmptyWidget(),
                     // item.commentCount != 0
                     //     ? SvgPicture.asset("img/svg/vertical_dots.svg")
                     //     : null
                   ],
                 ),
-                Row(children: [
-                  InkWell(
-                    child: SvgPicture.asset('assets/deletemenu.svg'),
-                    onTap: (){
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CommentDelete(item.comment_id);
-                        },
-                      );
-                    },
-                  ),
-                ],),
+                Row(
+                  children: [
+                    InkWell(
+                      child: SvgPicture.asset('assets/deletemenu.svg'),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CommentDelete(item.comment_id);
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
-
           ]),
         ),
       ]),
@@ -349,4 +358,3 @@ class CommentItem {
     );
   }
 }
-

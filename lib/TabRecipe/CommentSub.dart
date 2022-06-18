@@ -19,7 +19,7 @@ class CommentSub extends StatefulWidget {
 
 Future<SubCommentDataItem> fetchPost() async {
   final response = await http.get(
-      Uri.parse('http://54.180.67.217:3000/receipe/comment/sub/view/2'),
+      Uri.parse('http://3.39.126.13:3000/receipe/comment/sub/view/2'),
       headers: {
         "Content-Type": "application/json",
         "token":

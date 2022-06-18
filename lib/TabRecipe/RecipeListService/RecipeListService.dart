@@ -17,7 +17,7 @@ class RecipeListService extends MySideConnect implements IFetch {
   @override
   Future<List<RecipeListDiseaseItem>> getDiseaseRecipeList(
       String target, String tabIdx) async {
-    httpClient.baseUrl = "http://54.180.67.217:3000";
+    httpClient.baseUrl = "http://3.39.126.13:3000";
 
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
@@ -40,7 +40,7 @@ class RecipeListService extends MySideConnect implements IFetch {
   @override
   Future<List<RecipeItem>> getFoodRecipeList(
       String target, String tabIdx) async {
-    httpClient.baseUrl = "http://54.180.67.217:3000";
+    httpClient.baseUrl = "http://3.39.126.13:3000";
 
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
@@ -61,7 +61,7 @@ class RecipeListService extends MySideConnect implements IFetch {
 
   @override
   Future<List<RecipeItem>> getRecommendList() async {
-    httpClient.baseUrl = "http://54.180.67.217:3000";
+    httpClient.baseUrl = "http://3.39.126.13:3000";
 
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {
@@ -82,7 +82,7 @@ class RecipeListService extends MySideConnect implements IFetch {
 
   @override
   Future<List<RecipeMainBestItem>> getAllRankList() async {
-    httpClient.baseUrl = "http://54.180.67.217:3000";
+    httpClient.baseUrl = "http://3.39.126.13:3000";
 
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {

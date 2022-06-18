@@ -12,7 +12,7 @@ class SearchFoodCategoryService extends MySideConnect implements IFetch {
   @override
   Future<List<FoodItem>> fetchFoodCategoryList(String category, int id) async {
     //
-    httpClient.baseUrl = "http://54.180.67.217:3000";
+    httpClient.baseUrl = "http://3.39.126.13:3000";
 
     //모든 헤더에 붙인다.
     httpClient.addRequestModifier((request) {

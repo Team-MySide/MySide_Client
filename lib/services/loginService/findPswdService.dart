@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class FindPswdService extends GetConnect {
   Future<bool> getPswd(String name, String email) async {
-    httpClient.baseUrl = "http://54.180.67.217:3000";
+    httpClient.baseUrl = "http://3.39.126.13:3000";
     httpClient.addRequestModifier((request) {
       request.headers['Content-Type'] = 'application/json';
       return request;

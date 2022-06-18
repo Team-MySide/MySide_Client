@@ -11,7 +11,7 @@ class Constants {
   static double tagButtonRadius = 18;
   static int loadingColor = 0x77EAEAEA;
   static bool isFoodInformationChanged = false;
-  static const String BASE_URL = "http://54.180.67.217:3000/";
+  static const String BASE_URL = "http://3.39.126.13:3000/";
   static const String IMG_PLACE_HOLDER = "images/loading_failed_white_png.png";
   static const String IMG_PLACE_HOLDER_GREY =
       "images/loading_failed_grey_png.png";
