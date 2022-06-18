@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
+import 'package:my_side_client/TabSearch/SearchDetailReference/SearchDetailMainInfoController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import '../Constants.dart';
 import 'SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageController.dart';
 import 'SearchDetailMainInfo/SearchDetailMainInfoController.dart';
 import 'SearchDetailNutritionFactsRepository/SearchDetailNutritionFactsController.dart';
+import 'SearchDetailReference/SearchDetailReference.dart';
 
 class FoodInformation extends StatefulWidget {
   FoodInformation({Key key}) : super(key: key);
@@ -263,6 +265,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
 }
 
 class IngredientTable extends StatelessWidget {
+  SearchDetailReferenceController _searchDetailReferenceController =
+      Get.put(SearchDetailReferenceController(Get.arguments));
+
   IngredientTable({Key key}) : super(key: key);
   // final String food;
   SearchDetailFoodNutritionPercentageController
@@ -279,6 +284,21 @@ class IngredientTable extends StatelessWidget {
       color: Color(0xFFF4F4F4),
       child: Column(
         children: [
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Card(
+                  elevation: 0,
+                  margin: EdgeInsets.zero,
+                  child: Obx(() {
+                    if (_searchDetailReferenceController.isLoading.value) {
+                      return
+                          // ignore: missing_required_param
+                          ReferenceContainer();
+                    } else {
+                      return ReferenceContainer(
+                          item: _searchDetailReferenceController.item.value);
+                    }
+                  }))),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: [
@@ -570,6 +590,141 @@ class IngredientTable extends StatelessWidget {
         // badgePositionPercentageOffset: .98,
       );
     }).toList();
+  }
+}
+
+class ReferenceContainer extends StatelessWidget {
+  const ReferenceContainer({Key key, @required this.item}) : super(key: key);
+
+  final List<SearchDetailReferenceItem> item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      SizedBox(
+        height: 32,
+      ),
+      DetailInfo().mainHeader('출처', 121),
+      SizedBox(
+        height: 24,
+      ),
+      ...referenceRows(item)
+    ]);
+  }
+}
+
+List<Widget> referenceRows(List<SearchDetailReferenceItem> items) {
+  if (items == null) {
+    return [ReferenceRow()];
+  }
+  List<Widget> ret = [];
+  for (SearchDetailReferenceItem item in items) {
+    ret.add(ReferenceRow(item: item));
+  }
+  return ret;
+}
+
+class ReferenceRow extends StatelessWidget {
+  final SearchDetailReferenceItem item;
+  const ReferenceRow({
+    this.item,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          SizedBox(
+              width: 58,
+              child: Text(item == null ? "?" : item.cancerNm,
+                  style: TextStyle(fontSize: 16))),
+          ReferenceItem(item == null ? "0" : item.flagList[0].count.toString(),
+              ReferenceEffectType.effective),
+          ReferenceItem(item == null ? "0" : item.flagList[1].count.toString(),
+              ReferenceEffectType.arguing),
+          ReferenceItem(item == null ? "0" : item.flagList[2].count.toString(),
+              ReferenceEffectType.danger),
+        ],
+      ),
+    );
+  }
+}
+
+enum ReferenceEffectType { effective, arguing, danger }
+
+class ReferenceItem extends StatelessWidget {
+  final String count;
+  final ReferenceEffectType type;
+  const ReferenceItem(
+    this.count,
+    this.type, {
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Color(
+                count == "0" ? 0xFFF4F4F4 : getColorOfType(type),
+              ).withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8)),
+          width: 40,
+          height: 40,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 8),
+              Divider(
+                indent: 12,
+                endIndent: 12,
+                color: Color(getColorOfType(type)),
+                thickness: 1,
+                height: 2,
+              ),
+              SizedBox(height: 6),
+              Text(
+                count,
+                style: TextStyle(
+                    color: count == "0"
+                        ? Colors.black.withOpacity(0.3)
+                        : Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Text(
+          type == ReferenceEffectType.effective
+              ? "효과있음"
+              : type == ReferenceEffectType.arguing
+                  ? "의견갈림"
+                  : "주의",
+          style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
+        )
+      ],
+    );
+  }
+
+  int getColorOfType(ReferenceEffectType type) {
+    switch (type) {
+      case ReferenceEffectType.effective:
+        return 0xFF7EC05E;
+      case ReferenceEffectType.arguing:
+        return 0xFFFECE00;
+      case ReferenceEffectType.danger:
+        return 0xFFFA665B;
+    }
   }
 }
 
