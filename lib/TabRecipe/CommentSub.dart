@@ -6,11 +6,9 @@ import 'package:jiffy/jiffy.dart';
 import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/TabRecipe/CommentDelete.dart';
 import 'package:my_side_client/TabRecipe/CommentMain.dart';
-import 'package:my_side_client/TabRecipe/CommentService/Comment.dart';
 import 'package:my_side_client/TabRecipe/CommentService/CommentSubItem.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
-import 'package:my_side_client/models/textFieldModel.dart';
 import 'package:http/http.dart' as http;
 
 class CommentSub extends StatefulWidget {
@@ -20,39 +18,36 @@ class CommentSub extends StatefulWidget {
 }
 
 Future<SubCommentDataItem> fetchPost() async {
-  final response =
-  await http.get(Uri.parse('http://54.180.67.217:3000/receipe/comment/sub/view/2'),
-      headers:
-      {
+  final response = await http.get(
+      Uri.parse('http://54.180.67.217:3000/receipe/comment/sub/view/2'),
+      headers: {
         "Content-Type": "application/json",
-        "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ4MTM1MDgxLCJleHAiOjE2NDkzNDQ2ODEsImlzcyI6ImlnIn0.1CSK1NhK74auMe1xdGq5oMt3HHiVhsWYta2lQ0PbYY4",
-      }
-  );
+        "token":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ4MTM1MDgxLCJleHAiOjE2NDkzNDQ2ODEsImlzcyI6ImlnIn0.1CSK1NhK74auMe1xdGq5oMt3HHiVhsWYta2lQ0PbYY4",
+      });
   if (response.statusCode == 200) {
     return SubCommentDataItem.fromJson(json.decode(response.body));
   } else {
     print("망함");
     throw Exception('Failed to load post');
-
   }
 }
 
 class _CommentSubState extends State<CommentSub> {
-
   Future<SubCommentDataItem> post;
   TextEditingController textEditingController;
   bool isButtonActive = false;
-  void iniState(){
+  void iniState() {
     super.initState();
     textEditingController = TextEditingController();
-    post=fetchPost();
+    post = fetchPost();
     textEditingController.addListener(() {
       final isButtonActive = textEditingController.text.isNotEmpty;
       setState(() => this.isButtonActive = isButtonActive);
     });
   }
-  Widget build(BuildContext context) {
 
+  Widget build(BuildContext context) {
     //Comment mainComment = widget.item;
     //CommentItem items = CommentItem(mainComment, true, context);
 
@@ -84,15 +79,11 @@ class _CommentSubState extends State<CommentSub> {
   }
 }
 
-
-
 class CommentSubBody extends StatelessWidget {
   const CommentSubBody({
     Key key,
     @required this.sampleList,
   }) : super(key: key);
-
-
 
   final SubCommentDataItem sampleList;
 
@@ -103,7 +94,8 @@ class CommentSubBody extends StatelessWidget {
         itemCount: sampleList.data.length,
         itemBuilder: (context, i) {
           /*CommentItem item = CommentItem(sampleList.data[i], true, context);*/
-          SubCommentItem item = SubCommentItem(sampleList.data[i], true, context);
+          SubCommentItem item =
+              SubCommentItem(sampleList.data[i], true, context);
           return item.createCommentItem();
         },
         separatorBuilder: (BuildContext context, int index) {
@@ -118,17 +110,17 @@ class SubCommentItem {
   final SubComment item;
   final bool isWriter;
   final context;
-  SubCommentItem(this.item, this.isWriter, this.context,{Key key});
+  SubCommentItem(this.item, this.isWriter, this.context, {Key key});
   Widget createCommentItem() {
-    return createItem(false,context);
+    return createItem(false, context);
   }
 
   Widget createReplyItem() {
-    return createItem(false,context);
+    return createItem(false, context);
   }
 
   Widget createItem(bool isMain, BuildContext context) {
-    String timeData= Jiffy(item.create_time).fromNow();
+    String timeData = Jiffy(item.create_time).fromNow();
     Jiffy.locale('ko');
 
     // return true;
@@ -140,22 +132,22 @@ class SubCommentItem {
         isMain
             ? SizedBox(width: 0)
             : Container(
-            child: Row(children: [
-              SvgPicture.asset("images/svg/comment_reply_arrow.svg"),
-              SizedBox(width: 20)
-            ])),
+                child: Row(children: [
+                SvgPicture.asset("images/svg/comment_reply_arrow.svg"),
+                SizedBox(width: 20)
+              ])),
         Container(
           width: 32,
           height: 32,
-          child: Image.asset(/*item.profileImage*/"asset"),
+          child: Image.asset(/*item.profileImage*/ "asset"),
           decoration: isWriter
               ? BoxDecoration(
-            // backgroundBlendMode: BlendMode.dst,
-              shape: BoxShape.circle,
-              color: Color(Constants.primaryColorInt),
-              // borderRadius:BorderRadius.
-              border: Border.all(
-                  width: 1, color: Color(Constants.primaryColorInt)))
+                  // backgroundBlendMode: BlendMode.dst,
+                  shape: BoxShape.circle,
+                  color: Color(Constants.primaryColorInt),
+                  // borderRadius:BorderRadius.
+                  border: Border.all(
+                      width: 1, color: Color(Constants.primaryColorInt)))
               : null,
         ),
         Container(
@@ -163,7 +155,7 @@ class SubCommentItem {
         ),
         Expanded(
           child:
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -175,16 +167,19 @@ class SubCommentItem {
                   isWriter ? getWriter() : EmptyWidget()
                 ]),
 
-                timeData.contains("시간 전")?
-                Text(timeData, style: TextStyle(color: Color(0xFF999999)))
-                    :Text("${item.create_time.substring(0,4)}."
-                    "${item.create_time.substring(5,7)}."
-                    "${item.create_time.substring(8,10)}", style: TextStyle(color: Color(0xFF999999)))
+                timeData.contains("시간 전")
+                    ? Text(timeData, style: TextStyle(color: Color(0xFF999999)))
+                    : Text(
+                        "${item.create_time.substring(0, 4)}."
+                        "${item.create_time.substring(5, 7)}."
+                        "${item.create_time.substring(8, 10)}",
+                        style: TextStyle(color: Color(0xFF999999)))
                 // nickname
               ],
             ),
             SizedBox(height: 8),
-            Text("${item.cancerNm}/${item.stageNm}/${item.progressNm}/${item.relationNm}",
+            Text(
+                "${item.cancerNm}/${item.stageNm}/${item.progressNm}/${item.relationNm}",
                 style: TextStyle(fontSize: 12, color: Color(0xFF999999))),
             Container(
               height: 8,
@@ -196,28 +191,33 @@ class SubCommentItem {
             Container(
               height: 8,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
                     item.like_status
-                        ? InkWell(child:SvgPicture.asset(Constants.likeSVGSelectedPath),
-                      onTap: (){},)
-                        : InkWell(child:SvgPicture.asset(Constants.likeSVGPath),
-                      onTap: (){},),
+                        ? InkWell(
+                            child:
+                                SvgPicture.asset(Constants.likeSVGSelectedPath),
+                            onTap: () {},
+                          )
+                        : InkWell(
+                            child: SvgPicture.asset(Constants.likeSVGPath),
+                            onTap: () {},
+                          ),
 
                     SizedBox(width: 5),
                     SizedBox(
                         width: 50,
                         height: 18,
                         child: Text(
-                            item.likesum != 0 ? "${item.likesum}" : "좋아요 "
-                            ,style : TextStyle(
-                            fontSize: 12.0,
-                            fontFamily: "NotoSans",
-                            fontWeight: FontWeight.w300,
-                            color: Color(0xff666666)
-                        ))),
+                            item.likesum != 0 ? "${item.likesum}" : "좋아요 ",
+                            style: TextStyle(
+                                fontSize: 12.0,
+                                fontFamily: "NotoSans",
+                                fontWeight: FontWeight.w300,
+                                color: Color(0xff666666)))),
                     SizedBox(width: 24),
 
                     isMain ? SizedBox(width: 5) : EmptyWidget(),
@@ -226,27 +226,29 @@ class SubCommentItem {
                     //     : null
                   ],
                 ),
-                Row(children: [
-                  InkWell(
-                    child: SvgPicture.asset('assets/deletemenu.svg'),
-                    onTap: (){
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CommentDelete(item.comment_id);
-                        },
-                      );
-                    },
-                  ),
-                ],),
+                Row(
+                  children: [
+                    InkWell(
+                      child: SvgPicture.asset('assets/deletemenu.svg'),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CommentDelete(item.comment_id);
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
-
           ]),
         ),
       ]),
     );
   }
+
   Widget getWriter() {
     return Padding(
       padding: EdgeInsets.only(left: 8),

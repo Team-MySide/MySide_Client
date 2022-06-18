@@ -40,6 +40,7 @@ import 'TabRecipe/RegisterRecipe01InsertRecipe.dart';
 import 'TabRecipe/RegisterRecipe03InsertRecipe.dart';
 import 'TabSearch/FoodGridList.dart';
 import 'TabSearch/FoodInformation.dart';
+import 'TabSearch/FoodReferenceDesc.dart';
 import 'TabSearch/IngredientGridList.dart';
 import 'TabSearch/SerachDiseaseResult.dart';
 import 'screens/mypagescreens/addHealthDataPage.dart';
@@ -142,6 +143,7 @@ void main() async {
       GetPage(name: "/RecipeList", page: () => RecipeList()),
       GetPage(name: "/RecipeMain", page: () => RecipeMain()),
       GetPage(name: "/RecipeDetailPage", page: () => RecipeDetailPage()),
+      GetPage(name: "/FoodReferenceDesc", page: () => FoodReferenceDesc()),
     ],
   ));
 }

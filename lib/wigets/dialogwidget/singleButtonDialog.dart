@@ -5,11 +5,13 @@ class SingleButtonDialog extends StatelessWidget {
   final Widget widgetBetween;
   final double dialogHeight;
   final VoidCallback routeFunc;
+  final CrossAxisAlignment crossAxisAlignment;
 
   SingleButtonDialog({
     this.widgetBetween,
     this.dialogHeight,
     this.routeFunc,
+    this.crossAxisAlignment,
   });
 
   @override
@@ -20,15 +22,14 @@ class SingleButtonDialog extends StatelessWidget {
       child: Container(
         width: scrWidth * 0.9147,
         height: dialogHeight,
-        padding: EdgeInsets.symmetric(
-          horizontal: 0.064 * scrWidth,
-        ),
+        padding: EdgeInsets.all(24),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
             Radius.circular(8),
           ),
         ),
         child: Column(
+          crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
           children: [
             Spacer(),
             widgetBetween,

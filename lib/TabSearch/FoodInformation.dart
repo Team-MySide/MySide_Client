@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
@@ -7,7 +8,9 @@ import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetail
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
 import 'package:my_side_client/TabSearch/SearchDetailReference/SearchDetailMainInfoController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
+import 'package:my_side_client/wigets/dialogwidget/singleButtonDialog.dart';
 import '../Constants.dart';
+import 'FoodReferenceDesc.dart';
 import 'SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageController.dart';
 import 'SearchDetailMainInfo/SearchDetailMainInfoController.dart';
 import 'SearchDetailNutritionFactsRepository/SearchDetailNutritionFactsController.dart';
@@ -594,7 +597,9 @@ class IngredientTable extends StatelessWidget {
 }
 
 class ReferenceContainer extends StatelessWidget {
-  const ReferenceContainer({Key key, @required this.item}) : super(key: key);
+  const ReferenceContainer({
+    this.item,
+  });
 
   final List<SearchDetailReferenceItem> item;
 
@@ -604,7 +609,68 @@ class ReferenceContainer extends StatelessWidget {
       SizedBox(
         height: 32,
       ),
-      DetailInfo().mainHeader('출처', 121),
+      Stack(children: [
+        Center(child: DetailInfo().mainHeader('출처', 121)),
+        Positioned(
+            right: 24,
+            child: GestureDetector(
+              onTap: () => Get.dialog(SingleButtonDialog(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                widgetBetween: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '출처 기준이 무엇인가요?',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: Color(0xFF111111),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Text("이웃집닥터는 공신력 있는 병원과 기관에서 내용을 발췌해 출처를 제공해요.",
+                        style: TextStyle(
+                          color: Color(0xFF666666),
+                          fontSize: 16,
+                        )),
+                    SizedBox(
+                      height: 32,
+                    ),
+                    Text("참고리스트",
+                        style: TextStyle(
+                          color: Color(0xFF666666),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                        "서울대병원 공식 블로그, 한양대 병원, 대한암협회, 국가암정보센터, 미국암협회(ACS), 미국 국립 보건원(NIH), 미국국립암연구소(NCI), 국제암연구소 등",
+                        style: TextStyle(
+                          color: Color(0xFF666666),
+                          fontSize: 16,
+                        )),
+                    SizedBox(
+                      height: 24,
+                    ),
+                  ],
+                ),
+                dialogHeight: 372,
+                routeFunc: () {
+                  Get.back();
+                },
+              )),
+              child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: SvgPicture.asset("images/svg/questionmark.svg")),
+            )),
+      ]),
       SizedBox(
         height: 24,
       ),
@@ -642,11 +708,17 @@ class ReferenceRow extends StatelessWidget {
               width: 58,
               child: Text(item == null ? "?" : item.cancerNm,
                   style: TextStyle(fontSize: 16))),
-          ReferenceItem(item == null ? "0" : item.flagList[0].count.toString(),
+          ReferenceItem(
+              item == null ? "" : item.cancerNm,
+              item == null ? "0" : item.flagList[0].count.toString(),
               ReferenceEffectType.effective),
-          ReferenceItem(item == null ? "0" : item.flagList[1].count.toString(),
+          ReferenceItem(
+              item == null ? "" : item.cancerNm,
+              item == null ? "0" : item.flagList[1].count.toString(),
               ReferenceEffectType.arguing),
-          ReferenceItem(item == null ? "0" : item.flagList[2].count.toString(),
+          ReferenceItem(
+              item == null ? "" : item.cancerNm,
+              item == null ? "0" : item.flagList[2].count.toString(),
               ReferenceEffectType.danger),
         ],
       ),
@@ -659,7 +731,9 @@ enum ReferenceEffectType { effective, arguing, danger }
 class ReferenceItem extends StatelessWidget {
   final String count;
   final ReferenceEffectType type;
+  final String cancerNm;
   const ReferenceItem(
+    this.cancerNm,
     this.count,
     this.type, {
     Key key,
@@ -667,52 +741,66 @@ class ReferenceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Color(
-                count == "0" ? 0xFFF4F4F4 : getColorOfType(type),
-              ).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8)),
-          width: 40,
-          height: 40,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 8),
-              Divider(
-                indent: 12,
-                endIndent: 12,
-                color: Color(getColorOfType(type)),
-                thickness: 1,
-                height: 2,
-              ),
-              SizedBox(height: 6),
-              Text(
-                count,
-                style: TextStyle(
-                    color: count == "0"
-                        ? Colors.black.withOpacity(0.3)
-                        : Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        Text(
-          type == ReferenceEffectType.effective
-              ? "효과있음"
+    return GestureDetector(
+      onTap: () {
+        print("");
+        Get.toNamed("/FoodReferenceDesc", arguments: {
+          "cancerNm": cancerNm,
+          "food": Get.arguments,
+          "code": type == ReferenceEffectType.effective
+              ? "1"
               : type == ReferenceEffectType.arguing
-                  ? "의견갈림"
-                  : "주의",
-          style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
-        )
-      ],
+                  ? "2"
+                  : "3"
+        });
+      },
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: Color(
+                  count == "0" ? 0xFFF4F4F4 : getColorOfType(type),
+                ).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8)),
+            width: 40,
+            height: 40,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 8),
+                Divider(
+                  indent: 12,
+                  endIndent: 12,
+                  color: Color(getColorOfType(type)),
+                  thickness: 1,
+                  height: 2,
+                ),
+                SizedBox(height: 6),
+                Text(
+                  count,
+                  style: TextStyle(
+                      color: count == "0"
+                          ? Colors.black.withOpacity(0.3)
+                          : Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            type == ReferenceEffectType.effective
+                ? "효과있음"
+                : type == ReferenceEffectType.arguing
+                    ? "의견갈림"
+                    : "주의",
+            style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
+          )
+        ],
+      ),
     );
   }
 
