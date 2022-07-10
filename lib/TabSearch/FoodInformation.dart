@@ -6,13 +6,13 @@ import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
+import 'package:my_side_client/TabSearch/SearchDetailFoodState/SearchDetailFoodStateController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailReference/SearchDetailMainInfoController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/wigets/dialogwidget/singleButtonDialog.dart';
 import '../Constants.dart';
 import 'SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageController.dart';
 import 'SearchDetailMainInfo/SearchDetailMainInfoController.dart';
-import 'SearchDetailNutritionFactsRepository/SearchDetailNutritionFactsController.dart';
 import 'SearchDetailReference/SearchDetailReference.dart';
 
 class FoodInformation extends StatefulWidget {
@@ -40,17 +40,19 @@ class _FoodInformationState extends State<FoodInformation> {
     print("category: $category");
     return WillPopScope(
         onWillPop: _onWillPop,
-        child: Scaffold(body: Obx(() {
-          if (_controller.isLoading.value) {
-            return loadingPage();
-          } else {
-            if (_controller.isError.value) {
-              return NetworkErrorPage();
+        child: Scaffold(body: SafeArea(
+          child: Obx(() {
+            if (_controller.isLoading.value) {
+              return loadingPage();
             } else {
-              return mainBody();
+              if (_controller.isError.value) {
+                return NetworkErrorPage();
+              } else {
+                return mainBody();
+              }
             }
-          }
-        })));
+          }),
+        )));
   }
 
   Widget mainBody() {
@@ -74,7 +76,7 @@ class _FoodInformationState extends State<FoodInformation> {
                                   "0xFF${_controller.item.value.color}"),
                           isBack: true,
                         ),
-                        Container(height: 100, color: Colors.transparent),
+                        Container(height: 140, color: Colors.transparent),
                         Container(
                           // height: 190,
                           width: double.infinity,
@@ -273,12 +275,13 @@ class IngredientTable extends StatelessWidget {
   IngredientTable({Key key}) : super(key: key);
   // final String food;
   SearchDetailFoodNutritionPercentageController
-      _foodNutritionPercentageController =
-      Get.put(SearchDetailFoodNutritionPercentageController());
-
-  SearchDetailNutritionFactsController _nutritionfactsController =
-      Get.put(SearchDetailNutritionFactsController(Get.arguments));
-
+      _foodNutritionPercentageController = Get.put(
+          SearchDetailFoodNutritionPercentageController(Get.arguments, "생것"));
+  //add 날것, 삶은것
+  // SearchDetailNutritionFactsController _nutritionfactsController =
+  //     Get.put(SearchDetailNutritionFactsController(Get.arguments));
+  SearchDetailFoodStateController _foodStateController =
+      Get.put(SearchDetailFoodStateController(Get.arguments));
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -301,162 +304,9 @@ class IngredientTable extends StatelessWidget {
                           item: _searchDetailReferenceController.item.value);
                     }
                   }))),
-          ButtonBar(
-            alignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                  onPressed: null,
-                  child: Text('생것',
-                      style:
-                          TextStyle(fontSize: 16, color: Color(0xFF3BD7E2)))),
-              // Text("|", style: TextStyle(color: Color(0xFFDDDDDD))),
-              // TextButton(
-              //     onPressed: null,
-              //     child: Text('은것',
-              //         style:
-              //             TextStyle(fontSize: 16, color: Color(0xFFAAAAAA)))),
-              // Text("|", style: TextStyle(color: Color(0xFFDDDDDD))),
-              // TextButton(
-              //     onPressed: null,
-              //     child: Text('마른것',
-              //         style:
-              //             TextStyle(fontSize: 16, color: Color(0xFFAAAAAA)))),
-            ],
-          ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Card(
-                  elevation: 0,
-                  margin: EdgeInsets.zero,
-                  child: Column(
-                    children: [
-                      Padding(
-                          child: Stack(children: [
-                            Align(
-                              child: DetailInfo().mainHeader("성분구성", 88),
-                              alignment: Alignment.center,
-                            ),
-                            // Align(
-                            //   child: Text(">"),
-                            //   alignment: Alignment.centerRight,
-                            // ),
-                          ]),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 32, horizontal: 24)),
-                      Padding(
-                        child: Obx(() => Row(
-                              children: [
-                                SizedBox(
-                                    width: 140,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text("특정암에 좋은 성분",
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                            )),
-                                        SizedBox(height: 13),
-                                        Text("특정암에 안좋은 성분",
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                            )),
-                                        SizedBox(height: 13),
-                                        Text("기능성 성분",
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                            )),
-                                        SizedBox(height: 13),
-                                        Text("기타성분",
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                            ))
-                                      ],
-                                    )),
-                                Expanded(
-                                    child: Column(
-                                  children: [
-                                    SizedBox(height: 4),
-                                    _nutritionfactsController.isLoading.value
-                                        ? ShimmerLoadingContainer(117, 8)
-                                        : getChart(
-                                            _nutritionfactsController
-                                                .item.value.good,
-                                            _nutritionfactsController
-                                                .item.value.goodMax,
-                                            0xFF31B6F7),
-                                    SizedBox(height: 23),
-                                    _nutritionfactsController.isLoading.value
-                                        ? ShimmerLoadingContainer(117, 8)
-                                        : getChart(
-                                            _nutritionfactsController
-                                                .item.value.bad,
-                                            _nutritionfactsController
-                                                .item.value.badMax,
-                                            0xFFFA665B),
-                                    SizedBox(height: 23),
-                                    _nutritionfactsController.isLoading.value
-                                        ? ShimmerLoadingContainer(117, 8)
-                                        : getChart(
-                                            _nutritionfactsController
-                                                .item.value.function,
-                                            _nutritionfactsController
-                                                .item.value.functionMax,
-                                            0xFF31B6F7),
-                                    SizedBox(height: 23),
-                                    _nutritionfactsController.isLoading.value
-                                        ? ShimmerLoadingContainer(117, 8)
-                                        : getChart(
-                                            _nutritionfactsController
-                                                .item.value.etc,
-                                            _nutritionfactsController
-                                                .item.value.etcMax,
-                                            0xFFAAAAAA),
-                                  ],
-                                )
-                                    // child: BarChartSample1(
-                                    //     _nutritionfactsController.item.value)
-                                    ),
-                                Padding(
-                                    child: Column(
-                                      children: [
-                                        _nutritionfactsController
-                                                .isLoading.value
-                                            ? ShimmerLoadingContainer(10, 15)
-                                            : Text(_nutritionfactsController
-                                                .item.value.good
-                                                .toString()),
-                                        SizedBox(height: 13),
-                                        _nutritionfactsController
-                                                .isLoading.value
-                                            ? ShimmerLoadingContainer(10, 15)
-                                            : Text(_nutritionfactsController
-                                                .item.value.bad
-                                                .toString()),
-                                        SizedBox(height: 13),
-                                        _nutritionfactsController
-                                                .isLoading.value
-                                            ? ShimmerLoadingContainer(10, 15)
-                                            : Text(_nutritionfactsController
-                                                .item.value.function
-                                                .toString()),
-                                        SizedBox(height: 13),
-                                        _nutritionfactsController
-                                                .isLoading.value
-                                            ? ShimmerLoadingContainer(10, 15)
-                                            : Text(_nutritionfactsController
-                                                .item.value.etc
-                                                .toString()),
-                                      ],
-                                    ),
-                                    padding:
-                                        EdgeInsets.only(left: 11, right: 32))
-                              ],
-                            )),
-                        padding: EdgeInsets.only(bottom: 32, left: 32),
-                      )
-                    ],
-                  ))),
+          Obx(() => _foodStateController.isLoading.value
+              ? SizedBox()
+              : FoodStateListWidget(_foodStateController.lst)),
           Padding(
               padding: EdgeInsets.all(16),
               child: Card(
@@ -592,6 +442,46 @@ class IngredientTable extends StatelessWidget {
         // badgePositionPercentageOffset: .98,
       );
     }).toList();
+  }
+}
+
+class FoodStateListWidget extends StatelessWidget {
+  const FoodStateListWidget(
+    this.stateList, {
+    Key key,
+  }) : super(key: key);
+  final List<String> stateList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      // alignment: MainAxisAlignment.center,
+      // buttonPadding: stateList.length > 3
+      //     ? EdgeInsets.symmetric(horizontal: 8)
+      //     : EdgeInsets.symmetric(horizontal: 0),
+      children: stateList
+          .map((state) => TextButton(
+              onPressed: null,
+              child: Text(state,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: stateList.first == state
+                          ? Color(0xFF3BD7E2)
+                          : Color(0xFFAAAAAA)))))
+          .toList(),
+      // Text("|", style: TextStyle(color: Color(0xFFDDDDDD))),
+      // TextButton(
+      //     onPressed: null,
+      //     child: Text('은것',
+      //         style:
+      //             TextStyle(fontSize: 16, color: Color(0xFFAAAAAA)))),
+      // Text("|", style: TextStyle(color: Color(0xFFDDDDDD))),
+      // TextButton(
+      //     onPressed: null,
+      //     child: Text('마른것',
+      //         style:
+      //             TextStyle(fontSize: 16, color: Color(0xFFAAAAAA)))),
+    );
   }
 }
 
@@ -941,3 +831,145 @@ class DetailInfo extends StatelessWidget {
             style: TextStyle(fontSize: 14, color: Color(0xFF666666))));
   }
 }
+// class NutritionFactCombination extends StatelessWidget {
+//   const NutritionFactCombination({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//               padding: EdgeInsets.symmetric(horizontal: 16),
+//               child: Card(
+//                   elevation: 0,
+//                   margin: EdgeInsets.zero,
+//                   child: Column(
+//                     children: [
+//                       Padding(
+//                           child: Stack(children: [
+//                             Align(
+//                               child: DetailInfo().mainHeader("성분구성", 88),
+//                               alignment: Alignment.center,
+//                             ),
+//                             // Align(
+//                             //   child: Text(">"),
+//                             //   alignment: Alignment.centerRight,
+//                             // ),
+//                           ]),
+//                           padding: EdgeInsets.symmetric(
+//                               vertical: 32, horizontal: 24)),
+//                       Padding(
+//                         child: Obx(() => Row(
+//                               children: [
+//                                 SizedBox(
+//                                     width: 140,
+//                                     child: Column(
+//                                       crossAxisAlignment:
+//                                           CrossAxisAlignment.start,
+//                                       children: [
+//                                         Text("특정암에 좋은 성분",
+//                                             style: TextStyle(
+//                                               fontSize: 14,
+//                                             )),
+//                                         SizedBox(height: 13),
+//                                         Text("특정암에 안좋은 성분",
+//                                             style: TextStyle(
+//                                               fontSize: 14,
+//                                             )),
+//                                         SizedBox(height: 13),
+//                                         Text("기능성 성분",
+//                                             style: TextStyle(
+//                                               fontSize: 14,
+//                                             )),
+//                                         SizedBox(height: 13),
+//                                         Text("기타성분",
+//                                             style: TextStyle(
+//                                               fontSize: 14,
+//                                             ))
+//                                       ],
+//                                     )),
+//                                 Expanded(
+//                                     child: Column(
+//                                   children: [
+//                                     SizedBox(height: 4),
+//                                     _nutritionfactsController.isLoading.value
+//                                         ? ShimmerLoadingContainer(117, 8)
+//                                         : getChart(
+//                                             _nutritionfactsController
+//                                                 .item.value.good,
+//                                             _nutritionfactsController
+//                                                 .item.value.goodMax,
+//                                             0xFF31B6F7),
+//                                     SizedBox(height: 23),
+//                                     _nutritionfactsController.isLoading.value
+//                                         ? ShimmerLoadingContainer(117, 8)
+//                                         : getChart(
+//                                             _nutritionfactsController
+//                                                 .item.value.bad,
+//                                             _nutritionfactsController
+//                                                 .item.value.badMax,
+//                                             0xFFFA665B),
+//                                     SizedBox(height: 23),
+//                                     _nutritionfactsController.isLoading.value
+//                                         ? ShimmerLoadingContainer(117, 8)
+//                                         : getChart(
+//                                             _nutritionfactsController
+//                                                 .item.value.function,
+//                                             _nutritionfactsController
+//                                                 .item.value.functionMax,
+//                                             0xFF31B6F7),
+//                                     SizedBox(height: 23),
+//                                     _nutritionfactsController.isLoading.value
+//                                         ? ShimmerLoadingContainer(117, 8)
+//                                         : getChart(
+//                                             _nutritionfactsController
+//                                                 .item.value.etc,
+//                                             _nutritionfactsController
+//                                                 .item.value.etcMax,
+//                                             0xFFAAAAAA),
+//                                   ],
+//                                 )
+//                                     // child: BarChartSample1(
+//                                     //     _nutritionfactsController.item.value)
+//                                     ),
+//                                 Padding(
+//                                     child: Column(
+//                                       children: [
+//                                         _nutritionfactsController
+//                                                 .isLoading.value
+//                                             ? ShimmerLoadingContainer(10, 15)
+//                                             : Text(_nutritionfactsController
+//                                                 .item.value.good
+//                                                 .toString()),
+//                                         SizedBox(height: 13),
+//                                         _nutritionfactsController
+//                                                 .isLoading.value
+//                                             ? ShimmerLoadingContainer(10, 15)
+//                                             : Text(_nutritionfactsController
+//                                                 .item.value.bad
+//                                                 .toString()),
+//                                         SizedBox(height: 13),
+//                                         _nutritionfactsController
+//                                                 .isLoading.value
+//                                             ? ShimmerLoadingContainer(10, 15)
+//                                             : Text(_nutritionfactsController
+//                                                 .item.value.function
+//                                                 .toString()),
+//                                         SizedBox(height: 13),
+//                                         _nutritionfactsController
+//                                                 .isLoading.value
+//                                             ? ShimmerLoadingContainer(10, 15)
+//                                             : Text(_nutritionfactsController
+//                                                 .item.value.etc
+//                                                 .toString()),
+//                                       ],
+//                                     ),
+//                                     padding:
+//                                         EdgeInsets.only(left: 11, right: 32))
+//                               ],
+//                             )),
+//                         padding: EdgeInsets.only(bottom: 32, left: 32),
+//                       )
+//                     ],
+//                   )))
+//           ;
+//   }
+// }

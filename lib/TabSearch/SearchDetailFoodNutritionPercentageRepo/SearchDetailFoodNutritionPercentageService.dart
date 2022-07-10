@@ -1,12 +1,10 @@
 import 'package:my_side_client/TabSearch/SearchDetailFoodState/SearchDetailFoodStateBody.dart';
 import 'package:my_side_client/common/MySideConnect.dart';
 import 'package:my_side_client/common/UserProfile.dart';
-
-import '../../Constants.dart';
 import 'SearchDetailFoodNutritionPercentageBody.dart';
 
 abstract class IFetch {
-  Future<List<FoodNutritionPercentageItem>> fetch();
+  Future<List<FoodNutritionPercentageItem>> fetch(String food, String state);
 }
 
 class SearchDetailFoodNutritionPercentageService extends MySideConnect
@@ -14,7 +12,8 @@ class SearchDetailFoodNutritionPercentageService extends MySideConnect
   // static var client = http.Client();
 
   @override
-  Future<List<FoodNutritionPercentageItem>> fetch() async {
+  Future<List<FoodNutritionPercentageItem>> fetch(
+      String food, String state) async {
     //
     httpClient.baseUrl = "http://3.39.126.13:3000";
 
@@ -24,7 +23,7 @@ class SearchDetailFoodNutritionPercentageService extends MySideConnect
       request.headers['token'] = UserProfile.token;
       return request;
     });
-    var resp = await get("/search/info/percent/당근/생것");
+    var resp = await get("/search/info/percent/$food/$state");
     if (resp.statusCode == 200) {
       return searchDetailFoodNutritionPercentageBodyFromJson(resp.bodyString)
           .data;

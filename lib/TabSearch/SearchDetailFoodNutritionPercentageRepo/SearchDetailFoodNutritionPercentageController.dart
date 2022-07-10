@@ -7,6 +7,10 @@ import 'SearchDetailFoodNutritionPercentageService.dart';
 class SearchDetailFoodNutritionPercentageController extends GetxController {
   var lst = <FoodNutritionPercentageItem>[].obs;
   var isLoading = true.obs;
+  final String food;
+  final String state;
+
+  SearchDetailFoodNutritionPercentageController(this.food, this.state);
   @override
   void onInit() {
     super.onInit();
@@ -17,7 +21,8 @@ class SearchDetailFoodNutritionPercentageController extends GetxController {
     isLoading(true);
     try {
       List<FoodNutritionPercentageItem> products =
-          await SearchDetailFoodNutritionPercentageService().fetch();
+          await SearchDetailFoodNutritionPercentageService()
+              .fetch(this.food, this.state);
       if (products != null) {
         lst.value = products;
       }

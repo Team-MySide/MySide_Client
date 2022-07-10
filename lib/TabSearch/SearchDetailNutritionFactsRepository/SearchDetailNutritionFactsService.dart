@@ -22,7 +22,7 @@ class SearchDetailNutritionService extends MySideConnect implements IFetch {
       request.headers['token'] = UserProfile.token;
       return request;
     });
-    var resp = await get("/search/info/Configuration/$food");
+    var resp = await get("/search/info/configuration/$food");
     if (resp.statusCode == 200) {
       return searchDetailNutritionFactsBodyFromJson(resp.bodyString).data;
     }
