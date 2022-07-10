@@ -20,10 +20,10 @@ class SearchDisease extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
-              height: 270,
-              decoration: BoxDecoration(color: Color(0xFFE4F7FB)),
-              child: Image.asset("images/disease_intro.png")),
+          Image.asset(
+            "images/disease_intro.png",
+            fit: BoxFit.fitWidth,
+          ),
           Padding(
               child: Column(children: [
                 HeaderRow("질병 카테고리", isViewMore: false),
