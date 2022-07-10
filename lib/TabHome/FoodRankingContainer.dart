@@ -73,7 +73,7 @@ class FoodRankingContainer extends StatelessWidget {
             e.img,
             isLimit ? index + 1 : 0,
             e.likes,
-            e.wishes,
+            e.views,
             [e.cancerNm, e.nutrition1 ?? ""],
           )));
     });

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:my_side_client/Styles.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
@@ -132,9 +131,9 @@ class _FoodInformationState extends State<FoodInformation> {
                                         child: Obx(() => LikeBookmark(
                                             _controller.item.value.name,
                                             _controller.item.value.likes,
-                                            _controller.item.value.wishes,
+                                            _controller.item.value.views,
                                             _controller.item.value.likeStatus,
-                                            _controller.item.value.wishStatus,
+                                            _controller.item.value.views,
                                             isOnTabDisabled: false))),
                               ),
                               SizedBox(height: 12)
@@ -899,7 +898,7 @@ class DetailInfo extends StatelessWidget {
         SizedBox(
           width: width,
           child: Container(
-            height: 12,
+            height: 8,
             color: Color(0x483BD7E2),
           ),
         ),

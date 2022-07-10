@@ -101,7 +101,7 @@ class _TabBookmarkState extends State<TabBookmark> with WidgetsBindingObserver {
                         item.img,
                         0,
                         item.likes,
-                        item.wishes,
+                        item.views,
                         [item.cancerNm, item.nutrition1],
                         likeStatus: 0,
                         bookmarkStatus: 1,

@@ -16,13 +16,13 @@ class ReasonForFood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> foodList = [
-                    getTiles(controller.cancer1Lst),
-                    getTiles(controller.cancer2Lst),
-                    getTiles(controller.cancer3Lst),
-                    getTiles(controller.cancer4Lst),
-                    getTiles(controller.cancer5Lst),
-                    getTiles(controller.cancer6Lst),
-                  ];
+      getTiles(controller.cancer1Lst),
+      getTiles(controller.cancer2Lst),
+      getTiles(controller.cancer3Lst),
+      getTiles(controller.cancer4Lst),
+      getTiles(controller.cancer5Lst),
+      getTiles(controller.cancer6Lst),
+    ];
 
     return Scaffold(
         appBar: CommonAppbar("아무음식이나 먹으면 안되는 이유"),
@@ -64,7 +64,7 @@ class ReasonForFood extends StatelessWidget {
                 e.img,
                 0,
                 e.likes,
-                e.wishes,
+                e.views,
                 [
                   e.cancerNm,
                   e.nutrition1.trim(),

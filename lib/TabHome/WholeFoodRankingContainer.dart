@@ -49,12 +49,11 @@ class WholeFoodRankingContainer extends StatelessWidget {
       return ret.add(GestureDetector(
           onTap: () => Get.to(() => FoodInformation(), arguments: e.name),
           child: FoodTile(
-            // e.name, e.img, index, e.likes, e.wishes, e['tags'])));
             e.name,
             e.img,
             isLimit ? index + 1 : 0,
             e.likes,
-            e.wishes,
+            e.views,
             [e.cancerNm, e.nutrition1 ?? ""],
           )));
     });
