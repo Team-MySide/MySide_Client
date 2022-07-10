@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:my_side_client/Styles.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetailFoodDetailInfoController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
@@ -69,7 +70,7 @@ class _FoodInformationState extends State<FoodInformation> {
                         CustomAppBar(
                           "음식 정보",
                           _controller.isLoading.value
-                              ? Colors.white
+                              ? Colors.black
                               : int.parse(
                                   "0xFF${_controller.item.value.color}"),
                           isBack: true,
@@ -216,7 +217,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title, style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Color(widget.backgroundColor),
         elevation: 0,
