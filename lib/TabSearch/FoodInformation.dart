@@ -607,70 +607,74 @@ class ReferenceContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       SizedBox(
-        height: 32,
-      ),
-      Stack(children: [
-        Center(child: DetailInfo().mainHeader('출처', 48)),
-        Positioned(
-            right: 24,
-            child: GestureDetector(
-              onTap: () => Get.dialog(SingleButtonDialog(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                widgetBetween: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      '출처 기준이 무엇인가요?',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Color(0xFF111111),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Text("이웃집닥터는 공신력 있는 병원과 기관에서 내용을 발췌해 출처를 제공해요.",
-                        style: TextStyle(
-                          color: Color(0xFF666666),
-                          fontSize: 16,
-                        )),
-                    SizedBox(
-                      height: 32,
-                    ),
-                    Text("참고리스트",
-                        style: TextStyle(
-                          color: Color(0xFF666666),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        )),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                        "서울대병원 공식 블로그, 한양대 병원, 대한암협회, 국가암정보센터, 미국암협회(ACS), 미국 국립 보건원(NIH), 미국국립암연구소(NCI), 국제암연구소 등",
-                        style: TextStyle(
-                          color: Color(0xFF666666),
-                          fontSize: 16,
-                        )),
-                    SizedBox(
-                      height: 24,
-                    ),
-                  ],
-                ),
-                dialogHeight: 372,
-                routeFunc: () {
-                  Get.back();
-                },
-              )),
+        height: 64,
+        child: Stack(children: [
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: DetailInfo().mainHeader('출처', 48)),
+          Positioned(
+              right: 24,
+              top: 36,
               child: SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: SvgPicture.asset("images/svg/questionmark.svg")),
-            )),
-      ]),
+                width: 24,
+                height: 24,
+                child: GestureDetector(
+                  onTap: () => Get.dialog(SingleButtonDialog(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    widgetBetween: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          '출처 기준이 무엇인가요?',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Color(0xFF111111),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        Text("이웃집닥터는 공신력 있는 병원과 기관에서 내용을 발췌해 출처를 제공해요.",
+                            style: TextStyle(
+                              color: Color(0xFF666666),
+                              fontSize: 16,
+                            )),
+                        SizedBox(
+                          height: 32,
+                        ),
+                        Text("참고리스트",
+                            style: TextStyle(
+                              color: Color(0xFF666666),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            )),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                            "서울대병원 공식 블로그, 한양대 병원, 대한암협회, 국가암정보센터, 미국암협회(ACS), 미국 국립 보건원(NIH), 미국국립암연구소(NCI), 국제암연구소 등",
+                            style: TextStyle(
+                              color: Color(0xFF666666),
+                              fontSize: 16,
+                            )),
+                        SizedBox(
+                          height: 24,
+                        ),
+                      ],
+                    ),
+                    dialogHeight: 372,
+                    routeFunc: () {
+                      Get.back();
+                    },
+                  )),
+                  child: SvgPicture.asset("images/svg/questionmark.svg"),
+                ),
+              )),
+        ]),
+      ),
       SizedBox(
         height: 24,
       ),
