@@ -61,7 +61,7 @@ class _TabBookmarkState extends State<TabBookmark> with WidgetsBindingObserver {
                         : mainContent(_controller.lst))
                 : RequestLoginPage()),
         appBar: CustomAppBar(
-          "찜목록",
+          "좋아요 목록",
           0xFFFFFFFF,
           isBack: false,
         ));

@@ -104,12 +104,16 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                           : SvgPicture.asset('images/svg/home_grey.svg')),
                   Tab(
                       child: Text(
-                        '레시피',
+                        '좋아요',
                         style: TextStyle(fontSize: 12),
                       ),
-                      icon: _controller.index == 1
-                          ? SvgPicture.asset('images/svg/favorite_selected.svg')
-                          : SvgPicture.asset('images/svg/favorite.svg')),
+                      // iconMargin: EdgeInsets.all(0),
+                      icon: SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: _controller.index == 1
+                              ? SvgPicture.asset('images/svg/like_selected.svg')
+                              : SvgPicture.asset('images/svg/like.svg'))),
                   Tab(
                       child: Text(
                         '검색',
