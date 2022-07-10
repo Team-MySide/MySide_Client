@@ -75,8 +75,8 @@ class _LikeBookmarkState extends State<LikeBookmark> {
             Padding(
                 padding: EdgeInsets.only(right: 5, top: 2),
                 child: SizedBox(
-                    width: 16,
-                    height: 15,
+                    width: 14,
+                    height: 14,
                     child: SvgPicture.asset(widget.likeStatus == 0
                         ? "images/svg/like.svg"
                         : "images/svg/like_selected.svg"))),
@@ -106,10 +106,13 @@ class _LikeBookmarkState extends State<LikeBookmark> {
         GestureDetector(
             child: Wrap(children: [
               Padding(
-                  padding: EdgeInsets.only(left: 10, right: 5, top: 2),
+                  padding: EdgeInsets.only(
+                    left: 10,
+                    right: 5,
+                  ),
                   child: SizedBox(
-                      width: 16,
-                      height: 15,
+                      width: 19,
+                      height: 19,
                       child: SvgPicture.asset("images/svg/icon_eye.svg"))),
               Text(widget.bookmark.toString(), style: TextStyle(fontSize: 16))
             ]),
