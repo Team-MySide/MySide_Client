@@ -20,9 +20,12 @@ class SearchDisease extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Image.asset(
-            "images/disease_intro.png",
-            fit: BoxFit.fitWidth,
+          SizedBox(
+            width: double.infinity,
+            child: Image.asset(
+              "images/disease_intro.png",
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
               child: Column(children: [
