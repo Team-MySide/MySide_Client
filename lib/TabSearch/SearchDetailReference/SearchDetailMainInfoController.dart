@@ -4,7 +4,7 @@ import 'package:my_side_client/TabSearch/SearchDetailReference/SearchDetailRefer
 
 //https://www.google.com/search?q=flutter+rest+api+getx&oq=flutter+rest+api+getx+&aqs=chrome..69i57j0i22i30j69i60.3887j1j4&sourceid=chrome&ie=UTF-8#kpvalbx=_p8WfYPrMFdWB-Qbxsr2ADQ18
 class SearchDetailReferenceController extends GetxController {
-  var item = [].obs;
+  var item = <SearchDetailReferenceItem>[].obs;
   var isLoading = true.obs;
   var isError = false.obs;
   @override
@@ -19,12 +19,12 @@ class SearchDetailReferenceController extends GetxController {
     isLoading(true);
     try {
       List<SearchDetailReferenceItem> products =
-          await SearchDetailReferenceService().fetch("테스트");
+          await SearchDetailReferenceService().fetch(this.food);
       if (products != null) {
         item.value = products;
       }
     } finally {
-      if (item.value == null) {
+      if (item == null) {
         isError(true);
       }
       isLoading(false);
