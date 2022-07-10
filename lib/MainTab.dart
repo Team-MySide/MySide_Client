@@ -80,12 +80,14 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
             // appBar: AppBar(
             //   title: Text("이웃집닥터"),
             // ),
-            body: TabBarView(controller: _controller, children: [
-              TabHome(),
-              TabBookmark(),
-              TabSearch(),
-              TabMyPage(),
-            ]),
+            body: SafeArea(
+              child: TabBarView(controller: _controller, children: [
+                TabHome(),
+                TabBookmark(),
+                TabSearch(),
+                TabMyPage(),
+              ]),
+            ),
             bottomNavigationBar: TabBar(
                 onTap: (index) {
                   setState(() {});

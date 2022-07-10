@@ -20,11 +20,8 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 16, right: 16, top: 20),
+        padding: EdgeInsets.only(left: 16, right: 16, top: 16),
         child: Column(children: [
-          SizedBox(
-            height: 16,
-          ),
           Container(
               height: 42,
               child: Row(

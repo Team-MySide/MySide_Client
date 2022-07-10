@@ -32,9 +32,6 @@ class _TabSearchState extends State<TabSearch> {
             top: 40,
           ),
           child: Column(children: [
-            SizedBox(
-              height: 40,
-            ),
             Align(
                 alignment: Alignment.centerLeft,
                 child: SizedBox(
