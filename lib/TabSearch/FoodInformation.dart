@@ -49,149 +49,179 @@ class _FoodInformationState extends State<FoodInformation> {
               if (_controller.isError.value) {
                 return NetworkErrorPage();
               } else {
-                return mainBody();
+                return DefaultTabController(
+                    length: 2,
+                    child: NestedScrollView(
+                      headerSliverBuilder: (context, _) {
+                        return [
+                          SliverList(
+                              delegate: SliverChildListDelegate(
+                                  List.generate(1, (index) {
+                            return Stack(children: [
+                              Container(
+                                  color: Color(int.parse(
+                                      "0xFF${_controller.item.value.color}")),
+                                  child: Column(children: [
+                                    CustomAppBar(
+                                      "음식 정보",
+                                      _controller.isLoading.value
+                                          ? Colors.black
+                                          : int.parse(
+                                              "0xFF${_controller.item.value.color}"),
+                                      isBack: true,
+                                    ),
+                                    Container(
+                                        height: 140, color: Colors.transparent),
+                                    Container(
+                                      // height: 190,
+                                      width: double.infinity,
+                                      // color: Colors.transparent,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(30),
+                                              topRight: Radius.circular(30))),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(height: 46),
+                                          Obx(() => _controller.isLoading.value
+                                              ? Text("")
+                                              : Text(
+                                                  _controller.item.value.name,
+                                                  style: TextStyle(
+                                                      fontSize: 24,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          Color(0xFF111111)))),
+                                          SizedBox(height: 8),
+                                          Obx(() => _controller.isLoading.value
+                                              ? ShimmerLoadingContainer(334, 37)
+                                              : Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 16),
+                                                  child: Text(
+                                                      _controller.item.value
+                                                              .title ??
+                                                          "",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w100,
+                                                          color: Color(
+                                                              0xFF666666))))),
+                                          SizedBox(height: 24),
+                                          Obx(() => _controller.isLoading.value
+                                              ? ShimmerLoadingContainer(334, 33)
+                                              : Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                                  child: Wrap(
+                                                    spacing: 8,
+                                                    runSpacing: 8,
+                                                    alignment:
+                                                        WrapAlignment.center,
+                                                    children: [
+                                                      ..._getCancerTagList(
+                                                          _controller.item.value
+                                                              .cancer),
+                                                      ..._getNutritionTagList(
+                                                          _controller.item.value
+                                                              .nutrition),
+                                                      ..._getEtcTagList(
+                                                          _controller
+                                                              .item.value.etc),
+                                                    ],
+                                                  ))),
+                                          SizedBox(height: 32),
+                                          Obx(
+                                            () => _controller.isLoading.value
+                                                ? ShimmerLoadingContainer(
+                                                    180, 14)
+                                                : FittedBox(
+                                                    child: Obx(() =>
+                                                        FoodInfoLikeShare(
+                                                            _controller.item
+                                                                .value.name,
+                                                            _controller.item
+                                                                .value.likes,
+                                                            _controller
+                                                                .item
+                                                                .value
+                                                                .likeStatus,
+                                                            isOnTabDisabled:
+                                                                false))),
+                                          ),
+                                          SizedBox(height: 12),
+                                        ],
+                                      ),
+                                    ),
+                                  ])),
+                              Column(children: [
+                                SizedBox(height: 102),
+                                Container(
+                                    height: 132,
+                                    child: Obx(() => _controller.isLoading.value
+                                        ? Center(
+                                            child: SizedBox(
+                                                width: 60,
+                                                height: 60,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        //color: Colors.white,
+                                                        )))
+                                        : Center(
+                                            child: _controller
+                                                    .item.value.img.isNotEmpty
+                                                ? getImage(
+                                                    _controller.item.value.img,
+                                                  )
+                                                : ImageLoadFailed()))),
+                              ]),
+                              Positioned(
+                                  right: 16,
+                                  top: 212,
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                          "images/svg/icon_eye.svg"),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                          _controller.item.value.views
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0xFF666666))),
+                                    ],
+                                  ))
+                            ]);
+                          })))
+                        ];
+                      },
+                      body: Column(children: [
+                        TabBar(
+                          tabs: [Tab(text: "성분표"), Tab(text: "세부설명")],
+                          indicatorColor: Color(Constants.primaryColorInt),
+                          labelColor: Color(Constants.primaryColorInt),
+                          unselectedLabelColor: Color(0xFF666666),
+                        ),
+                        Expanded(
+                            child: TabBarView(
+                          children: [
+                            IngredientTable(
+                              category: category,
+                            ),
+                            DetailInfo()
+                          ],
+                        )),
+                      ]),
+                    ));
               }
             }
           }),
         )));
-  }
-
-  Widget mainBody() {
-    return DefaultTabController(
-        length: 2,
-        child: NestedScrollView(
-          headerSliverBuilder: (context, _) {
-            return [
-              SliverList(
-                  delegate: SliverChildListDelegate(List.generate(1, (index) {
-                return Stack(children: [
-                  Container(
-                      color: Color(
-                          int.parse("0xFF${_controller.item.value.color}")),
-                      child: Column(children: [
-                        CustomAppBar(
-                          "음식 정보",
-                          _controller.isLoading.value
-                              ? Colors.black
-                              : int.parse(
-                                  "0xFF${_controller.item.value.color}"),
-                          isBack: true,
-                        ),
-                        Container(height: 140, color: Colors.transparent),
-                        Container(
-                          // height: 190,
-                          width: double.infinity,
-                          // color: Colors.transparent,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20))),
-                          child: Column(
-                            children: [
-                              SizedBox(height: 46),
-                              Obx(() => _controller.isLoading.value
-                                  ? Text("")
-                                  : Text(_controller.item.value.name,
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          color: Color(0xFF111111)))),
-                              SizedBox(height: 8),
-                              Obx(() => _controller.isLoading.value
-                                  ? ShimmerLoadingContainer(334, 37)
-                                  : Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 16),
-                                      child: Text(
-                                          _controller.item.value.title ?? "",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Color(0xFF666666))))),
-                              SizedBox(height: 24),
-                              Obx(() => _controller.isLoading.value
-                                  ? ShimmerLoadingContainer(334, 33)
-                                  : Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20),
-                                      child: Wrap(
-                                        spacing: 8,
-                                        runSpacing: 8,
-                                        alignment: WrapAlignment.center,
-                                        children: [
-                                          ..._getCancerTagList(
-                                              _controller.item.value.cancer),
-                                          ..._getNutritionTagList(
-                                              _controller.item.value.nutrition),
-                                          ..._getEtcTagList(
-                                              _controller.item.value.etc),
-                                        ],
-                                      ))),
-                              SizedBox(height: 32),
-                              Obx(
-                                () => _controller.isLoading.value
-                                    ? ShimmerLoadingContainer(180, 14)
-                                    : FittedBox(
-                                        child: Obx(() => FoodInfoLikeShare(
-                                            _controller.item.value.name,
-                                            _controller.item.value.likes,
-                                            _controller.item.value.likeStatus,
-                                            isOnTabDisabled: false))),
-                              ),
-                              SizedBox(height: 12),
-                            ],
-                          ),
-                        ),
-                      ])),
-                  Column(children: [
-                    SizedBox(height: 102),
-                    Container(
-                        height: 132,
-                        child: Obx(() => _controller.isLoading.value
-                            ? Center(
-                                child: SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: CircularProgressIndicator(
-                                        //color: Colors.white,
-                                        )))
-                            : Center(
-                                child: _controller.item.value.img.isNotEmpty
-                                    ? getImage(
-                                        _controller.item.value.img,
-                                      )
-                                    : ImageLoadFailed()))),
-                  ]),
-                  Positioned(
-                      right: 16,
-                      bottom: 285,
-                      child: Row(
-                        children: [
-                          SvgPicture.asset("images/svg/icon_eye.svg"),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(_controller.item.value.views.toString(),
-                              style: TextStyle(
-                                  fontSize: 14, color: Color(0xFF666666))),
-                        ],
-                      ))
-                ]);
-              })))
-            ];
-          },
-          body: Column(children: [
-            TabBar(
-              tabs: [Tab(text: "성분표"), Tab(text: "세부설명")],
-              indicatorColor: Color(Constants.primaryColorInt),
-              labelColor: Color(Constants.primaryColorInt),
-              unselectedLabelColor: Color(0xFF666666),
-            ),
-            Expanded(
-                child: TabBarView(
-              children: [IngredientTable(), DetailInfo()],
-            )),
-          ]),
-        ));
   }
 
   List<Widget> _getCancerTagList(List<String> cancers) {
@@ -350,7 +380,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        title: Text(widget.title, style: TextStyle(color: Colors.black)),
+        title: Text(widget.title,
+            style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.w400)),
         centerTitle: true,
         backgroundColor: Color(widget.backgroundColor),
         elevation: 0,
@@ -362,53 +396,55 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 })
             : null,
         actions: [
-          Container(
-            margin: EdgeInsets.only(top: 13, bottom: 13, right: 13),
-            child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(24)),
-              onTap: () {
-                Get.defaultDialog(
-                    title: '출처',
-                    content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("• 사단법인 대한암협회",
-                              style: TextStyle(
-                                  fontSize: 14, color: Color(0xFF666666))),
-                          Text("• 세브란스병원",
-                              style: TextStyle(
-                                  fontSize: 14, color: Color(0xFF666666)))
-                        ]));
-              },
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                  // shape: BoxShape.rectangle,
-                  border: Border.all(width: 1.0, color: Color(0xFF666666)),
-                  borderRadius: BorderRadius.all(Radius.circular(24)),
-                ),
-                child: Text(
-                  "출처",
-                  style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
-                ),
-              ),
-            ),
-          )
+          // Container(
+          //   margin: EdgeInsets.only(top: 13, bottom: 13, right: 13),
+          //   child: InkWell(
+          //     borderRadius: BorderRadius.all(Radius.circular(24)),
+          //     onTap: () {
+          //       Get.defaultDialog(
+          //           title: '출처',
+          //           content: Column(
+          //               mainAxisSize: MainAxisSize.min,
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 Text("• 사단법인 대한암협회",
+          //                     style: TextStyle(
+          //                         fontSize: 14, color: Color(0xFF666666))),
+          //                 Text("• 세브란스병원",
+          //                     style: TextStyle(
+          //                         fontSize: 14, color: Color(0xFF666666)))
+          //               ]));
+          //     },
+          //     child: Container(
+          //       alignment: Alignment.center,
+          //       padding: EdgeInsets.symmetric(horizontal: 15),
+          //       decoration: BoxDecoration(
+          //         // shape: BoxShape.rectangle,
+          //         border: Border.all(width: 1.0, color: Color(0xFF666666)),
+          //         borderRadius: BorderRadius.all(Radius.circular(24)),
+          //       ),
+          //       child: Text(
+          //         "출처",
+          //         style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
+          //       ),
+          //     ),
+          //   ),
+          // )
         ]);
   }
 }
 
+String seletedFoodState = "";
+
 class IngredientTable extends StatelessWidget {
   SearchDetailReferenceController _searchDetailReferenceController =
       Get.put(SearchDetailReferenceController(Get.arguments));
-
-  IngredientTable({Key key}) : super(key: key);
+  final String category;
+  IngredientTable({Key key, this.category}) : super(key: key);
   // final String food;
   SearchDetailFoodNutritionPercentageController
-      _foodNutritionPercentageController = Get.put(
-          SearchDetailFoodNutritionPercentageController(Get.arguments, "생것"));
+      _foodNutritionPercentageController;
+  // = Get.put(SearchDetailFoodNutritionPercentageController(Get.arguments, "생것"));
   //add 날것, 삶은것
   // SearchDetailNutritionFactsController _nutritionfactsController =
   //     Get.put(SearchDetailNutritionFactsController(Get.arguments));
@@ -436,9 +472,17 @@ class IngredientTable extends StatelessWidget {
                           item: _searchDetailReferenceController.item.value);
                     }
                   }))),
-          Obx(() => _foodStateController.isLoading.value
-              ? SizedBox()
-              : FoodStateListWidget(_foodStateController.lst)),
+          Obx(() {
+            if (_foodStateController.isLoading.value) {
+              return SizedBox();
+            } else {
+              seletedFoodState = _foodStateController.lst.first;
+              _foodNutritionPercentageController = Get.put(
+                  SearchDetailFoodNutritionPercentageController(
+                      Get.arguments, seletedFoodState));
+              return FoodStateListWidget(_foodStateController.lst);
+            }
+          }),
           Padding(
               padding: EdgeInsets.all(16),
               child: Card(
@@ -508,23 +552,7 @@ class IngredientTable extends StatelessWidget {
                       SizedBox(height: 32)
                     ],
                   ))),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 46),
-            child: Card(
-                margin: EdgeInsets.zero,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Color(0xFF3BD7E2), width: 1.0),
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  child: Center(
-                    child: Text("상세 성분 전체보기",
-                        style: TextStyle(color: Color(0xFF3BD7E2))),
-                  ),
-                )),
-          )
+          NutritionDetailWidget(category: category, state: seletedFoodState)
         ],
       ),
     ));
@@ -594,6 +622,41 @@ class IngredientTable extends StatelessWidget {
         // badgePositionPercentageOffset: .98,
       );
     }).toList();
+  }
+}
+
+class NutritionDetailWidget extends StatelessWidget {
+  final String category;
+  final String state;
+  const NutritionDetailWidget({
+    Key key,
+    this.category,
+    this.state,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 46),
+      child: GestureDetector(
+        onTap: () => Get.toNamed("/FoodInformationNutritionDetail",
+            arguments: [category, state]),
+        child: Card(
+            margin: EdgeInsets.zero,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Color(0xFF3BD7E2), width: 1.0),
+                borderRadius: BorderRadius.circular(8.0)),
+            child: Container(
+              width: double.infinity,
+              height: 50,
+              child: Center(
+                child: Text("상세 성분 전체보기",
+                    style: TextStyle(color: Color(0xFF3BD7E2))),
+              ),
+            )),
+      ),
+    );
   }
 }
 
@@ -680,33 +743,34 @@ class ReferenceContainer extends StatelessWidget {
                         ),
                         Text("이웃집닥터는 공신력 있는 병원과 기관에서 내용을 발췌해 출처를 제공해요.",
                             style: TextStyle(
-                              color: Color(0xFF666666),
-                              fontSize: 16,
-                            )),
+                                color: Color(0xFF666666),
+                                fontSize: 16,
+                                height: 1.5,
+                                fontWeight: FontWeight.w300)),
                         SizedBox(
                           height: 32,
                         ),
                         Text("참고리스트",
                             style: TextStyle(
-                              color: Color(0xFF666666),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            )),
+                                color: Color(0xFF666666),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500)),
                         SizedBox(
                           height: 8,
                         ),
                         Text(
                             "서울대병원 공식 블로그, 한양대 병원, 대한암협회, 국가암정보센터, 미국암협회(ACS), 미국 국립 보건원(NIH), 미국국립암연구소(NCI), 국제암연구소 등",
                             style: TextStyle(
-                              color: Color(0xFF666666),
-                              fontSize: 16,
-                            )),
+                                color: Color(0xFF666666),
+                                fontSize: 16,
+                                height: 1.5,
+                                fontWeight: FontWeight.w300)),
                         SizedBox(
                           height: 24,
                         ),
                       ],
                     ),
-                    dialogHeight: 372,
+                    dialogHeight: 432,
                     routeFunc: () {
                       Get.back();
                     },
@@ -875,6 +939,7 @@ class DetailInfo extends StatelessWidget {
                   padding: EdgeInsets.all(16),
                   child: Card(
                     margin: EdgeInsets.zero,
+                    elevation: 0,
                     child: Column(
                       children: <Widget>[
                         Padding(
@@ -891,6 +956,7 @@ class DetailInfo extends StatelessWidget {
                   padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
                   child: Card(
                     margin: EdgeInsets.zero,
+                    elevation: 0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -980,7 +1046,11 @@ class DetailInfo extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: 14),
         child: Text(content,
-            style: TextStyle(fontSize: 14, color: Color(0xFF666666))));
+            style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 14,
+                height: 1.5,
+                color: Color(0xFF666666))));
   }
 }
 // class NutritionFactCombination extends StatelessWidget {

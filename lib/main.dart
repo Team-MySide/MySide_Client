@@ -41,6 +41,7 @@ import 'TabSearch/FoodGridList.dart';
 import 'TabSearch/FoodInformation.dart';
 import 'TabSearch/FoodReferenceDesc.dart';
 import 'TabSearch/IngredientGridList.dart';
+import 'TabSearch/NutritionDetail.dart';
 import 'TabSearch/SerachDiseaseResult.dart';
 import 'screens/mypagescreens/addHealthDataPage.dart';
 import 'screens/mypagescreens/myPageMain.dart';
@@ -143,6 +144,9 @@ void main() async {
       GetPage(name: "/RecipeMain", page: () => RecipeMain()),
       GetPage(name: "/RecipeDetailPage", page: () => RecipeDetailPage()),
       GetPage(name: "/FoodReferenceDesc", page: () => FoodReferenceDesc()),
+      GetPage(
+          name: "/FoodInformationNutritionDetail",
+          page: () => NutritionDetail()),
     ],
   ));
 }

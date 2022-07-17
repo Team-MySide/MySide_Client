@@ -71,15 +71,16 @@ class ColorTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 22,
+        height: 34,
         child: Chip(
             label: Text(tag,
                 style: TextStyle(
-                  fontSize: 12,
-                  color: Color(foregroundColor),
-                  textBaseline: TextBaseline.ideographic,
-                )),
-            labelPadding: EdgeInsets.fromLTRB(5, -5, 5, 0),
+                    fontSize: 12,
+                    color: Color(foregroundColor),
+                    textBaseline: TextBaseline.ideographic,
+                    fontWeight: FontWeight.w100)),
+            labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            // labelPadding: EdgeInsets.zero,
             backgroundColor: Color(backgroundColor),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap));
   }

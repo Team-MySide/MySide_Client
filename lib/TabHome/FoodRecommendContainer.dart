@@ -33,7 +33,7 @@ class _FoodRecommendContainerState extends State<FoodRecommendContainer> {
                         isViewMore: true)),
             Container(
                 // color: Colors.amber,
-                height: 296, //원래 283 ㄱ
+                height: 304, //원래 283 ㄱ
                 child:
                     Stack(alignment: AlignmentDirectional.topCenter, children: [
                   Container(
