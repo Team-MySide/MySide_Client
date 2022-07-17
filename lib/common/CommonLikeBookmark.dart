@@ -50,13 +50,13 @@ class _LikeComponentState extends State<LikeComponent> with LikeMixin {
       onTap: () async {
         print("ontapped $isLike, $isOnTapEnabled");
         if (isOnTapEnabled) {
-          setState(() {
-            isOnTapEnabled = false;
-          });
+          // setState(() {
+          //   isOnTapEnabled = false;
+          // });
           await requestLike(isLike, likeCnt);
-          setState(() {
-            isOnTapEnabled = true;
-          });
+          // setState(() {
+          //   isOnTapEnabled = true;
+          // });
 
           print("ontapped $isLike, $isOnTapEnabled");
           return;
