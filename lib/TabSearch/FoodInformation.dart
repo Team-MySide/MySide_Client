@@ -137,8 +137,7 @@ class _FoodInformationState extends State<FoodInformation> {
                                             _controller.item.value.likeStatus,
                                             isOnTabDisabled: false))),
                               ),
-                              SizedBox(height: 12)
-                              // SizedBox(height: 16),
+                              SizedBox(height: 12),
                             ],
                           ),
                         ),
@@ -445,6 +444,9 @@ class IngredientTable extends StatelessWidget {
               child: Card(
                   margin: EdgeInsets.zero,
                   elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      side: BorderSide(width: 1.0, color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(8.0)),
                   child: Column(
                     children: [
                       SizedBox(height: 32),
@@ -505,7 +507,24 @@ class IngredientTable extends StatelessWidget {
                           )),
                       SizedBox(height: 32)
                     ],
-                  )))
+                  ))),
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 46),
+            child: Card(
+                margin: EdgeInsets.zero,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Color(0xFF3BD7E2), width: 1.0),
+                    borderRadius: BorderRadius.circular(8.0)),
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  child: Center(
+                    child: Text("상세 성분 전체보기",
+                        style: TextStyle(color: Color(0xFF3BD7E2))),
+                  ),
+                )),
+          )
         ],
       ),
     ));
