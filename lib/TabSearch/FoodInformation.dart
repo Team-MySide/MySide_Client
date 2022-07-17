@@ -8,6 +8,7 @@ import 'package:my_side_client/TabSearch/SearchDetailFoodDetailInfo/SearchDetail
 import 'package:my_side_client/TabSearch/SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercentageBody.dart';
 import 'package:my_side_client/TabSearch/SearchDetailFoodState/SearchDetailFoodStateController.dart';
 import 'package:my_side_client/TabSearch/SearchDetailReference/SearchDetailMainInfoController.dart';
+import 'package:my_side_client/common/ChangeBookmarkStatusRepository/ChangeBookmarkController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/wigets/dialogwidget/singleButtonDialog.dart';
 import '../Constants.dart';
@@ -130,12 +131,10 @@ class _FoodInformationState extends State<FoodInformation> {
                                 () => _controller.isLoading.value
                                     ? ShimmerLoadingContainer(180, 14)
                                     : FittedBox(
-                                        child: Obx(() => LikeBookmark(
+                                        child: Obx(() => FoodInfoLikeShare(
                                             _controller.item.value.name,
                                             _controller.item.value.likes,
-                                            _controller.item.value.views,
                                             _controller.item.value.likeStatus,
-                                            _controller.item.value.views,
                                             isOnTabDisabled: false))),
                               ),
                               SizedBox(height: 12)
@@ -163,6 +162,20 @@ class _FoodInformationState extends State<FoodInformation> {
                                       )
                                     : ImageLoadFailed()))),
                   ]),
+                  Positioned(
+                      right: 16,
+                      bottom: 285,
+                      child: Row(
+                        children: [
+                          SvgPicture.asset("images/svg/icon_eye.svg"),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(_controller.item.value.views.toString(),
+                              style: TextStyle(
+                                  fontSize: 14, color: Color(0xFF666666))),
+                        ],
+                      ))
                 ]);
               })))
             ];
@@ -194,6 +207,126 @@ class _FoodInformationState extends State<FoodInformation> {
 
   List<Widget> _getEtcTagList(List<String> etcs) {
     return etcs.map((etc) => ColorTag(etc, 0xFF306C13, 0xFFE1F0DB)).toList();
+  }
+}
+
+class FoodInfoLikeShare extends StatefulWidget {
+  int bookmark;
+  int like;
+  int likeStatus;
+  int bookmarkStatus;
+  String food;
+  bool isOnTabDisabled = true;
+
+  FoodInfoLikeShare(this.food, this.like, this.likeStatus,
+      {this.isOnTabDisabled, Key key})
+      : super(key: key);
+
+  @override
+  _FoodInfoLikeShareState createState() => _FoodInfoLikeShareState();
+}
+
+class _FoodInfoLikeShareState extends State<FoodInfoLikeShare> {
+  ChangeBookmarkStatusController controller =
+      Get.put(ChangeBookmarkStatusController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: [
+        GestureDetector(
+          child: Container(
+            width: 62,
+            height: 62,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Color(0xFFDDDDDD),
+                width: 1,
+              ),
+              shape: BoxShape.circle,
+            ),
+            child: Column(children: [
+              SizedBox(
+                height: 13,
+              ),
+              SizedBox(
+                  width: 16,
+                  height: 15,
+                  child: SvgPicture.asset(widget.likeStatus == 0
+                      ? "images/svg/like.svg"
+                      : "images/svg/like_selected.svg")),
+              SizedBox(height: 4.5),
+              Text(widget.like.toString(),
+                  style: TextStyle(fontSize: 16, color: Color(0xFF666666)))
+            ]),
+          ),
+          onTap: () async {
+            if (widget.isOnTabDisabled) {
+              return;
+            } else {
+              bool result =
+                  await controller.putLike(widget.food, widget.likeStatus);
+              if (result) {
+                if (widget.likeStatus == 0) {
+                  widget.likeStatus = 1;
+                  widget.like += 1;
+                } else {
+                  widget.likeStatus = 0;
+                  widget.like -= 1;
+                }
+                Constants.isFoodInformationChanged =
+                    !Constants.isFoodInformationChanged;
+              }
+              setState(() {});
+            }
+          },
+        ),
+        SizedBox(
+          width: 16,
+        ),
+        GestureDetector(
+            child: Container(
+              width: 62,
+              height: 62,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color(0xFFDDDDDD),
+                  width: 1,
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: Column(children: [
+                SizedBox(
+                  height: 13,
+                ),
+                SizedBox(
+                    width: 13,
+                    height: 15,
+                    child: SvgPicture.asset("assets/icons/share.svg")),
+                SizedBox(height: 5.5),
+                Text("공유",
+                    style: TextStyle(fontSize: 14, color: Color(0xFF666666)))
+              ]),
+            ),
+            onTap: () async {
+              bool result = await controller.putBookmark(
+                  widget.food, widget.bookmarkStatus);
+              if (result) {
+                if (widget.bookmarkStatus == 0) {
+                  widget.bookmarkStatus = 1;
+                  widget.bookmark += 1;
+                } else {
+                  widget.bookmarkStatus = 0;
+                  widget.bookmark -= 1;
+                }
+                Constants.isFoodInformationChanged =
+                    !Constants.isFoodInformationChanged;
+              }
+              setState(() {});
+            }),
+      ],
+      // ),
+    );
   }
 }
 
