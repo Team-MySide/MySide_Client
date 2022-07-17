@@ -16,6 +16,8 @@ import 'SearchDetailFoodNutritionPercentageRepo/SearchDetailFoodNutritionPercent
 import 'SearchDetailMainInfo/SearchDetailMainInfoController.dart';
 import 'SearchDetailReference/SearchDetailReference.dart';
 
+RxString seletedFoodState;
+
 class FoodInformation extends StatefulWidget {
   FoodInformation({Key key}) : super(key: key);
 
@@ -27,6 +29,11 @@ bool isChangedBookmark = true;
 
 class _FoodInformationState extends State<FoodInformation> {
   final String category = Get.arguments;
+  @override
+  void initState() {
+    super.initState();
+    seletedFoodState = "".obs;
+  }
 
   SearchDetailMainInfoController _controller =
       Get.put(SearchDetailMainInfoController(Get.arguments));
@@ -434,8 +441,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 }
 
-String seletedFoodState = "";
-
 class IngredientTable extends StatelessWidget {
   SearchDetailReferenceController _searchDetailReferenceController =
       Get.put(SearchDetailReferenceController(Get.arguments));
@@ -443,8 +448,8 @@ class IngredientTable extends StatelessWidget {
   IngredientTable({Key key, this.category}) : super(key: key);
   // final String food;
   SearchDetailFoodNutritionPercentageController
-      _foodNutritionPercentageController;
-  // = Get.put(SearchDetailFoodNutritionPercentageController(Get.arguments, "생것"));
+      _foodNutritionPercentageController =
+      Get.put(SearchDetailFoodNutritionPercentageController(Get.arguments, ""));
   //add 날것, 삶은것
   // SearchDetailNutritionFactsController _nutritionfactsController =
   //     Get.put(SearchDetailNutritionFactsController(Get.arguments));
@@ -476,11 +481,30 @@ class IngredientTable extends StatelessWidget {
             if (_foodStateController.isLoading.value) {
               return SizedBox();
             } else {
-              seletedFoodState = _foodStateController.lst.first;
-              _foodNutritionPercentageController = Get.put(
-                  SearchDetailFoodNutritionPercentageController(
-                      Get.arguments, seletedFoodState));
-              return FoodStateListWidget(_foodStateController.lst);
+              if (seletedFoodState.value.isEmpty) {
+                seletedFoodState.value = _foodStateController.lst.first;
+                //문제다
+                _foodNutritionPercentageController
+                    .fetch(seletedFoodState.value);
+              }
+              return Wrap(
+                children: _foodStateController.lst
+                    .map((state) => TextButton(
+                        onPressed: () {
+                          if (seletedFoodState.value != state) {
+                            seletedFoodState.value = state;
+                            _foodNutritionPercentageController
+                                .fetch(seletedFoodState.value);
+                          }
+                        },
+                        child: Text(state,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: seletedFoodState.value == state
+                                    ? Color(0xFF3BD7E2)
+                                    : Color(0xFFAAAAAA)))))
+                    .toList(),
+              );
             }
           }),
           Padding(
@@ -506,11 +530,12 @@ class IngredientTable extends StatelessWidget {
                       SizedBox(height: 24),
                       Obx(() => _foodNutritionPercentageController
                               .isLoading.value
-                          ? ShimmerLoadingContainer(
-                              220,
-                              220,
-                              isRound: true,
-                            )
+                          ? SizedBox(
+                              width: 220,
+                              height: 220,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ))
                           : AspectRatio(
                               aspectRatio: 1.5,
                               child: PieChart(
@@ -552,7 +577,8 @@ class IngredientTable extends StatelessWidget {
                       SizedBox(height: 32)
                     ],
                   ))),
-          NutritionDetailWidget(category: category, state: seletedFoodState)
+          NutritionDetailWidget(
+              category: category, state: seletedFoodState.value)
         ],
       ),
     ));
@@ -660,45 +686,51 @@ class NutritionDetailWidget extends StatelessWidget {
   }
 }
 
-class FoodStateListWidget extends StatelessWidget {
-  const FoodStateListWidget(
-    this.stateList, {
-    Key key,
-  }) : super(key: key);
-  final List<String> stateList;
+// class FoodStateHeaderListWidget extends StatefulWidget {
+//   SearchDetailFoodNutritionPercentageController
+//       _foodNutritionPercentageController;
+//   FoodStateHeaderListWidget(
+//     this._foodNutritionPercentageController,
+//     this.stateList, {
+//     Key key,
+//   }) : super(key: key);
+//   final List<String> stateList;
 
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      // alignment: MainAxisAlignment.center,
-      // buttonPadding: stateList.length > 3
-      //     ? EdgeInsets.symmetric(horizontal: 8)
-      //     : EdgeInsets.symmetric(horizontal: 0),
-      children: stateList
-          .map((state) => TextButton(
-              onPressed: null,
-              child: Text(state,
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: stateList.first == state
-                          ? Color(0xFF3BD7E2)
-                          : Color(0xFFAAAAAA)))))
-          .toList(),
-      // Text("|", style: TextStyle(color: Color(0xFFDDDDDD))),
-      // TextButton(
-      //     onPressed: null,
-      //     child: Text('은것',
-      //         style:
-      //             TextStyle(fontSize: 16, color: Color(0xFFAAAAAA)))),
-      // Text("|", style: TextStyle(color: Color(0xFFDDDDDD))),
-      // TextButton(
-      //     onPressed: null,
-      //     child: Text('마른것',
-      //         style:
-      //             TextStyle(fontSize: 16, color: Color(0xFFAAAAAA)))),
-    );
-  }
-}
+//   @override
+//   State<FoodStateHeaderListWidget> createState() =>
+//       _FoodStateHeaderListWidgetState();
+// }
+
+// class _FoodStateHeaderListWidgetState extends State<FoodStateHeaderListWidget> {
+//   @override
+//   void initState() {
+//     super.initState();
+//     widget._foodNutritionPercentageController.fetch(seletedFoodState.value);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Wrap(
+//       children: widget.stateList
+//           .map((state) => TextButton(
+//               onPressed: () {
+//                 if (seletedFoodState.value != state) {
+//                   seletedFoodState.value = state;
+//                   widget._foodNutritionPercentageController
+//                       .fetch(seletedFoodState.value);
+//                 }
+//               },
+//               child: Text(state,
+//                   style: TextStyle(
+//                       fontSize: 16,
+//                       color: seletedFoodState == state
+//                           ? Color(0xFF3BD7E2)
+//                           : Color(0xFFAAAAAA)))))
+//           .toList(),
+
+//     );
+//   }
+// }
 
 class ReferenceContainer extends StatelessWidget {
   const ReferenceContainer({

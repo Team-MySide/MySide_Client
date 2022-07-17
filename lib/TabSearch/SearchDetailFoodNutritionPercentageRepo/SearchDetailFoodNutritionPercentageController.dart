@@ -14,15 +14,15 @@ class SearchDetailFoodNutritionPercentageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetch();
+    // fetch();
   }
 
-  void fetch() async {
-    isLoading(true);
+  void fetch(String st) async {
+    // isLoading(true);
     try {
       List<FoodNutritionPercentageItem> products =
           await SearchDetailFoodNutritionPercentageService()
-              .fetch(this.food, this.state);
+              .fetch(this.food, st);
       if (products != null) {
         lst.value = products;
       }
