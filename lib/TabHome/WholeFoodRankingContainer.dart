@@ -143,7 +143,8 @@ class FoodTile extends StatelessWidget {
                         ),
                         FittedBox(
                             child: LikeBookmark("", like, bookmark,
-                                likeStatus ?? 0, bookmarkStatus ?? 0)),
+                                likeStatus ?? 0, bookmarkStatus ?? 0,
+                                isOnTabDisabled: true)),
                       ],
                     ))),
             Padding(
