@@ -290,6 +290,9 @@ class _FoodInfoLikeShareState extends State<FoodInfoLikeShare> {
                 color: Color(0xFFDDDDDD),
                 width: 1,
               ),
+              color: widget.likeStatus == 1
+                  ? Color(0xFF3BD7E2)
+                  : Colors.transparent,
               shape: BoxShape.circle,
             ),
             child: Column(children: [
@@ -299,12 +302,24 @@ class _FoodInfoLikeShareState extends State<FoodInfoLikeShare> {
               SizedBox(
                   width: 16,
                   height: 15,
-                  child: SvgPicture.asset(widget.likeStatus == 0
-                      ? "images/svg/like.svg"
-                      : "images/svg/like_selected.svg")),
+                  child: widget.likeStatus == 0
+                      ? SvgPicture.asset(
+                          "images/svg/like.svg",
+                          // color: widget.likeStatus == 1
+                          //     ? Colors.white
+                          //     : Color(0xFF666666),
+                        )
+                      : SvgPicture.asset(
+                          "images/svg/like_selected.svg",
+                          color: Colors.white,
+                        )),
               SizedBox(height: 4.5),
               Text(widget.like.toString(),
-                  style: TextStyle(fontSize: 16, color: Color(0xFF666666)))
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: widget.likeStatus == 1
+                          ? Colors.white
+                          : Color(0xFF666666)))
             ]),
           ),
           onTap: () async {
