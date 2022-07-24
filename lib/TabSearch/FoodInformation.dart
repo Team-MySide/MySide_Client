@@ -191,7 +191,7 @@ class _FoodInformationState extends State<FoodInformation> {
                                       left: 16,
                                       top: 212,
                                       child: _controller.item.value.infoTag ==
-                                              "추천"
+                                              "recommended"
                                           ? SvgPicture.asset(
                                               "images/svg/foodinfo_recommend.svg")
                                           : SvgPicture.asset(
