@@ -25,7 +25,7 @@ class _FoodRecommendContainerState extends State<FoodRecommendContainer> {
             Padding(
                 padding:
                     EdgeInsets.only(top: 40, bottom: 30, left: 16, right: 16),
-                child: _controller.isLoading.value || _controller.lst == null
+                child: _controller.isLoading.value
                     ? HeaderRow("병에 좋은 추천음식", isViewMore: false)
                     : HeaderRow("${_controller.lst.first.cancerNm}에 좋은 추천음식",
                         onClickAction: () => Get.to(() => SearchDiseaseResult(),

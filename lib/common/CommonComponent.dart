@@ -21,23 +21,22 @@ class HeaderRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isViewMore
-        ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            _header(title),
-            TextButton(
-              child: Text("더보기 +",
-                  style: TextStyle(fontSize: 14, color: Color(0xFF666666))),
-              onPressed: onClickAction,
-            ),
-          ])
-        : Align(child: _header(title), alignment: Alignment.centerLeft);
-  }
-
-  Widget _header(String title) {
-    return Text(
-      title,
-      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-    );
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            title,
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          isViewMore
+              ? GestureDetector(
+                  child: Text("더보기 +",
+                      style: TextStyle(fontSize: 14, color: Color(0xFFAAAAAA))),
+                  onTap: onClickAction,
+                )
+              : SizedBox(),
+        ]);
   }
 }
 
