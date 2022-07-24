@@ -30,7 +30,7 @@ class HeaderRow extends StatelessWidget {
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           isViewMore
-              ? GestureDetector(
+              ? InkWell(
                   child: Text("더보기 +",
                       style: TextStyle(fontSize: 14, color: Color(0xFFAAAAAA))),
                   onTap: onClickAction,
