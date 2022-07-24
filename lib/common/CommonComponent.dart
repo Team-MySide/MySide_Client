@@ -79,7 +79,11 @@ class _LikeBookmarkState extends State<LikeBookmark> {
                     child: SvgPicture.asset(widget.likeStatus == 0
                         ? "images/svg/like.svg"
                         : "images/svg/like_selected.svg"))),
-            Text(widget.like.toString(), style: TextStyle(fontSize: 16))
+            Text(widget.like.toString(),
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF666666),
+                    fontWeight: FontWeight.w300))
           ]),
           onTap: () async {
             if (widget.isOnTabDisabled) {
@@ -113,7 +117,11 @@ class _LikeBookmarkState extends State<LikeBookmark> {
                       width: 19,
                       height: 19,
                       child: SvgPicture.asset("images/svg/icon_eye.svg"))),
-              Text(widget.bookmark.toString(), style: TextStyle(fontSize: 16))
+              Text(widget.bookmark.toString(),
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF666666),
+                      fontWeight: FontWeight.w300))
             ]),
             onTap: () async {
               bool result = await controller.putBookmark(

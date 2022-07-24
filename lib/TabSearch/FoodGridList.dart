@@ -36,26 +36,29 @@ class CommonFoodGridList extends StatelessWidget {
   final isShowRanking;
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: EdgeInsets.zero,
-      physics: ScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          // maxCrossAxisExtent: 240, mainAxisSpacing: 20, crossAxisSpacing: 5),
+    return Container(
+      color: Color(0xFFF4F4F4),
+      child: GridView.builder(
+        padding: EdgeInsets.zero,
+        physics: ScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            // maxCrossAxisExtent: 240, mainAxisSpacing: 20, crossAxisSpacing: 5),
 
-          crossAxisCount: 2,
-          mainAxisExtent: 240),
-      itemCount: foodItemList.length,
-      // shrinkWrap: true,
-      itemBuilder: (BuildContext ctx, index) {
-        FoodItem item = foodItemList[index];
-        bool showRanking = isShowRanking ?? false;
-        return GestureDetector(
-          child: FoodTile(item.name, item.img, showRanking ? index : 0,
-              item.likes, item.wishes, [item.cancerNm, item.nutrition1],
-              isOnTabDisabled: true),
-          onTap: () => Get.to(() => FoodInformation(), arguments: item.name),
-        );
-      },
+            crossAxisCount: 2,
+            mainAxisExtent: 240),
+        itemCount: foodItemList.length,
+        // shrinkWrap: true,
+        itemBuilder: (BuildContext ctx, index) {
+          FoodItem item = foodItemList[index];
+          bool showRanking = isShowRanking ?? false;
+          return GestureDetector(
+            child: FoodTile(item.name, item.img, showRanking ? index : 0,
+                item.likes, item.wishes, [item.cancerNm, item.nutrition1],
+                isOnTabDisabled: true),
+            onTap: () => Get.to(() => FoodInformation(), arguments: item.name),
+          );
+        },
+      ),
     );
   }
 }

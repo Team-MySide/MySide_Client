@@ -119,15 +119,18 @@ class FoodTile extends StatelessWidget {
                     borderRadius: new BorderRadius.all(
                   const Radius.circular(30.0),
                 )),
-                padding: EdgeInsets.only(top: 6),
+                // padding: EdgeInsets.only(top: 6),
                 child: Card(
                     elevation: 0,
                     color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                            padding: EdgeInsets.only(top: 1),
+                            padding: EdgeInsets.only(top: 0),
                             child: Container(
                                 width: 128,
                                 height: 114,

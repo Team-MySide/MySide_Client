@@ -928,9 +928,11 @@ class ReferenceItem extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-                color: Color(
-                  count == "0" ? 0xFFF4F4F4 : getColorOfType(type),
-                ).withOpacity(0.1),
+                color: count == "0"
+                    ? Color(0xFFF4F4F4)
+                    : Color(
+                        getColorOfType(type),
+                      ).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8)),
             width: 40,
             height: 40,
