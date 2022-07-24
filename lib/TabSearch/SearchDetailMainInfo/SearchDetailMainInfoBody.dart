@@ -50,6 +50,7 @@ class SearchDetailMainInfoItem {
     this.likes,
     this.wishes,
     this.views,
+    this.infoTag,
     this.likeStatus,
     this.wishStatus,
     this.color,
@@ -64,6 +65,7 @@ class SearchDetailMainInfoItem {
   int likes;
   int wishes;
   int views;
+  String infoTag;
   int likeStatus;
   int wishStatus;
   String color;
@@ -79,6 +81,7 @@ class SearchDetailMainInfoItem {
         likes: json["likes"],
         wishes: json["wishes"],
         views: json["views"],
+        infoTag: json["infoTag"],
         likeStatus: json["likeStatus"],
         wishStatus: json["wishStatus"],
         color: json["Color"],
@@ -94,6 +97,7 @@ class SearchDetailMainInfoItem {
         "likes": likes,
         "wishes": wishes,
         "views": views,
+        "infoTag": infoTag,
         "likeStatus": likeStatus,
         "wishStatus": wishStatus,
         "Color": color,

@@ -185,6 +185,17 @@ class _FoodInformationState extends State<FoodInformation> {
                                                   )
                                                 : ImageLoadFailed()))),
                               ]),
+                              _controller.item.value.infoTag == "none"
+                                  ? SizedBox()
+                                  : Positioned(
+                                      left: 16,
+                                      top: 212,
+                                      child: _controller.item.value.infoTag ==
+                                              "추천"
+                                          ? SvgPicture.asset(
+                                              "images/svg/foodinfo_recommend.svg")
+                                          : SvgPicture.asset(
+                                              "images/svg/foodinfo_caution.svg")),
                               Positioned(
                                   right: 16,
                                   top: 212,
@@ -202,7 +213,7 @@ class _FoodInformationState extends State<FoodInformation> {
                                               fontSize: 14,
                                               color: Color(0xFF666666))),
                                     ],
-                                  ))
+                                  )),
                             ]);
                           })))
                         ];
