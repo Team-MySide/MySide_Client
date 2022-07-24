@@ -514,6 +514,8 @@ class IngredientTable extends StatelessWidget {
                     .fetch(seletedFoodState.value);
               }
               return Wrap(
+                alignment: WrapAlignment.center,
+                runAlignment: WrapAlignment.center,
                 children: _foodStateController.lst
                     .map((state) => TextButton(
                         onPressed: () {
@@ -604,7 +606,8 @@ class IngredientTable extends StatelessWidget {
                     ],
                   ))),
           NutritionDetailWidget(
-              category: category, state: seletedFoodState.value)
+            category: category,
+          )
         ],
       ),
     ));
@@ -679,11 +682,11 @@ class IngredientTable extends StatelessWidget {
 
 class NutritionDetailWidget extends StatelessWidget {
   final String category;
-  final String state;
+  // final String state;
   const NutritionDetailWidget({
     Key key,
     this.category,
-    this.state,
+    // this.state,
   }) : super(key: key);
 
   @override
@@ -692,7 +695,7 @@ class NutritionDetailWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 46),
       child: GestureDetector(
         onTap: () => Get.toNamed("/FoodInformationNutritionDetail",
-            arguments: [category, state]),
+            arguments: [category, seletedFoodState.value]),
         child: Card(
             margin: EdgeInsets.zero,
             elevation: 0,

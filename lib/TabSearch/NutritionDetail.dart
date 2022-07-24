@@ -32,7 +32,7 @@ class NutritionDetail extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(key, style: TextStyle(fontSize: 14)),
-                                  Text(controller.map[key].toString(),
+                                  Text(translateScale(controller.map[key]),
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400))
@@ -48,6 +48,35 @@ class NutritionDetail extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  String translateScale(double input) {
+    // input = "0.0000350";
+    // input = "0.0000001";
+    double _input = input;
+    String temp = "";
+    String scale = "";
+    //fix scale
+    if (_input >= 1) {
+      scale = "g";
+    } else if (_input * 1000 >= 1) {
+      scale = "mg";
+      _input = _input * 1000;
+    } else if (_input * 1000 * 1000 >= 1) {
+      scale = "μg";
+      _input = _input * 1000 * 1000;
+    } else {
+      scale = "μg";
+      _input = _input * 1000 * 1000;
+    }
+    // print(_input);
+    // _input = _input.roundToDouble();
+    // print(_input);
+    temp = _input.toString();
+    int indexOfDot = temp.indexOf(".");
+    int end = (indexOfDot + 3) >= temp.length ? temp.length : indexOfDot + 3;
+    temp = temp.substring(0, end);
+    return "$temp $scale";
   }
 }
 
