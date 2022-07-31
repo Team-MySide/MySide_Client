@@ -21,35 +21,15 @@ class SearchDetailReferenceDescService extends MySideConnect implements IFetch {
       return request;
     });
     var resp =
-        // await get("/search/info/source/stats/detail/$food/$cancerNm/$code");
-        await get("/search/info/source/stats/detail/테스트/간암/1");
+        await get("/search/info/source/stats/detail/$food/$cancerNm/$code");
+    // await get("/search/info/source/stats/detail/테스트/간암/1");
     if (resp.statusCode == 200) {
-      return searchDetailReferenceDescFromJson(resp.bodyString).data;
-      // var json = {
-      //   "status": 200,
-      //   "success": true,
-      //   "message": "음식 출처 목록 조회 성공",
-      //   "data": [
-      //     {
-      //       "cancerNm": "간암",
-      //       "flagList": [
-      //         {"code": 1, "count": 1},
-      //         {"code": 2, "count": 1},
-      //         {"code": 3, "count": 0}
-      //       ]
-      //     },
-      //     {
-      //       "cancerNm": "폐암",
-      //       "flagList": [
-      //         {"code": 1, "count": 1},
-      //         {"code": 2, "count": 0},
-      //         {"code": 3, "count": 0}
-      //       ]
-      //     }
-      //   ]
-      // };
-      // return searchDetailReferenceFromJson(json.toString()).data;
+      print(resp.bodyString);
+      SearchDetailReferenceDesc desc =
+          searchDetailReferenceDescFromJson(resp.bodyString);
+      List<SearchDetailReferenceDescItem> ret = desc.data;
+      return ret;
     }
-    return null;
+    return [];
   }
 }

@@ -12,12 +12,13 @@ class FoodReferenceDesc extends StatefulWidget {
 
 class _FoodReferenceDescState extends State<FoodReferenceDesc> {
   // final String cancerNm = Get.parameters["cancerNm"];
-  final String cancerNm = Get.parameters["cancerNm"];
-  final String code = Get.parameters["code"];
-  final String food = Get.parameters["food"];
+  final String cancerNm = Get.arguments[0];
+  final String food = Get.arguments[1];
+  final String code = Get.arguments[0];
 
-  SearchDetailReferenceDescController controller =
-      Get.put(SearchDetailReferenceDescController("간암", "테스트", "1"));
+  SearchDetailReferenceDescController controller = Get.put(
+      SearchDetailReferenceDescController(
+          Get.arguments[0], Get.arguments[1], Get.arguments[2]));
 
   @override
   Widget build(BuildContext context) {

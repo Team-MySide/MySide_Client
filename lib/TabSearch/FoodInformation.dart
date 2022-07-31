@@ -66,8 +66,12 @@ class _FoodInformationState extends State<FoodInformation> {
                                   List.generate(1, (index) {
                             return Stack(children: [
                               Container(
-                                  color: Color(int.parse(
-                                      "0xFF${_controller.item.value.color}")),
+                                  // color: Color(int.parse(
+                                  //     "0xFF${_controller.item.value.color}")),
+                                  color: _controller.item.value.color != null
+                                      ? Color(int.parse(
+                                          "0xFF${_controller.item.value.color}"))
+                                      : Color(0xFFF4F4F4),
                                   child: Column(children: [
                                     CustomAppBar(
                                       "음식 정보",
@@ -914,18 +918,15 @@ class ReferenceItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print("");
-        Get.toNamed("/FoodReferenceDesc", arguments: {
-          "cancerNm": cancerNm,
-          "food": Get.arguments,
-          "code": type == ReferenceEffectType.effective
-              ? "1"
-              : type == ReferenceEffectType.arguing
-                  ? "2"
-                  : "3"
-        });
-      },
+      onTap: () => Get.toNamed("/FoodReferenceDesc", arguments: [
+        cancerNm,
+        Get.arguments,
+        type == ReferenceEffectType.effective
+            ? "1"
+            : type == ReferenceEffectType.arguing
+                ? "2"
+                : "3"
+      ]),
       child: Column(
         children: [
           Container(

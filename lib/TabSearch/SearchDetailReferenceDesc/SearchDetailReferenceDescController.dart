@@ -28,7 +28,7 @@ class SearchDetailReferenceDescController extends GetxController {
         list.value = products;
       }
     } finally {
-      if (list.value == null) {
+      if (list == null || list.length == 0) {
         isError(true);
       }
       isLoading(false);
