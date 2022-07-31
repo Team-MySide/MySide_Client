@@ -113,63 +113,66 @@ class FoodTile extends StatelessWidget {
         height: 246,
         child: Stack(
           children: [
-            Container(
-                height: 240,
-                decoration: BoxDecoration(
-                    borderRadius: new BorderRadius.all(
-                  const Radius.circular(30.0),
-                )),
-                // padding: EdgeInsets.only(top: 6),
-                child: Card(
-                    elevation: 0,
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(top: 0),
-                            child: Container(
-                                width: 128,
-                                height: 114,
-                                // child: Image.asset(path))),
-                                child: path != null
-                                    ? path.isNotEmpty
-                                        ? getImage(path)
-                                        : Center(
-                                            child: SizedBox(
-                                                child: ImageLoadFailedGrey(),
-                                                width: 52,
-                                                height: 44))
-                                    : Center(
-                                        child: SizedBox(
-                                            child: ImageLoadFailedGrey(),
-                                            width: 52,
-                                            height: 44)))),
-                        // SizedBox(height: 13.5),
-                        SizedBox(
-                            height: 24,
-                            child: Text(
-                              title,
-                              style: TextStyle(fontSize: 16),
-                            )),
-                        SizedBox(
-                          height: 5, //11인데 한글 일 때 높이가 약간 안맞음
-                        ),
-                        Align(
-                            alignment: Alignment.center,
-                            child: ColorTags(tags)),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        FittedBox(
-                            child: LikeBookmark("", like, bookmark,
-                                likeStatus ?? 0, bookmarkStatus ?? 0,
-                                isOnTabDisabled: true)),
-                      ],
-                    ))),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Container(
+                  height: 240,
+                  decoration: BoxDecoration(
+                      borderRadius: new BorderRadius.all(
+                    const Radius.circular(30.0),
+                  )),
+                  // padding: EdgeInsets.only(top: 6),
+                  child: Card(
+                      elevation: 0,
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.only(top: 0),
+                              child: Container(
+                                  width: 128,
+                                  height: 114,
+                                  // child: Image.asset(path))),
+                                  child: path != null
+                                      ? path.isNotEmpty
+                                          ? getImage(path)
+                                          : Center(
+                                              child: SizedBox(
+                                                  child: ImageLoadFailedGrey(),
+                                                  width: 52,
+                                                  height: 44))
+                                      : Center(
+                                          child: SizedBox(
+                                              child: ImageLoadFailedGrey(),
+                                              width: 52,
+                                              height: 44)))),
+                          // SizedBox(height: 13.5),
+                          SizedBox(
+                              height: 24,
+                              child: Text(
+                                title,
+                                style: TextStyle(fontSize: 16),
+                              )),
+                          SizedBox(
+                            height: 5, //11인데 한글 일 때 높이가 약간 안맞음
+                          ),
+                          Align(
+                              alignment: Alignment.center,
+                              child: ColorTags(tags)),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          FittedBox(
+                              child: LikeBookmark("", like, bookmark,
+                                  likeStatus ?? 0, bookmarkStatus ?? 0,
+                                  isOnTabDisabled: true)),
+                        ],
+                      ))),
+            ),
             Padding(
                 padding: EdgeInsets.only(left: 10, top: 6),
                 child: Align(
