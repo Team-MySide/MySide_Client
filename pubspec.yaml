@@ -43,6 +43,7 @@ dependencies:
   image_picker: ^0.8.4+5
   shared_preferences: ^2.0.13
   jiffy: ^4.1.0
+  url_launcher: ^6.1.5
 
 
 dev_dependencies:

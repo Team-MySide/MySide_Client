@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_side_client/wigets/textwidget/requiredText.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BuildAgreement extends StatelessWidget {
   final bool first, second, third, forth;
@@ -60,7 +61,12 @@ class BuildAgreement extends StatelessWidget {
           scrHeight,
           '이용약관 동의',
           '(필수)',
-          () {},
+          () async {
+            Uri _url = Uri.parse(
+                'https://docs.google.com/document/d/1by3vvxIrYiZENovEZKbfIfgOd-6n7q4Xe7BZcJdaMXI/edit?usp=sharing');
+            bool ret = await launchUrl(_url);
+            print(ret);
+          },
         ),
         SizedBox(
           height: 0.0211 * scrHeight,
@@ -71,7 +77,11 @@ class BuildAgreement extends StatelessWidget {
           scrHeight,
           '개인정보 수집 및 이용 동의',
           '(필수)',
-          () {},
+          () {
+            Uri _url = Uri.parse(
+                'https://drive.google.com/file/d/1gi3yLwgt2yjiBPXnIsYxFAHGVeq-oUUp/view?usp=sharing');
+            launchUrl(_url);
+          },
         ),
         SizedBox(
           height: 0.0211 * scrHeight,
