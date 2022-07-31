@@ -286,10 +286,12 @@ class _FoodInfoLikeShareState extends State<FoodInfoLikeShare> {
             width: 62,
             height: 62,
             decoration: BoxDecoration(
-              border: Border.all(
-                color: Color(0xFFDDDDDD),
-                width: 1,
-              ),
+              border: widget.likeStatus == 0
+                  ? Border.all(
+                      color: Color(0xFFDDDDDD),
+                      width: 1,
+                    )
+                  : null,
               color: widget.likeStatus == 1
                   ? Color(0xFF3BD7E2)
                   : Colors.transparent,
