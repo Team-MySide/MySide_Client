@@ -15,8 +15,7 @@ class AdContainer extends StatelessWidget {
             child: AdTile(adContainerItem),
             onTap: () => Get.to(
                   () => ReasonForFood(),
-                ))
-        );
+                )));
   }
 }
 
@@ -30,7 +29,9 @@ class AdTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 50),
         child: Stack(children: [
           Container(
-              height: 152, child: Image.asset(item['path'], fit: BoxFit.fill)),
+              width: MediaQuery.of(context).size.width,
+              height: 152,
+              child: Image.asset(item['path'], fit: BoxFit.cover)),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 31, vertical: 26),
             child: Row(
