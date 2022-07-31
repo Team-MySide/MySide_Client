@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/controllers/profileModifyController.dart';
 import 'package:my_side_client/wigets/buttonwidget/longRoundButton.dart';
 import 'package:my_side_client/wigets/etcwidgets/buildInfoInputField.dart';
@@ -14,10 +16,9 @@ class ProfileModifyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '프로필 수정',
-        ),
+      appBar: CommonAppbar(
+        '프로필 수정',
+        backgroundColor: Color(Constants.primaryColorInt),
         actions: [
           IconButton(
             icon: SvgPicture.asset('assets/Setting.svg'),

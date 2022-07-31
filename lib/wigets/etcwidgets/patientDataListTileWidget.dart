@@ -84,7 +84,7 @@ class PatientDataListTileWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Wrap(
-                        // runSpacing: 0.0105 * scrHeight,
+                        runSpacing: 0.0105 * scrHeight,
                         spacing: 0.0105 * scrHeight,
                         children: [
                           RoundPersonalInfo(
