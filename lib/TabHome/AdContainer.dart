@@ -29,9 +29,20 @@ class AdTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 50),
         child: Stack(children: [
           Container(
-              width: MediaQuery.of(context).size.width,
-              height: 152,
-              child: Image.asset(item['path'], fit: BoxFit.cover)),
+            width: MediaQuery.of(context).size.width,
+            height: 152,
+            decoration: BoxDecoration(
+              // image: Image.asset(item['path'], fit: BoxFit.cover),
+              image: DecorationImage(
+                  image: AssetImage(
+                    item['path'],
+                  ),
+                  fit: BoxFit.cover),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 31, vertical: 26),
             child: Row(
