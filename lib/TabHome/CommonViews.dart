@@ -7,8 +7,10 @@ class ColorTags extends StatelessWidget {
   // const Tags({this.lst, Key key}) : super(key: key);
   int forgroundColor = -1;
   int backgroundColor = -1;
-  int height;
-  ColorTags(this.lst, {this.height, Key key}) : super(key: key);
+  double tagHeight = 34;
+  double textHeight = 14;
+  ColorTags(this.lst, {this.tagHeight, this.textHeight, Key key})
+      : super(key: key);
   // List<String> lst = ["위암", "비타민E", "곡류"];
   final List<String> lst;
   List<dynamic> colorList = [
@@ -39,8 +41,13 @@ class ColorTags extends StatelessWidget {
             tagColorMap.putIfAbsent(tag, () => colorList[0]);
             colorList.removeAt(0);
 
-            Widget tb = ColorTag(tag, tagColorMap[tag]['foreground'],
-                tagColorMap[tag]['background']);
+            Widget tb = ColorTag(
+              tag,
+              tagColorMap[tag]['foreground'],
+              tagColorMap[tag]['background'],
+              tagHeight: tagHeight,
+              textHeight: textHeight,
+            );
             tagCache.putIfAbsent(tag, () => tb);
           }
         }
@@ -64,22 +71,26 @@ class ColorTag extends StatelessWidget {
   final String tag;
   final int foregroundColor;
   final int backgroundColor;
-  const ColorTag(this.tag, this.foregroundColor, this.backgroundColor,
-      {Key key})
+  double tagHeight = 34;
+  double textHeight = 14;
+  ColorTag(this.tag, this.foregroundColor, this.backgroundColor,
+      {Key key, this.tagHeight, this.textHeight})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 34,
+        height: tagHeight,
         child: Chip(
             label: Text(tag,
                 style: TextStyle(
-                    fontSize: 12,
+                    fontSize: textHeight,
                     color: Color(foregroundColor),
                     textBaseline: TextBaseline.ideographic,
                     fontWeight: FontWeight.w100)),
             labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            padding:
+                tagHeight == 24 ? EdgeInsets.only(top: -8) : EdgeInsets.zero,
             // labelPadding: EdgeInsets.zero,
             backgroundColor: Color(backgroundColor),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap));

@@ -162,7 +162,11 @@ class FoodTile extends StatelessWidget {
                           ),
                           Align(
                               alignment: Alignment.center,
-                              child: ColorTags(tags)),
+                              child: ColorTags(
+                                tags,
+                                tagHeight: 24,
+                                textHeight: 12,
+                              )),
                           SizedBox(
                             height: 16,
                           ),
