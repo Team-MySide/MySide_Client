@@ -59,7 +59,7 @@ class BuildAgreement extends StatelessWidget {
           second,
           secondClicked,
           scrHeight,
-          '이용약관 동의',
+          '이용약관 동의 ',
           '(필수)',
           () async {
             Uri _url = Uri.parse(
@@ -75,11 +75,26 @@ class BuildAgreement extends StatelessWidget {
           third,
           thirdClicked,
           scrHeight,
-          '개인정보 수집 및 이용 동의',
+          '개인정보 수집 및 이용 동의 ',
           '(필수)',
           () {
             Uri _url = Uri.parse(
-                'https://drive.google.com/file/d/1gi3yLwgt2yjiBPXnIsYxFAHGVeq-oUUp/view?usp=sharing');
+                'https://docs.google.com/document/d/1GqLi9VdQkSpnbXxGQimMEVJWKyX5rUOznQhPNM5hCCI/edit?usp=sharing');
+            launchUrl(_url);
+          },
+        ),
+        SizedBox(
+          height: 0.0211 * scrHeight,
+        ),
+        makeAgreement(
+          third,
+          thirdClicked,
+          scrHeight,
+          '개인정보처리방침 ',
+          '(필수)',
+          () {
+            Uri _url = Uri.parse(
+                'https://docs.google.com/document/d/1cY6HgDDm3Xgb6Ft5B2yEwPIPBOhsjRKoyRr63EOa2jE/edit?usp=sharing');
             launchUrl(_url);
           },
         ),
@@ -92,7 +107,7 @@ class BuildAgreement extends StatelessWidget {
           scrHeight,
           'E-mail 및 SMS 광고성 정보 수신 동의',
           '(선택)',
-          () {},
+          null,
         ),
       ],
     );
@@ -133,10 +148,12 @@ class BuildAgreement extends StatelessWidget {
           ),
         ),
         Spacer(),
-        InkWell(
-          onTap: additionalInfo,
-          child: SvgPicture.asset('assets/arrowright.svg'),
-        ),
+        additionalInfo != null
+            ? InkWell(
+                onTap: additionalInfo,
+                child: SvgPicture.asset('assets/arrowright.svg'),
+              )
+            : SizedBox(),
       ],
     );
   }
