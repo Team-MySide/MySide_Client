@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -115,30 +117,37 @@ class LoginMainController extends GetxController {
       loginEmail = emailTextField.tec.text;
       loginPswd = pswdTextField.tec.text;
     }
-    final response =
-        await http.post(Uri.http('3.39.126.13:3000', '/auth/signin'), headers: {
-      "Accept": "applications.json"
-    }, body: {
-      "email": loginEmail,
-      "password": loginPswd,
-    });
-    if (response.statusCode == 200) {
-      var jsondata = json.decode(response.body);
-      UserProfile.isLogin = jsondata['success'];
-      if (jsondata['success']) {
-        UserProfile.token = jsondata['data']['tokens']['token'];
-        if (checked || autoLogin) {
-          loginStorage.write('email', loginEmail);
-          loginStorage.write('password', loginPswd);
-          loginStorage.write('autologin', true);
-        } else {
-          loginStorage.write('email', '');
-          loginStorage.write('password', '');
-          loginStorage.write('autologin', false);
+
+    try {
+      final response = await http
+          .post(Uri.http('3.39.126.13:3000', '/auth/signin'), headers: {
+        "Accept": "applications.json"
+      }, body: {
+        "email": loginEmail,
+        "password": loginPswd,
+      }).timeout(const Duration(seconds: 6));
+      if (response.statusCode == 200) {
+        var jsondata = json.decode(response.body);
+        UserProfile.isLogin = jsondata['success'];
+        if (jsondata['success']) {
+          UserProfile.token = jsondata['data']['tokens']['token'];
+          if (checked || autoLogin) {
+            loginStorage.write('email', loginEmail);
+            loginStorage.write('password', loginPswd);
+            loginStorage.write('autologin', true);
+          } else {
+            loginStorage.write('email', '');
+            loginStorage.write('password', '');
+            loginStorage.write('autologin', false);
+          }
         }
       }
-    }
 
-    update();
+      update();
+    } on TimeoutException catch (e) {
+      // TODO
+      UserProfile.isLogin = false;
+      update();
+    }
   }
 }
