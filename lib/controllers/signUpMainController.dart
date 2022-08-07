@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_side_client/Constants.dart';
 import 'dart:convert';
 
 import 'package:my_side_client/models/textFieldModel.dart';
@@ -146,6 +148,9 @@ class SignUpMainController extends GetxController {
         !rephoneTextField.errorOcur &&
         !pswdTextField.errorOcur &&
         !repswdTextField.errorOcur) {
+      var loginStorage = GetStorage();
+
+      loginStorage.write(Constants.isFirstRunApp, false);
       return true;
     } else {
       return false;

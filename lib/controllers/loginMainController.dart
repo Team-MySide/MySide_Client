@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 import 'dart:convert';
 
@@ -32,17 +33,17 @@ class LoginMainController extends GetxController {
   var loginStorage = GetStorage();
 
   void fistTimeRunning() {
-    loginStorage.write('isFirstRunApp', false);
+    loginStorage.write(Constants.isFirstRunApp, false);
     //supdate();
   }
 
   @override
   void onInit() {
-    fistTimeRunning();
+    // fistTimeRunning();
     emailTextField.tec.addListener(onListenEmail);
     pswdTextField.tec.addListener(onListenPassword);
-    emailTextField.tec.text = "aaa1111@naver.com";
-    pswdTextField.tec.text = "qwer1234!!";
+    // emailTextField.tec.text = "aaa1111@naver.com";
+    // pswdTextField.tec.text = "qwer1234!!";
     super.onInit();
   }
 

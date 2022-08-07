@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:my_side_client/wigets/buttonwidget/longRoundButton.dart';
 import 'package:my_side_client/wigets/textwidget/richTextWithQuotes.dart';
 import 'package:my_side_client/wigets/textwidget/richTextWithoutQuotos.dart';
@@ -92,7 +93,9 @@ class OnBoardingPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      //Get.toNamed('/');
+                      // var loginStorage = GetStorage();
+                      // loginStorage.write(Constants.isFirstRunApp, false);
+                      Get.toNamed('/MainTab');
                     },
                     child: Text(
                       '둘러보기',

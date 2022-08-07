@@ -76,24 +76,25 @@ void main() async {
         primaryColor: Color(Constants.primaryColorInt),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         canvasColor: Colors.white),
-    // home: box.read(Constants.isFirstRunApp) ?? true
-    //     ? OnBoardingPage()
-    //     : autoLoginFlag
-    //         ? MainTab()
-    //         : LoginMainPage(),
+    home: box.read(Constants.isFirstRunApp) ?? true
+        ? OnBoardingPage()
+        : autoLoginFlag
+            ? MainTab()
+            : LoginMainPage(),
 
-    initialRoute: loginMainController.loginStorage.read('isFirstRunApp') ?? true
-        // ? '/onboarding'
-        // : autoLoginFlag
-        // ? '/MainTab'
-        // : '/',
-        ? 'LoginMainPage()'
-        : 'LoginMainPage()',
+    // initialRoute: loginMainController.loginStorage.read('isFirstRunApp') ?? true
+    //     ? '/onboarding'
+    //     // : autoLoginFlag
+    //     // ? '/MainTab'
+    //     // : '/',
+    //     // ? 'LoginMainPage()'
+    //     : '/LoginMainPage',
 
     // home: LoginMainPage()));
     // home: MainTab(),
     getPages: [
-      GetPage(name: '/', page: () => LoginMainPage()),
+      // GetPage(name: '/', page: () => LoginMainPage()),
+      GetPage(name: '/LoginMainPage', page: () => LoginMainPage()),
       GetPage(name: '/onboarding', page: () => OnBoardingPage()),
       GetPage(name: '/findEmail', page: () => FindEmailPage()),
       GetPage(name: '/findPassword', page: () => FindPswdPage()),

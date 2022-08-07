@@ -55,20 +55,19 @@ class LoginRequestBar extends StatelessWidget {
                             TextSpan(text: "을 받을 수 있어요!"),
                           ])),
                 GestureDetector(
-                    onTap: () {
-                      if (UserProfile.isLogin) {
-                        Get.to(() => AddHealthDataPage());
-                      } else {
-                        Get.to(SignUpMainPage());
-                      }
-                    },
-                    child: SizedBox(
+                  onTap: () {
+                    if (UserProfile.isLogin) {
+                      Get.to(() => AddHealthDataPage());
+                    } else {
+                      // Get.to(SignUpMainPage());
+                      Get.toNamed("/LoginMainPage");
+                    }
+                  },
+                  child: SizedBox(
                       width: 96,
                       height: 96,
-                      child: IconButton(
-                          onPressed: _goToLogin(),
-                          icon: Image.asset("images/loginrequest_arrow.png")),
-                    ))
+                      child: Image.asset("images/loginrequest_arrow.png")),
+                )
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ));
