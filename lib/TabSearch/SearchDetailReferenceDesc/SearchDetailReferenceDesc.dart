@@ -53,7 +53,7 @@ class SearchDetailReferenceDescItem {
   String comment;
   String source;
   String sourceLink;
-  DateTime sourceDate;
+  String sourceDate;
 
   factory SearchDetailReferenceDescItem.fromJson(Map<String, dynamic> json) =>
       SearchDetailReferenceDescItem(
@@ -61,7 +61,7 @@ class SearchDetailReferenceDescItem {
         comment: json["comment"],
         source: json["source"],
         sourceLink: json["source_link"],
-        sourceDate: DateTime.parse(json["source_date"]),
+        sourceDate: json["source_date"] == "" ? "" : json["source_date"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -70,6 +70,6 @@ class SearchDetailReferenceDescItem {
         "source": source,
         "source_link": sourceLink,
         "source_date":
-            "${sourceDate.year.toString().padLeft(4, '0')}-${sourceDate.month.toString().padLeft(2, '0')}-${sourceDate.day.toString().padLeft(2, '0')}",
+            "${DateTime.parse(sourceDate).year.toString().padLeft(4, '0')}-${DateTime.parse(sourceDate).month.toString().padLeft(2, '0')}-${DateTime.parse(sourceDate).day.toString().padLeft(2, '0')}",
       };
 }

@@ -14,7 +14,7 @@ class _FoodReferenceDescState extends State<FoodReferenceDesc> {
   // final String cancerNm = Get.parameters["cancerNm"];
   final String cancerNm = Get.arguments[0];
   final String food = Get.arguments[1];
-  final String code = Get.arguments[0];
+  final String code = Get.arguments[2];
 
   SearchDetailReferenceDescController controller = Get.put(
       SearchDetailReferenceDescController(
@@ -61,7 +61,10 @@ class _FoodReferenceDescState extends State<FoodReferenceDesc> {
       ret.add(SizedBox(
         height: 5,
       ));
-      ret.add(Text("${controller.list[0].comment}"));
+      ret.add(Text(
+        "${controller.list[0].comment}",
+        style: TextStyle(color: Color(0xFF666666), height: 1.5),
+      ));
       ret.add(SizedBox(
         height: 16,
       ));
@@ -82,9 +85,17 @@ class MiddleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          "* ${item.source} / ${item.headline} / ${item.sourceDate}",
-          style: TextStyle(color: Color(0xFF666666), fontSize: 16),
+        Flexible(
+          child: Text(
+            item.sourceDate.length >= 10
+                ? "* ${item.source} / ${item.headline} / ${item.sourceDate.substring(0, 10)}"
+                : "* ${item.source} / ${item.headline} ",
+            style: TextStyle(
+                color: Color(0xFF666666),
+                fontSize: 16,
+                height: 1.5,
+                fontWeight: FontWeight.w600),
+          ),
         ),
       ],
     );
