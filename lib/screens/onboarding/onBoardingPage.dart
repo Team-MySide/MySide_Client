@@ -85,7 +85,7 @@ class OnBoardingPage extends StatelessWidget {
                     scrHeight: scrHeight,
                     activated: true,
                     validateFunc: () {
-                      Get.toNamed('/');
+                      Get.toNamed('/LoginMainPage');
                     },
                   ),
                   SizedBox(
