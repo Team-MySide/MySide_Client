@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/controllers/signUpMainController.dart';
 import 'package:my_side_client/controllers/signUpUserController.dart';
 import 'package:my_side_client/wigets/buttonwidget/recSubmitButton.dart';
@@ -18,6 +19,7 @@ class SignUpMainPage extends StatelessWidget {
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(Constants.primaryColorInt),
         title: Text(
           '회원가입',
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/constantsList.dart';
 import 'package:my_side_client/controllers/addHealthDataController.dart';
 import 'package:my_side_client/controllers/healthDataListPageController.dart';
@@ -28,6 +29,7 @@ class AddHealthDataPage extends StatelessWidget {
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(Constants.primaryColorInt),
         title: Text(
           addHealthDataController.editOrNew == 1 ? '건강 데이터 추가입력' : '건강 데이터 편집',
         ),
