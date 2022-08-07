@@ -80,6 +80,7 @@ class _SearchBarState extends State<SearchBar> {
                   //       );
                   //     })
                   child: AutoCompleteListView2(
+                      _textEditingController,
                       _searchResult,
                       _searchController.foodLst,
                       _searchController.cancerLst,
@@ -146,23 +147,29 @@ ButtonStyle _buttonRoundShape(int backgroundColor) {
 }
 
 //from CommonComponent.AutoCompleteListView
-class AutoCompleteListView2 extends StatelessWidget {
+class AutoCompleteListView2 extends StatefulWidget {
   final List<String> _searchResult;
   final List<String> foodLst;
   final List<String> cancerLst;
   final List<String> nutritionLst;
-
-  AutoCompleteListView2(
-      this._searchResult, this.foodLst, this.cancerLst, this.nutritionLst,
+  final TextEditingController controller;
+  AutoCompleteListView2(this.controller, this._searchResult, this.foodLst,
+      this.cancerLst, this.nutritionLst,
       {Key key, this.page})
       : super(key: key);
   final String page;
+
+  @override
+  State<AutoCompleteListView2> createState() => _AutoCompleteListView2State();
+}
+
+class _AutoCompleteListView2State extends State<AutoCompleteListView2> {
   // final Widget page;
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
         shrinkWrap: true,
-        itemCount: _searchResult.length,
+        itemCount: widget._searchResult.length,
         separatorBuilder: (_, __) {
           return SizedBox(height: 0);
         },
@@ -171,20 +178,25 @@ class AutoCompleteListView2 extends StatelessWidget {
               child: Card(
                   child: Padding(
                       padding: EdgeInsets.all(10),
-                      child: Text(_searchResult[i]))),
+                      child: Text(widget._searchResult[i]))),
               // child: ListTile(title: Text(_searchResult[i])),
               onTap: () {
-                if (foodLst.contains(_searchResult[i])) {
-                  Get.toNamed("/FoodInformation", arguments: _searchResult[i]);
-                } else if (cancerLst.contains(_searchResult[i])) {
+                if (widget.foodLst.contains(widget._searchResult[i])) {
+                  Get.toNamed("/FoodInformation",
+                      arguments: widget._searchResult[i]);
+                } else if (widget.cancerLst.contains(widget._searchResult[i])) {
                   Get.toNamed("/SearchDiseaseResult",
-                      arguments: _searchResult[i]);
-                } else if (nutritionLst.contains(_searchResult[i])) {
+                      arguments: widget._searchResult[i]);
+                } else if (widget.nutritionLst
+                    .contains(widget._searchResult[i])) {
                   Get.toNamed("/SearchIngredientCategoryResultList",
-                      arguments: _searchResult[i]);
+                      arguments: widget._searchResult[i]);
                 } else {
                   print("error to choose");
                 }
+                widget.controller.clear();
+                widget._searchResult.clear();
+                setState(() {});
               });
           // onTap: () => Get.to(page, arguments: _searchResult[i]));
         });
