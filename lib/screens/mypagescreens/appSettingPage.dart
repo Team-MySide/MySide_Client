@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/common/UserProfile.dart';
 import 'package:my_side_client/wigets/buttonwidget/smallRoundButton.dart';
 import 'package:my_side_client/wigets/etcwidgets/buildSettingTile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppSettingPage extends StatelessWidget {
   @override
@@ -12,6 +14,7 @@ class AppSettingPage extends StatelessWidget {
     var loginStorage = GetStorage();
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(Constants.primaryColorInt),
         title: Text(
           '앱 설정',
         ),
@@ -25,7 +28,31 @@ class AppSettingPage extends StatelessWidget {
             ),
             BuildSettingTile(
               svgPath: 'assets/faq.svg',
-              tileText: 'FAQ',
+              tileText: '문의하기',
+              scrHeight: scrHeight,
+              onTap: () {
+                // Get.toNamed('/FAQ');
+                String encodeQueryParameters(Map<String, String> params) {
+                  return params.entries
+                      .map((MapEntry<String, String> e) =>
+                          '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                      .join('&');
+                }
+
+                final Uri emailLaunchUri = Uri(
+                  scheme: 'mailto',
+                  path: '2022myside@gmail.com',
+                  query: encodeQueryParameters(<String, String>{
+                    'subject': '',
+                  }),
+                );
+
+                launchUrl(emailLaunchUri);
+              },
+            ),
+            BuildSettingTile(
+              svgPath: "images/svg/questionmark2.svg",
+              tileText: '자주 하는 질문',
               scrHeight: scrHeight,
               onTap: () {
                 Get.toNamed('/FAQ');
