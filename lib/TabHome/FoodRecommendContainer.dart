@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabHome/CommonViews.dart';
 import 'package:my_side_client/TabHome/FoodRecommend/FoodRecommendController.dart';
+import 'package:my_side_client/TabHome/SearchCancerResult.dart';
 import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/TabSearch/SerachDiseaseResult.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
@@ -28,7 +29,7 @@ class _FoodRecommendContainerState extends State<FoodRecommendContainer> {
                 child: _controller.isLoading.value
                     ? HeaderRow("병에 좋은 추천음식", isViewMore: false)
                     : HeaderRow("${_controller.lst.first.cancerNm}에 좋은 추천음식",
-                        onClickAction: () => Get.to(() => SearchDiseaseResult(),
+                        onClickAction: () => Get.to(() => SearchCancerResult(),
                             arguments: _controller.lst.first.cancerNm),
                         isViewMore: true)),
             Container(
