@@ -65,13 +65,7 @@ flutter:
   # cannot read special character in file name
   assets:
     - images/
-    - images/svg/
-    - images/loading/
-    - images/detail_cancer/
     - assets/
-    - assets/food_img/
-    - assets/icons/
-    - assets/profile_img/
 
     
 
