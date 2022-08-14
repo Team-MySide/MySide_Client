@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/controllers/dropOutController.dart';
 import 'package:my_side_client/wigets/buttonwidget/longRoundButton.dart';
 import 'package:my_side_client/wigets/textfieldwidget/memoTextField.dart';
@@ -10,10 +11,8 @@ class DropOutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '탈퇴하기',
-        ),
+      appBar: CommonAppbar(
+        '탈퇴하기',
       ),
       body: GetBuilder<DropOutController>(builder: (controller) {
         return SafeArea(

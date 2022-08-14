@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/controllers/pswdChangeController.dart';
 import 'package:my_side_client/wigets/buttonwidget/longRoundButton.dart';
 import 'package:my_side_client/wigets/etcwidgets/buildInfoInputField.dart';
@@ -13,16 +14,14 @@ class PswdChangePage extends StatelessWidget {
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '비밀번호 변경',
-        ),
-        actions: [
-          IconButton(
-            icon: SvgPicture.asset('assets/Setting.svg'),
-            onPressed: () {},
-          ),
-        ],
+      appBar: CommonAppbar(
+        '비밀번호 변경',
+        // actions: [
+        //   IconButton(
+        //     icon: SvgPicture.asset('assets/Setting.svg'),
+        //     onPressed: () {},
+        //   ),
+        // ],
       ),
       body: GetBuilder<PswdChangeController>(
         builder: (controller) {

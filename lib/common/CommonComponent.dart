@@ -418,8 +418,7 @@ class RequestLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Expanded(
-          child: Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -433,7 +432,7 @@ class RequestLoginPage extends StatelessWidget {
                       color: Color(0xFF3BD7E2),
                       decoration: TextDecoration.underline)))
         ],
-      )),
+      ),
     );
   }
 }

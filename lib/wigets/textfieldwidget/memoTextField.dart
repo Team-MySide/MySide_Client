@@ -61,27 +61,29 @@ class MemoTextField extends StatelessWidget {
             ),
           ),
         ),
-        belowTextExist
-            ? Column(
-                children: [
-                  SizedBox(
-                    height: 0.0105 * scrHeight,
-                  ),
-                  Text(
-                    textFieldModel.errorMsg,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 12,
-                      color: textFieldModel.fn.hasFocus
-                          ? Color(0xFF3BD7E2)
-                          : Color(0xFFAAAAAA),
-                    ),
-                  ),
-                ],
-              )
-            : SizedBox(
-                height: 0,
+        // belowTextExist
+        //     ?
+        Column(
+          children: [
+            SizedBox(
+              height: 0.0105 * scrHeight,
+            ),
+            Text(
+              textFieldModel.errorMsg,
+              style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 12,
+                color: textFieldModel.fn.hasFocus
+                    ? Color(0xFF3BD7E2)
+                    : Color(0xFFAAAAAA),
               ),
+            ),
+          ],
+        )
+        // :
+        //  SizedBox(
+        //     height: 0,
+        //   ),
       ],
     );
   }
