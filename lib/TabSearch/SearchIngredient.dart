@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/TabSearch/NoSearchResult.dart';
 import 'package:my_side_client/TabSearch/SearchIngredientRepository/SearchIngredientController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
@@ -72,10 +73,13 @@ class _SearchIngredientState extends State<SearchIngredient> {
                           ],
                         ))
                       : Expanded(
-                          child: AutoCompleteListView(
-                          _searchResult,
-                          "/SearchIngredientCategoryResultList",
-                        )
+                          child: _textEditingController.text.isNotEmpty &&
+                                  _searchResult.length == 0
+                              ? NoSearchResult()
+                              : AutoCompleteListView(
+                                  _searchResult,
+                                  "/SearchIngredientCategoryResultList",
+                                )
 
                           // child: ListView.separated(
                           //     itemCount: _searchResult.length,

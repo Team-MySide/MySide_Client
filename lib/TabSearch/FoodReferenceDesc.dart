@@ -112,7 +112,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return code == "1"
+    return code == "0"
         ? Text("효과있음", style: TextStyle(color: Color(0xFF7EC05E), fontSize: 18))
         : code == "2"
             ? Text("의견갈림",

@@ -918,15 +918,19 @@ class ReferenceItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed("/FoodReferenceDesc", arguments: [
-        cancerNm,
-        Get.arguments,
-        type == ReferenceEffectType.effective
-            ? "1"
-            : type == ReferenceEffectType.arguing
-                ? "2"
-                : "3"
-      ]),
+      onTap: () {
+        if (count != "0") {
+          Get.toNamed("/FoodReferenceDesc", arguments: [
+            cancerNm,
+            Get.arguments,
+            type == ReferenceEffectType.effective
+                ? "1"
+                : type == ReferenceEffectType.arguing
+                    ? "2"
+                    : "3"
+          ]);
+        }
+      },
       child: Column(
         children: [
           Container(

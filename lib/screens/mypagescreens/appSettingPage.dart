@@ -43,7 +43,7 @@ class AppSettingPage extends StatelessWidget {
                   scheme: 'mailto',
                   path: '2022myside@gmail.com',
                   query: encodeQueryParameters(<String, String>{
-                    'subject': '',
+                    'subject': '이웃집 닥터 문의',
                   }),
                 );
 
