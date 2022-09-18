@@ -37,6 +37,7 @@ class _SearchCancerResultState extends State<SearchCancerResult> {
         appBar: CustomAppBar(
           "$disease에 좋은 추천 음식",
           Colors.white.value,
+          textColor: Colors.black,
           isBack: true,
           isReference: true,
         ),
@@ -48,7 +49,7 @@ class _SearchCancerResultState extends State<SearchCancerResult> {
                   ? SizedBox()
                   : Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Color(0xFFF4F4F4),
                       ),
                       child: FoodTileGridView(controller.lst.toList())),
             )

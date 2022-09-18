@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_side_client/TabBookmark/TabBookmark.dart';
 import 'package:my_side_client/TabRecipe/CommentMain.dart';
 import 'package:my_side_client/TabRecipe/RecipeDetailPage.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe02InsertVideo.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe04InsertRecipe.dart';
 import 'package:my_side_client/TabRecipe/RegisterRecipe05InsertRecipe.dart';
+import 'package:my_side_client/common/UserProfile.dart';
 import 'package:my_side_client/controllers/loginMainController.dart';
 import 'package:my_side_client/controllers/myPageMainController.dart';
 import 'package:my_side_client/screens/loginscreens/findEmailPage.dart';
@@ -45,6 +47,7 @@ import 'TabSearch/NutritionDetail.dart';
 import 'TabSearch/SerachDiseaseResult.dart';
 import 'screens/mypagescreens/addHealthDataPage.dart';
 import 'screens/mypagescreens/myPageMain.dart';
+import 'wigets/dialogwidget/singleButtonDialog.dart';
 
 void main() async {
   await GetStorage.init();
@@ -53,13 +56,19 @@ void main() async {
   final MyPageMainController myPageMainController =
       Get.put(MyPageMainController());
   GetStorage box = GetStorage();
+
   bool autoLoginFlag = false;
   if (loginMainController.loginStorage.read('autologin') != null &&
       loginMainController.loginStorage.read('autologin')) {
     await loginMainController.logIn();
-    await myPageMainController.getUserInfo();
-    await myPageMainController.getHealthDataList();
-    autoLoginFlag = true;
+    if (UserProfile.isLogin) {
+      await myPageMainController.getUserInfo();
+      await myPageMainController.getHealthDataList();
+      autoLoginFlag = true;
+    } else {
+      loginMainController.loginStorage.write('autologin', null);
+      autoLoginFlag = false;
+    }
   }
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -149,6 +158,7 @@ void main() async {
       GetPage(
           name: "/FoodInformationNutritionDetail",
           page: () => NutritionDetail()),
+      GetPage(name: "/TabBookmark", page: () => TabBookmark()),
     ],
   ));
 }

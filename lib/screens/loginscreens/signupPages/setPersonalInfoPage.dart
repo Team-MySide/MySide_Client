@@ -80,6 +80,7 @@ class SetPersonalInfoPage extends StatelessWidget {
                         HalfWidthTextField(
                           scrHeight: scrHeight,
                           textFieldModel: controller.ageTextField,
+                          textInputType: TextInputType.number,
                           tailText: '세',
                         ),
                         SizedBox(
@@ -94,11 +95,13 @@ class SetPersonalInfoPage extends StatelessWidget {
                             HalfWidthTextField(
                               scrHeight: scrHeight,
                               textFieldModel: controller.heightTextField,
+                              textInputType: TextInputType.number,
                               tailText: 'cm',
                             ),
                             Spacer(),
                             HalfWidthTextField(
                               scrHeight: scrHeight,
+                              textInputType: TextInputType.number,
                               textFieldModel: controller.weightTextField,
                               tailText: 'kg',
                             ),

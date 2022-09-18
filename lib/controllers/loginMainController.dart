@@ -32,14 +32,13 @@ class LoginMainController extends GetxController {
   //자동로그인
   var loginStorage = GetStorage();
 
-  void fistTimeRunning() {
-    loginStorage.write(Constants.isFirstRunApp, false);
-    //supdate();
-  }
+  // void fistTimeRunning() {
+  // loginStorage.write(Constants.isFirstRunApp, false);
+  //supdate();
+  // }
 
   @override
   void onInit() {
-    // fistTimeRunning();
     emailTextField.tec.addListener(onListenEmail);
     pswdTextField.tec.addListener(onListenPassword);
     // emailTextField.tec.text = "aaa1111@naver.com";

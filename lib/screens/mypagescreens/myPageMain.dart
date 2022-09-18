@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/constantsList.dart';
 import 'package:my_side_client/controllers/addHealthDataController.dart';
@@ -47,7 +48,7 @@ class MyPageMain extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 0.0649 * scrHeight,
-                        backgroundImage: AssetImage('assets/girl.jpg'),
+                        child: SvgPicture.asset('assets/user.svg'),
                       ),
                       SizedBox(
                         height: 0.0211 * scrHeight,
@@ -96,7 +97,10 @@ class MyPageMain extends StatelessWidget {
                             () {
                               Get.toNamed('/ProfileChange');
                             },
-                            () {}
+                            () {
+                              // Get.toNamed('/S');
+                              Get.toNamed("/TabBookmark");
+                            }
                           ],
                           scrHeight,
                         ),

@@ -30,15 +30,16 @@ class ShowHealthdataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return healthDataList.length < 1
-        ? Container(
-            padding: EdgeInsets.fromLTRB(
-              scrHeight * 0.0843,
-              scrHeight * 0.2069,
-              scrHeight * 0.0843,
-              0,
-            ),
+        ? Center(
+            // padding: EdgeInsets.fromLTRB(
+            //   scrHeight * 0.0843,
+            //   scrHeight * 0.2069,
+            //   scrHeight * 0.0843,
+            //   0,
+            // ),
             child: Column(
               children: [
+                SizedBox(height: 40),
                 InkWell(
                   child: Image.asset(
                     'assets/plus.png',
@@ -48,7 +49,7 @@ class ShowHealthdataWidget extends StatelessWidget {
                   onTap: toAddHealthDataPage,
                 ),
                 SizedBox(
-                  height: scrHeight * 0.0527,
+                  height: 10,
                 ),
                 Text(
                   '어떤 변화가 있었나요?',
@@ -78,7 +79,7 @@ class ShowHealthdataWidget extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: '해보세요.',
+                        text: '해보세요',
                         style: TextStyle(
                           color: Color(0xFF111111),
                           fontWeight: FontWeight.w600,
@@ -87,7 +88,8 @@ class ShowHealthdataWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
+                SizedBox(height: 40),
               ],
             ),
           )
@@ -114,6 +116,7 @@ class ShowHealthdataWidget extends StatelessWidget {
                       ],
                     ),
               ListView.builder(
+                padding: EdgeInsets.zero,
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: healthDataList.length,

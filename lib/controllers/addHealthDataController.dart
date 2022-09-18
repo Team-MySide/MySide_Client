@@ -141,14 +141,14 @@ class AddHealthDataController extends GetxController {
   bool isActive() {
     return usrType > 0 &&
         gender > 0 &&
-        ageTextField.tec.text.isNotEmpty &&
-        heightTextField.tec.text.isNotEmpty &&
-        weightTextField.tec.text.isNotEmpty &&
+        // ageTextField.tec.text.isNotEmpty &&
+        // heightTextField.tec.text.isNotEmpty &&
+        // weightTextField.tec.text.isNotEmpty &&
         ((cancerNm == 7 && cancerTextField.tec.text.isNotEmpty) ||
             (cancerNm > 0 && cancerNm < 7)) &&
         stageNm > 0 &&
-        progressNm > 0 &&
-        memoTextField.tec.text.isNotEmpty;
+        progressNm > 0;
+    // &&memoTextField.tec.text.isNotEmpty;
   }
 
   void onSaveClicked(double scrHeight, VoidCallback updateNewInfo) async {
@@ -158,10 +158,12 @@ class AddHealthDataController extends GetxController {
     ageTextField.validateNumber();
     heightTextField.validateNumber();
     weightTextField.validateNumber();
-    if (!cancerTextField.errorOcur &&
-        !ageTextField.errorOcur &&
-        !heightTextField.errorOcur &&
-        !weightTextField.errorOcur) {
+    if (!cancerTextField.errorOcur
+        // &&
+        // !ageTextField.errorOcur &&
+        // !heightTextField.errorOcur &&
+        // !weightTextField.errorOcur
+        ) {
       if (editOrNew == 1) {
         await postHealthData();
       } else {

@@ -110,82 +110,131 @@ class FoodTile extends StatelessWidget {
     return Container(
         padding: EdgeInsets.all(0),
         width: 164,
-        height: 246,
+        height: 266,
         child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Container(
-                  height: 240,
-                  decoration: BoxDecoration(
-                      borderRadius: new BorderRadius.all(
-                    const Radius.circular(30.0),
-                  )),
-                  // padding: EdgeInsets.only(top: 6),
-                  child: Card(
-                      elevation: 0,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(top: 0),
-                              child: Container(
-                                  width: 128,
-                                  height: 114,
-                                  // child: Image.asset(path))),
-                                  child: path != null
-                                      ? path.isNotEmpty
-                                          ? getImage(path)
-                                          : Center(
-                                              child: SizedBox(
-                                                  child: ImageLoadFailedGrey(),
-                                                  width: 52,
-                                                  height: 44))
-                                      : Center(
-                                          child: SizedBox(
-                                              child: ImageLoadFailedGrey(),
-                                              width: 52,
-                                              height: 44)))),
-                          // SizedBox(height: 13.5),
-                          SizedBox(
-                              height: 24,
-                              child: Text(
-                                title,
-                                style: TextStyle(fontSize: 16),
-                              )),
-                          SizedBox(
-                            height: 5, //11인데 한글 일 때 높이가 약간 안맞음
-                          ),
-                          Align(
-                              alignment: Alignment.center,
-                              child: ColorTags(
-                                tags,
-                                tagHeight: 24,
-                                textHeight: 12,
-                              )),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          FittedBox(
-                              child: LikeBookmark("", like, bookmark,
-                                  likeStatus ?? 0, bookmarkStatus ?? 0,
-                                  isOnTabDisabled: true)),
-                        ],
-                      ))),
-            ),
-            Padding(
-                padding: EdgeInsets.only(left: 10, top: 6),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  // child: ranking != 0 ? RankingBanner(ranking) : null),
-                  child: RankingBanner(ranking),
-                ))
+            FoodInfoTile(
+                path: path,
+                title: title,
+                tags: tags,
+                like: like,
+                bookmark: bookmark,
+                likeStatus: likeStatus,
+                bookmarkStatus: bookmarkStatus),
+            BannerTile(ranking: ranking)
           ],
         ));
+  }
+}
+
+class BannerTile extends StatelessWidget {
+  const BannerTile({
+    Key key,
+    @required this.ranking,
+  }) : super(key: key);
+
+  final int ranking;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.only(left: 10, top: 6),
+        child: Align(
+          alignment: Alignment.topLeft,
+          // child: ranking != 0 ? RankingBanner(ranking) : null),
+          child: RankingBanner(ranking),
+        ));
+  }
+}
+
+class FoodInfoTile extends StatelessWidget {
+  const FoodInfoTile({
+    Key key,
+    @required this.path,
+    @required this.title,
+    @required this.tags,
+    @required this.like,
+    @required this.bookmark,
+    @required this.likeStatus,
+    @required this.bookmarkStatus,
+  }) : super(key: key);
+
+  final String path;
+  final String title;
+  final List<String> tags;
+  final int like;
+  final int bookmark;
+  final int likeStatus;
+  final int bookmarkStatus;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Container(
+          height: 260,
+          decoration: BoxDecoration(
+              borderRadius: new BorderRadius.all(
+            const Radius.circular(30.0),
+          )),
+          // padding: EdgeInsets.only(top: 6),
+          child: Card(
+              elevation: 0,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.only(
+                        top: 20,
+                      ),
+                      child: Container(
+                          width: 128,
+                          height: 114,
+                          // child: Image.asset(path))),
+                          child: path != null
+                              ? path.isNotEmpty
+                                  ? getImage(path)
+                                  : Center(
+                                      child: SizedBox(
+                                          child: ImageLoadFailedGrey(),
+                                          width: 52,
+                                          height: 44))
+                              : Center(
+                                  child: SizedBox(
+                                      child: ImageLoadFailedGrey(),
+                                      width: 52,
+                                      height: 44)))),
+                  // SizedBox(height: 13.5),
+                  SizedBox(
+                      height: 24,
+                      child: Text(
+                        title,
+                        style: TextStyle(fontSize: 16),
+                      )),
+                  SizedBox(
+                    height: 11, //11인데 한글 일 때 높이가 약간 안맞음
+                  ),
+                  Align(
+                      alignment: Alignment.center,
+                      child: ColorTags(
+                        tags,
+                        tagHeight: 24,
+                        textHeight: 12,
+                      )),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  FittedBox(
+                      child: LikeBookmark("", like, bookmark, likeStatus ?? 0,
+                          bookmarkStatus ?? 0,
+                          isOnTabDisabled: true)),
+                ],
+              ))),
+    );
   }
 }
 

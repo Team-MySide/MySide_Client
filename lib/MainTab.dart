@@ -32,16 +32,16 @@ class MainTab extends StatefulWidget {
 }
 
 class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
-  TabController _controller;
+  TabController tabController;
   @override
   void initState() {
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //   statusBarColor: Colors.transparent,
     // ));
     super.initState();
-    _controller = new TabController(
+    tabController = new TabController(
         length: 4, initialIndex: widget.initialIndex ?? 0, vsync: this);
-    _controller.addListener(_handleTabSelection);
+    tabController.addListener(_handleTabSelection);
 
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //   // systemNavigationBarColor: Colors.blue, // navigation bar color
@@ -81,7 +81,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
             //   title: Text("이웃집닥터"),
             // ),
             body: SafeArea(
-              child: TabBarView(controller: _controller, children: [
+              child: TabBarView(controller: tabController, children: [
                 TabHome(),
                 TabBookmark(),
                 TabSearch(),
@@ -92,14 +92,14 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                 onTap: (index) {
                   setState(() {});
                 },
-                controller: _controller,
+                controller: tabController,
                 tabs: [
                   Tab(
                       child: Text(
                         '홈',
                         style: TextStyle(fontSize: 12),
                       ),
-                      icon: _controller.index == 0
+                      icon: tabController.index == 0
                           ? SvgPicture.asset('images/svg/home_selected.svg')
                           : SvgPicture.asset('images/svg/home_grey.svg')),
                   Tab(
@@ -111,7 +111,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                       icon: SizedBox(
                           width: 16,
                           height: 16,
-                          child: _controller.index == 1
+                          child: tabController.index == 1
                               ? SvgPicture.asset('images/svg/like_selected.svg')
                               : SvgPicture.asset('images/svg/like.svg'))),
                   Tab(
@@ -119,7 +119,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                         '검색',
                         style: TextStyle(fontSize: 12),
                       ),
-                      icon: _controller.index == 2
+                      icon: tabController.index == 2
                           ? SvgPicture.asset('images/svg/search_selected.svg')
                           : SvgPicture.asset(
                               'images/svg/searchbar_search.svg')),
@@ -129,7 +129,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                         style: TextStyle(fontSize: 12),
                       ),
                       //text: '마이페이지',
-                      icon: _controller.index == 3
+                      icon: tabController.index == 3
                           ? SvgPicture.asset('images/svg/person_selected.svg')
                           : SvgPicture.asset('images/svg/person.svg'))
                 ]))

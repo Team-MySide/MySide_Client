@@ -41,7 +41,7 @@ class NoSearchResult extends StatelessWidget {
 
               final Uri emailLaunchUri = Uri(
                 scheme: 'mailto',
-                path: '2022myside@gmail.com',
+                path: 'myside.crew@gmail.com',
                 query: encodeQueryParameters(<String, String>{
                   'subject': '이웃집 닥터 문의',
                 }),

@@ -33,23 +33,25 @@ class _FoodReferenceDescState extends State<FoodReferenceDesc> {
       ),
       body: Obx(() => controller.isLoading.value
           ? Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                  child: Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 28,
-                  ),
-                  Header(code: code),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  ...getWidget(controller.list)
-                ],
-              )),
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                    child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 28,
+                    ),
+                    Header(code: code),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    ...getWidget(controller.list)
+                  ],
+                )),
+              ),
             )),
     );
   }
@@ -57,12 +59,12 @@ class _FoodReferenceDescState extends State<FoodReferenceDesc> {
   List<Widget> getWidget(List<SearchDetailReferenceDescItem> lst) {
     var ret = <Widget>[];
     lst.forEach((element) {
-      ret.add(MiddleText(item: controller.list[0]));
+      ret.add(MiddleText(item: element));
       ret.add(SizedBox(
         height: 5,
       ));
       ret.add(Text(
-        "${controller.list[0].comment}",
+        "${element.comment}",
         style: TextStyle(color: Color(0xFF666666), height: 1.5),
       ));
       ret.add(SizedBox(
@@ -88,8 +90,8 @@ class MiddleText extends StatelessWidget {
         Flexible(
           child: Text(
             item.sourceDate.length >= 10
-                ? "* ${item.source} / ${item.headline} / ${item.sourceDate.substring(0, 10)}"
-                : "* ${item.source} / ${item.headline} ",
+                ? "* ${item.source.trim()} / ${item.headline.trim()} / ${item.sourceDate.substring(0, 10)}"
+                : "* ${item.source.trim()} / ${item.headline.trim()} ",
             style: TextStyle(
                 color: Color(0xFF666666),
                 fontSize: 16,
@@ -112,9 +114,9 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return code == "0"
+    return code == "1"
         ? Text("효과있음", style: TextStyle(color: Color(0xFF7EC05E), fontSize: 18))
-        : code == "1"
+        : code == "2"
             ? Text("의견갈림",
                 style: TextStyle(color: Color(0xFFFECE00), fontSize: 18))
             : Text("주의",

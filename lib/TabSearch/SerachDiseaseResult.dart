@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_side_client/TabBookmark/SearchBookmarkRepository/SearchFoodItem.dart';
 import 'package:my_side_client/TabHome/FoodRankingContainer.dart';
+import 'package:my_side_client/TabHome/SearchCancerResult.dart';
 import 'package:my_side_client/TabSearch/SearchDiseaseRepository/SearchDiseaseController.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'FoodInformation.dart';
@@ -56,6 +57,7 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
         appBar: CustomAppBar(
           "$disease 소개",
           Colors.white.value,
+          textColor: Colors.black,
           isBack: true,
           isReference: true,
         ),
@@ -90,17 +92,21 @@ class _SearchDiseaseResultState extends State<SearchDiseaseResult> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 40),
                         child: HeaderRow("$disease에 좋은 랭킹별 추천 음식",
-                            isViewMore: false)),
+                            isViewMore: true,
+                            onClickAction: () => Get.to(
+                                () => SearchCancerResult(),
+                                arguments: disease))),
                   )),
             Obx(
               () => controller.isLoading.value
                   ? SizedBox()
                   : Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Color(0xFFf4f4f4),
                       ),
-                      child: FoodTileGridView(
-                          controller.lst.sublist(0, 4).toList())),
+                      child: FoodTileGridView(controller.lst.length > 4
+                          ? controller.lst.sublist(0, 4).toList()
+                          : controller.lst)),
             )
           ],
         )));
@@ -121,7 +127,7 @@ class FoodTileGridView extends StatelessWidget {
       shrinkWrap: true,
       itemCount: items.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, mainAxisExtent: 246),
+          crossAxisCount: 2, mainAxisExtent: 267),
       itemBuilder: (BuildContext context, int index) {
         FoodItem e = items[index];
         return GestureDetector(

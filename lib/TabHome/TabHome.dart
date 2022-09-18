@@ -35,13 +35,7 @@ class _TabHomeState extends State<TabHome> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
-    setState(() {
-      // _notification = state;
-      // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      //     // systemNavigationBarColor: Colors.blue, // navigation bar color
-      //     statusBarColor: Colors.white // status bar color
-      //     ));
-    });
+    setState(() {});
   }
 
   @override

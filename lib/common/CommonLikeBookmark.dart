@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart';
+import 'package:my_side_client/TabBookmark/TabBookmark.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_side_client/common/UserProfile.dart';
@@ -57,6 +58,7 @@ class _LikeComponentState extends State<LikeComponent> with LikeMixin {
           // setState(() {
           //   isOnTapEnabled = true;
           // });
+          // asyncbookmarkController.fetch();
 
           print("ontapped $isLike, $isOnTapEnabled");
           return;

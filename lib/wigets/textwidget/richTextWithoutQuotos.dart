@@ -15,7 +15,7 @@ class RichTextWithoutQuotes extends StatelessWidget {
         style: TextStyle(
           color: Color(0xFF111111),
           fontSize: 22.0,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
         ),
         children: [
           TextSpan(
@@ -23,7 +23,7 @@ class RichTextWithoutQuotes extends StatelessWidget {
             style: TextStyle(
               color: Color(0xFF111111),
               fontSize: 22.0,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w300,
             ),
           ),
         ],

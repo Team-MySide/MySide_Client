@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/common/CommonComponent.dart';
 import 'package:my_side_client/common/CommonHeader.dart';
 import 'package:my_side_client/common/Data/MenuData.dart';
@@ -14,10 +15,8 @@ class SearchDisease extends StatelessWidget {
     //   statusBarColor: Color(pageColor), // status bar color
     // ));
     return Scaffold(
-      appBar: CommonAppbar(
-        "병명 검색",
-        backgroundColor: Color(pageColor),
-      ),
+      appBar: CustomAppBar("병명 검색", Color(0xFFE4F7FB).value,
+          textColor: Colors.black, isBack: true),
       body: Column(
         children: [
           SizedBox(

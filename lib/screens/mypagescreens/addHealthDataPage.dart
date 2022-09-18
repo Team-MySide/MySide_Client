@@ -106,6 +106,7 @@ class AddHealthDataPage extends StatelessWidget {
                       title: '나이',
                       widgetForBuild: HalfWidthTextField(
                         scrHeight: scrHeight,
+                        textInputType: TextInputType.number,
                         textFieldModel: controller.ageTextField,
                         tailText: '세',
                       ),
@@ -118,6 +119,7 @@ class AddHealthDataPage extends StatelessWidget {
                       widgetForBuild: HalfWidthTextField(
                         scrHeight: scrHeight,
                         textFieldModel: controller.heightTextField,
+                        textInputType: TextInputType.number,
                         tailText: 'cm',
                       ),
                       isRequired: false,
@@ -128,6 +130,7 @@ class AddHealthDataPage extends StatelessWidget {
                       title: '몸무게',
                       widgetForBuild: HalfWidthTextField(
                         scrHeight: scrHeight,
+                        textInputType: TextInputType.number,
                         textFieldModel: controller.weightTextField,
                         tailText: 'kg',
                       ),
@@ -273,12 +276,14 @@ class AddHealthDataPage extends StatelessWidget {
                       scrHeight: scrHeight,
                       activated: controller.isActive(),
                       validateFunc: () async {
+                        // showLoaderDialog(context);
                         await controller.onSaveClicked(scrHeight, () {
                           healthDataListPageController.getMonthDataList();
                           myPageMainController.getHealthDataList();
                           myPageMainController.getUserInfo();
                           Get.back();
                         });
+                        // Navigator.pop(context);
                       },
                     ),
                   ],
@@ -290,4 +295,22 @@ class AddHealthDataPage extends StatelessWidget {
       ),
     );
   }
+}
+
+showLoaderDialog(BuildContext context) {
+  AlertDialog alert = AlertDialog(
+    content: new Row(
+      children: [
+        CircularProgressIndicator(),
+        Container(margin: EdgeInsets.only(left: 7), child: Text("Loading...")),
+      ],
+    ),
+  );
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

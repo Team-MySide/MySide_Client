@@ -66,7 +66,7 @@ class ProfileModifyController extends GetxController {
           widgetBetween: Text(
             duplicatePass
                 ? changeSuccess
-                    ? '닉네임이 변경되었습니다.'
+                    ? '닉네임이 변경되었습니다. 다시 로그인 하시면 변경된 닉네임이 보입니다.'
                     : '닉네임이 변경되지 않았습니다.'
                 : '이미 존재하는 닉네임입니다.',
             textAlign: TextAlign.center,

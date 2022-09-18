@@ -5,7 +5,9 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   Color backgroundColor;
   List<Widget> actions;
-  CommonAppbar(this.title, {this.backgroundColor, this.actions, Key key})
+  Color textColor;
+  CommonAppbar(this.title,
+      {this.backgroundColor, this.actions, this.textColor, Key key})
       : super(key: key);
 
   @override

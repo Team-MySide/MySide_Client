@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/wigets/buttonwidget/longRoundButton.dart';
 import 'package:my_side_client/wigets/textwidget/richTextWithQuotes.dart';
 import 'package:my_side_client/wigets/textwidget/richTextWithoutQuotos.dart';
@@ -30,9 +31,25 @@ class OnBoardingPage extends StatelessWidget {
                   SizedBox(
                     height: 0.0105 * scrHeight,
                   ),
-                  RichTextWithoutQuotes(
-                    firstText: '검색',
-                    secondText: '해보세요',
+                  RichText(
+                    text: TextSpan(
+                      text: "검색",
+                      style: TextStyle(
+                        color: Color(0xFF111111),
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "해보세요",
+                          style: TextStyle(
+                            color: Color(0xFF111111),
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 0.0382 * scrHeight,
@@ -69,32 +86,37 @@ class OnBoardingPage extends StatelessWidget {
                     secondText: '해드려요',
                   ),
                   SizedBox(
-                    height: 0.0382 * scrHeight,
+                    height: 35,
                   ),
-                  Image.asset('assets/imgonboarding.png'),
+                  Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 52),
+                      child: Image.asset('assets/imgonboarding.png')),
                   SizedBox(
-                    height: 0.0327 * scrHeight,
+                    height: 35,
                   ),
                   simpleText('로그인을 하시고 정확한 데이터를 입력하시면'),
                   simpleText('맞춤형 음식을 추천해드립니다.'),
                   SizedBox(
-                    height: 0.0391 * scrHeight,
+                    height: 49,
                   ),
                   LongRoundButton(
                     buttonText: '회원가입/로그인',
                     scrHeight: scrHeight,
                     activated: true,
                     validateFunc: () {
+                      var loginStorage = GetStorage();
+                      loginStorage.write(Constants.isFirstRunApp, false);
+
                       Get.toNamed('/LoginMainPage');
                     },
                   ),
                   SizedBox(
-                    height: 0.0105 * scrHeight,
+                    height: 15,
                   ),
                   InkWell(
                     onTap: () {
-                      // var loginStorage = GetStorage();
-                      // loginStorage.write(Constants.isFirstRunApp, false);
+                      var loginStorage = GetStorage();
+                      loginStorage.write(Constants.isFirstRunApp, false);
                       Get.toNamed('/MainTab');
                     },
                     child: Text(
@@ -116,7 +138,7 @@ class OnBoardingPage extends StatelessWidget {
         align: IndicatorAlign.bottom,
         indicatorColor: Color(0xFFAAAAAA),
         indicatorSelectorColor: Color(0xFF3BD7E2),
-        padding: EdgeInsets.only(bottom: 0.11 * scrHeight),
+        padding: EdgeInsets.only(bottom: 70),
       ),
     );
   }
@@ -127,6 +149,7 @@ class OnBoardingPage extends StatelessWidget {
       style: TextStyle(
         color: Color(0xFF666666),
         fontSize: 14.0,
+        height: 1.57,
         fontWeight: FontWeight.w300,
       ),
     );
@@ -140,7 +163,8 @@ class OnBoardingPage extends StatelessWidget {
           style: TextStyle(
             color: Color(0xFF666666),
             fontSize: 14.0,
-            fontWeight: FontWeight.w700,
+            height: 1.57,
+            fontWeight: FontWeight.w500,
           ),
           children: [
             TextSpan(
@@ -148,6 +172,7 @@ class OnBoardingPage extends StatelessWidget {
               style: TextStyle(
                 color: Color(0xFF666666),
                 fontSize: 14.0,
+                height: 1.57,
                 fontWeight: FontWeight.w300,
               ),
             ),

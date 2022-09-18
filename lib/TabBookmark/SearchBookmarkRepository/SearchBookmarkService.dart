@@ -20,7 +20,7 @@ class SearchFoodCategoryService extends MySideConnect implements IFetch {
       request.headers['token'] = UserProfile.token;
       return request;
     });
-    var resp = await get("/wish/list");
+    var resp = await get("/mypage/likelist");
     if (resp.statusCode == 200) {
       return searchFoodItemFromJson(resp.bodyString).data;
     }

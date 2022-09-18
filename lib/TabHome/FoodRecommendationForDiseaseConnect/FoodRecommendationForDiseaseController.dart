@@ -24,11 +24,11 @@ class FoodRecommendationForDiseaseController extends GetxController {
           await FoodRecommendationForDiseaseService().fetch();
       if (products != null) {
         cancer1Lst = RxList(products[0].cancer1);
-        cancer2Lst = RxList(products[1].cancer1);
-        cancer3Lst = RxList(products[2].cancer1);
-        cancer4Lst = RxList(products[3].cancer1);
-        cancer5Lst = RxList(products[4].cancer1);
-        cancer6Lst = RxList(products[5].cancer1);
+        cancer2Lst = RxList(products[1].cancer2);
+        cancer3Lst = RxList(products[2].cancer3);
+        cancer4Lst = RxList(products[3].cancer4);
+        cancer5Lst = RxList(products[4].cancer5);
+        cancer6Lst = RxList(products[5].cancer6);
       }
     } finally {
       isLoading(false);

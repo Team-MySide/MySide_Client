@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_side_client/Constants.dart';
+import 'package:my_side_client/TabSearch/FoodInformation.dart';
 import 'package:my_side_client/controllers/signUpUserController.dart';
 import 'package:my_side_client/controllers/userTypeController.dart';
 import 'package:my_side_client/wigets/buttonwidget/recSubmitButton.dart';
@@ -16,14 +18,11 @@ class UserTypeSelectPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '환우 정보 입력',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Color(0xFF31B6F7),
+      appBar: CustomAppBar(
+        '환우 정보 입력',
+        Constants.primarySubColorInt,
+        isBack: false,
+        textColor: Colors.white,
       ),
       body: GetBuilder<UserTypeController>(
         builder: (controller) {

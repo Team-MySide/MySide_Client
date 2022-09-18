@@ -25,9 +25,14 @@ class HeaderRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            title,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          Container(
+            child: Expanded(
+              child: Text(
+                title,
+                overflow: TextOverflow.fade,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
           isViewMore
               ? InkWell(

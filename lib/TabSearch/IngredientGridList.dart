@@ -39,23 +39,31 @@ class CommonFoodGridList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return foodItemList.length != 0
-        ? GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                // maxCrossAxisExtent: 240, mainAxisSpacing: 20, crossAxisSpacing: 5),
-                crossAxisCount: 2,
-                mainAxisExtent: 240),
-            itemCount: foodItemList.length,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext ctx, index) {
-              SearchNutritionResultItem item = foodItemList[index];
-              bool showRanking = isShowRanking ?? false;
-              return GestureDetector(
-                  child: FoodTile(item.name, item.img, showRanking ? index : 0,
-                      item.likes, item.wishes, [item.cancerNm, item.nutrition],
-                      isOnTabDisabled: true),
-                  onTap: () =>
-                      Get.to(() => FoodInformation(), arguments: item.name));
-            },
+        ? Container(
+            decoration: BoxDecoration(color: Color(0xFFf4f4f4)),
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  // maxCrossAxisExtent: 240, mainAxisSpacing: 20, crossAxisSpacing: 5),
+                  crossAxisCount: 2,
+                  mainAxisExtent: 267),
+              itemCount: foodItemList.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext ctx, index) {
+                SearchNutritionResultItem item = foodItemList[index];
+                bool showRanking = isShowRanking ?? false;
+                return GestureDetector(
+                    child: FoodTile(
+                        item.name,
+                        item.img,
+                        showRanking ? index : 0,
+                        item.likes,
+                        item.wishes,
+                        [item.cancerNm, item.nutrition],
+                        isOnTabDisabled: true),
+                    onTap: () =>
+                        Get.to(() => FoodInformation(), arguments: item.name));
+              },
+            ),
           )
         : NoSearchResult();
   }

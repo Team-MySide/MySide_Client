@@ -6,12 +6,13 @@ class HalfWidthTextField extends StatelessWidget {
   final double scrHeight;
   final TextFieldModel textFieldModel;
   final String tailText;
+  TextInputType textInputType;
 
-  HalfWidthTextField({
-    this.scrHeight,
-    this.textFieldModel,
-    this.tailText,
-  });
+  HalfWidthTextField(
+      {this.scrHeight,
+      this.textFieldModel,
+      this.tailText,
+      this.textInputType = TextInputType.text});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,6 +42,7 @@ class HalfWidthTextField extends StatelessWidget {
                   controller: textFieldModel.tec,
                   focusNode: textFieldModel.fn,
                   obscureText: textFieldModel.isPswd,
+                  keyboardType: textInputType,
                   decoration: InputDecoration(
                     hintText: textFieldModel.hintText,
                     hintStyle: TextStyle(

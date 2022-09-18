@@ -4,6 +4,7 @@ import 'package:my_side_client/Constants.dart';
 import 'package:my_side_client/controllers/signUpMainController.dart';
 import 'package:my_side_client/controllers/signUpUserController.dart';
 import 'package:my_side_client/wigets/buttonwidget/recSubmitButton.dart';
+import 'package:my_side_client/wigets/dialogwidget/singleButtonDialog.dart';
 import 'package:my_side_client/wigets/etcwidgets/buildAgreement.dart';
 import 'package:my_side_client/wigets/etcwidgets/buildInfoInputField.dart';
 import 'package:my_side_client/wigets/textfieldwidget/basicTextField.dart';
@@ -14,6 +15,7 @@ class SignUpMainPage extends StatelessWidget {
       Get.put(SignUpMainController());
   final SignUpUserController signUpUserController =
       Get.put(SignUpUserController());
+  ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     double scrHeight = MediaQuery.of(context).size.height;
@@ -29,6 +31,7 @@ class SignUpMainPage extends StatelessWidget {
           bool isActive = controller.checkActive();
           return SafeArea(
             child: SingleChildScrollView(
+              controller: scrollController,
               child: Column(
                 children: [
                   Padding(
@@ -136,6 +139,25 @@ class SignUpMainPage extends StatelessWidget {
                           controller.pswdTextField.tec.text,
                         );
                         Get.toNamed('/userType');
+                      } else {
+                        Get.dialog(
+                          SingleButtonDialog(
+                            widgetBetween: Text(
+                              '일치하지 않은 정보가 있어요! 입력하신 정보들을 다시 한번 확인해 주세요.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF111111),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            dialogHeight: scrHeight * 0.2635,
+                            routeFunc: () {
+                              Get.back();
+                              scrollController.jumpTo(0);
+                            },
+                          ),
+                        );
                       }
                     },
                   ),

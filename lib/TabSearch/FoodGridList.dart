@@ -45,7 +45,7 @@ class CommonFoodGridList extends StatelessWidget {
             // maxCrossAxisExtent: 240, mainAxisSpacing: 20, crossAxisSpacing: 5),
 
             crossAxisCount: 2,
-            mainAxisExtent: 240),
+            mainAxisExtent: 267),
         itemCount: foodItemList.length,
         // shrinkWrap: true,
         itemBuilder: (BuildContext ctx, index) {

@@ -1,5 +1,6 @@
 class Constants {
   static int primaryColorInt = 0xFF3BD7E2;
+  static int primarySubColorInt = 0xFF31B6F7;
   static double paddingBetweenMainComponent = 15;
   static double paddingDiseaseColumnBetweenImageAndText = 10;
   static double paddingFoodRankingBetweenComponent = 10;

@@ -80,6 +80,7 @@ class _FoodInformationState extends State<FoodInformation> {
                                           : int.parse(
                                               "0xFF${_controller.item.value.color}"),
                                       isBack: true,
+                                      textColor: Colors.black,
                                     ),
                                     Container(
                                         height: 140, color: Colors.transparent),
@@ -377,20 +378,40 @@ class _FoodInfoLikeShareState extends State<FoodInfoLikeShare> {
               ]),
             ),
             onTap: () async {
-              bool result = await controller.putBookmark(
-                  widget.food, widget.bookmarkStatus);
-              if (result) {
-                if (widget.bookmarkStatus == 0) {
-                  widget.bookmarkStatus = 1;
-                  widget.bookmark += 1;
-                } else {
-                  widget.bookmarkStatus = 0;
-                  widget.bookmark -= 1;
-                }
-                Constants.isFoodInformationChanged =
-                    !Constants.isFoodInformationChanged;
-              }
-              setState(() {});
+              Get.dialog(
+                SingleButtonDialog(
+                  widgetBetween: Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Text(
+                      '해당 날짜에 건강 정보가 존재합니다.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF111111),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  dialogHeight: 150,
+                  routeFunc: () {
+                    Get.back();
+                  },
+                ),
+              );
+              // bool result = await controller.putBookmark(
+              //     widget.food, widget.bookmarkStatus);
+              // if (result) {
+              //   if (widget.bookmarkStatus == 0) {
+              //     widget.bookmarkStatus = 1;
+              //     widget.bookmark += 1;
+              //   } else {
+              //     widget.bookmarkStatus = 0;
+              //     widget.bookmark -= 1;
+              //   }
+              //   Constants.isFoodInformationChanged =
+              //       !Constants.isFoodInformationChanged;
+              // }
+              // setState(() {});
             }),
       ],
       // ),
@@ -403,8 +424,9 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final int backgroundColor;
   bool isBack = true;
   bool isReference = false;
+  Color textColor = Colors.black;
   CustomAppBar(this.title, this.backgroundColor,
-      {Key key, this.isBack, this.isReference})
+      {Key key, this.isBack, this.isReference, this.textColor})
       : preferredSize = Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -422,7 +444,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         title: Text(widget.title,
             style: TextStyle(
                 fontSize: 16,
-                color: Colors.black,
+                color: widget.textColor,
                 fontWeight: FontWeight.w400)),
         centerTitle: true,
         backgroundColor: Color(widget.backgroundColor),

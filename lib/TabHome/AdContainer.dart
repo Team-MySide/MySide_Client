@@ -52,7 +52,7 @@ class AdTile extends StatelessWidget {
                     flex: 1,
                     child: Container(
                       width: 108,
-                      height: 100,
+                      height: 101,
                       child: Column(
                         children: [
                           Text(item['title'],
