@@ -114,10 +114,12 @@ class SignUpMainPage extends StatelessWidget {
                           second: controller.secondSelected,
                           third: controller.thirdSelected,
                           forth: controller.fourthSelected,
+                          fifth: controller.fifthSelected,
                           firstCliked: controller.firstClicked,
                           secondClicked: controller.secondClicked,
                           thirdClicked: controller.thirdClicked,
                           forthClicked: controller.fourthClicked,
+                          fifthClicked: controller.fifthClicked,
                         ),
                         SizedBox(
                           height: 0.0527 * scrHeight,

@@ -57,6 +57,7 @@ class SignUpMainController extends GetxController {
   bool secondSelected = false;
   bool thirdSelected = false;
   bool fourthSelected = false;
+  bool fifthSelected = false;
   int duplicated = 0;
 
   @override
@@ -163,11 +164,13 @@ class SignUpMainController extends GetxController {
       secondSelected = false;
       thirdSelected = false;
       fourthSelected = false;
+      fifthSelected = false;
     } else {
       firstSelected = true;
       secondSelected = true;
       thirdSelected = true;
       fourthSelected = true;
+      fifthSelected = true;
     }
     update();
   }
@@ -194,7 +197,7 @@ class SignUpMainController extends GetxController {
       }
       thirdSelected = false;
     } else {
-      if (secondSelected && fourthSelected) {
+      if (secondSelected && fourthSelected && fifthSelected) {
         firstSelected = true;
       }
       thirdSelected = true;
@@ -209,10 +212,25 @@ class SignUpMainController extends GetxController {
       }
       fourthSelected = false;
     } else {
-      if (secondSelected && thirdSelected) {
+      if (secondSelected && thirdSelected && fifthSelected) {
         firstSelected = true;
       }
       fourthSelected = true;
+    }
+    update();
+  }
+
+  void fifthClicked() {
+    if (fifthSelected) {
+      if (firstSelected) {
+        firstSelected = false;
+      }
+      fifthSelected = false;
+    } else {
+      if (secondSelected && thirdSelected && fourthSelected) {
+        firstSelected = true;
+      }
+      fifthSelected = true;
     }
     update();
   }

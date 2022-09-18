@@ -32,22 +32,7 @@ class AppSettingPage extends StatelessWidget {
               scrHeight: scrHeight,
               onTap: () {
                 // Get.toNamed('/FAQ');
-                String encodeQueryParameters(Map<String, String> params) {
-                  return params.entries
-                      .map((MapEntry<String, String> e) =>
-                          '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-                      .join('&');
-                }
-
-                final Uri emailLaunchUri = Uri(
-                  scheme: 'mailto',
-                  path: 'myside.crew@gmail.com',
-                  query: encodeQueryParameters(<String, String>{
-                    'subject': '이웃집 닥터 문의',
-                  }),
-                );
-
-                launchUrl(emailLaunchUri);
+                sendEmail();
               },
             ),
             BuildSettingTile(
@@ -62,15 +47,24 @@ class AppSettingPage extends StatelessWidget {
               svgPath: 'assets/paper.svg',
               tileText: '이용약관',
               scrHeight: scrHeight,
-              onTap: () {
-                Get.toNamed('/TermOfService');
+              onTap: () async {
+                // Get.toNamed('/TermOfService');
+
+                final url = Uri.parse(
+                    "https://docs.google.com/document/d/1by3vvxIrYiZENovEZKbfIfgOd-6n7q4Xe7BZcJdaMXI/edit?usp=sharing");
+
+                if (!await launchUrl(url)) {
+                  throw throw "Could not launch $url";
+                }
               },
             ),
             BuildSettingTile(
               svgPath: 'assets/handshake.svg',
               tileText: '광고/제휴문의',
               scrHeight: scrHeight,
-              onTap: () {},
+              onTap: () {
+                sendEmail();
+              },
             ),
             BuildSettingTile(
               svgPath: 'assets/logout.svg',
@@ -115,5 +109,24 @@ class AppSettingPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  sendEmail() {
+    String encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((MapEntry<String, String> e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'myside.crew@gmail.com',
+      query: encodeQueryParameters(<String, String>{
+        'subject': '이웃집 닥터 문의',
+      }),
+    );
+
+    launchUrl(emailLaunchUri);
   }
 }

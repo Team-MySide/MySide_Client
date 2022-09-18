@@ -4,19 +4,24 @@ import 'package:my_side_client/wigets/textwidget/requiredText.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BuildAgreement extends StatelessWidget {
-  final bool first, second, third, forth;
-  final VoidCallback firstCliked, secondClicked, thirdClicked, forthClicked;
+  final bool first, second, third, forth, fifth;
+  final VoidCallback firstCliked,
+      secondClicked,
+      thirdClicked,
+      forthClicked,
+      fifthClicked;
 
-  BuildAgreement({
-    this.first,
-    this.second,
-    this.third,
-    this.forth,
-    this.firstCliked,
-    this.secondClicked,
-    this.thirdClicked,
-    this.forthClicked,
-  });
+  BuildAgreement(
+      {this.first,
+      this.second,
+      this.third,
+      this.forth,
+      this.fifth,
+      this.firstCliked,
+      this.secondClicked,
+      this.thirdClicked,
+      this.forthClicked,
+      this.fifthClicked});
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +92,8 @@ class BuildAgreement extends StatelessWidget {
           height: 0.0211 * scrHeight,
         ),
         makeAgreement(
-          third,
-          thirdClicked,
+          forth,
+          forthClicked,
           scrHeight,
           '개인정보처리방침 ',
           '(필수)',
@@ -102,8 +107,8 @@ class BuildAgreement extends StatelessWidget {
           height: 0.0211 * scrHeight,
         ),
         makeAgreement(
-          forth,
-          forthClicked,
+          fifth,
+          fifthClicked,
           scrHeight,
           'E-mail 및 SMS 광고성 정보 수신 동의',
           '(선택)',

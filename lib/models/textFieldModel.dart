@@ -31,7 +31,7 @@ class TextFieldModel {
   void onListenTextFieldType1() {
     if (this.tec.text == '') {
       this.errorOcur = false;
-      this.errorMsg = '';
+      // this.errorMsg = '';
     }
     if (this.errorOcur && !this.canClear) {
       this.canClear = true;
