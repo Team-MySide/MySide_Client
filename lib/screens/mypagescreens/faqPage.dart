@@ -17,27 +17,21 @@ class FaqPage extends StatelessWidget {
       body: GetBuilder<FaqController>(
         builder: (controller) {
           return SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: controller.faqs.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return FAQContainer(
-                        scrHeight: scrHeight,
-                        headTitle: controller.faqs[index].category,
-                        question: controller.faqs[index].title,
-                        answer: controller.faqs[index].content,
-                        selected: controller.clicked[index],
-                        toggleFunc: () {
-                          controller.showAnswer(index);
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: controller.faqs.length,
+              itemBuilder: (BuildContext context, int index) {
+                return FAQContainer(
+                  scrHeight: scrHeight,
+                  headTitle: controller.faqs[index].category,
+                  question: controller.faqs[index].title,
+                  answer: controller.faqs[index].content,
+                  selected: controller.clicked[index],
+                  toggleFunc: () {
+                    controller.showAnswer(index);
+                  },
+                );
+              },
             ),
           );
         },
