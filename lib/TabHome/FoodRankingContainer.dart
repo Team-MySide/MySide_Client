@@ -42,12 +42,34 @@ class FoodRankingContainer extends StatelessWidget {
                   return CircularProgressIndicator();
                 }
                 if (isLimit) {
+                  double width = (MediaQuery.of(context).size.width - 32) / 2;
                   return Wrap(
-                    spacing: 7.5,
+                    // spacing: 15,
                     runSpacing: 5,
                     children: _getTop4FoodRankingList(controller.lst,
-                        isLimit: isLimit),
+                        isLimit: isLimit, width: width),
                   );
+                  // return Wrap(
+                  //   alignment: WrapAlignment.spaceBetween,
+                  //   // spacing: 7.5,
+                  //   runSpacing: 5,
+                  //   children: _getTop4FoodRankingList(controller.lst,
+                  //       isLimit: isLimit),
+                  //width note10 360,712  then 1/1.6
+                  //width s8 411, 797
+
+                  // return GridView.count(
+                  //     physics: NeverScrollableScrollPhysics(),
+                  //     crossAxisCount: 2,
+                  //     // childAspectRatio: 360 / 540,
+                  //     childAspectRatio: 1 / 1.45,
+                  //     //note10 - 1/1.6
+                  //     //s8     - 1/1.4
+                  //     //
+                  //     // mainAxisSpacing: 0,
+                  //     // crossAxisSpacing: ,
+                  //     children: _getTop4FoodRankingList(controller.lst,
+                  //         isLimit: isLimit));
                 } else {
                   return Expanded(
                       child: CommonFoodGridList(controller.lst,
@@ -57,7 +79,8 @@ class FoodRankingContainer extends StatelessWidget {
         ]));
   }
 
-  List<Widget> _getTop4FoodRankingList(List<FoodItem> lst, {bool isLimit}) {
+  List<Widget> _getTop4FoodRankingList(List<FoodItem> lst,
+      {bool isLimit, double width}) {
     List<Widget> ret = [];
 
     if (isLimit) {
@@ -74,7 +97,11 @@ class FoodRankingContainer extends StatelessWidget {
             isLimit ? index + 1 : 0,
             e.likes,
             e.views,
-            [e.cancerNm, e.nutrition1 ?? ""],
+            [
+              e.cancerNm,
+              e.nutrition1 ?? "",
+            ],
+            customWidth: width,
           )));
     });
 
@@ -90,8 +117,10 @@ class FoodTile extends StatelessWidget {
   final int bookmark;
   int likeStatus = 0;
   int bookmarkStatus = 0;
+  double customWidth = -1;
   final List<String> tags;
   bool isOnTabDisabled = true;
+
   FoodTile(
     this.title,
     this.path,
@@ -102,6 +131,7 @@ class FoodTile extends StatelessWidget {
     this.likeStatus,
     this.bookmarkStatus,
     this.isOnTabDisabled,
+    this.customWidth,
     Key key,
   }) : super(key: key);
 
@@ -109,7 +139,7 @@ class FoodTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(0),
-        width: 164,
+        width: customWidth == -1 ? 164 : customWidth,
         height: 266,
         child: Stack(
           children: [

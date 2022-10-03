@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'Constants.dart';
 import 'TabBookmark/TabBookmark.dart';
 import 'TabHome/TabHome.dart';
 import 'TabSearch/TabSearch.dart';
@@ -88,51 +89,75 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                 TabMyPage(),
               ]),
             ),
-            bottomNavigationBar: TabBar(
-                onTap: (index) {
-                  setState(() {});
-                },
-                controller: tabController,
-                tabs: [
-                  Tab(
-                      child: Text(
-                        '홈',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                      icon: tabController.index == 0
-                          ? SvgPicture.asset('images/svg/home_selected.svg')
-                          : SvgPicture.asset('images/svg/home_grey.svg')),
-                  Tab(
-                      child: Text(
-                        '좋아요',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                      // iconMargin: EdgeInsets.all(0),
-                      icon: SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: tabController.index == 1
-                              ? SvgPicture.asset('images/svg/like_selected.svg')
-                              : SvgPicture.asset('images/svg/like.svg'))),
-                  Tab(
-                      child: Text(
-                        '검색',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                      icon: tabController.index == 2
-                          ? SvgPicture.asset('images/svg/search_selected.svg')
-                          : SvgPicture.asset(
-                              'images/svg/searchbar_search.svg')),
-                  Tab(
-                      child: Text(
-                        '마이페이지',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                      //text: '마이페이지',
-                      icon: tabController.index == 3
-                          ? SvgPicture.asset('images/svg/person_selected.svg')
-                          : SvgPicture.asset('images/svg/person.svg'))
-                ]))
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                      top: BorderSide(
+                color: Color(0xFFDDDDDD),
+              ))),
+              child: TabBar(
+                  onTap: (index) {
+                    setState(() {});
+                  },
+                  controller: tabController,
+                  tabs: [
+                    Tab(
+                        child: Text(
+                          '홈',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: tabController.index == 0
+                                  ? Color(Constants.primaryColorInt)
+                                  : Colors.black),
+                        ),
+                        icon: tabController.index == 0
+                            ? SvgPicture.asset('images/svg/home_selected.svg')
+                            : SvgPicture.asset('images/svg/home_grey.svg')),
+                    Tab(
+                        child: Text(
+                          '좋아요',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: tabController.index == 1
+                                  ? Color(Constants.primaryColorInt)
+                                  : Colors.black),
+                        ),
+                        // iconMargin: EdgeInsets.all(0),
+                        icon: SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: tabController.index == 1
+                                ? SvgPicture.asset(
+                                    'images/svg/like_selected.svg')
+                                : SvgPicture.asset('images/svg/like.svg'))),
+                    Tab(
+                        child: Text(
+                          '검색',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: tabController.index == 2
+                                  ? Color(Constants.primaryColorInt)
+                                  : Colors.black),
+                        ),
+                        icon: tabController.index == 2
+                            ? SvgPicture.asset('images/svg/search_selected.svg')
+                            : SvgPicture.asset(
+                                'images/svg/searchbar_search.svg')),
+                    Tab(
+                        child: Text(
+                          '마이페이지',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: tabController.index == 3
+                                  ? Color(Constants.primaryColorInt)
+                                  : Colors.black),
+                        ),
+                        //text: '마이페이지',
+                        icon: tabController.index == 3
+                            ? SvgPicture.asset('images/svg/person_selected.svg')
+                            : SvgPicture.asset('images/svg/person.svg'))
+                  ]),
+            ))
         // )
         );
   }

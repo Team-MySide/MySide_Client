@@ -23,7 +23,12 @@ class ReasonForFood extends StatelessWidget {
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(child: Image.asset("images/not_try_any_food.jpg")),
+            Container(
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  "images/not_try_any_food.jpg",
+                  fit: BoxFit.fitWidth,
+                )),
             Padding(
                 padding:
                     EdgeInsets.only(top: 16, bottom: 40, left: 16, right: 16),

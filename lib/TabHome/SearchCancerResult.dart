@@ -72,7 +72,7 @@ class FoodTileGridView extends StatelessWidget {
       shrinkWrap: true,
       itemCount: items.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, mainAxisExtent: 246),
+          crossAxisCount: 2, mainAxisExtent: 267),
       itemBuilder: (BuildContext context, int index) {
         FoodItem e = items[index];
         return GestureDetector(
