@@ -98,17 +98,17 @@ class _SearchBarState extends State<SearchBar> {
       return;
     }
     _searchController.cancerLst.forEach((item) {
-      if (item.contains(text)) {
+      if (item != null && item.contains(text)) {
         _searchResult.add(item);
       }
     });
     _searchController.nutritionLst.forEach((item) {
-      if (item.contains(text)) {
+      if (item != null && item.contains(text)) {
         _searchResult.add(item);
       }
     });
     _searchController.foodLst.forEach((item) {
-      if (item.contains(text)) {
+      if (item != null && item.contains(text)) {
         _searchResult.add(item);
       }
     });

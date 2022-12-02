@@ -172,7 +172,9 @@ class SearchContainer extends StatelessWidget {
                   textInputAction: TextInputAction.search,
                   onSubmitted: (String value) {
                     print("submitted run");
-                    onSubmitted(context);
+                    if (onSubmitted != null) {
+                      onSubmitted(context);
+                    }
                   },
                   onChanged: onChanged,
                   decoration: InputDecoration(
